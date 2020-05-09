@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.order.dao.QuoteorderMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.order.model.Quoteorder">
+		<id column="QUOTEORDER_ID" property="quoteorderId" jdbcType="INTEGER" />
+		<result column="BUSSINESS_CHANCE_ID" property="bussinessChanceId" jdbcType="INTEGER" />
+		<result column="QUOTEORDER_NO" property="quoteorderNo" jdbcType="VARCHAR" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+		<result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+		<result column="AREA" property="area" jdbcType="VARCHAR" />
+		<result column="CUSTOMER_TYPE" property="customerType" jdbcType="INTEGER" />
+		<result column="CUSTOMER_NATURE" property="customerNature" jdbcType="INTEGER" />
+		<result column="IS_NEW_CUSTOMER" property="isNewCustomer" jdbcType="BIT" />
+		<result column="CUSTOMER_LEVEL" property="customerLevel" jdbcType="VARCHAR" />
+		<result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+		<result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+		<result column="TRADER_ADDRESS_ID" property="traderAddressId" jdbcType="INTEGER" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="IS_POLICYMAKER" property="isPolicymaker" jdbcType="BIT" />
+		<result column="PURCHASING_TYPE" property="purchasingType" jdbcType="INTEGER" />
+		<result column="PAYMENT_TERM" property="paymentTerm" jdbcType="INTEGER" />
+		<result column="PURCHASING_TIME" property="purchasingTime" jdbcType="INTEGER" />
+		<result column="PROJECT_PROGRESS" property="projectProgress" jdbcType="VARCHAR" />
+		<result column="FOLLOW_ORDER_STATUS" property="followOrderStatus" jdbcType="BIT" />
+		<result column="FOLLOW_ORDER_STATUS_COMMENTS" property="followOrderStatusComments" jdbcType="VARCHAR" />
+		<result column="FOLLOW_ORDER_TIME" property="followOrderTime" jdbcType="BIGINT" />
+		<result column="SALES_AREA_ID" property="salesAreaId" jdbcType="INTEGER" />
+		<result column="SALES_AREA" property="salesArea" jdbcType="VARCHAR" />
+		<result column="TERMINAL_TRADER_ID" property="terminalTraderId" jdbcType="INTEGER" />
+		<result column="TERMINAL_TRADER_NAME" property="terminalTraderName" jdbcType="VARCHAR" />
+		<result column="TERMINAL_TRADER_TYPE" property="terminalTraderType" jdbcType="INTEGER" />
+		<result column="PAYMENT_TYPE" property="paymentType" jdbcType="INTEGER" />
+		<result column="PREPAID_AMOUNT" property="prepaidAmount" jdbcType="DECIMAL" />
+		<result column="ACCOUNT_PERIOD_AMOUNT" property="accountPeriodAmount" jdbcType="DECIMAL" />
+		<result column="LOGISTICS_COLLECTION" property="logisticsCollection" jdbcType="BIT" />
+		<result column="RETAINAGE_AMOUNT" property="retainageAmount" jdbcType="DECIMAL" />
+		<result column="RETAINAGE_AMOUNT_MONTH" property="retainageAmountMonth" jdbcType="INTEGER" />
+		<result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+		<result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+		<result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+		<result column="PERIOD" property="period" jdbcType="INTEGER" />
+		<result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+		<result column="FREIGHT_DESCRIPTION" property="freightDescription" jdbcType="INTEGER" />
+		<result column="ADDITIONAL_CLAUSE" property="additionalClause" jdbcType="VARCHAR" />
+		<result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+		<result column="IS_SEND" property="isSend" jdbcType="BIT" />
+		<result column="SEND_TIME" property="sendTime" jdbcType="BIGINT" />
+		<result column="IS_REPLAY" property="isReplay" jdbcType="BIT" />
+		<result column="REPLAY_TIME" property="replayTime" jdbcType="BIGINT" />
+		<result column="REPLAY_USER_ID" property="replayUserId" jdbcType="INTEGER" />
+		<result column="HAVE_COMMUNICATE" property="haveCommunicate" jdbcType="BIT" />
+		<result column="CONSULT_STATUS" property="consultStatus" jdbcType="BIT" />
+		<result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+		<result column="CREATOR" property="creator" jdbcType="INTEGER" />
+		<result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+		<result column="UPDATER" property="updater" jdbcType="INTEGER" />
+		<result column="VERIFIES_TYPE" property="verifiesType" jdbcType="INTEGER" />
+		<result column="VERIFY_USERNAME" property="verifyUsername" jdbcType="VARCHAR" />
+		<result column="VERIFY_STATUS" property="verifyStatus" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap type="com.vedeng.order.model.vo.QuoteorderVo" id="VoResultMap" extends="BaseResultMap">
+		<result column="QUOTE_NUM" property="quoteNum" jdbcType="INTEGER" />
+		<result column="QUOTE_MONEY" property="quoteMoney" jdbcType="DECIMAL" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="TELEPHONE" property="telephone" jdbcType="VARCHAR" />
+		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="QQ" property="qq" jdbcType="VARCHAR" />
+        <result column="SEX" property="sex" jdbcType="INTEGER" />
+        <result column="REG_ADDRESS" property="regaddress" jdbcType="VARCHAR" />
+        <result column="REG_TEL" property="regtel" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap type="com.vedeng.order.model.GoodsData" id="goodsDataMap">
+	  	<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+	  	<result column="QUOTE_NUM" property="quoteNum30" jdbcType="INTEGER" />
+	  	<result column="needNum" property="needNum" jdbcType="INTEGER" />
+  	</resultMap>
+	<sql id="Base_Column_List">
+		QUOTEORDER_ID, BUSSINESS_CHANCE_ID, QUOTEORDER_NO,ORG_ID, USER_ID, TRADER_ID, TRADER_NAME, AREA,
+		CUSTOMER_TYPE, CUSTOMER_NATURE, IS_NEW_CUSTOMER, CUSTOMER_LEVEL, TRADER_CONTACT_ID,
+		TRADER_CONTACT_NAME, MOBILE, TELEPHONE, TRADER_ADDRESS_ID, ADDRESS, IS_POLICYMAKER,
+		PURCHASING_TYPE, PAYMENT_TERM, PURCHASING_TIME, PROJECT_PROGRESS, FOLLOW_ORDER_STATUS,
+		FOLLOW_ORDER_STATUS_COMMENTS, FOLLOW_ORDER_TIME, SALES_AREA_ID, SALES_AREA, TERMINAL_TRADER_ID,
+		TERMINAL_TRADER_NAME, TERMINAL_TRADER_TYPE, PAYMENT_TYPE, PREPAID_AMOUNT, ACCOUNT_PERIOD_AMOUNT,
+		LOGISTICS_COLLECTION, RETAINAGE_AMOUNT, RETAINAGE_AMOUNT_MONTH, VALID_STATUS, VALID_TIME,
+		TOTAL_AMOUNT, PERIOD, INVOICE_TYPE, FREIGHT_DESCRIPTION, ADDITIONAL_CLAUSE, COMMENTS,
+		IS_SEND, SEND_TIME, IS_REPLAY, REPLAY_TIME, REPLAY_USER_ID,HAVE_COMMUNICATE, CONSULT_STATUS, ADD_TIME, CREATOR, MOD_TIME, UPDATER
+	</sql>
+	<!-- 查询全部报价列表（分页） -->
+	<select id="getQuoteListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT A.QUOTEORDER_ID,
+		       A.BUSSINESS_CHANCE_ID,
+		       A.QUOTEORDER_NO,
+		       A.ORG_ID,
+		       A.USER_ID,
+		       A.TRADER_ID,
+		       A.TRADER_NAME,
+		       A.AREA,
+		       A.CUSTOMER_TYPE,
+		       A.CUSTOMER_NATURE,
+		       A.IS_NEW_CUSTOMER,
+		       A.CUSTOMER_LEVEL,
+		       A.TRADER_CONTACT_ID,
+		       A.TRADER_CONTACT_NAME,
+		       A.MOBILE,
+		       A.TELEPHONE,
+		       A.TRADER_ADDRESS_ID,
+		       A.ADDRESS,
+		       A.IS_POLICYMAKER,
+		       A.PURCHASING_TYPE,
+		       A.PAYMENT_TERM,
+		       A.PURCHASING_TIME,
+		       A.PROJECT_PROGRESS,
+		       A.FOLLOW_ORDER_STATUS,
+		       A.FOLLOW_ORDER_STATUS_COMMENTS,
+		       A.FOLLOW_ORDER_TIME,
+		       A.SALES_AREA_ID,
+		       A.SALES_AREA,
+		       A.TERMINAL_TRADER_ID,
+		       A.TERMINAL_TRADER_NAME,
+		       A.TERMINAL_TRADER_TYPE,
+		       A.PAYMENT_TYPE,
+		       A.PREPAID_AMOUNT,
+		       A.ACCOUNT_PERIOD_AMOUNT,
+		       A.LOGISTICS_COLLECTION,
+		       A.RETAINAGE_AMOUNT,
+		       A.RETAINAGE_AMOUNT_MONTH,
+		       A.VALID_STATUS,
+		       A.VALID_TIME,
+		       A.TOTAL_AMOUNT,
+		       A.PERIOD,
+		       A.INVOICE_TYPE,
+		       A.FREIGHT_DESCRIPTION,
+		       A.ADDITIONAL_CLAUSE,
+		       A.COMMENTS,
+		       A.IS_SEND,
+		       A.SEND_TIME,
+		       A.IS_REPLAY,
+		       A.REPLAY_TIME,
+		       A.REPLAY_USER_ID,
+		       A.HAVE_COMMUNICATE,
+		       A.CONSULT_STATUS,
+		       A.ADD_TIME,
+		       A.CREATOR,
+		       A.MOD_TIME,
+		       A.UPDATER,
+		       D.VERIFIES_TYPE,
+		       D.VERIFY_USERNAME,
+		       IFNULL(D.STATUS,-1) AS VERIFY_STATUS
+		FROM T_QUOTEORDER A
+				<if test="quote.source != null and quote.source != ''">
+			     LEFT JOIN T_BUSSINESS_CHANCE B
+			        ON A.BUSSINESS_CHANCE_ID = B.BUSSINESS_CHANCE_ID
+		    	</if>
+		        <!-- 报价产品表查询条件不为空，关联查询 -->
+				<if test="(quote.sku != null and quote.sku != '') or (quote.goodsName != null and quote.goodsName != '') or (quote.brandName != null and quote.brandName != '') or (quote.model != null and quote.model != '')">
+					LEFT JOIN T_QUOTEORDER_GOODS C ON A.QUOTEORDER_ID = C.QUOTEORDER_ID
+				</if>
+		     LEFT JOIN T_VERIFIES_INFO D
+		        ON     A.QUOTEORDER_ID = D.RELATE_TABLE_KEY
+		           AND D.RELATE_TABLE = 'T_QUOTEORDER'
+		     <if test="quote.saleUserList != null and quote.saleUserList.size > 0">
+				 LEFT JOIN T_R_TRADER_J_USER E ON A.TRADER_ID = E.TRADER_ID
+		     </if>
+		<where>
+			1 = 1
+			<if test="(quote.verifyStatus != null and quote.verifyStatus != '' and quote.verifyStatus != 3) or quote.verifyStatus eq 0">
+				<!-- 审核 -->
+				AND D.STATUS = #{quote.verifyStatus}
+			</if>
+			<if test="quote.verifyStatus eq 3">
+				<!-- 审核 -->
+				AND D.STATUS is null
+			</if>
+			<if test="quote.companyId != null">
+				<!-- 报价单号 -->
+				AND A.COMPANY_ID = #{quote.companyId}
+			</if>
+			<if test="quote.quoteorderNo != null and quote.quoteorderNo != ''">
+				<!-- 报价单号 -->
+				AND A.QUOTEORDER_NO like CONCAT('%',#{quote.quoteorderNo,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.validStatus != null">
+				<!-- 生效状态 -->
+				AND A.VALID_STATUS = #{quote.validStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.followOrderStatus != null">
+				<!-- 跟单状态 -->
+				AND A.FOLLOW_ORDER_STATUS = #{quote.followOrderStatus,jdbcType=INTEGER}
+			</if>
+			<!-- 客户ID -->
+			<if test="quote.saleUserList != null and quote.saleUserList.size > 0">
+				AND E.TRADER_TYPE = 1
+			 	AND E.USER_ID IN 
+			 		<foreach collection="quote.saleUserList" item="user" separator="," open="(" close=")">
+						#{user.userId,jdbcType=INTEGER}
+					</foreach>
+			</if>
+			<if test="quote.traderName != null and quote.traderName != ''">
+				<!-- 客户名称 -->
+				AND A.TRADER_NAME like CONCAT('%',#{quote.traderName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.customerNature != null and quote.customerNature != ''">
+				<!-- 客户性质 -->
+				AND A.CUSTOMER_NATURE = #{quote.customerNature,jdbcType=VARCHAR}
+			</if>
+			<if test="quote.orgId != null and quote.orgId !=''">
+				<!-- 销售部门 -->
+				AND A.ORG_ID = #{quote.orgId,jdbcType=INTEGER}
+			</if>
+			<if test="quote.sku != null and quote.sku != ''">
+				<!-- 订货号 -->
+				AND C.SKU like CONCAT('%',#{quote.sku,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.goodsName != null and quote.goodsName != ''">
+				<!-- 产品名称 -->
+				AND C.GOODS_NAME like CONCAT('%',#{quote.goodsName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.brandName != null and quote.brandName != ''">
+				<!-- 品牌 -->
+				AND C.BRAND_NAME like CONCAT('%',#{quote.brandName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.model != null and quote.model != ''">
+				<!-- 型号 -->
+				AND C.MODEL like CONCAT('%',#{quote.model,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.traderContact != null and quote.traderContact != ''">
+				<!-- 联系人信息 -->
+				AND (
+					A.TRADER_CONTACT_NAME like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.MOBILE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.TELEPHONE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+				)
+			</if>
+			<if test="quote.haveCommunicate != null">
+				<!-- 有沟通 -->
+				AND A.HAVE_COMMUNICATE = #{quote.haveCommunicate,jdbcType=INTEGER}
+			</if>
+			<if test="quote.consultStatus != null and quote.consultStatus != ''">
+				<!-- 咨询答复 -->
+				AND A.CONSULT_STATUS = #{quote.consultStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.source != null and quote.source != ''">
+				<!-- 商机来源 -->
+				AND B.SOURCE = #{quote.source,jdbcType=INTEGER}
+			</if>
+			<if test="quote.timeType !=null and quote.timeType != ''">
+				<choose>
+			        <when test="quote.timeType == '1'  or quote.timeType == 1"><!-- 生效时间 -->
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.VALID_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			            <if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.VALID_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.VALID_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="(quote.timeType == '2'  or quote.timeType == 2) and quote.keyIds != null and quote.keyIds.size > 0"><!-- 沟通时间 -->
+			        	AND A.QUOTEORDER_ID IN
+			        	<foreach item="quoteorderId" index="index" collection="quote.keyIds" separator="," open="(" close=")">
+							#{quoteorderId,jdbcType=INTEGER}
+						</foreach>
+			        </when>
+			        <when test="quote.timeType == '3' or quote.timeType == 3"><!-- 创建时间 -->
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.ADD_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.ADD_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate != null and quote.endDate !=''">
+			            	AND A.ADD_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '4'  or quote.timeType == 4"><!-- 成单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 1 <!-- 成单 -->
+			        	</if>
+			        	<if test="quote.beginDate != null and quote.beginDate != '') or quote.endDate != null and quote.endDate != '')">
+			        		AND A.FOLLOW_ORDER_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate!=null and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '5'  or quote.timeType == 5"><!-- 失单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 2 <!-- 失单 -->
+			        	</if>
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.FOLLOW_ORDER_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate!=null and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			    </choose>
+			</if>
+		</where>
+		 <!-- 报价产品表查询条件不为空，关联查询 -->
+		<if test="(quote.sku != null and quote.sku != '') or (quote.goodsName != null and quote.goodsName != '') or (quote.brandName != null and quote.brandName != '') or (quote.model != null and quote.model != '')">
+			GROUP BY A.QUOTEORDER_ID
+		</if>
+		ORDER BY A.QUOTEORDER_ID DESC
+	</select>
+	<select id="getQuoteInfoByKey" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Quoteorder">
+		SELECT A.*,
+		       B.RECEIVE_TIME,
+		       B.BUSSINESS_CHANCE_NO,
+		       C.SALEORDER_ID,
+		       C.SALEORDER_NO,
+		       IFNULL(D.STATUS,-1) AS verifyStatus,
+		       D.MOD_TIME AS verifyTime,
+		       IFNULL(E.STATUS,-1) AS closeVerifyStatus,
+		       E.MOD_TIME AS closeVerifyTime
+		FROM T_QUOTEORDER A
+		     LEFT JOIN T_BUSSINESS_CHANCE B
+		        ON A.BUSSINESS_CHANCE_ID = B.BUSSINESS_CHANCE_ID
+		     LEFT JOIN T_SALEORDER C ON A.QUOTEORDER_ID = C.QUOTEORDER_ID
+		     LEFT JOIN T_VERIFIES_INFO D
+		        ON     A.QUOTEORDER_ID = D.RELATE_TABLE_KEY
+		           AND D.RELATE_TABLE = 'T_QUOTEORDER'
+		           AND D.VERIFIES_TYPE = '612'
+		     LEFT JOIN T_VERIFIES_INFO E
+		        ON     A.QUOTEORDER_ID = E.RELATE_TABLE_KEY
+		           AND E.RELATE_TABLE = 'T_QUOTEORDER'
+		           AND E.VERIFIES_TYPE = '613'
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from T_QUOTEORDER
+		where QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</delete>
+	<select id="getQuoteInfoByQuoteordeNo" parameterType="com.vedeng.order.model.Quoteorder" resultMap="BaseResultMap">
+	SELECT * FROM `T_QUOTEORDER` A WHERE A.`QUOTEORDER_NO` =#{quoteorderNo}
+	
+	</select>
+	<select id="getQuoteInfoByQuoteordeId" parameterType="com.vedeng.order.model.Quoteorder" resultMap="BaseResultMap">
+	SELECT * FROM `T_QUOTEORDER` A WHERE A.`QUOTEORDER_ID` =#{quoteorderId}
+	
+	</select>
+	
+	<insert id="saveQuote" parameterType="com.vedeng.order.model.Quoteorder" useGeneratedKeys="true" keyProperty="quoteorderId">
+		insert into T_QUOTEORDER
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="quoteorderId != null">
+				QUOTEORDER_ID,
+			</if>
+			<if test="bussinessChanceId != null">
+				BUSSINESS_CHANCE_ID,
+			</if>
+			<if test="quoteorderNo != null">
+				QUOTEORDER_NO,
+			</if>
+			<if test="companyId != null" >
+		        COMPANY_ID,
+		    </if>
+			<if test="source != null" >
+		        SOURCE,
+		    </if>
+			<if test="orgId != null">
+				ORG_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="traderId != null">
+				TRADER_ID,
+			</if>
+			<if test="traderName != null">
+				TRADER_NAME,
+			</if>
+			<if test="area != null">
+				AREA,
+			</if>
+			<if test="customerType != null">
+				CUSTOMER_TYPE,
+			</if>
+			<if test="customerNature != null">
+				CUSTOMER_NATURE,
+			</if>
+			<if test="traderId != null">
+				IS_NEW_CUSTOMER,
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL,
+			</if>
+			<if test="traderContactId != null">
+				TRADER_CONTACT_ID,
+			</if>
+			<if test="traderContactName != null">
+				TRADER_CONTACT_NAME,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="telephone != null">
+				TELEPHONE,
+			</if>
+			<if test="traderAddressId != null">
+				TRADER_ADDRESS_ID,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="isPolicymaker != null">
+				IS_POLICYMAKER,
+			</if>
+			<if test="purchasingType != null">
+				PURCHASING_TYPE,
+			</if>
+			<if test="paymentTerm != null">
+				PAYMENT_TERM,
+			</if>
+			<if test="purchasingTime != null">
+				PURCHASING_TIME,
+			</if>
+			<if test="projectProgress != null">
+				PROJECT_PROGRESS,
+			</if>
+			<if test="followOrderStatus != null">
+				FOLLOW_ORDER_STATUS,
+			</if>
+			<if test="followOrderStatusComments != null">
+				FOLLOW_ORDER_STATUS_COMMENTS,
+			</if>
+			<if test="followOrderTime != null">
+				FOLLOW_ORDER_TIME,
+			</if>
+			<if test="customerNature == 466"><!-- 终端 -->
+				SALES_AREA_ID,
+				SALES_AREA,
+				TERMINAL_TRADER_ID,
+				TERMINAL_TRADER_NAME,
+				TERMINAL_TRADER_TYPE,
+			</if>
+			<!-- <choose>
+				<when test="customerNature == 466">终端
+					SALES_AREA_ID,
+					SALES_AREA,
+					TERMINAL_TRADER_ID,
+					TERMINAL_TRADER_NAME,
+					TERMINAL_TRADER_TYPE,
+				</when>
+				<otherwise>分销
+					<if test="traderAddressId != null">
+						SALES_AREA_ID,
+					</if>
+					<if test="address != null">
+						SALES_AREA,
+					</if>
+					<if test="traderId != null">
+						TERMINAL_TRADER_ID,
+					</if>
+					<if test="traderName != null">
+						TERMINAL_TRADER_NAME,
+					</if>
+					<if test="customerType != null">
+						TERMINAL_TRADER_TYPE,
+					</if>
+				</otherwise>
+			</choose> -->
+			
+			<if test="paymentType != null">
+				PAYMENT_TYPE,
+			</if>
+			<if test="prepaidAmount != null">
+				PREPAID_AMOUNT,
+			</if>
+			<if test="accountPeriodAmount != null">
+				ACCOUNT_PERIOD_AMOUNT,
+			</if>
+			<if test="logisticsCollection != null">
+				LOGISTICS_COLLECTION,
+			</if>
+			<if test="retainageAmount != null">
+				RETAINAGE_AMOUNT,
+			</if>
+			<if test="retainageAmountMonth != null">
+				RETAINAGE_AMOUNT_MONTH,
+			</if>
+			<if test="validStatus != null">
+				VALID_STATUS,
+			</if>
+			<if test="validTime != null">
+				VALID_TIME,
+			</if>
+			<if test="totalAmount != null">
+				TOTAL_AMOUNT,
+			</if>
+			<if test="period != null">
+				PERIOD,
+			</if>
+			<if test="invoiceType != null">
+				INVOICE_TYPE,
+			</if>
+			<if test="freightDescription != null">
+				FREIGHT_DESCRIPTION,
+			</if>
+			<if test="additionalClause != null">
+				ADDITIONAL_CLAUSE,
+			</if>
+			<if test="comments != null">
+				COMMENTS,
+			</if>
+			<if test="isSend != null">
+				IS_SEND,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="isReplay != null">
+				IS_REPLAY,
+			</if>
+			<if test="replayTime != null">
+				REPLAY_TIME,
+			</if>
+			<if test="replayUserId != null">
+				REPLAY_USER_ID,
+			</if>
+			<if test="haveCommunicate != null">
+				HAVE_COMMUNICATE,
+			</if>
+			<if test="consultStatus != null">
+				CONSULT_STATUS,
+			</if>
+			<if test="addTime != null">
+				ADD_TIME,
+			</if>
+			<if test="creator != null">
+				CREATOR,
+			</if>
+			<if test="modTime != null">
+				MOD_TIME,
+			</if>
+			<if test="updater != null">
+				UPDATER,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="quoteorderId != null">
+				#{quoteorderId,jdbcType=INTEGER},
+			</if>
+			<if test="bussinessChanceId != null">
+				#{bussinessChanceId,jdbcType=INTEGER},
+			</if>
+			<if test="quoteorderNo != null">
+				#{quoteorderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null" >
+		        #{companyId,jdbcType=INTEGER},
+		    </if>
+		    <if test="source != null" >
+		        #{source,jdbcType=INTEGER},
+		    </if>
+			<if test="orgId != null">
+				#{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="traderId != null">
+				#{traderId,jdbcType=INTEGER},
+			</if>
+			<if test="traderName != null">
+				#{traderName,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				#{area,jdbcType=VARCHAR},
+			</if>
+			<if test="customerType != null">
+				#{customerType,jdbcType=INTEGER},
+			</if>
+			<if test="customerNature != null">
+				#{customerNature,jdbcType=INTEGER},
+			</if>
+			<if test="traderId != null">
+				(SELECT IF(COUNT(*) = 0, 1, 0)
+					FROM T_SALEORDER A
+					WHERE A.TRADER_ID = #{traderId,jdbcType=INTEGER} AND A.VALID_STATUS = 1),
+			</if>
+			<if test="customerLevel != null">
+				#{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="traderContactId != null">
+				#{traderContactId,jdbcType=INTEGER},
+			</if>
+			<if test="traderContactName != null">
+				#{traderContactName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				#{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="traderAddressId != null">
+				#{traderAddressId,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="isPolicymaker != null">
+				#{isPolicymaker,jdbcType=BIT},
+			</if>
+			<if test="purchasingType != null">
+				#{purchasingType,jdbcType=INTEGER},
+			</if>
+			<if test="paymentTerm != null">
+				#{paymentTerm,jdbcType=INTEGER},
+			</if>
+			<if test="purchasingTime != null">
+				#{purchasingTime,jdbcType=INTEGER},
+			</if>
+			<if test="projectProgress != null">
+				#{projectProgress,jdbcType=VARCHAR},
+			</if>
+			<if test="followOrderStatus != null">
+				#{followOrderStatus,jdbcType=BIT},
+			</if>
+			<if test="followOrderStatusComments != null">
+				#{followOrderStatusComments,jdbcType=VARCHAR},
+			</if>
+			<if test="followOrderTime != null">
+				#{followOrderTime,jdbcType=BIGINT},
+			</if>
+			<if test="customerNature == 466 or customerNature == '466'"><!-- 终端 -->
+				(SELECT AREA_ID FROM T_TRADER WHERE TRADER_ID = #{traderId,jdbcType=INTEGER} AND COMPANY_ID = #{companyId,jdbcType=INTEGER}),
+				#{area,jdbcType=VARCHAR},
+				#{traderId,jdbcType=INTEGER},
+				#{traderName,jdbcType=VARCHAR},
+				#{customerType,jdbcType=INTEGER},
+			</if>
+			<!-- <choose>
+				<when test="customerNature == 466 or customerNature == '466'">终端
+					(SELECT AREA_ID FROM T_TRADER WHERE TRADER_ID = #{traderId,jdbcType=INTEGER} AND COMPANY_ID = #{companyId,jdbcType=INTEGER}),
+					#{area,jdbcType=VARCHAR},
+					#{traderId,jdbcType=INTEGER},
+					#{traderName,jdbcType=VARCHAR},
+					#{customerType,jdbcType=INTEGER},
+				</when>
+				<otherwise>分销
+					<if test="traderAddressId != null">
+						#{traderAddressId,jdbcType=INTEGER},
+					</if>
+					<if test="address != null">
+						#{address,jdbcType=VARCHAR},
+					</if>
+					<if test="traderId != null">
+						#{traderId,jdbcType=INTEGER},
+					</if>
+					<if test="traderName != null">
+						#{traderName,jdbcType=VARCHAR},
+					</if>
+					<if test="customerType != null">
+						#{customerType,jdbcType=INTEGER},
+					</if>
+				</otherwise>
+			</choose> -->
+			<if test="paymentType != null">
+				#{paymentType,jdbcType=INTEGER},
+			</if>
+			<if test="prepaidAmount != null">
+				#{prepaidAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPeriodAmount != null">
+				#{accountPeriodAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="logisticsCollection != null">
+				#{logisticsCollection,jdbcType=BIT},
+			</if>
+			<if test="retainageAmount != null">
+				#{retainageAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="retainageAmountMonth != null">
+				#{retainageAmountMonth,jdbcType=INTEGER},
+			</if>
+			<if test="validStatus != null">
+				#{validStatus,jdbcType=BIT},
+			</if>
+			<if test="validTime != null">
+				#{validTime,jdbcType=BIGINT},
+			</if>
+			<if test="totalAmount != null">
+				#{totalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="period != null">
+				#{period,jdbcType=INTEGER},
+			</if>
+			<if test="invoiceType != null">
+				#{invoiceType,jdbcType=INTEGER},
+			</if>
+			<if test="freightDescription != null">
+				#{freightDescription,jdbcType=INTEGER},
+			</if>
+			<if test="additionalClause != null">
+				#{additionalClause,jdbcType=VARCHAR},
+			</if>
+			<if test="comments != null">
+				#{comments,jdbcType=VARCHAR},
+			</if>
+			<if test="isSend != null">
+				#{isSend,jdbcType=BIT},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=BIGINT},
+			</if>
+			<if test="isReplay != null">
+				#{isReplay,jdbcType=BIT},
+			</if>
+			<if test="replayTime != null">
+				#{replayTime,jdbcType=BIGINT},
+			</if>
+			<if test="replayUserId != null">
+				#{replayUserId,jdbcType=INTEGER},
+			</if>
+			<if test="haveCommunicate != null">
+				#{haveCommunicate,jdbcType=BIT},
+			</if>
+			<if test="consultStatus != null">
+				#{consultStatus,jdbcType=BIT},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=BIGINT},
+			</if>
+			<if test="creator != null">
+				#{creator,jdbcType=INTEGER},
+			</if>
+			<if test="modTime != null">
+				#{modTime,jdbcType=BIGINT},
+			</if>
+			<if test="updater != null">
+				#{updater,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateQuote" parameterType="com.vedeng.order.model.Quoteorder">
+		update T_QUOTEORDER
+		<set>
+			<if test="bussinessChanceId != null">
+				BUSSINESS_CHANCE_ID = #{bussinessChanceId,jdbcType=INTEGER},
+			</if>
+			<if test="quoteorderNo != null">
+				QUOTEORDER_NO = #{quoteorderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="companyId != null" >
+       		 COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      		</if>
+			<if test="orgId != null">
+				ORG_ID = #{orgId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="traderId != null">
+				TRADER_ID = #{traderId,jdbcType=INTEGER},
+			</if>
+			<if test="traderName != null">
+				TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+			</if>
+			<if test="area != null">
+				AREA = #{area,jdbcType=VARCHAR},
+			</if>
+			<if test="customerType != null">
+				CUSTOMER_TYPE = #{customerType,jdbcType=INTEGER},
+			</if>
+			<if test="customerNature != null">
+				CUSTOMER_NATURE = #{customerNature,jdbcType=INTEGER},
+			</if>
+			<if test="isNewCustomer != null">
+				IS_NEW_CUSTOMER = #{isNewCustomer,jdbcType=BIT},
+			</if>
+			<if test="customerLevel != null">
+				CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="traderContactId != null">
+				TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+			</if>
+			<if test="traderContactName != null">
+				TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="telephone != null">
+				TELEPHONE = #{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="traderAddressId != null">
+				TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="isPolicymaker != null">
+				IS_POLICYMAKER = #{isPolicymaker,jdbcType=BIT},
+			</if>
+			<if test="purchasingType != null">
+				PURCHASING_TYPE = #{purchasingType,jdbcType=INTEGER},
+			</if>
+			<if test="paymentTerm != null">
+				PAYMENT_TERM = #{paymentTerm,jdbcType=INTEGER},
+			</if>
+			<if test="purchasingTime != null">
+				PURCHASING_TIME = #{purchasingTime,jdbcType=INTEGER},
+			</if>
+			<if test="projectProgress != null">
+				PROJECT_PROGRESS = #{projectProgress,jdbcType=VARCHAR},
+			</if>
+			<if test="followOrderStatus != null">
+				FOLLOW_ORDER_STATUS = #{followOrderStatus,jdbcType=BIT},
+			</if>
+			<if test="followOrderStatusComments != null">
+				FOLLOW_ORDER_STATUS_COMMENTS = #{followOrderStatusComments,jdbcType=VARCHAR},
+			</if>
+			<if test="followOrderTime != null">
+				FOLLOW_ORDER_TIME = #{followOrderTime,jdbcType=BIGINT},
+			</if>
+			<if test="salesAreaId != null">
+				SALES_AREA_ID = #{salesAreaId,jdbcType=INTEGER},
+			</if>
+			<if test="salesArea != null">
+				SALES_AREA = #{salesArea,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderId != null">
+				TERMINAL_TRADER_ID = #{terminalTraderId,jdbcType=INTEGER},
+			</if>
+			<if test="terminalTraderName != null">
+				TERMINAL_TRADER_NAME = #{terminalTraderName,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderType != null">
+				TERMINAL_TRADER_TYPE = #{terminalTraderType,jdbcType=INTEGER},
+			</if>
+			<if test="paymentType != null">
+				PAYMENT_TYPE = #{paymentType,jdbcType=INTEGER},
+			</if>
+			<if test="prepaidAmount != null">
+				PREPAID_AMOUNT = #{prepaidAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPeriodAmount != null">
+				ACCOUNT_PERIOD_AMOUNT = #{accountPeriodAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="logisticsCollection != null">
+				LOGISTICS_COLLECTION = #{logisticsCollection,jdbcType=BIT},
+			</if>
+			<if test="retainageAmount != null">
+				RETAINAGE_AMOUNT = #{retainageAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="retainageAmountMonth != null">
+				RETAINAGE_AMOUNT_MONTH = #{retainageAmountMonth,jdbcType=INTEGER},
+			</if>
+			<if test="validStatus != null">
+				VALID_STATUS = #{validStatus,jdbcType=BIT},
+			</if>
+			<if test="validTime != null">
+				VALID_TIME = #{validTime,jdbcType=BIGINT},
+			</if>
+			<if test="totalAmount != null">
+				TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="period != null">
+				PERIOD = #{period,jdbcType=INTEGER},
+			</if>
+			<if test="invoiceType != null">
+				INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+			</if>
+			<if test="freightDescription != null">
+				FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+			</if>
+			<if test="additionalClause != null">
+				ADDITIONAL_CLAUSE = #{additionalClause,jdbcType=VARCHAR},
+			</if>
+			<if test="comments != null">
+				COMMENTS = #{comments,jdbcType=VARCHAR},
+			</if>
+			<if test="isSend != null">
+				IS_SEND = #{isSend,jdbcType=BIT},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime,jdbcType=BIGINT},
+			</if>
+			<if test="isReplay != null">
+				IS_REPLAY = #{isReplay,jdbcType=BIT},
+			</if>
+			<if test="replayTime != null">
+				REPLAY_TIME = #{replayTime,jdbcType=BIGINT},
+			</if>
+			<if test="replayUserId != null">
+				REPLAY_USER_ID = #{replayUserId,jdbcType=INTEGER},
+			</if>
+			<if test="haveCommunicate != null">
+				HAVE_COMMUNICATE = #{haveCommunicate,jdbcType=BIT},
+			</if>
+			<if test="consultStatus != null">
+				CONSULT_STATUS = #{consultStatus,jdbcType=BIT},
+			</if>
+			<if test="addTime != null">
+				ADD_TIME = #{addTime,jdbcType=BIGINT},
+			</if>
+			<if test="creator != null">
+				CREATOR = #{creator,jdbcType=INTEGER},
+			</if>
+			<if test="modTime != null">
+				MOD_TIME = #{modTime,jdbcType=BIGINT},
+			</if>
+			<if test="updater != null">
+				UPDATER = #{updater,jdbcType=INTEGER},
+			</if>
+		</set>
+		WHERE QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateQuoteCustomer" parameterType="com.vedeng.order.model.Quoteorder">
+		update T_QUOTEORDER
+		<set>
+			TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+			TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+			MOBILE = #{mobile,jdbcType=VARCHAR},
+			TELEPHONE = #{telephone,jdbcType=VARCHAR},
+			TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+			ADDRESS = #{address,jdbcType=VARCHAR},
+			IS_POLICYMAKER = #{isPolicymaker,jdbcType=BIT},
+			PURCHASING_TYPE = #{purchasingType,jdbcType=INTEGER},
+			PAYMENT_TERM = #{paymentTerm,jdbcType=INTEGER},
+			PURCHASING_TIME = #{purchasingTime,jdbcType=INTEGER},
+			PROJECT_PROGRESS = #{projectProgress,jdbcType=VARCHAR},
+			MOD_TIME = #{modTime,jdbcType=BIGINT},
+			UPDATER = #{updater,jdbcType=INTEGER},
+		</set>
+		where QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateQuoteTerminal" parameterType="com.vedeng.order.model.Quoteorder">
+		update T_QUOTEORDER
+		<set>
+			<if test="salesAreaId != null">
+			SALES_AREA_ID = #{salesAreaId,jdbcType=INTEGER},
+			</if>
+			<if test="salesArea != null">
+			SALES_AREA = #{salesArea,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderId != null">
+			TERMINAL_TRADER_ID = #{terminalTraderId,jdbcType=INTEGER},
+			</if>
+			<if test="terminalTraderName != null">
+			TERMINAL_TRADER_NAME = #{terminalTraderName,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderType != null">
+			TERMINAL_TRADER_TYPE = #{terminalTraderType,jdbcType=INTEGER},
+			</if>
+		</set>
+		where QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getQuoteorder" resultMap="BaseResultMap" parameterType="com.vedeng.order.model.Quoteorder">
+		select
+		<include refid="Base_Column_List" />
+		from T_QUOTEORDER
+		where 1=1
+		<if test="bussinessChanceId != null">
+			and BUSSINESS_CHANCE_ID = #{bussinessChanceId,jdbcType=INTEGER}
+		</if>
+	</select>
+	
+	<update id="updateQuoteNo" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_QUOTEORDER A
+		<set>
+			A.QUOTEORDER_NO = #{quoteorderNo,jdbcType=VARCHAR},
+			A.MOD_TIME = MOD_TIME = #{modTime,jdbcType=BIGINT},
+			A.UPDATER = #{updater,jdbcType=INTEGER},
+		</set>
+		where A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getQuoteOrgList" resultType="java.lang.Integer">
+		SELECT A.ORG_ID
+		FROM T_QUOTEORDER A
+		GROUP BY A.ORG_ID
+	</select>
+	
+	<select id="getQuoteUserList" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT A.USER_ID
+		FROM T_QUOTEORDER A
+		WHERE A.IS_SEND = 1
+		<if test="companyId != null and companyId != 0">
+			AND A.COMPANY_ID = #{companyId}
+		</if>
+		GROUP BY A.USER_ID
+	</select>
+	
+	<update id="editQuoteAmount" parameterType="com.vedeng.order.model.Quoteorder">
+		update T_QUOTEORDER
+		<set>
+			<if test="paymentType != null">
+				PAYMENT_TYPE = #{paymentType,jdbcType=INTEGER},
+			</if>
+			<if test="prepaidAmount != null">
+				PREPAID_AMOUNT = #{prepaidAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="accountPeriodAmount != null">
+				ACCOUNT_PERIOD_AMOUNT = #{accountPeriodAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="logisticsCollection != null">
+				LOGISTICS_COLLECTION = #{logisticsCollection,jdbcType=BIT},
+			</if>
+			<if test="retainageAmount != null">
+				RETAINAGE_AMOUNT = #{retainageAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="retainageAmountMonth != null">
+				RETAINAGE_AMOUNT_MONTH = #{retainageAmountMonth,jdbcType=INTEGER},
+			</if>
+			<if test="validStatus != null">
+				VALID_STATUS = #{validStatus,jdbcType=BIT},
+			</if>
+			<if test="validTime != null">
+				VALID_TIME = #{validTime,jdbcType=BIGINT},
+			</if>
+			<if test="totalAmount != null">
+				TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+			</if>
+			<if test="period != null">
+				PERIOD = #{period,jdbcType=INTEGER},
+			</if>
+			<if test="invoiceType != null">
+				INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+			</if>
+			<if test="freightDescription != null">
+				FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+			</if>
+			<if test="additionalClause != null">
+				ADDITIONAL_CLAUSE = #{additionalClause,jdbcType=VARCHAR},
+			</if>
+			<if test="comments != null">
+				COMMENTS = #{comments,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderId != null">
+				TERMINAL_TRADER_ID = #{terminalTraderId,jdbcType=INTEGER},
+			</if>
+			<if test="terminalTraderName != null">
+				TERMINAL_TRADER_NAME = #{terminalTraderName,jdbcType=VARCHAR},
+			</if>
+			<if test="terminalTraderType != null">
+				TERMINAL_TRADER_TYPE = #{terminalTraderType,jdbcType=INTEGER},
+			</if>
+			<if test="salesArea != null">
+				SALES_AREA = #{salesArea,jdbcType=VARCHAR},
+			</if>
+			<if test="salesAreaId != null">
+				SALES_AREA_ID = #{salesAreaId,jdbcType=INTEGER},
+			</if>
+			<if test="modTime != null">
+				MOD_TIME = #{modTime,jdbcType=BIGINT},
+			</if>
+			<if test="updater != null">
+				UPDATER = #{updater,jdbcType=INTEGER},
+			</if>
+		</set>
+		where QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getCustomerQuoterorderIds" resultType="java.lang.Integer">
+		select
+			QUOTEORDER_ID
+		from
+			T_QUOTEORDER
+		where
+			TRADER_ID = #{traderId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 修改报价状态  1启用 -->
+	<update id="editQuoteValIdSave" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_QUOTEORDER A
+		<set>
+			A.VALID_STATUS = #{validStatus,jdbcType=INTEGER},
+			<choose>
+				<when test="validStatus!=null and validStatus==''"><!-- Mybatis将Integer=0的参数会默认为‘’（空串） -->
+					A.VALID_TIME = 0,
+				</when>
+				<otherwise>
+					A.VALID_TIME = #{validTime,jdbcType=INTEGER},
+				</otherwise>
+			</choose>
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		</set>
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="editQuoteHaveCommunicate" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_QUOTEORDER A
+		<set>
+			A.HAVE_COMMUNICATE = 1,
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		</set>
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="editLoseOrderStatus" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_QUOTEORDER A
+		<set>
+			A.FOLLOW_ORDER_STATUS = 2,
+			A.FOLLOW_ORDER_STATUS_COMMENTS = #{followOrderStatusComments,jdbcType=VARCHAR},
+			A.FOLLOW_ORDER_TIME = #{followOrderTime,jdbcType=BIGINT},
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		</set>
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getQuoteConsultListPage" parameterType="com.vedeng.order.model.QuoteorderConsult" resultType="com.vedeng.order.model.QuoteorderConsult">
+		SELECT A.QUOTEORDER_ID AS quoteorderId,
+		       A.QUOTEORDER_NO AS quoteorderNo,
+		       A.SEND_TIME AS sendTime,
+		       A.USER_ID AS saleUserId,
+		       SUM(IF(B.TYPE = 2, 1, 0)) AS purchaseReplyNum,
+		       SUM(IF(B.TYPE = 1, 1, 0)) AS saleQuizNum,
+		       A.REPLAY_TIME AS replayTime,
+		       A.CONSULT_STATUS AS consultStatus, <!-- MAX(A.CONSULT_STATUS) AS consultStatus, -->
+		       B.CONTENT AS content
+		FROM T_QUOTEORDER A
+		     LEFT JOIN T_QUOTEORDER_CONSULT B ON A.QUOTEORDER_ID = B.QUOTEORDER_ID
+		<where>
+			A.IS_SEND = 1
+			<if test="quoteConsult.companyId != null and quoteConsult.companyId != ''">
+				AND A.COMPANY_ID = #{quoteConsult.companyId,jdbcType=INTEGER}
+			</if>
+			<if test="quoteConsult.quoteorderNo != null and quoteConsult.quoteorderNo != ''">
+				AND A.QUOTEORDER_NO LIKE CONCAT('%',#{quoteConsult.quoteorderNo,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quoteConsult.saleUserId != null and quoteConsult.saleUserId != ''">
+				AND A.USER_ID = #{quoteConsult.saleUserId,jdbcType=INTEGER}
+			</if>
+			<if test="quoteConsult.goods != null">
+			AND EXISTS
+             (SELECT *
+              FROM T_QUOTEORDER_GOODS C 
+				   LEFT JOIN T_GOODS D ON C.GOODS_ID = D.GOODS_ID
+              WHERE C.QUOTEORDER_ID = A.QUOTEORDER_ID
+				<if test="quoteConsult.goods.goodsName != null and quoteConsult.goods.goodsName != ''">
+					AND C.GOODS_NAME LIKE CONCAT('%',#{quoteConsult.goods.goodsName,jdbcType=VARCHAR},'%' )
+				</if>
+				<if test="quoteConsult.goods.brandName != null and quoteConsult.goods.brandName != ''">
+					AND C.BRAND_NAME LIKE CONCAT('%',#{quoteConsult.goods.brandName,jdbcType=VARCHAR},'%' )
+				</if>
+				<if test="quoteConsult.goods.sku != null and quoteConsult.goods.sku != ''">
+					AND C.SKU LIKE CONCAT('%',#{quoteConsult.goods.sku,jdbcType=VARCHAR},'%' )
+				</if>
+				<if test="quoteConsult.goods.model != null and quoteConsult.goods.model != ''">
+					AND C.MODEL LIKE CONCAT('%',#{quoteConsult.goods.model,jdbcType=VARCHAR},'%' )
+				</if>
+				<if test="quoteConsult.categoryIdList != null and quoteConsult.categoryIdList.size() > 0">
+					AND D.CATEGORY_ID IN
+						<foreach collection="quoteConsult.categoryIdList" item="categoryId" open="(" close=")" separator=",">
+							#{categoryId,jdbcType=INTEGER}
+						</foreach>
+				</if>
+				)
+			</if>
+			<if test="quoteConsult.consultStatus != null and quoteConsult.consultStatus != ''">
+				AND A.CONSULT_STATUS = #{quoteConsult.consultStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quoteConsult.type != null and quoteConsult.type != ''">
+				<choose>
+					<when test="quoteConsult.type == 1 or quoteConsult.type == '1'">
+						<if test="quoteConsult.beginTime != null and quoteConsult.beginTime != ''">
+							AND A.SEND_TIME >= #{quoteConsult.beginTime,jdbcType=INTEGER}
+						</if>
+						<if test="quoteConsult.endTime != null and quoteConsult.endTime != ''">
+							AND A.SEND_TIME <![CDATA[ <= ]]> #{quoteConsult.endTime,jdbcType=INTEGER}
+						</if>
+					</when>
+					<when test="quoteConsult.type == 2 or quoteConsult.type == '2'">
+						<if test="quoteConsult.beginTime != null and quoteConsult.beginTime != ''">
+							AND A.REPLAY_TIME >= #{quoteConsult.beginTime,jdbcType=INTEGER}
+						</if>
+						<if test="quoteConsult.endTime != null and quoteConsult.endTime != ''">
+							AND A.REPLAY_TIME <![CDATA[ <= ]]> #{quoteConsult.endTime,jdbcType=INTEGER}
+						</if>
+					</when>
+					<otherwise></otherwise>
+				</choose>
+			</if>
+		</where>
+		GROUP BY A.QUOTEORDER_ID
+		ORDER BY A.CONSULT_STATUS,A.SEND_TIME DESC
+	</select>
+	
+	<select id="getLastMonthQuoteorder" resultMap="BaseResultMap" parameterType="com.vedeng.order.model.Quoteorder">
+		select
+			QUOTEORDER_ID,QUOTEORDER_NO,VALID_TIME,TOTAL_AMOUNT,USER_ID,TRADER_ID
+		from
+			T_QUOTEORDER
+		where
+			TRADER_ID = #{traderId,jdbcType=INTEGER}
+		and
+			VALID_STATUS = 1
+		and
+			ADD_TIME <![CDATA[>=]]> #{addTime} 
+		order by 
+			ADD_TIME desc
+	
+	</select>
+	
+	<update id="editConsultStatus" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_QUOTEORDER A 
+		SET A.CONSULT_STATUS = #{consultStatus,jdbcType=INTEGER},
+			A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getEffectOrders" resultMap="BaseResultMap">
+		select
+			QUOTEORDER_ID,QUOTEORDER_NO
+		from
+			T_QUOTEORDER
+		where
+			TRADER_ID = #{traderId,jdbcType=INTEGER}
+		and
+			VALID_STATUS = 1
+		order by 
+			ADD_TIME desc
+		limit #{limit,jdbcType=INTEGER}
+	</select>
+	
+	<update id="editQuoteExpired" parameterType="com.vedeng.order.model.Quoteorder">
+		<!-- 报价单从创建时间开始超过x天未生效则自动置为已失单状态 -->
+		UPDATE T_QUOTEORDER A
+		SET A.FOLLOW_ORDER_STATUS = 2,
+		    A.FOLLOW_ORDER_STATUS_COMMENTS = #{followOrderStatusComments,jdbcType=VARCHAR},
+		    A.FOLLOW_ORDER_TIME = #{followOrderTime,jdbcType=BIGINT},
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		WHERE     DATEDIFF(NOW(), FROM_UNIXTIME(A.ADD_TIME / 1000, '%Y-%m-%d %H:%i:%s')) >= 3
+		      AND A.VALID_STATUS = 0
+		      AND A.FOLLOW_ORDER_STATUS <![CDATA[ <> ]]> 2;
+	
+		<!-- 报价单从生效时间开始超过1天未转为订单置为已失单状态 -->
+		UPDATE T_QUOTEORDER A
+		SET A.FOLLOW_ORDER_STATUS = 2,
+		    A.FOLLOW_ORDER_STATUS_COMMENTS = #{followOrderStatusComments,jdbcType=VARCHAR},
+		    A.FOLLOW_ORDER_TIME = #{followOrderTime,jdbcType=BIGINT},
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		WHERE     DATEDIFF(NOW(), FROM_UNIXTIME(A.VALID_TIME / 1000, '%Y-%m-%d %H:%i:%s')) >= 3
+		      AND A.VALID_STATUS = 1
+		      AND A.FOLLOW_ORDER_STATUS <![CDATA[ <> ]]> 2
+		      AND NOT EXISTS
+		             (SELECT *
+		              FROM T_SALEORDER B
+		              WHERE B.QUOTEORDER_ID = A.QUOTEORDER_ID);
+	</update>
+
+	<!-- 查询报价单号（多个报价ID） -->	
+	<select id="getQuoteorderByIds" resultMap="BaseResultMap">
+		select
+			QUOTEORDER_ID,QUOTEORDER_NO
+		from
+			T_QUOTEORDER
+		where
+			QUOTEORDER_ID in
+			<foreach item="quoteOrderId" index="index" collection="quoteOrderIds" open="(" separator="," close=")">  
+			  #{quoteOrderId}  
+			</foreach> 
+	</select>
+	
+	<select id="getQuoteorderByParam" resultMap="VoResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from
+			T_QUOTEORDER
+		where FOLLOW_ORDER_STATUS = 0
+			and QUOTEORDER_ID in
+			<foreach item="quoteOrderId" index="index" collection="quoteOrderIds" open="(" separator="," close=")">  
+			  #{quoteOrderId}  
+			</foreach> 
+	</select>
+	
+	<select id="getQuoteorderByAddTime" resultMap="VoResultMap" parameterType="com.vedeng.order.model.Quoteorder">
+		select
+			<include refid="Base_Column_List" />
+		from
+			T_QUOTEORDER
+		where FOLLOW_ORDER_STATUS = 0 and FROM_UNIXTIME(ADD_TIME/1000,'%Y-%m-%d') = DATE(NOW())
+			and QUOTEORDER_ID in
+			<foreach item="traderId" index="index" collection="traderIdList" open="(" separator="," close=")">  
+			  #{traderId}  
+			</foreach> 
+			and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 修改商机状态 -->
+	<update id="updateBussinessStatus" parameterType="com.vedeng.order.model.Quoteorder">
+		UPDATE T_BUSSINESS_CHANCE A
+		SET A.STATUS = #{bussinessStatus,jdbcType=INTEGER},
+			A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		WHERE A.BUSSINESS_CHANCE_ID = #{bussinessChanceId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- SELECT COUNT(*)
+	FROM T_QUOTEORDER_GOODS A
+	WHERE     A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	      AND (   A.PRICE = 0.00
+	           OR LENGTH(TRIM(A.DELIVERY_CYCLE)) = 0)
+	      AND A.IS_DELETE = 0 -->
+	<!-- 验证报价产品（报价金额和货期） -->
+	<resultMap type="java.util.Map" id="priceAndCycleResult">
+		<result column="PRICE_COUNT" property="priceCount"/>
+		<result column="DELIVERY_CYCLE_COUNT" property="deliveryCycleCount"/>
+	</resultMap>
+	<select id="vailQuoteGoodsPriceAndCycle" parameterType="com.vedeng.order.model.Quoteorder" resultMap="priceAndCycleResult">
+		SELECT SUM(IF(A.PRICE = 0.00, 1, 0)) AS PRICE_COUNT,
+		       SUM(IF(LENGTH(TRIM(A.DELIVERY_CYCLE)) = 0, 1, 0)) AS DELIVERY_CYCLE_COUNT
+		FROM T_QUOTEORDER_GOODS A
+		WHERE A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER} AND A.IS_DELETE = 0
+	</select>
+	
+	<!-- 验证产品数量 -->
+	<select id="vailQuoteGoodsNum" parameterType="com.vedeng.order.model.Quoteorder" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_QUOTEORDER_GOODS A
+		WHERE     A.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+		      AND IS_DELETE = 0
+	</select>
+	<!-- 查看客户是否被禁用 -->
+	<select id="getTraderCustomerStatus" parameterType="java.lang.Integer" resultType="com.vedeng.trader.model.TraderCustomer">
+		SELECT A.IS_ENABLE,A.CUSTOMER_TYPE,A.CUSTOMER_NATURE
+		FROM T_TRADER_CUSTOMER A
+		WHERE A.TRADER_CUSTOMER_ID = #{traderCustomerId,jdbcType=INTEGER} AND A.IS_ENABLE = 1
+	</select>
+	
+	<select id="getQuoteListSize" parameterType="java.util.Map" resultType="com.vedeng.order.model.Quoteorder">
+		SELECT A.QUOTEORDER_ID,
+			   A.BUSSINESS_CHANCE_ID,
+			   A.QUOTEORDER_NO,
+		       A.ADD_TIME,
+		       A.TRADER_NAME,
+		       A.CUSTOMER_TYPE,
+		       E.TITLE AS customerTypeStr,
+		       A.CUSTOMER_NATURE,
+		       F.TITLE AS customerNatureStr,
+		       A.IS_NEW_CUSTOMER,
+		       A.CUSTOMER_LEVEL,
+		       A.TRADER_CONTACT_NAME,
+		       A.MOBILE,
+		       A.TELEPHONE,
+		       A.ADDRESS,
+		       A.SALES_AREA,
+		       A.TERMINAL_TRADER_NAME,
+		       A.TERMINAL_TRADER_TYPE,
+		       J.TITLE AS terminalTraderTypeStr,
+		       A.TOTAL_AMOUNT,
+		       A.ORG_ID,
+		       A.USER_ID,
+		       A.PERIOD,
+		       A.VALID_STATUS,
+		       A.CONSULT_STATUS,
+		       A.FOLLOW_ORDER_STATUS,
+		       A.FOLLOW_ORDER_STATUS_COMMENTS,
+		       D.SALEORDER_NO
+		FROM T_QUOTEORDER A
+		     LEFT JOIN T_BUSSINESS_CHANCE B
+		        ON A.BUSSINESS_CHANCE_ID = B.BUSSINESS_CHANCE_ID
+		     LEFT JOIN T_QUOTEORDER_GOODS C ON A.QUOTEORDER_ID = C.QUOTEORDER_ID
+		     LEFT JOIN T_SALEORDER D ON A.QUOTEORDER_ID = D.QUOTEORDER_ID
+		     LEFT JOIN T_SYS_OPTION_DEFINITION E
+		        ON A.CUSTOMER_TYPE = E.SYS_OPTION_DEFINITION_ID AND E.PARENT_ID = 425 AND E.STATUS = 1
+		     LEFT JOIN T_SYS_OPTION_DEFINITION F
+		        ON A.CUSTOMER_NATURE = F.SYS_OPTION_DEFINITION_ID AND F.PARENT_ID = 464 AND F.STATUS = 1
+		     LEFT JOIN T_SYS_OPTION_DEFINITION J
+		        ON     A.TERMINAL_TRADER_TYPE = J.SYS_OPTION_DEFINITION_ID AND J.PARENT_ID = 425 AND J.STATUS = 1
+		<where>
+			1=1
+			<if test="quote.quoteorderNo != null and quote.quoteorderNo != ''">
+				<!-- 报价单号 -->
+				AND A.QUOTEORDER_NO like CONCAT('%',#{quote.quoteorderNo,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.validStatus != null">
+				<!-- 生效状态 -->
+				AND A.VALID_STATUS = #{quote.validStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.followOrderStatus != null">
+				<!-- 跟单状态 -->
+				AND A.FOLLOW_ORDER_STATUS = #{quote.followOrderStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.traderName != null and quote.traderName != ''">
+				<!-- 客户名称 -->
+				AND A.TRADER_NAME like CONCAT('%',#{quote.traderName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.customerNature != null and quote.customerNature != ''">
+				<!-- 客户性质 -->
+				AND A.CUSTOMER_NATURE = #{quote.customerNature,jdbcType=VARCHAR}
+			</if>
+			<if test="quote.orgId != null and quote.orgId !=''">
+				<!-- 销售部门 -->
+				AND A.ORG_ID = #{quote.orgId,jdbcType=INTEGER}
+			</if>
+			<!-- 销售人员；根据某个用户查询或查询当前登录用户下级销售用户 -->
+			<choose>
+				<when test="quote.userId != null and quote.userId != ''">
+					AND A.USER_ID = #{quote.userId,jdbcType=INTEGER}
+				</when>
+				<when test="quote.saleUserList != null and quote.saleUserList.size() > 0">
+					AND A.USER_ID IN 
+						<foreach collection="quote.saleUserList" item="list" separator="," open="(" close=")">
+							#{list.userId,jdbcType=VARCHAR}
+						</foreach>
+				</when>
+			</choose>
+			<if test="quote.sku != null and quote.sku != ''">
+				<!-- 订货号 -->
+				AND C.SKU like CONCAT('%',#{quote.sku,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.goodsName != null and quote.goodsName != ''">
+				<!-- 产品名称 -->
+				AND C.GOODS_NAME like CONCAT('%',#{quote.goodsName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.brandName != null and quote.brandName != ''">
+				<!-- 品牌 -->
+				AND C.BRAND_NAME like CONCAT('%',#{quote.brandName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.model != null and quote.model != ''">
+				<!-- 型号 -->
+				AND C.MODEL like CONCAT('%',#{quote.model,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.traderContact != null and quote.traderContact != ''">
+				<!-- 联系人信息 -->
+				AND (
+					A.TRADER_CONTACT_NAME like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.MOBILE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.TELEPHONE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+				)
+			</if>
+			<if test="quote.haveCommunicate != null and quote.haveCommunicate != ''">
+				<!-- 有沟通 -->
+				AND A.HAVE_COMMUNICATE = #{quote.haveCommunicate,jdbcType=INTEGER}
+			</if>
+			<if test="quote.consultStatus != null and quote.consultStatus != ''">
+				<!-- 咨询答复 -->
+				AND A.CONSULT_STATUS = #{quote.consultStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.source != null and quote.source != ''">
+				<!-- 商机来源 -->
+				AND B.SOURCE = #{quote.source,jdbcType=INTEGER}
+			</if>
+			<if test="quote.timeType !=null and quote.timeType != ''">
+				<choose>
+			        <when test="quote.timeType == '1'  or quote.timeType == 1"><!-- 生效时间 -->
+			            <if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.VALID_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.VALID_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="(quote.timeType == '2'  or quote.timeType == 2) and quote.keyIds != null and quote.keyIds.size > 0"><!-- 沟通时间 -->
+			        	A.QUOTEORDER_ID IN
+			        	<foreach item="quoteorderId" index="index" collection="quote.keyIds" separator="," open="(" close=")">
+							#{quoteorderId,jdbcType=INTEGER}
+						</foreach>
+			        </when>
+			        <when test="quote.timeType == '3' or quote.timeType == 3"><!-- 创建时间 -->
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.ADD_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.ADD_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '4'  or quote.timeType == 4"><!-- 成单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 1 <!-- 成单 -->
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '5'  or quote.timeType == 5"><!-- 失单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 2 <!-- 失单 -->
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <otherwise>
+			            
+			        </otherwise>
+			    </choose>
+			</if>
+		</where>
+		GROUP BY A.QUOTEORDER_ID
+		ORDER BY A.ADD_TIME DESC
+	</select>
+	
+	<select id="getQuoteListCount" parameterType="com.vedeng.order.model.Quoteorder" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT A.QUOTEORDER_ID
+		FROM T_QUOTEORDER A
+				<if test="quote.source != null and quote.source != ''">
+			     LEFT JOIN T_BUSSINESS_CHANCE B
+			        ON A.BUSSINESS_CHANCE_ID = B.BUSSINESS_CHANCE_ID
+		    	</if>
+		        <!-- 报价产品表查询条件不为空，关联查询 -->
+				<if test="(quote.sku != null and quote.sku != '') or (quote.goodsName != null and quote.goodsName != '') or (quote.brandName != null and quote.brandName != '') or (quote.model != null and quote.model != '')">
+					LEFT JOIN T_QUOTEORDER_GOODS C ON A.QUOTEORDER_ID = C.QUOTEORDER_ID
+				</if>
+		     LEFT JOIN T_VERIFIES_INFO D
+		        ON     A.QUOTEORDER_ID = D.RELATE_TABLE_KEY
+		           AND D.RELATE_TABLE = 'T_QUOTEORDER'
+		     <if test="quote.saleUserList != null and quote.saleUserList.size > 0">
+				 LEFT JOIN T_R_TRADER_J_USER E ON A.TRADER_ID = E.TRADER_ID
+		     </if>
+		<where>
+			1 = 1
+			<if test="(quote.verifyStatus != null and quote.verifyStatus != '' and quote.verifyStatus != 3) or quote.verifyStatus eq 0">
+				<!-- 审核 -->
+				AND D.STATUS = #{quote.verifyStatus}
+			</if>
+			<if test="quote.verifyStatus eq 3">
+				<!-- 审核 -->
+				AND D.STATUS is null
+			</if>
+			<if test="quote.companyId != null">
+				<!-- 报价单号 -->
+				AND A.COMPANY_ID = #{quote.companyId}
+			</if>
+			<if test="quote.quoteorderNo != null and quote.quoteorderNo != ''">
+				<!-- 报价单号 -->
+				AND A.QUOTEORDER_NO like CONCAT('%',#{quote.quoteorderNo,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.validStatus != null">
+				<!-- 生效状态 -->
+				AND A.VALID_STATUS = #{quote.validStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.followOrderStatus != null">
+				<!-- 跟单状态 -->
+				AND A.FOLLOW_ORDER_STATUS = #{quote.followOrderStatus,jdbcType=INTEGER}
+			</if>
+			<!-- 客户ID -->
+			<if test="quote.saleUserList != null and quote.saleUserList.size > 0">
+				AND E.TRADER_TYPE = 1
+			 	AND E.USER_ID IN 
+			 		<foreach collection="quote.saleUserList" item="user" separator="," open="(" close=")">
+						#{user.userId,jdbcType=INTEGER}
+					</foreach>
+			</if>
+			<if test="quote.traderName != null and quote.traderName != ''">
+				<!-- 客户名称 -->
+				AND A.TRADER_NAME like CONCAT('%',#{quote.traderName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.customerNature != null and quote.customerNature != ''">
+				<!-- 客户性质 -->
+				AND A.CUSTOMER_NATURE = #{quote.customerNature,jdbcType=VARCHAR}
+			</if>
+			<if test="quote.orgId != null and quote.orgId !=''">
+				<!-- 销售部门 -->
+				AND A.ORG_ID = #{quote.orgId,jdbcType=INTEGER}
+			</if>
+			<if test="quote.sku != null and quote.sku != ''">
+				<!-- 订货号 -->
+				AND C.SKU like CONCAT('%',#{quote.sku,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.goodsName != null and quote.goodsName != ''">
+				<!-- 产品名称 -->
+				AND C.GOODS_NAME like CONCAT('%',#{quote.goodsName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.brandName != null and quote.brandName != ''">
+				<!-- 品牌 -->
+				AND C.BRAND_NAME like CONCAT('%',#{quote.brandName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.model != null and quote.model != ''">
+				<!-- 型号 -->
+				AND C.MODEL like CONCAT('%',#{quote.model,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="quote.traderContact != null and quote.traderContact != ''">
+				<!-- 联系人信息 -->
+				AND (
+					A.TRADER_CONTACT_NAME like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.MOBILE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+					OR
+					A.TELEPHONE like CONCAT('%',#{quote.traderContact,jdbcType=VARCHAR},'%' )
+				)
+			</if>
+			<if test="quote.haveCommunicate != null">
+				<!-- 有沟通 -->
+				AND A.HAVE_COMMUNICATE = #{quote.haveCommunicate,jdbcType=INTEGER}
+			</if>
+			<if test="quote.consultStatus != null and quote.consultStatus != ''">
+				<!-- 咨询答复 -->
+				AND A.CONSULT_STATUS = #{quote.consultStatus,jdbcType=INTEGER}
+			</if>
+			<if test="quote.source != null and quote.source != ''">
+				<!-- 商机来源 -->
+				AND B.SOURCE = #{quote.source,jdbcType=INTEGER}
+			</if>
+			<if test="quote.timeType !=null and quote.timeType != ''">
+				<choose>
+			        <when test="quote.timeType == '1'  or quote.timeType == 1"><!-- 生效时间 -->
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.VALID_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			            <if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.VALID_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate and quote.endDate !=''">
+			            	AND A.VALID_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="(quote.timeType == '2'  or quote.timeType == 2) and quote.keyIds != null and quote.keyIds.size > 0"><!-- 沟通时间 -->
+			        	AND A.QUOTEORDER_ID IN
+			        	<foreach item="quoteorderId" index="index" collection="quote.keyIds" separator="," open="(" close=")">
+							#{quoteorderId,jdbcType=INTEGER}
+						</foreach>
+			        </when>
+			        <when test="quote.timeType == '3' or quote.timeType == 3"><!-- 创建时间 -->
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.ADD_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.ADD_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate != null and quote.endDate !=''">
+			            	AND A.ADD_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '4'  or quote.timeType == 4"><!-- 成单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 1 <!-- 成单 -->
+			        	</if>
+			        	<if test="quote.beginDate != null and quote.beginDate != '') or quote.endDate != null and quote.endDate != '')">
+			        		AND A.FOLLOW_ORDER_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate!=null and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			        <when test="quote.timeType == '5'  or quote.timeType == 5"><!-- 失单时间 -->
+			        	<if test="quote.beginDate!=null or quote.endDate !=null">
+				        	AND A.FOLLOW_ORDER_STATUS = 2 <!-- 失单 -->
+			        	</if>
+			        	<if test="(quote.beginDate != null and quote.beginDate != '') or (quote.endDate != null and quote.endDate != '')">
+			        		AND A.FOLLOW_ORDER_TIME <![CDATA[ <> ]]> 0
+			        	</if>
+			        	<if test="quote.beginDate!=null and quote.beginDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME >= #{quote.beginDate,jdbcType=BIGINT}
+			            </if>
+			            <if test="quote.endDate!=null and quote.endDate !=''">
+			            	AND A.FOLLOW_ORDER_TIME <![CDATA[ <= ]]> #{quote.endDate,jdbcType=BIGINT}
+			            </if>
+			        </when>
+			    </choose>
+			</if>
+		</where>
+		 <!-- 报价产品表查询条件不为空，关联查询 -->
+		<if test="(quote.sku != null and quote.sku != '') or (quote.goodsName != null and quote.goodsName != '') or (quote.brandName != null and quote.brandName != '') or (quote.model != null and quote.model != '')">
+			GROUP BY A.QUOTEORDER_ID
+		</if>
+		) P
+	</select>
+	
+	<select id="getQuoteTraderIdList" resultType="java.lang.Integer" parameterType="com.vedeng.order.model.Quoteorder">
+		SELECT 
+			DISTINCT TRADER_ID
+		FROM T_QUOTEORDER where TRADER_ID != 0
+			and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getQuoteNumByTime" resultType="java.lang.Integer">
+		select 
+	  		COALESCE(SUM(b.NUM),0)
+	  	from
+	  		T_QUOTEORDER a
+	  	left join
+	  		T_QUOTEORDER_GOODS b
+	  	on
+	  		a.QUOTEORDER_ID = b.QUOTEORDER_ID
+	  	where
+	  		a.VALID_STATUS = 1
+	  	and
+	  		b.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	  	and
+	  		a.VALID_TIME <![CDATA[>=]]> #{time, jdbcType=BIGINT}
+	</select>
+	<select id="getQuoteNumListByTime" resultMap="goodsDataMap">
+		select 
+	  		COALESCE(SUM(b.NUM),0) QUOTE_NUM,b.GOODS_ID
+	  	from
+	  		T_QUOTEORDER a
+	  	left join
+	  		T_QUOTEORDER_GOODS b
+	  	on
+	  		a.QUOTEORDER_ID = b.QUOTEORDER_ID
+	  	where
+	  		a.VALID_STATUS = 1
+	  	and
+	  		a.VALID_TIME <![CDATA[>=]]> #{time, jdbcType=BIGINT}
+	  	<if test="goodsIds != null" >
+	       	and b.GOODS_ID in
+	        <foreach collection="goodsIds" item="goodsId" index="index"
+	           open="(" close=")" separator=",">
+	           #{goodsId}
+	       </foreach>
+      	</if>
+	</select>
+	<select id="getQuoteorderGoodsCateory" resultType="com.vedeng.order.model.QuoteorderConsult" parameterType="java.util.List">
+		select
+			a.QUOTEORDER_ID AS quoteorderId, b.CATEGORY_ID AS categoryId
+		from
+			T_QUOTEORDER_GOODS a
+		left join
+			T_GOODS b
+		on
+			a.GOODS_ID = b.GOODS_ID
+		where
+			a.QUOTEORDER_ID IN 
+			<foreach collection="quoteList" item="consult" separator="," open="(" close=")">
+				#{consult.quoteorderId,jdbcType=INTEGER}
+			</foreach>
+			AND b.CATEGORY_ID > 0
+	</select>
+	
+	<select id="getSalesEngineerQuoteorder" resultType="com.vedeng.order.model.vo.QuoteorderVo" parameterType="com.vedeng.order.model.Quoteorder">
+		select
+			COALESCE(COUNT(QUOTEORDER_ID),0) AS QUOTE_NUM,COALESCE(COUNT(TOTAL_AMOUNT),0) AS QUOTE_MONEY
+		from
+			T_QUOTEORDER 
+		where FROM_UNIXTIME(ADD_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(ADD_TIME/1000,'%m') = MONTH(NOW())
+			<if test="companyId != null and companyId != 0" >
+		        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	     	</if>
+	     	<if test="traderIdList != null " >
+		  		and TRADER_ID in 
+			  			<foreach item="traderId" index="index" collection="traderIdList" open="(" separator="," close=")">  
+						  #{traderId}  
+						</foreach>
+			</if>
+	</select>
+	
+	<!-- 获取待同步报价数据 -->
+	<select id="getWaitSyncQuoteorderList" resultMap="BaseResultMap" parameterType="com.vedeng.order.model.Quoteorder">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			T_QUOTEORDER 
+		WHERE
+			QUOTEORDER_ID NOT IN (
+				SELECT
+					QUOTEORDER_ID
+				FROM
+					T_QUOTEORDER a
+				JOIN T_DATA_SYNC_STATUS b ON a.QUOTEORDER_ID = b.RELATED_ID
+				WHERE
+					b.SOURCE_TABLE = 'T_QUOTEORDER' 
+					AND	b.GOAL_TYPE = 591
+					AND b. STATUS = 1
+			);
+	</select>
+	<!-- 打印报价单 -->
+	<select id="getPrintInfo" resultMap="VoResultMap" parameterType="com.vedeng.order.model.Quoteorder">
+			SELECT
+			a.*, b. NAME,
+			b.MOBILE,
+			b.TELEPHONE,
+			b.QQ,
+			b.EMAIL,
+			b.SEX,
+			c.BANK,
+			c.BANK_ACCOUNT,
+			c.TAX_NUM,
+			c.REG_ADDRESS,
+            c.REG_TEL
+		FROM
+			T_QUOTEORDER a
+		LEFT JOIN T_TRADER_CONTACT b ON a.TRADER_CONTACT_ID = b.TRADER_CONTACT_ID
+		LEFT JOIN T_TRADER_FINANCE c ON a.TRADER_ID = c.TRADER_ID
+		AND c.TRADER_TYPE = 1
+		WHERE
+			1 = 1
+		AND a.VALID_STATUS = 1
+		AND a.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+		AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		LIMIT 1
+	</select>
+	
+	<select id="getQuoteorderInfo" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Quoteorder">
+		select
+			a.*,b.TITLE as invoiceTypeName,b.COMMENTS as invoiceTypeRate,c.TITLE as freightDescriptionName,
+			d.TITLE as paymentTypeStr,e.BUSSINESS_CHANCE_NO as bussinessChanceNo
+		from
+			T_QUOTEORDER a
+		left join
+			T_SYS_OPTION_DEFINITION b on a.INVOICE_TYPE = b.SYS_OPTION_DEFINITION_ID
+		left join
+			T_SYS_OPTION_DEFINITION c on a.FREIGHT_DESCRIPTION = c.SYS_OPTION_DEFINITION_ID
+		left join
+			T_SYS_OPTION_DEFINITION d on a.PAYMENT_TYPE = d.SYS_OPTION_DEFINITION_ID
+		left join
+			T_BUSSINESS_CHANCE e on e.BUSSINESS_CHANCE_ID = a.BUSSINESS_CHANCE_ID
+		where
+			a.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getMessageInfoForSync" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Quoteorder">
+		select
+			a.TOTAL_AMOUNT,sum(b.NUM) as totalNum,a.QUOTEORDER_NO
+		from 
+			T_QUOTEORDER a
+		left join
+			T_QUOTEORDER_GOODS b on a.QUOTEORDER_ID = b.QUOTEORDER_ID and b.IS_DELETE = 0
+		where
+			a.QUOTEORDER_ID = #{quoteorderId,jdbcType=INTEGER}
+	</select>
+	<select id="getQuoteorderByNo" parameterType="java.lang.String" resultType="com.vedeng.order.model.Quoteorder">
+		select
+			a.*
+		from 
+			T_QUOTEORDER a
+		where
+			a.QUOTEORDER_NO = #{quoteorderNo,jdbcType=VARCHAR}
+	</select>
+	
+	 <select id="getQuoteOrderByBussinessChanceId" parameterType="java.lang.Integer" resultType="int">
+	 	SELECT COUNT(*) FROM  T_QUOTEORDER A WHERE A.BUSSINESS_CHANCE_ID = #{bussinessChanceId,jdbcType=INTEGER} AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	 </select>
+	 
+	 <select id="getQuoteConsultListByQuoteId" parameterType="java.util.List" resultType="com.vedeng.order.model.QuoteorderConsult">
+	 	SELECT A.QUOTEORDER_CONSULT_ID,
+		       A.QUOTEORDER_ID,
+		       A.TYPE,
+		       A.CONTENT,
+		       A.ADD_TIME,
+		       A.CREATOR
+		FROM T_QUOTEORDER_CONSULT A
+		WHERE A.QUOTEORDER_ID IN 
+				<foreach collection="quoteIdList" item="quoteId" open="(" close=")" separator=",">
+					#{quoteId,jdbcType=INTEGER}
+				</foreach>
+			 AND A.TYPE = 2
+	 </select>
+
+	<select id="isExistBussinessChanceId" resultType="int">
+		 SELECT COUNT(1) FROM T_QUOTEORDER
+         WHERE BUSSINESS_CHANCE_ID=#{bussinessChanceId}
+	</select>
+</mapper>

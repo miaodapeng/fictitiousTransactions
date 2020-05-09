@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.report.dao.ReportStatistitcsSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.newtask.model.ReportStatistitcsSku" >
+    <!--          -->
+    <id column="STATISTITCS_SKU_ID" property="statistitcsSkuId" jdbcType="VARCHAR" />
+    <result column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="SELLORDER_NO" property="sellorderNo" jdbcType="VARCHAR" />
+    <result column="SELLORDER_NO_TYPE" property="sellorderNoType" jdbcType="BIT" />
+    <result column="SELL_NUM" property="sellNum" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS" property="totalSellNumThirtyDays" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS" property="totalSellNumNinetyDays" jdbcType="INTEGER" />
+    <result column="LEND_OUT_NUM" property="lendOutNum" jdbcType="INTEGER" />
+    <result column="TOTAL_LEND_OUT_NUM_THIRTY_DAYS" property="totalLendOutNumThirtyDays" jdbcType="INTEGER" />
+    <result column="TOTAL_LEND_OUT_NUM_NINETY_DAYS" property="totalLendOutNumNinetyDays" jdbcType="INTEGER" />
+    <result column="EARLIEST_PAY_TIME" property="earliestPayTime" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    STATISTITCS_SKU_ID, SKU_NO, ORG_ID, ORG_NAME, SELLORDER_NO, SELLORDER_NO_TYPE, SELL_NUM, TOTAL_SELL_NUM_THIRTY_DAYS,
+    TOTAL_SELL_NUM_NINETY_DAYS, LEND_OUT_NUM, TOTAL_LEND_OUT_NUM_THIRTY_DAYS, TOTAL_LEND_OUT_NUM_NINETY_DAYS,
+    EARLIEST_PAY_TIME, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_STATISTITCS_SKU
+    where STATISTITCS_SKU_ID = #{statistitcsSkuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--          -->
+    delete from T_REPORT_STATISTITCS_SKU
+    where STATISTITCS_SKU_ID = #{statistitcsSkuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.newtask.model.ReportStatistitcsSku" >
+    <!--          -->
+    insert into T_REPORT_STATISTITCS_SKU (STATISTITCS_SKU_ID, SKU_NO, ORG_ID, 
+      ORG_NAME, SELLORDER_NO, SELLORDER_NO_TYPE, SELL_NUM,
+      TOTAL_SELL_NUM_THIRTY_DAYS, TOTAL_SELL_NUM_NINETY_DAYS, 
+      LEND_OUT_NUM, TOTAL_LEND_OUT_NUM_THIRTY_DAYS,
+      TOTAL_LEND_OUT_NUM_NINETY_DAYS, EARLIEST_PAY_TIME,
+      ADD_TIME, MOD_TIME)
+    values (#{statistitcsSkuId,jdbcType=VARCHAR}, #{skuNo,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, 
+      #{orgName,jdbcType=VARCHAR}, #{sellorderNo,jdbcType=VARCHAR}, #{sellorderNoType,jdbcType=BIT}, #{sellNum,jdbcType=INTEGER},
+      #{totalSellNumThirtyDays,jdbcType=INTEGER}, #{totalSellNumNinetyDays,jdbcType=INTEGER}, 
+      #{lendOutNum,jdbcType=INTEGER}, #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      #{totalLendOutNumNinetyDays,jdbcType=INTEGER}, #{earliestPayTime,jdbcType=VARCHAR},
+      #{addTime,jdbcType=VARCHAR}, #{modTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtask.model.ReportStatistitcsSku" >
+    <!--          -->
+    insert into T_REPORT_STATISTITCS_SKU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statistitcsSkuId != null" >
+        STATISTITCS_SKU_ID,
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME,
+      </if>
+      <if test="sellorderNo != null">
+        SELLORDER_NO,
+      </if>
+      <if test="sellorderNoType != null" >
+        SELLORDER_NO_TYPE,
+      </if>
+      <if test="sellNum != null" >
+        SELL_NUM,
+      </if>
+      <if test="totalSellNumThirtyDays != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS,
+      </if>
+      <if test="totalSellNumNinetyDays != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS,
+      </if>
+      <if test="lendOutNum != null" >
+        LEND_OUT_NUM,
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        TOTAL_LEND_OUT_NUM_THIRTY_DAYS,
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        TOTAL_LEND_OUT_NUM_NINETY_DAYS,
+      </if>
+      <if test="earliestPayTime != null" >
+        EARLIEST_PAY_TIME,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statistitcsSkuId != null" >
+        #{statistitcsSkuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuNo != null" >
+        #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellorderNo != null">
+        #{sellorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sellorderNoType != null" >
+        #{sellorderNoType,jdbcType=BIT},
+      </if>
+      <if test="sellNum != null" >
+        #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDays != null" >
+        #{totalSellNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDays != null" >
+        #{totalSellNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="lendOutNum != null" >
+        #{lendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="earliestPayTime != null" >
+        #{earliestPayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtask.model.ReportStatistitcsSku" >
+    <!--          -->
+    update T_REPORT_STATISTITCS_SKU
+    <set >
+      <if test="skuNo != null" >
+        SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="sellorderNo != null">
+        SELLORDER_NO = #{sellorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sellorderNoType != null" >
+        SELLORDER_NO_TYPE = #{sellorderNoType,jdbcType=BIT},
+      </if>
+      <if test="sellNum != null" >
+        SELL_NUM = #{sellNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDays != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS = #{totalSellNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDays != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS = #{totalSellNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="lendOutNum != null" >
+        LEND_OUT_NUM = #{lendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        TOTAL_LEND_OUT_NUM_THIRTY_DAYS = #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        TOTAL_LEND_OUT_NUM_NINETY_DAYS = #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="earliestPayTime != null" >
+        EARLIEST_PAY_TIME = #{earliestPayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STATISTITCS_SKU_ID = #{statistitcsSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtask.model.ReportStatistitcsSku" >
+    <!--          -->
+    update T_REPORT_STATISTITCS_SKU
+    set SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      SELLORDER_NO = #{sellorderNo,jdbcType=VARCHAR},
+      SELLORDER_NO_TYPE = #{sellorderNoType,jdbcType=BIT},
+      SELL_NUM = #{sellNum,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS = #{totalSellNumThirtyDays,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS = #{totalSellNumNinetyDays,jdbcType=INTEGER},
+      LEND_OUT_NUM = #{lendOutNum,jdbcType=INTEGER},
+      TOTAL_LEND_OUT_NUM_THIRTY_DAYS = #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      TOTAL_LEND_OUT_NUM_NINETY_DAYS = #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      EARLIEST_PAY_TIME = #{earliestPayTime,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=VARCHAR}
+    where STATISTITCS_SKU_ID = #{statistitcsSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="trunCateStatistitcsSku">
+    TRUNCATE TABLE T_REPORT_STATISTITCS_SKU
+  </update>
+  <select id="getStatistitcsSkuTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+      SELECT
+        COUNT(a.GOODS_ID)
+      FROM
+        T_SALEORDER_GOODS a
+      LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+      LEFT JOIN (SELECT
+              MIN(d.TRADER_TIME) AS TRADER_TIME,c.RELATED_ID
+              FROM
+              T_CAPITAL_BILL_DETAIL c
+              LEFT JOIN T_CAPITAL_BILL d ON c.CAPITAL_BILL_ID = d.CAPITAL_BILL_ID
+              <if test="traderTypeList != null and traderTypeList.size() > 0 and traderModeList != null and traderModeList.size() > 0">
+                WHERE d.TRADER_TYPE IN
+                <foreach collection="traderTypeList" separator="," open="(" close=")" item="traderType" index="index">
+                  #{traderType,jdbcType=INTEGER}
+                </foreach>
+                AND d.TRADER_MODE NOT IN
+                <foreach collection="traderModeList" separator="," open="(" close=")" item="traderMode" index="index">
+                  #{traderMode,jdbcType=INTEGER}
+                </foreach>
+              </if>
+              GROUP BY c.RELATED_ID) m ON m.RELATED_ID = a.SALEORDER_ID
+      WHERE b.`STATUS` != #{status,jdbcType=INTEGER} AND a.GOODS_NAME NOT LIKE '%测试商品%'
+      <if test="traderIdList != null and traderIdList.size() > 0">
+        AND b.TRADER_ID NOT IN
+        <foreach collection="traderIdList" separator="," open="(" close=")" item="traderId" index="index">
+          #{traderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      AND m.TRADER_TIME is not null
+  </select>
+  <select id="getReportStatistitcsSkuList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+          CONCAT('V',a.GOODS_ID) AS SKU_NO,
+          g.ORG_ID,
+          SUM(a.NUM) AS SELL_NUM,
+          b.SALEORDER_NO AS SELLORDER_NO,
+          (
+            CASE WHEN  locate('HC', b.SALEORDER_NO) > 0 THEN 1
+            WHEN  locate('BD', b.SALEORDER_NO) > 0 THEN 2
+            WHEN  locate('VS', b.SALEORDER_NO) > 0 THEN 3
+            WHEN  locate('DH', b.SALEORDER_NO) > 0 THEN 4
+            WHEN  locate('ADK', b.SALEORDER_NO) > 0 THEN 5
+            WHEN  locate('JX', b.SALEORDER_NO) > 0 THEN 6
+            WHEN  locate('EL', b.SALEORDER_NO) > 0 THEN 7
+            END
+          ) AS SELLORDER_NO_TYPE,
+          date_format(from_unixtime(m.TRADER_TIME / 1000),'%Y-%m-%d') AS EARLIEST_PAY_TIME
+        FROM
+          T_SALEORDER_GOODS a
+        LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN (SELECT
+              MIN(d.TRADER_TIME) AS TRADER_TIME,c.RELATED_ID
+              FROM
+              T_CAPITAL_BILL_DETAIL c
+              LEFT JOIN T_CAPITAL_BILL d ON c.CAPITAL_BILL_ID = d.CAPITAL_BILL_ID
+              <if test="traderTypeList != null and traderTypeList.size() > 0 and traderModeList != null and traderModeList.size() > 0">
+                WHERE d.TRADER_TYPE IN
+                <foreach collection="traderTypeList" separator="," open="(" close=")" item="traderType" index="index">
+                  #{traderType,jdbcType=INTEGER}
+                </foreach>
+                AND d.TRADER_MODE NOT IN
+                <foreach collection="traderModeList" separator="," open="(" close=")" item="traderMode" index="index">
+                  #{traderMode,jdbcType=INTEGER}
+                </foreach>
+              </if>
+              GROUP BY c.RELATED_ID) m ON m.RELATED_ID = a.SALEORDER_ID
+        LEFT JOIN T_R_TRADER_J_USER e ON b.TRADER_ID = e.TRADER_ID
+        LEFT JOIN T_R_USER_POSIT f ON e.USER_ID = f.USER_ID
+        LEFT JOIN T_POSITION g ON f.POSITION_ID = g.POSITION_ID
+        WHERE  b.`STATUS` != #{status,jdbcType=INTEGER} AND a.GOODS_NAME NOT LIKE '%测试商品%' AND SALEORDER_NO IS NOT NULL
+        <if test="traderIdList != null and traderIdList.size() > 0">
+          AND b.TRADER_ID NOT IN
+          <foreach collection="traderIdList" separator="," open="(" close=")" item="traderId" index="index">
+            #{traderId,jdbcType=INTEGER}
+          </foreach>
+        </if>
+        AND m.TRADER_TIME is not null
+        GROUP BY a.GOODS_ID,g.ORG_ID,b.SALEORDER_NO
+        ORDER BY b.ADD_TIME
+        LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+  </select>
+  <select id="getOrganizationByOrgIdList" parameterType="java.util.List" resultType="com.vedeng.authorization.model.Organization">
+    SELECT
+      ORG_ID,
+      ORG_NAME
+    FROM
+      T_ORGANIZATION
+    <if test="list != null and list.size() > 0">
+      WHERE ORG_ID IN
+      <foreach collection="list" separator="," open="(" close=")" index="index" item="statistitcsSku">
+        #{statistitcsSku.orgId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+  <select id="getPurchaseSkuList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+      a.ORDER_NO AS SELLORDER_NO,
+      CONCAT('V',b.GOODS_ID) AS SKU_NO,
+      SUM(b.NUM) AS SELL_NUM
+    FROM
+      T_AFTER_SALES a
+    LEFT JOIN T_AFTER_SALES_GOODS b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    WHERE a.ATFER_SALES_STATUS = 2 AND a.TYPE = 539
+    <if test="list != null and list.size() > 0">
+      AND a.ORDER_NO IN
+      <foreach collection="list" index="index" item="statistitcsSku" open="(" close=")" separator=",">
+        #{statistitcsSku.sellorderNo,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    GROUP BY a.ORDER_NO,b.GOODS_ID
+  </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into T_REPORT_STATISTITCS_SKU (STATISTITCS_SKU_ID, SKU_NO, ORG_ID,
+      ORG_NAME, SELLORDER_NO, SELLORDER_NO_TYPE, SELL_NUM, EARLIEST_PAY_TIME,
+      ADD_TIME, MOD_TIME)
+    values
+    <foreach collection="list" index="index" item="reportStatistitcsSku" separator=",">
+      (#{reportStatistitcsSku.statistitcsSkuId,jdbcType=VARCHAR}, #{reportStatistitcsSku.skuNo,jdbcType=VARCHAR}, #{reportStatistitcsSku.orgId,jdbcType=INTEGER},
+      #{reportStatistitcsSku.orgName,jdbcType=VARCHAR}, #{reportStatistitcsSku.sellorderNo,jdbcType=VARCHAR}, #{reportStatistitcsSku.sellorderNoType,jdbcType=BIT}, #{reportStatistitcsSku.sellNum,jdbcType=INTEGER},
+      #{reportStatistitcsSku.earliestPayTime,jdbcType=VARCHAR},
+      #{reportStatistitcsSku.addTime,jdbcType=VARCHAR}, #{reportStatistitcsSku.modTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+</mapper>

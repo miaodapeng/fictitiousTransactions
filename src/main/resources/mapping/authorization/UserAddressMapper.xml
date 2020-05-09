@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.UserAddressMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.authorization.model.UserAddress" >
+    <id column="USER_ADDRESS_ID" property="userAddressId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="AREA_ID" property="areaId" jdbcType="INTEGER" />
+    <result column="AREA_IDS" property="areaIds" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    USER_ADDRESS_ID, USER_ID, AREA_ID, AREA_IDS, ADDRESS
+  </sql>
+  <!-- 添加员工地址 -->
+  <insert id="insert" parameterType="com.vedeng.authorization.model.UserAddress" >
+    insert into T_USER_ADDRESS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userAddressId != null" >
+        USER_ADDRESS_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="areaId != null" >
+        AREA_ID,
+      </if>
+      <if test="areaIds != null" >
+        AREA_IDS,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userAddressId != null" >
+        #{userAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaIds != null" >
+        #{areaIds,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- update -->
+  <update id="update" parameterType="com.vedeng.authorization.model.UserAddress" >
+    update T_USER_ADDRESS
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="areaId != null" >
+        AREA_ID = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="areaIds != null" >
+        AREA_IDS = #{areaIds,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ADDRESS_ID = #{userAddressId,jdbcType=INTEGER}
+  </update>
+  <!-- getUserAddress -->
+  <select id="getUserAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from T_USER_ADDRESS
+  	where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+</mapper>

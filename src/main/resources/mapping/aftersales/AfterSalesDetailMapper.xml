@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.aftersales.dao.AfterSalesDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.aftersales.model.AfterSalesDetail" >
+    <id column="AFTER_SALES_DETAIL_ID" property="afterSalesDetailId" jdbcType="INTEGER" />
+    <result column="AFTER_SALES_ID" property="afterSalesId" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="INTEGER" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_TELEPHONE" property="traderContactTelephone" jdbcType="VARCHAR" />
+    <result column="REFUND" property="refund" jdbcType="BIT" />
+    <result column="AREA_ID" property="areaId" jdbcType="INTEGER" />
+    <result column="ADDRESS_ID" property="addressId" jdbcType="INTEGER" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_FEE" property="refundFee" jdbcType="DECIMAL" />
+    <result column="REAL_REFUND_AMOUNT" property="realRefundAmount" jdbcType="DECIMAL" />
+    <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_AMOUNT_STATUS" property="refundAmountStatus" jdbcType="BIT" />
+    <result column="TRADER_SUBJECT" property="traderSubject" jdbcType="BIT" />
+    <result column="PAYEE" property="payee" jdbcType="VARCHAR" />
+    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="SERVICE_AMOUNT" property="serviceAmount" jdbcType="DECIMAL" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+    <result column="IS_SEND_INVOICE" property="isSendInvoice" jdbcType="BIT" />
+    <result column="TRADER_MODE" property="traderMode" jdbcType="BIT" />
+    <result column="PERIOD_AMOUNT" property="payPeriodAmount" jdbcType="DECIMAL" />
+    <result column="INVOICE_TRADER_ID" property="invoiceTraderId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_NAME" property="invoiceTraderName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_ID" property="invoiceTraderContactId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_CONTACT_NAME" property="invoiceTraderContactName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_MOBILE" property="invoiceTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_TELEPHONE" property="invoiceTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_ADDRESS_ID" property="invoiceTraderAddressId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_ADDRESS" property="invoiceTraderAddress" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_AREA" property="invoiceTraderArea" jdbcType="VARCHAR" />
+    
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    
+    <result column="RECEIVE_PAYMENT_STATUS" property="receivePaymentStatus" jdbcType="BIT" />
+    <result column="RECEIVE_PAYMENT_TIME" property="receivePaymentTime" jdbcType="BIGINT" />
+    
+    <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="BIT" />
+    <result column="PAYMENT_TIME" property="paymentTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <resultMap type="com.vedeng.aftersales.model.vo.AfterSalesDetailVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AFTER_SALES_DETAIL_ID, AFTER_SALES_ID, REASON, COMMENTS, TRADER_ID, TRADER_CONTACT_ID, TRADER_CONTACT_NAME, 
+    TRADER_CONTACT_MOBILE, TRADER_CONTACT_TELEPHONE, REFUND, AREA_ID, ADDRESS_ID, AREA, 
+    ADDRESS, REFUND_AMOUNT, REFUND_FEE, REAL_REFUND_AMOUNT, PAYMENT_AMOUNT, REFUND_AMOUNT_STATUS, TRADER_SUBJECT, TRADER_MODE,
+    PAYEE, BANK, BANK_CODE, BANK_ACCOUNT, SERVICE_AMOUNT, INVOICE_TYPE, IS_SEND_INVOICE, PERIOD_AMOUNT,
+    INVOICE_TRADER_ID, INVOICE_TRADER_NAME, INVOICE_TRADER_CONTACT_ID, INVOICE_TRADER_CONTACT_NAME, 
+    INVOICE_TRADER_CONTACT_MOBILE, INVOICE_TRADER_CONTACT_TELEPHONE, INVOICE_TRADER_ADDRESS_ID, 
+    INVOICE_TRADER_ADDRESS, INVOICE_TRADER_AREA, INVOICE_COMMENTS,RECEIVE_PAYMENT_STATUS,RECEIVE_PAYMENT_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_AFTER_SALES_DETAIL
+    where AFTER_SALES_DETAIL_ID = #{afterSalesDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_AFTER_SALES_DETAIL
+    where AFTER_SALES_DETAIL_ID = #{afterSalesDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.aftersales.model.AfterSalesDetail" >
+    insert into T_AFTER_SALES_DETAIL (AFTER_SALES_DETAIL_ID, AFTER_SALES_ID, 
+      REASON, COMMENTS, TRADER_ID, TRADER_CONTACT_ID, 
+      TRADER_CONTACT_NAME, TRADER_CONTACT_MOBILE, 
+      TRADER_CONTACT_TELEPHONE, REFUND, AREA_ID, 
+      ADDRESS_ID, AREA, ADDRESS, 
+      REFUND_AMOUNT, REFUND_FEE, REAL_REFUND_AMOUNT, PAYMENT_AMOUNT,
+      REFUND_AMOUNT_STATUS, TRADER_SUBJECT, TRADER_MODE, PAYEE, 
+      BANK, BANK_CODE, BANK_ACCOUNT, PERIOD_AMOUNT,
+      INVOICE_TRADER_ID, INVOICE_TRADER_NAME, INVOICE_TRADER_CONTACT_ID, INVOICE_TRADER_CONTACT_NAME, 
+      INVOICE_TRADER_CONTACT_MOBILE, INVOICE_TRADER_CONTACT_TELEPHONE, INVOICE_TRADER_ADDRESS_ID, 
+      INVOICE_TRADER_ADDRESS, INVOICE_TRADER_AREA, INVOICE_COMMENTS, RECEIVE_PAYMENT_STATUS,RECEIVE_PAYMENT_TIME
+      )
+    values (#{afterSalesDetailId,jdbcType=INTEGER}, #{afterSalesId,jdbcType=INTEGER}, 
+      #{reason,jdbcType=INTEGER}, #{comments,jdbcType=VARCHAR}, #{traderId,jdbcType=INTEGER}, #{traderContactId,jdbcType=INTEGER}, 
+      #{traderContactName,jdbcType=VARCHAR}, #{traderContactMobile,jdbcType=VARCHAR}, 
+      #{traderContactTelephone,jdbcType=VARCHAR}, #{refund,jdbcType=BIT}, #{areaId,jdbcType=INTEGER}, 
+      #{addressId,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{refundAmount,jdbcType=DECIMAL}, #{refundFee,jdbcType=DECIMAL}, #{realRefundAmount,jdbcType=DECIMAL}, #{paymentAmount,jdbcType=DECIMAL},
+      #{refundAmountStatus,jdbcType=BIT}, #{traderSubject,jdbcType=BIT}, #{traderMode,jdbcType=BIT}, #{payee,jdbcType=VARCHAR}, 
+      #{bank,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, #{bankAccount,jdbcType=VARCHAR}, #{payPeriodAmount,jdbcType=DECIMAL},
+      #{invoiceTraderId,jdbcType=INTEGER}, #{invoiceTraderName,jdbcType=VARCHAR}, #{invoiceTraderContactId,jdbcType=INTEGER},
+      #{invoiceTraderContactName,jdbcType=VARCHAR}, #{invoiceTraderContactMobile,jdbcType=VARCHAR}, #{invoiceTraderContactTelephone,jdbcType=VARCHAR},
+      #{invoiceTraderAddressId,jdbcType=INTEGER}, #{invoiceTraderAddress,jdbcType=VARCHAR}, #{invoiceTraderArea,jdbcType=VARCHAR}, #{invoiceComments,jdbcType=VARCHAR},
+      #{receivePaymentStatus,jdbcType=BIT}, #{receivePaymentTime,jdbcType=BIGINT},#{paymentStatus,jdbcType=BIT}, #{paymentTime,jdbcType=BIGINT} 
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.aftersales.model.AfterSalesDetail" >
+    insert into T_AFTER_SALES_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afterSalesDetailId != null" >
+        AFTER_SALES_DETAIL_ID,
+      </if>
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID,
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME,
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE,
+      </if>
+      <if test="traderContactTelephone != null" >
+        TRADER_CONTACT_TELEPHONE,
+      </if>
+      <if test="refund != null" >
+        REFUND,
+      </if>
+      <if test="areaId != null" >
+        AREA_ID,
+      </if>
+      <if test="addressId != null" >
+        ADDRESS_ID,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT,
+      </if>
+      <if test="refundFee != null" >
+        REFUND_FEE,
+      </if>
+      <if test="realRefundAmount != null" >
+        REAL_REFUND_AMOUNT,
+      </if>
+      <if test="paymentAmount != null" >
+        PAYMENT_AMOUNT,
+      </if>
+      <if test="refundAmountStatus != null" >
+        REFUND_AMOUNT_STATUS,
+      </if>
+      <if test="traderSubject != null" >
+        TRADER_SUBJECT,
+      </if>
+      <if test="traderMode != null" >
+        TRADER_MODE,
+      </if>
+      <if test="payee != null" >
+        PAYEE,
+      </if>
+      <if test="bank != null" >
+        BANK,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT,
+      </if>
+      <if test="serviceAmount != null" >
+        SERVICE_AMOUNT,
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE,
+      </if>
+      <if test="isSendInvoice != null" >
+        IS_SEND_INVOICE,
+      </if>
+      <if test="payPeriodAmount != null" >
+        PERIOD_AMOUNT,
+      </if>
+      <if test="invoiceTraderId != null" >
+        INVOICE_TRADER_ID,
+      </if>
+      <if test="invoiceTraderName != null" >
+        INVOICE_TRADER_NAME,
+      </if>      
+      <if test="invoiceTraderContactId != null" >
+        INVOICE_TRADER_CONTACT_ID ,
+      </if>
+      <if test="invoiceTraderContactName != null" >
+        INVOICE_TRADER_CONTACT_NAME ,
+      </if>
+      <if test="invoiceTraderContactMobile != null" >
+        INVOICE_TRADER_CONTACT_MOBILE ,
+      </if>      
+      <if test="invoiceTraderContactTelephone != null" >
+        INVOICE_TRADER_CONTACT_TELEPHONE,
+      </if>
+      <if test="invoiceTraderAddressId  != null" >
+        INVOICE_TRADER_ADDRESS_ID,
+      </if>
+      <if test="invoiceTraderAddress != null" >
+        INVOICE_TRADER_ADDRESS,
+      </if>      
+      <if test="invoiceTraderArea != null" >
+        INVOICE_TRADER_AREA,
+      </if>
+      <if test="invoiceComments != null" >
+        INVOICE_COMMENTS,
+      </if>
+      <if test="receivePaymentStatus != null" >
+        RECEIVE_PAYMENT_STATUS,
+      </if>
+      <if test="receivePaymentTime != null" >
+        RECEIVE_PAYMENT_TIME,
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS,
+      </if>
+      <if test="paymentTime != null" >
+        PAYMENT_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afterSalesDetailId != null" >
+        #{afterSalesDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalesId != null" >
+        #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactId != null" >
+        #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactName != null" >
+        #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactTelephone != null" >
+        #{traderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=BIT},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundFee != null" >
+        #{refundFee,jdbcType=DECIMAL},
+      </if>
+      <if test="realRefundAmount != null" >
+        #{realRefundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentAmount != null" >
+        #{paymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmountStatus != null" >
+        #{refundAmountStatus,jdbcType=BIT},
+      </if>
+      <if test="traderSubject != null" >
+        #{traderSubject,jdbcType=BIT},
+      </if>
+      <if test="traderMode != null" >
+        #{traderMode,jdbcType=BIT},
+      </if>
+      <if test="payee != null" >
+        #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAmount != null" >
+        #{serviceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="isSendInvoice != null" >
+        #{isSendInvoice,jdbcType=BIT},
+      </if>
+      <if test="payPeriodAmount != null" >
+        #{payPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceTraderId != null" >
+        #{invoiceTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderName != null" >
+        #{invoiceTraderName,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderContactId != null" >
+        #{invoiceTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderContactName != null" >
+        #{invoiceTraderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTraderContactMobile != null" >
+        #{invoiceTraderContactMobile,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderContactTelephone != null" >
+        #{invoiceTraderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTraderAddressId  != null" >
+        #{invoiceTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderAddress != null" >
+        #{invoiceTraderAddress,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderArea != null" >
+        #{invoiceTraderArea,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceComments != null" >
+        #{invoiceComments,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePaymentStatus != null" >
+        #{receivePaymentStatus,jdbcType=BIT},  
+      </if>
+      <if test="receivePaymentTime != null" >
+        #{receivePaymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=BIT},  
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.aftersales.model.AfterSalesDetail" >
+    update T_AFTER_SALES_DETAIL
+    <set >
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=INTEGER},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE = #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactTelephone != null" >
+        TRADER_CONTACT_TELEPHONE = #{traderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="refund != null" >
+        REFUND = #{refund,jdbcType=BIT},
+      </if>
+      <if test="areaId != null" >
+        AREA_ID = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="addressId != null" >
+        ADDRESS_ID = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundFee != null" >
+        REFUND_FEE = #{refundFee,jdbcType=DECIMAL},
+      </if>
+      <if test="realRefundAmount != null" >
+        REAL_REFUND_AMOUNT = #{realRefundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentAmount != null" >
+        PAYMENT_AMOUNT = #{paymentAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmountStatus != null" >
+        REFUND_AMOUNT_STATUS = #{refundAmountStatus,jdbcType=BIT},
+      </if>
+      <if test="traderSubject != null" >
+        TRADER_SUBJECT = #{traderSubject,jdbcType=BIT},
+      </if>
+      <if test="traderMode != null" >
+        TRADER_MODE = #{traderMode,jdbcType=BIT},
+      </if>
+      <if test="payee != null" >
+        PAYEE = #{payee,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        BANK = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceAmount != null" >
+        SERVICE_AMOUNT = #{serviceAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="isSendInvoice != null" >
+        IS_SEND_INVOICE = #{isSendInvoice,jdbcType=BIT},
+      </if>
+      <if test="payPeriodAmount != null" >
+        PERIOD_AMOUNT = #{payPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceTraderId != null" >
+        INVOICE_TRADER_ID = #{invoiceTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderName != null" >
+        INVOICE_TRADER_NAME = #{invoiceTraderName,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderContactId != null" >
+        INVOICE_TRADER_CONTACT_ID = #{invoiceTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderContactName != null" >
+        INVOICE_TRADER_CONTACT_NAME = #{invoiceTraderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTraderContactMobile != null" >
+        INVOICE_TRADER_CONTACT_MOBILE = #{invoiceTraderContactMobile,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderContactTelephone != null" >
+        INVOICE_TRADER_CONTACT_TELEPHONE = #{invoiceTraderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceTraderAddressId  != null" >
+        INVOICE_TRADER_ADDRESS_ID = #{invoiceTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceTraderAddress != null" >
+        INVOICE_TRADER_ADDRESS = #{invoiceTraderAddress,jdbcType=VARCHAR},
+      </if>      
+      <if test="invoiceTraderArea != null" >
+        INVOICE_TRADER_AREA = #{invoiceTraderArea,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceComments != null" >
+        INVOICE_COMMENTS = #{invoiceComments,jdbcType=VARCHAR},
+      </if>
+      <if test="receivePaymentStatus != null" >
+        RECEIVE_PAYMENT_STATUS = #{receivePaymentStatus,jdbcType=BIT},  
+      </if>
+      <if test="receivePaymentTime != null" >
+        RECEIVE_PAYMENT_TIME = #{receivePaymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},  
+      </if>
+      <if test="paymentTime != null" >
+        PAYMENT_TIME = #{paymentTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where AFTER_SALES_DETAIL_ID = #{afterSalesDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.aftersales.model.AfterSalesDetail" >
+    update T_AFTER_SALES_DETAIL
+    set AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      REASON = #{reason,jdbcType=INTEGER},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      TRADER_ID = #{traderId,jdbcType=INTEGER},
+      TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+      TRADER_CONTACT_MOBILE = #{traderContactMobile,jdbcType=VARCHAR},
+      TRADER_CONTACT_TELEPHONE = #{traderContactTelephone,jdbcType=VARCHAR},
+      REFUND = #{refund,jdbcType=BIT},
+      AREA_ID = #{areaId,jdbcType=INTEGER},
+      ADDRESS_ID = #{addressId,jdbcType=INTEGER},
+      AREA = #{area,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      REFUND_FEE = #{refundFee,jdbcType=DECIMAL},
+      REAL_REFUND_AMOUNT = #{realRefundAmount,jdbcType=DECIMAL},
+      PAYMENT_AMOUNT = #{paymentAmount,jdbcType=DECIMAL},
+      REFUND_AMOUNT_STATUS = #{refundAmountStatus,jdbcType=BIT},
+      TRADER_SUBJECT = #{traderSubject,jdbcType=BIT},
+      TRADER_MODE = #{traderMode,jdbcType=BIT},
+      PAYEE = #{payee,jdbcType=VARCHAR},
+      BANK = #{bank,jdbcType=VARCHAR},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      BANK_ACCOUNT = #{bankAccount,jdbcType=VARCHAR},
+      SERVICE_AMOUNT = #{serviceAmount,jdbcType=DECIMAL},
+      INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+      IS_SEND_INVOICE = #{isSendInvoice,jdbcType=BIT},
+      PERIOD_AMOUNT = #{payPeriodAmount,jdbcType=DECIMAL},
+      INVOICE_TRADER_ID = #{invoiceTraderId,jdbcType=INTEGER},
+      INVOICE_TRADER_NAME = #{invoiceTraderName,jdbcType=VARCHAR},
+      INVOICE_TRADER_CONTACT_ID = #{invoiceTraderContactId,jdbcType=INTEGER},
+      INVOICE_TRADER_CONTACT_NAME = #{invoiceTraderContactName,jdbcType=VARCHAR},
+      INVOICE_TRADER_CONTACT_MOBILE = #{invoiceTraderContactMobile,jdbcType=VARCHAR},
+      INVOICE_TRADER_CONTACT_TELEPHONE = #{invoiceTraderContactTelephone,jdbcType=VARCHAR},
+      INVOICE_TRADER_ADDRESS_ID = #{invoiceTraderAddressId,jdbcType=INTEGER},
+      INVOICE_TRADER_ADDRESS = #{invoiceTraderAddress,jdbcType=VARCHAR},
+      INVOICE_TRADER_AREA = #{invoiceTraderArea,jdbcType=VARCHAR},
+      INVOICE_COMMENTS = #{invoiceComments,jdbcType=VARCHAR},
+      RECEIVE_PAYMENT_STATUS = #{receivePaymentStatus,jdbcType=BIT},  
+	  RECEIVE_PAYMENT_TIME = #{receivePaymentTime,jdbcType=BIGINT},
+	  PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},  
+	  PAYMENT_TIME = #{paymentTime,jdbcType=BIGINT}
+    where AFTER_SALES_DETAIL_ID = #{afterSalesDetailId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAfterSalesDetailVoList" parameterType="com.vedeng.aftersales.model.AfterSalesDetail" resultMap="VoResultMap">
+  	select
+  		a.AFTER_SALES_DETAIL_ID, a.AFTER_SALES_ID, a.REASON, a.COMMENTS, a.TRADER_ID, a.TRADER_CONTACT_ID, a.TRADER_CONTACT_NAME, 
+	    a.TRADER_CONTACT_MOBILE, a.TRADER_CONTACT_TELEPHONE, a.REFUND, a.AREA_ID, a.ADDRESS_ID, a.AREA, 
+	    a.ADDRESS, a.REFUND_AMOUNT, a.REFUND_FEE, a.REAL_REFUND_AMOUNT, a.PAYMENT_AMOUNT, a.REFUND_AMOUNT_STATUS, a.TRADER_SUBJECT, a.TRADER_MODE,
+	    a.PAYEE, a.BANK, a.BANK_CODE, a.BANK_ACCOUNT,b.ORDER_ID,a.SERVICE_AMOUNT, a.INVOICE_TYPE, a.IS_SEND_INVOICE, a.PERIOD_AMOUNT,
+	    a.INVOICE_TRADER_ID, a.INVOICE_TRADER_NAME, a.INVOICE_TRADER_CONTACT_ID, a.INVOICE_TRADER_CONTACT_NAME, 
+      	a.INVOICE_TRADER_CONTACT_MOBILE, a.INVOICE_TRADER_CONTACT_TELEPHONE, a.INVOICE_TRADER_ADDRESS_ID, 
+      	a.INVOICE_TRADER_ADDRESS, a.INVOICE_TRADER_AREA, a.INVOICE_COMMENTS
+  	from T_AFTER_SALES_DETAIL a
+  	left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+  	where 1=1
+  		<if test="afterSalesId != null" >
+        	and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+        </if>
+  </select>
+  
+  <delete id="delAfterSalesDetailByafterSalesId" parameterType="java.lang.Integer" >
+    delete from T_AFTER_SALES_DETAIL
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </delete>
+  
+  <select id="getAfterSalesDetailVoById" resultMap="VoResultMap" parameterType="java.lang.Integer" >
+    select 
+    	<include refid="Base_Column_List" />
+    from T_AFTER_SALES_DETAIL a
+    where AFTER_SALES_DETAIL_ID = #{afterSalesDetailId,jdbcType=INTEGER}
+  </select>
+  <!-- 查询售后详情 -->
+   <select id="selectadtbyid" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    SELECT
+		a.*,b.TRADER_NAME
+	FROM
+		T_AFTER_SALES_DETAIL a
+		LEFT JOIN T_TRADER b
+	ON a.TRADER_ID = b.TRADER_ID
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+</mapper>

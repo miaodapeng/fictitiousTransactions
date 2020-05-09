@@ -1,0 +1,78 @@
+@import url('./font/font.css');
+@import url('./lib/reset.css');
+
+html,
+body {
+    background: #f5f7fa;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+.cf {
+
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+
+.fixed {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-bottom: solid 1px #EDF0F2;
+}
+
+.vd-alert-wrap {
+    position: fixed;
+    width: 100%;
+    top: 20%;
+    text-align: center;
+    display: none;
+
+    .vd-alert-cnt {
+        line-height: 41px;
+        max-height: 410px;
+        padding: 0 20px;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 5px;
+        display: inline-block;
+        overflow: hidden;
+        max-width: 500px;
+
+        &.alert-succ {
+            background: #13BF13;
+        }
+
+        &.alert-warn,
+        &.alert-err {
+            background: #FF9500;
+        }
+    }
+}
+
+.line-clamp2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 36px;
+}

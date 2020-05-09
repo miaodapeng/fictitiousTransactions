@@ -1,0 +1,102 @@
+    	  .vedeng_fg {
+            color: #08528C;
+            }
+
+            .vedeng_bg {
+            border-bottom: 4px solid #08528C;
+            }
+
+            .con {
+            margin-left: 30px;
+            }
+
+            .con li {
+            list-style-type: upper-roman;
+            }
+
+            .underline {
+            border-bottom: 1px solid #000;
+            width: 80px;
+            }
+
+            table td {
+            line-height: 20px;
+            }
+.content {
+        font-size: 36px;
+        color: #ff0000;}
+.seal{
+	height: 150px;
+	width: 150px;
+}
+.break-page{
+	page-break-before:auto;
+
+}
+.company{
+	height: 80px;
+}
+.seal-content{
+	
+	
+	height: 180px;
+	width: 300px;
+}
+.print-table-title{
+    font-size: 16px;
+    margin: 10px 0;
+}
+.print-table{
+    border-collapse: collapse; border: 1px solid #000;
+}
+.print-table th,.print-table td{
+    border-right: 1px solid #000;
+}
+.print-table th,.print-table1 td{
+    border-bottom: 1px solid #000;
+}
+.print-table tbody{font-family:'宋体'; font-size:12px; padding:4px;}
+.print-table .print-table {
+    border: none; 
+    border-top: 1px solid #000; 
+}
+.print-table .print-table tr td:last-child{
+    border-right: none; 
+}
+.break-page .right{
+	width:300px;
+	float: right;
+}
+.break-page .left{
+	width:300px;
+	float: left;
+}
+
+.seal-table{
+	width:100%;
+	display: inline-block;
+	/*background-image: url("http://192.168.1.67:80/static/images/order_sign_b.png");
+	background-position: 85% 0;
+	background-repeat: no-repeat;*/
+}
+
+.seal-table td{
+    width:180px;
+	height: 150px;
+	vertical-align: middle;
+    text-align: center;
+}
+.seal-table .date{
+    background-image: url('../images/order_sign_b.png');
+    background-position: 100% 0;
+    background-repeat: no-repeat;height: 160px;text-align: center;
+}
+.seal-table .date2{
+    background-image: url('../images/order_sign_bh.png');
+    background-position: 100% 0;
+    background-repeat: no-repeat;height: 160px;text-align: center;
+}
+.align_d{
+   border-right: 1px solid #000; 
+   border-top: 0px;
+}

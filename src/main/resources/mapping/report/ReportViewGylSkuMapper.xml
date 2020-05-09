@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.report.dao.ReportViewGylSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.newtask.model.ReportViewGylSku" >
+    <!--          -->
+    <id column="VIEW_GYL_ID" property="viewGylId" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+    <result column="SKU_NAME" property="skuName" jdbcType="VARCHAR" />
+    <result column="SKU_TYPE_ID" property="skuTypeId" jdbcType="INTEGER" />
+    <result column="SKU_TYPE_NAME" property="skuTypeName" jdbcType="VARCHAR" />
+    <result column="SKU_LEVEL_ID" property="skuLevelId" jdbcType="INTEGER" />
+    <result column="SKU_LEVEL_NAME" property="skuLevelName" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="INTEGER" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="TOP_CATEGORY_ID" property="topCategoryId" jdbcType="INTEGER" />
+    <result column="TOP_CATEGORY_NAME" property="topCategoryName" jdbcType="VARCHAR" />
+    <result column="SECOND_CATEGORY_ID" property="secondCategoryId" jdbcType="INTEGER" />
+    <result column="SECOND_CATEGORY_NAME" property="secondCategoryName" jdbcType="VARCHAR" />
+    <result column="THIRD_CATEHGORY_ID" property="thirdCatehgoryId" jdbcType="INTEGER" />
+    <result column="THIRD_CATEHGORY_NAME" property="thirdCatehgoryName" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="BASE_UNIT_ID" property="baseUnitId" jdbcType="INTEGER" />
+    <result column="BASE_UNIT_NAME" property="baseUnitName" jdbcType="VARCHAR" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="IS_ON_SALE" property="isOnSale" jdbcType="VARCHAR" />
+    <result column="STOCK_NUM" property="stockNum" jdbcType="INTEGER" />
+    <result column="OCCUPY_NUM" property="occupyNum" jdbcType="INTEGER" />
+    <result column="ACTION_LOCK_COUNT" property="actionLockCount" jdbcType="INTEGER" />
+    <result column="ACTION_OCCUPY_COUNT" property="actionOccupyCount" jdbcType="INTEGER" />
+    <result column="PURCHASE_ON_ORDER_NUM" property="purchaseOnOrderNum" jdbcType="INTEGER" />
+    <result column="TOTAL_LEND_OUT_NUM" property="totalLendOutNum" jdbcType="INTEGER" />
+    <result column="TOTAL_LEND_OUT_NUM_THIRTY_DAYS" property="totalLendOutNumThirtyDays" jdbcType="INTEGER" />
+    <result column="TOTAL_LEND_OUT_NUM_NINETY_DAYS" property="totalLendOutNumNinetyDays" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_HC" property="totalSellNumHc" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_BD" property="totalSellNumBd" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_VS" property="totalSellNumVs" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_DH" property="totalSellNumDh" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_ADK" property="totalSellNumAdk" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_JX" property="totalSellNumJx" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_EL" property="totalSellNumEl" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_HC" property="totalSellNumThirtyDaysHc" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_BD" property="totalSellNumThirtyDaysBd" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_VS" property="totalSellNumThirtyDaysVs" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_DH" property="totalSellNumThirtyDaysDh" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_ADK" property="totalSellNumThirtyDaysAdk" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_JX" property="totalSellNumThirtyDaysJx" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_THIRTY_DAYS_EL" property="totalSellNumThirtyDaysEl" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_HC" property="totalSellNumNinetyDaysHc" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_BD" property="totalSellNumNinetyDaysBd" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_VS" property="totalSellNumNinetyDaysVs" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_DH" property="totalSellNumNinetyDaysDh" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_ADK" property="totalSellNumNinetyDaysAdk" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_JX" property="totalSellNumNinetyDaysJx" jdbcType="INTEGER" />
+    <result column="TOTAL_SELL_NUM_NINETY_DAYS_EL" property="totalSellNumNinetyDaysEl" jdbcType="INTEGER" />
+    <result column="EARLIEST_PAY_TIME" property="earliestPayTime" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    VIEW_GYL_ID, ORG_ID, ORG_NAME, SKU_NO, SKU_NAME, SKU_TYPE_ID, SKU_TYPE_NAME, SKU_LEVEL_ID, 
+    SKU_LEVEL_NAME, BRAND_ID, BRAND_NAME, TOP_CATEGORY_ID, TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, 
+    SECOND_CATEGORY_NAME, THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, MODEL, BASE_UNIT_ID, 
+    BASE_UNIT_NAME, COST_PRICE, IS_ON_SALE, STOCK_NUM, OCCUPY_NUM, ACTION_LOCK_COUNT, 
+    ACTION_OCCUPY_COUNT, PURCHASE_ON_ORDER_NUM, TOTAL_LEND_OUT_NUM, TOTAL_LEND_OUT_NUM_THIRTY_DAYS, 
+    TOTAL_LEND_OUT_NUM_NINETY_DAYS, TOTAL_SELL_NUM_HC, TOTAL_SELL_NUM_BD, TOTAL_SELL_NUM_VS, 
+    TOTAL_SELL_NUM_DH, TOTAL_SELL_NUM_ADK, TOTAL_SELL_NUM_JX, TOTAL_SELL_NUM_EL, TOTAL_SELL_NUM_THIRTY_DAYS_HC, 
+    TOTAL_SELL_NUM_THIRTY_DAYS_BD, TOTAL_SELL_NUM_THIRTY_DAYS_VS, TOTAL_SELL_NUM_THIRTY_DAYS_DH, 
+    TOTAL_SELL_NUM_THIRTY_DAYS_ADK, TOTAL_SELL_NUM_THIRTY_DAYS_JX, TOTAL_SELL_NUM_THIRTY_DAYS_EL, 
+    TOTAL_SELL_NUM_NINETY_DAYS_HC, TOTAL_SELL_NUM_NINETY_DAYS_BD, TOTAL_SELL_NUM_NINETY_DAYS_VS, 
+    TOTAL_SELL_NUM_NINETY_DAYS_DH, TOTAL_SELL_NUM_NINETY_DAYS_ADK, TOTAL_SELL_NUM_NINETY_DAYS_JX, 
+    TOTAL_SELL_NUM_NINETY_DAYS_EL, EARLIEST_PAY_TIME, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_VIEW_GYL_BH
+    where VIEW_GYL_ID = #{viewGylId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--          -->
+    delete from T_REPORT_VIEW_GYL_BH
+    where VIEW_GYL_ID = #{viewGylId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.newtask.model.ReportViewGylSku" >
+    <!--          -->
+    insert into T_REPORT_VIEW_GYL_BH (VIEW_GYL_ID, ORG_ID, ORG_NAME, 
+      SKU_NO, SKU_NAME, SKU_TYPE_ID, 
+      SKU_TYPE_NAME, SKU_LEVEL_ID, SKU_LEVEL_NAME, 
+      BRAND_ID, BRAND_NAME, TOP_CATEGORY_ID, 
+      TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, SECOND_CATEGORY_NAME, 
+      THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, MODEL, 
+      BASE_UNIT_ID, BASE_UNIT_NAME, COST_PRICE, 
+      IS_ON_SALE, STOCK_NUM, OCCUPY_NUM, 
+      ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT, PURCHASE_ON_ORDER_NUM, 
+      TOTAL_LEND_OUT_NUM, TOTAL_LEND_OUT_NUM_THIRTY_DAYS, 
+      TOTAL_LEND_OUT_NUM_NINETY_DAYS, TOTAL_SELL_NUM_HC, 
+      TOTAL_SELL_NUM_BD, TOTAL_SELL_NUM_VS, TOTAL_SELL_NUM_DH, 
+      TOTAL_SELL_NUM_ADK, TOTAL_SELL_NUM_JX, TOTAL_SELL_NUM_EL, 
+      TOTAL_SELL_NUM_THIRTY_DAYS_HC, TOTAL_SELL_NUM_THIRTY_DAYS_BD, 
+      TOTAL_SELL_NUM_THIRTY_DAYS_VS, TOTAL_SELL_NUM_THIRTY_DAYS_DH, 
+      TOTAL_SELL_NUM_THIRTY_DAYS_ADK, TOTAL_SELL_NUM_THIRTY_DAYS_JX, 
+      TOTAL_SELL_NUM_THIRTY_DAYS_EL, TOTAL_SELL_NUM_NINETY_DAYS_HC, 
+      TOTAL_SELL_NUM_NINETY_DAYS_BD, TOTAL_SELL_NUM_NINETY_DAYS_VS, 
+      TOTAL_SELL_NUM_NINETY_DAYS_DH, TOTAL_SELL_NUM_NINETY_DAYS_ADK, 
+      TOTAL_SELL_NUM_NINETY_DAYS_JX, TOTAL_SELL_NUM_NINETY_DAYS_EL, 
+      EARLIEST_PAY_TIME, ADD_TIME, MOD_TIME
+      )
+    values (#{viewGylId,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, #{orgName,jdbcType=VARCHAR}, 
+      #{skuNo,jdbcType=VARCHAR}, #{skuName,jdbcType=VARCHAR}, #{skuTypeId,jdbcType=INTEGER}, 
+      #{skuTypeName,jdbcType=VARCHAR}, #{skuLevelId,jdbcType=INTEGER}, #{skuLevelName,jdbcType=VARCHAR}, 
+      #{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{topCategoryId,jdbcType=INTEGER}, 
+      #{topCategoryName,jdbcType=VARCHAR}, #{secondCategoryId,jdbcType=INTEGER}, #{secondCategoryName,jdbcType=VARCHAR}, 
+      #{thirdCatehgoryId,jdbcType=INTEGER}, #{thirdCatehgoryName,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{baseUnitId,jdbcType=INTEGER}, #{baseUnitName,jdbcType=VARCHAR}, #{costPrice,jdbcType=VARCHAR}, 
+      #{isOnSale,jdbcType=VARCHAR}, #{stockNum,jdbcType=INTEGER}, #{occupyNum,jdbcType=INTEGER}, 
+      #{actionLockCount,jdbcType=INTEGER}, #{actionOccupyCount,jdbcType=INTEGER}, #{purchaseOnOrderNum,jdbcType=INTEGER}, 
+      #{totalLendOutNum,jdbcType=INTEGER}, #{totalLendOutNumThirtyDays,jdbcType=INTEGER}, 
+      #{totalLendOutNumNinetyDays,jdbcType=INTEGER}, #{totalSellNumHc,jdbcType=INTEGER}, 
+      #{totalSellNumBd,jdbcType=INTEGER}, #{totalSellNumVs,jdbcType=INTEGER}, #{totalSellNumDh,jdbcType=INTEGER}, 
+      #{totalSellNumAdk,jdbcType=INTEGER}, #{totalSellNumJx,jdbcType=INTEGER}, #{totalSellNumEl,jdbcType=INTEGER}, 
+      #{totalSellNumThirtyDaysHc,jdbcType=INTEGER}, #{totalSellNumThirtyDaysBd,jdbcType=INTEGER}, 
+      #{totalSellNumThirtyDaysVs,jdbcType=INTEGER}, #{totalSellNumThirtyDaysDh,jdbcType=INTEGER}, 
+      #{totalSellNumThirtyDaysAdk,jdbcType=INTEGER}, #{totalSellNumThirtyDaysJx,jdbcType=INTEGER}, 
+      #{totalSellNumThirtyDaysEl,jdbcType=INTEGER}, #{totalSellNumNinetyDaysHc,jdbcType=INTEGER}, 
+      #{totalSellNumNinetyDaysBd,jdbcType=INTEGER}, #{totalSellNumNinetyDaysVs,jdbcType=INTEGER}, 
+      #{totalSellNumNinetyDaysDh,jdbcType=INTEGER}, #{totalSellNumNinetyDaysAdk,jdbcType=INTEGER}, 
+      #{totalSellNumNinetyDaysJx,jdbcType=INTEGER}, #{totalSellNumNinetyDaysEl,jdbcType=INTEGER}, 
+      #{earliestPayTime,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, #{modTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtask.model.ReportViewGylSku" >
+    <!--          -->
+    insert into T_REPORT_VIEW_GYL_BH
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="viewGylId != null" >
+        VIEW_GYL_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME,
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO,
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME,
+      </if>
+      <if test="skuTypeId != null" >
+        SKU_TYPE_ID,
+      </if>
+      <if test="skuTypeName != null" >
+        SKU_TYPE_NAME,
+      </if>
+      <if test="skuLevelId != null" >
+        SKU_LEVEL_ID,
+      </if>
+      <if test="skuLevelName != null" >
+        SKU_LEVEL_NAME,
+      </if>
+      <if test="brandId != null" >
+        BRAND_ID,
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME,
+      </if>
+      <if test="topCategoryId != null" >
+        TOP_CATEGORY_ID,
+      </if>
+      <if test="topCategoryName != null" >
+        TOP_CATEGORY_NAME,
+      </if>
+      <if test="secondCategoryId != null" >
+        SECOND_CATEGORY_ID,
+      </if>
+      <if test="secondCategoryName != null" >
+        SECOND_CATEGORY_NAME,
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        THIRD_CATEHGORY_ID,
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        THIRD_CATEHGORY_NAME,
+      </if>
+      <if test="model != null" >
+        MODEL,
+      </if>
+      <if test="baseUnitId != null" >
+        BASE_UNIT_ID,
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME,
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE,
+      </if>
+      <if test="isOnSale != null" >
+        IS_ON_SALE,
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM,
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM,
+      </if>
+      <if test="actionLockCount != null" >
+        ACTION_LOCK_COUNT,
+      </if>
+      <if test="actionOccupyCount != null" >
+        ACTION_OCCUPY_COUNT,
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        PURCHASE_ON_ORDER_NUM,
+      </if>
+      <if test="totalLendOutNum != null" >
+        TOTAL_LEND_OUT_NUM,
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        TOTAL_LEND_OUT_NUM_THIRTY_DAYS,
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        TOTAL_LEND_OUT_NUM_NINETY_DAYS,
+      </if>
+      <if test="totalSellNumHc != null" >
+        TOTAL_SELL_NUM_HC,
+      </if>
+      <if test="totalSellNumBd != null" >
+        TOTAL_SELL_NUM_BD,
+      </if>
+      <if test="totalSellNumVs != null" >
+        TOTAL_SELL_NUM_VS,
+      </if>
+      <if test="totalSellNumDh != null" >
+        TOTAL_SELL_NUM_DH,
+      </if>
+      <if test="totalSellNumAdk != null" >
+        TOTAL_SELL_NUM_ADK,
+      </if>
+      <if test="totalSellNumJx != null" >
+        TOTAL_SELL_NUM_JX,
+      </if>
+      <if test="totalSellNumEl != null" >
+        TOTAL_SELL_NUM_EL,
+      </if>
+      <if test="totalSellNumThirtyDaysHc != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_HC,
+      </if>
+      <if test="totalSellNumThirtyDaysBd != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_BD,
+      </if>
+      <if test="totalSellNumThirtyDaysVs != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_VS,
+      </if>
+      <if test="totalSellNumThirtyDaysDh != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_DH,
+      </if>
+      <if test="totalSellNumThirtyDaysAdk != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_ADK,
+      </if>
+      <if test="totalSellNumThirtyDaysJx != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_JX,
+      </if>
+      <if test="totalSellNumThirtyDaysEl != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_EL,
+      </if>
+      <if test="totalSellNumNinetyDaysHc != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_HC,
+      </if>
+      <if test="totalSellNumNinetyDaysBd != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_BD,
+      </if>
+      <if test="totalSellNumNinetyDaysVs != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_VS,
+      </if>
+      <if test="totalSellNumNinetyDaysDh != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_DH,
+      </if>
+      <if test="totalSellNumNinetyDaysAdk != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_ADK,
+      </if>
+      <if test="totalSellNumNinetyDaysJx != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_JX,
+      </if>
+      <if test="totalSellNumNinetyDaysEl != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_EL,
+      </if>
+      <if test="earliestPayTime != null" >
+        EARLIEST_PAY_TIME,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="viewGylId != null" >
+        #{viewGylId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuNo != null" >
+        #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTypeId != null" >
+        #{skuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeName != null" >
+        #{skuTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuLevelId != null" >
+        #{skuLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="skuLevelName != null" >
+        #{skuLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topCategoryId != null" >
+        #{topCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="topCategoryName != null" >
+        #{topCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategoryId != null" >
+        #{secondCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategoryName != null" >
+        #{secondCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        #{thirdCatehgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        #{thirdCatehgoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="baseUnitId != null" >
+        #{baseUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="baseUnitName != null" >
+        #{baseUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnSale != null" >
+        #{isOnSale,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="actionLockCount != null" >
+        #{actionLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="actionOccupyCount != null" >
+        #{actionOccupyCount,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        #{purchaseOnOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNum != null" >
+        #{totalLendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumHc != null" >
+        #{totalSellNumHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumBd != null" >
+        #{totalSellNumBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumVs != null" >
+        #{totalSellNumVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumDh != null" >
+        #{totalSellNumDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumAdk != null" >
+        #{totalSellNumAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumJx != null" >
+        #{totalSellNumJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumEl != null" >
+        #{totalSellNumEl,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysHc != null" >
+        #{totalSellNumThirtyDaysHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysBd != null" >
+        #{totalSellNumThirtyDaysBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysVs != null" >
+        #{totalSellNumThirtyDaysVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysDh != null" >
+        #{totalSellNumThirtyDaysDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysAdk != null" >
+        #{totalSellNumThirtyDaysAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysJx != null" >
+        #{totalSellNumThirtyDaysJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysEl != null" >
+        #{totalSellNumThirtyDaysEl,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysHc != null" >
+        #{totalSellNumNinetyDaysHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysBd != null" >
+        #{totalSellNumNinetyDaysBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysVs != null" >
+        #{totalSellNumNinetyDaysVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysDh != null" >
+        #{totalSellNumNinetyDaysDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysAdk != null" >
+        #{totalSellNumNinetyDaysAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysJx != null" >
+        #{totalSellNumNinetyDaysJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysEl != null" >
+        #{totalSellNumNinetyDaysEl,jdbcType=INTEGER},
+      </if>
+      <if test="earliestPayTime != null" >
+        #{earliestPayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtask.model.ReportViewGylSku" >
+    <!--          -->
+    update T_REPORT_VIEW_GYL_BH
+    <set >
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="orgName != null" >
+        ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTypeId != null" >
+        SKU_TYPE_ID = #{skuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeName != null" >
+        SKU_TYPE_NAME = #{skuTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuLevelId != null" >
+        SKU_LEVEL_ID = #{skuLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="skuLevelName != null" >
+        SKU_LEVEL_NAME = #{skuLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        BRAND_ID = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topCategoryId != null" >
+        TOP_CATEGORY_ID = #{topCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="topCategoryName != null" >
+        TOP_CATEGORY_NAME = #{topCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategoryId != null" >
+        SECOND_CATEGORY_ID = #{secondCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategoryName != null" >
+        SECOND_CATEGORY_NAME = #{secondCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        THIRD_CATEHGORY_ID = #{thirdCatehgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        THIRD_CATEHGORY_NAME = #{thirdCatehgoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        MODEL = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="baseUnitId != null" >
+        BASE_UNIT_ID = #{baseUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME = #{baseUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnSale != null" >
+        IS_ON_SALE = #{isOnSale,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="actionLockCount != null" >
+        ACTION_LOCK_COUNT = #{actionLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="actionOccupyCount != null" >
+        ACTION_OCCUPY_COUNT = #{actionOccupyCount,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        PURCHASE_ON_ORDER_NUM = #{purchaseOnOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNum != null" >
+        TOTAL_LEND_OUT_NUM = #{totalLendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumThirtyDays != null" >
+        TOTAL_LEND_OUT_NUM_THIRTY_DAYS = #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalLendOutNumNinetyDays != null" >
+        TOTAL_LEND_OUT_NUM_NINETY_DAYS = #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumHc != null" >
+        TOTAL_SELL_NUM_HC = #{totalSellNumHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumBd != null" >
+        TOTAL_SELL_NUM_BD = #{totalSellNumBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumVs != null" >
+        TOTAL_SELL_NUM_VS = #{totalSellNumVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumDh != null" >
+        TOTAL_SELL_NUM_DH = #{totalSellNumDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumAdk != null" >
+        TOTAL_SELL_NUM_ADK = #{totalSellNumAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumJx != null" >
+        TOTAL_SELL_NUM_JX = #{totalSellNumJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumEl != null" >
+        TOTAL_SELL_NUM_EL = #{totalSellNumEl,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysHc != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_HC = #{totalSellNumThirtyDaysHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysBd != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_BD = #{totalSellNumThirtyDaysBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysVs != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_VS = #{totalSellNumThirtyDaysVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysDh != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_DH = #{totalSellNumThirtyDaysDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysAdk != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_ADK = #{totalSellNumThirtyDaysAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysJx != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_JX = #{totalSellNumThirtyDaysJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumThirtyDaysEl != null" >
+        TOTAL_SELL_NUM_THIRTY_DAYS_EL = #{totalSellNumThirtyDaysEl,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysHc != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_HC = #{totalSellNumNinetyDaysHc,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysBd != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_BD = #{totalSellNumNinetyDaysBd,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysVs != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_VS = #{totalSellNumNinetyDaysVs,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysDh != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_DH = #{totalSellNumNinetyDaysDh,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysAdk != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_ADK = #{totalSellNumNinetyDaysAdk,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysJx != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_JX = #{totalSellNumNinetyDaysJx,jdbcType=INTEGER},
+      </if>
+      <if test="totalSellNumNinetyDaysEl != null" >
+        TOTAL_SELL_NUM_NINETY_DAYS_EL = #{totalSellNumNinetyDaysEl,jdbcType=INTEGER},
+      </if>
+      <if test="earliestPayTime != null" >
+        EARLIEST_PAY_TIME = #{earliestPayTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where VIEW_GYL_ID = #{viewGylId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtask.model.ReportViewGylSku" >
+    <!--          -->
+    update T_REPORT_VIEW_GYL_BH
+    set ORG_ID = #{orgId,jdbcType=INTEGER},
+      ORG_NAME = #{orgName,jdbcType=VARCHAR},
+      SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      SKU_TYPE_ID = #{skuTypeId,jdbcType=INTEGER},
+      SKU_TYPE_NAME = #{skuTypeName,jdbcType=VARCHAR},
+      SKU_LEVEL_ID = #{skuLevelId,jdbcType=INTEGER},
+      SKU_LEVEL_NAME = #{skuLevelName,jdbcType=VARCHAR},
+      BRAND_ID = #{brandId,jdbcType=INTEGER},
+      BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      TOP_CATEGORY_ID = #{topCategoryId,jdbcType=INTEGER},
+      TOP_CATEGORY_NAME = #{topCategoryName,jdbcType=VARCHAR},
+      SECOND_CATEGORY_ID = #{secondCategoryId,jdbcType=INTEGER},
+      SECOND_CATEGORY_NAME = #{secondCategoryName,jdbcType=VARCHAR},
+      THIRD_CATEHGORY_ID = #{thirdCatehgoryId,jdbcType=INTEGER},
+      THIRD_CATEHGORY_NAME = #{thirdCatehgoryName,jdbcType=VARCHAR},
+      MODEL = #{model,jdbcType=VARCHAR},
+      BASE_UNIT_ID = #{baseUnitId,jdbcType=INTEGER},
+      BASE_UNIT_NAME = #{baseUnitName,jdbcType=VARCHAR},
+      COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      IS_ON_SALE = #{isOnSale,jdbcType=VARCHAR},
+      STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      ACTION_LOCK_COUNT = #{actionLockCount,jdbcType=INTEGER},
+      ACTION_OCCUPY_COUNT = #{actionOccupyCount,jdbcType=INTEGER},
+      PURCHASE_ON_ORDER_NUM = #{purchaseOnOrderNum,jdbcType=INTEGER},
+      TOTAL_LEND_OUT_NUM = #{totalLendOutNum,jdbcType=INTEGER},
+      TOTAL_LEND_OUT_NUM_THIRTY_DAYS = #{totalLendOutNumThirtyDays,jdbcType=INTEGER},
+      TOTAL_LEND_OUT_NUM_NINETY_DAYS = #{totalLendOutNumNinetyDays,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_HC = #{totalSellNumHc,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_BD = #{totalSellNumBd,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_VS = #{totalSellNumVs,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_DH = #{totalSellNumDh,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_ADK = #{totalSellNumAdk,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_JX = #{totalSellNumJx,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_EL = #{totalSellNumEl,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_HC = #{totalSellNumThirtyDaysHc,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_BD = #{totalSellNumThirtyDaysBd,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_VS = #{totalSellNumThirtyDaysVs,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_DH = #{totalSellNumThirtyDaysDh,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_ADK = #{totalSellNumThirtyDaysAdk,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_JX = #{totalSellNumThirtyDaysJx,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_THIRTY_DAYS_EL = #{totalSellNumThirtyDaysEl,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_HC = #{totalSellNumNinetyDaysHc,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_BD = #{totalSellNumNinetyDaysBd,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_VS = #{totalSellNumNinetyDaysVs,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_DH = #{totalSellNumNinetyDaysDh,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_ADK = #{totalSellNumNinetyDaysAdk,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_JX = #{totalSellNumNinetyDaysJx,jdbcType=INTEGER},
+      TOTAL_SELL_NUM_NINETY_DAYS_EL = #{totalSellNumNinetyDaysEl,jdbcType=INTEGER},
+      EARLIEST_PAY_TIME = #{earliestPayTime,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=VARCHAR}
+    where VIEW_GYL_ID = #{viewGylId,jdbcType=VARCHAR}
+  </update>
+
+  <insert id="insertBatch">
+    INSERT INTO T_REPORT_VIEW_GYL_BH(VIEW_GYL_ID, ORG_ID, ORG_NAME,
+      SKU_NO, SKU_NAME, SKU_TYPE_ID,
+      SKU_TYPE_NAME, SKU_LEVEL_ID, SKU_LEVEL_NAME,
+      BRAND_ID, BRAND_NAME, TOP_CATEGORY_ID,
+      TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, SECOND_CATEGORY_NAME,
+      THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, MODEL,
+      BASE_UNIT_ID, BASE_UNIT_NAME, COST_PRICE,
+      IS_ON_SALE, STOCK_NUM, OCCUPY_NUM,
+      ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT, PURCHASE_ON_ORDER_NUM,
+      TOTAL_SELL_NUM_HC, TOTAL_SELL_NUM_BD, TOTAL_SELL_NUM_VS, TOTAL_SELL_NUM_DH,
+      TOTAL_SELL_NUM_ADK, TOTAL_SELL_NUM_JX, TOTAL_SELL_NUM_EL,
+      EARLIEST_PAY_TIME, ADD_TIME, MOD_TIME)
+    SELECT
+      MD5(uuid()) AS VIEW_GYL_ID,
+      n.ORG_ID,
+      n.ORG_NAME,
+      m.SKU_NO,
+      m.SKU_NAME,
+      m.SKU_TYPE_ID,
+      m.SKU_TYPE_NAME,
+      m.SKU_LEVEL_ID,
+      m.SKU_LEVEL_NAME,
+      m.BRAND_ID,
+      m.BRAND_NAME,
+      m.TOP_CATEGORY_ID,
+      m.TOP_CATEGORY_NAME,
+      m.SECOND_CATEGORY_ID,
+      m.SECOND_CATEGORY_NAME,
+      m.THIRD_CATEHGORY_ID,
+      m.THIRD_CATEHGORY_NAME,
+      m.MODEL,
+      m.BASE_UNIT_ID,
+      m.BASE_UNIT_NAME,
+      m.COST_PRICE,
+      m.IS_ON_SALE,
+      m.STOCK_NUM,
+      m.OCCUPY_NUM,
+      m.ACTION_LOCK_COUNT,
+      m.ACTION_OCCUPY_COUNT,
+      m.PURCHASE_ON_ORDER_NUM,
+      n.TOTAL_SELL_NUM_HC,
+      n.TOTAL_SELL_NUM_BD,
+      n.TOTAL_SELL_NUM_VS,
+      n.TOTAL_SELL_NUM_DH,
+      n.TOTAL_SELL_NUM_ADK,
+      n.TOTAL_SELL_NUM_JX,
+      n.TOTAL_SELL_NUM_EL,
+      n.EARLIEST_PAY_TIME,
+      now() AS ADD_TIME,
+      now() AS MOD_TIME
+    FROM
+	(
+		SELECT
+			b.SKU_NO,
+			b.ORG_ID,
+			b.ORG_NAME,
+			b.EARLIEST_PAY_TIME,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 1 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_HC,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 2 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_BD,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 3 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_VS,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 4 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_DH,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 5 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_ADK,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 6 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_JX,
+			MAX(
+				CASE b.SELLORDER_NO_TYPE
+				WHEN 7 THEN
+					b.TOTAL_SELL_NUM
+				ELSE
+					0
+				END
+			) AS TOTAL_SELL_NUM_EL
+		FROM
+			(
+				SELECT
+					a.SKU_NO,
+					a.ORG_ID,
+					a.ORG_NAME,
+					a.SELLORDER_NO_TYPE,
+					a.EARLIEST_PAY_TIME,
+					SUM(a.SELL_NUM) AS TOTAL_SELL_NUM
+				FROM
+					T_REPORT_STATISTITCS_SKU a
+				GROUP BY
+					a.ORG_ID,
+					a.SKU_NO,
+					a.ORG_NAME,
+					a.SELLORDER_NO_TYPE,
+					a.EARLIEST_PAY_TIME
+			) b
+		GROUP BY
+			b.SKU_NO,
+			b.ORG_ID,
+			b.ORG_NAME,
+			b.EARLIEST_PAY_TIME
+
+	) n
+    LEFT JOIN (
+      SELECT
+          a.SKU_NO,
+          a.SKU_NAME,
+          a.SKU_TYPE_ID,
+          a.SKU_TYPE_NAME,
+          a.SKU_LEVEL_ID,
+          a.SKU_LEVEL_NAME,
+          a.BRAND_ID,
+          a.BRAND_NAME,
+          a.TOP_CATEGORY_ID,
+          a.TOP_CATEGORY_NAME,
+          a.SECOND_CATEGORY_ID,
+          a.SECOND_CATEGORY_NAME,
+          a.THIRD_CATEHGORY_ID,
+          a.THIRD_CATEHGORY_NAME,
+          CONCAT(
+              a.CHANGE_NUM,
+              ' ',
+              a.UNIT_NAME,
+              '/',
+              a.BASE_UNIT_NAME
+          ) AS MODEL,
+          a.BASE_UNIT_ID,
+          a.BASE_UNIT_NAME,
+          a.COST_PRICE,
+          (
+              CASE
+              WHEN a.IS_ON_SALE = 1 THEN
+                  '上架'
+              WHEN a.IS_ON_SALE = 0 THEN
+                  '下架'
+              ELSE
+                  ''
+              END
+          ) AS IS_ON_SALE,
+          a.STOCK_NUM,
+          a.OCCUPY_NUM,
+          a.ACTION_LOCK_COUNT,
+          a.ACTION_OCCUPY_COUNT,
+          a.PURCHASE_ON_ORDER_NUM
+      FROM
+          T_REPORT_ORDER_SKU a
+    ) m ON n.SKU_NO = m.SKU_NO
+    WHERE m.SKU_NO is not null
+  </insert>
+  <update id="trunCateViewGylSku">
+    TRUNCATE TABLE T_REPORT_VIEW_GYL_BH
+  </update>
+  <insert id="insertNotInReportStatistitcsSkuList">
+    INSERT INTO T_REPORT_VIEW_GYL_BH(VIEW_GYL_ID, ORG_ID, ORG_NAME,
+      SKU_NO, SKU_NAME, SKU_TYPE_ID,
+      SKU_TYPE_NAME, SKU_LEVEL_ID, SKU_LEVEL_NAME,
+      BRAND_ID, BRAND_NAME, TOP_CATEGORY_ID,
+      TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, SECOND_CATEGORY_NAME,
+      THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, MODEL,
+      BASE_UNIT_ID, BASE_UNIT_NAME, COST_PRICE,
+      IS_ON_SALE, STOCK_NUM, OCCUPY_NUM,
+      ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT, PURCHASE_ON_ORDER_NUM,
+      EARLIEST_PAY_TIME, ADD_TIME, MOD_TIME)
+    SELECT
+      MD5(uuid()) AS VIEW_GYL_ID,
+      n.ORG_ID,
+      n.ORG_NAME,
+      m.SKU_NO,
+      m.SKU_NAME,
+      m.SKU_TYPE_ID,
+      m.SKU_TYPE_NAME,
+      m.SKU_LEVEL_ID,
+      m.SKU_LEVEL_NAME,
+      m.BRAND_ID,
+      m.BRAND_NAME,
+      m.TOP_CATEGORY_ID,
+      m.TOP_CATEGORY_NAME,
+      m.SECOND_CATEGORY_ID,
+      m.SECOND_CATEGORY_NAME,
+      m.THIRD_CATEHGORY_ID,
+      m.THIRD_CATEHGORY_NAME,
+      m.MODEL,
+      m.BASE_UNIT_ID,
+      m.BASE_UNIT_NAME,
+      m.COST_PRICE,
+      m.IS_ON_SALE,
+      m.STOCK_NUM,
+      m.OCCUPY_NUM,
+      m.ACTION_LOCK_COUNT,
+      m.ACTION_OCCUPY_COUNT,
+      m.PURCHASE_ON_ORDER_NUM,
+      n.EARLIEST_PAY_TIME,
+      now() AS ADD_TIME,
+      now() AS MOD_TIME
+    FROM
+	(
+      SELECT
+        a.ORG_ID,
+        b.ORG_NAME,
+        a.SKU_NO,
+        a.SELLORDER_ADD_TIME AS EARLIEST_PAY_TIME
+      FROM T_REPORT_NOTSELL_SKU a
+      LEFT JOIN T_ORGANIZATION b ON a.ORG_ID = b.ORG_ID
+      WHERE (
+        SELECT
+          COUNT(1)
+        FROM T_REPORT_STATISTITCS_SKU b
+        WHERE
+          b.ORG_ID = a.ORG_ID AND
+          b.SKU_NO = a.SKU_NO AND
+          b.EARLIEST_PAY_TIME = a.SELLORDER_ADD_TIME
+          ) = 0
+    ) n
+    LEFT JOIN (
+      SELECT
+          a.SKU_NO,
+          a.SKU_NAME,
+          a.SKU_TYPE_ID,
+          a.SKU_TYPE_NAME,
+          a.SKU_LEVEL_ID,
+          a.SKU_LEVEL_NAME,
+          a.BRAND_ID,
+          a.BRAND_NAME,
+          a.TOP_CATEGORY_ID,
+          a.TOP_CATEGORY_NAME,
+          a.SECOND_CATEGORY_ID,
+          a.SECOND_CATEGORY_NAME,
+          a.THIRD_CATEHGORY_ID,
+          a.THIRD_CATEHGORY_NAME,
+          CONCAT(
+              a.CHANGE_NUM,
+              ' ',
+              a.UNIT_NAME,
+              '/',
+              a.BASE_UNIT_NAME
+          ) AS MODEL,
+          a.BASE_UNIT_ID,
+          a.BASE_UNIT_NAME,
+          a.COST_PRICE,
+          (
+              CASE
+              WHEN a.IS_ON_SALE = 1 THEN
+                  '上架'
+              WHEN a.IS_ON_SALE = 0 THEN
+                  '下架'
+              ELSE
+                  ''
+              END
+          ) AS IS_ON_SALE,
+          a.STOCK_NUM,
+          a.OCCUPY_NUM,
+          a.ACTION_LOCK_COUNT,
+          a.ACTION_OCCUPY_COUNT,
+          a.PURCHASE_ON_ORDER_NUM
+      FROM
+          T_REPORT_ORDER_SKU a
+    ) m ON n.SKU_NO = m.SKU_NO
+  </insert>
+</mapper>

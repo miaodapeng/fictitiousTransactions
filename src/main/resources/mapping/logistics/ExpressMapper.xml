@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.ExpressMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.logistics.model.Express" >
+    <id column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+    <result column="LOGISTICS_ID" property="logisticsId" jdbcType="INTEGER" />
+    <result column="LOGISTICS_NO" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="BIGINT" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="BIGINT" />
+    <result column="DELIVERY_FROM" property="deliveryFrom" jdbcType="INTEGER" />
+    <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="PAYMENT_TYPE" property="paymentType" jdbcType="INTEGER" />
+    <result column="CARD_NUMBER" property="cardnumber" jdbcType="VARCHAR" />
+    <result column="BUSINESS_TYPE" property="business_Type" jdbcType="INTEGER" />
+    <result column="REAL_WEIGHT" property="realWeight" jdbcType="DECIMAL" />
+    <result column="NUM" property="j_num" jdbcType="INTEGER" />
+    <result column="DNUM" property="num" jdbcType="INTEGER" />
+    <result column="AMOUNT_WEIGHT" property="amountWeight" jdbcType="DECIMAL" />
+    <result column="MAIL_GOODS" property="mailGoods" jdbcType="VARCHAR" />
+    <result column="MAIL_GOODS_NUM" property="mailGoodsNum" jdbcType="INTEGER" />
+    <result column="IS_PROTECT_PRICE" property="isProtectPrice" jdbcType="INTEGER" />
+    <result column="PROTECT_PRICE" property="protectPrice" jdbcType="DECIMAL" />
+    <result column="IS_RECEIPT" property="isReceipt" jdbcType="INTEGER" />
+    <result column="MAIL_COMMTENTS" property="mailCommtents" jdbcType="VARCHAR" />
+    <result column="SENT_SMS" property="sentSms" jdbcType="BIT" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="INVOICE_AMOUNT" property="invoiceAmount" jdbcType="DECIMAL" />
+    <result column="INVOICE_NO" property="invoiceNo" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.vedeng.logistics.model.Express" id="VoResultMap" extends="BaseResultMap">
+  	<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="EXPRESSNAME" property="logisticsCompanyName" jdbcType="VARCHAR" />
+    <result column="DELIVERY_TIME" property="fhTime" jdbcType="BIGINT" />
+     <result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" />
+    <result column="CONSIGNEENAME" property="sjName" jdbcType="VARCHAR" />
+    <result column="BUSINESSNAMENO" property="xsNo" jdbcType="VARCHAR" />
+    <result column="YWID" property="ywId" jdbcType="INTEGER" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+    <result column="ISOVERTIME" property="isovertime" jdbcType="INTEGER" />
+    <result column="CNT" property="cnt" jdbcType="INTEGER" />
+     <result column="YW_TYPE" property="ywType" jdbcType="INTEGER" />
+     <result column="ALLNUM" property="allnum" jdbcType="INTEGER" />
+     <result column="FNUM" property="fnum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="ExpressResultMap" type="com.vedeng.logistics.model.Express" extends="BaseResultMap">
+    <result column="CONTENT" property="content" jdbcType="VARCHAR" />
+    <result column="BUSINESSTYPE" property="business_Type" jdbcType="INTEGER" />
+  	<collection property="expressDetail" ofType="com.vedeng.logistics.model.ExpressDetail">
+	    <id column="EXPRESS_DETAIL_ID" property="expressDetailId" jdbcType="INTEGER" />
+    	<result column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+    	<result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" />
+    	<result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+    	<result column="DNUM" property="num" jdbcType="INTEGER" />
+    	<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    	<result column="GOOD_NAME" property="goodName" jdbcType="VARCHAR" />
+    	<result column="GOOD_ID" property="goodsId" jdbcType="VARCHAR" />
+    	<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+	<resultMap id="ExpressDetailResultMap" type="com.vedeng.logistics.model.ExpressDetail" >
+		<id column="EXPRESS_DETAIL_ID" property="expressDetailId" jdbcType="INTEGER" />
+		<result column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+		<result column="BUSINESS_TYPE" property="businessType" jdbcType="INTEGER" />
+		<result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+		<result column="NUM" property="num" jdbcType="INTEGER" />
+		<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+	</resultMap>
+  <sql id="Base_Column_List" >
+    EXPRESS_ID, LOGISTICS_ID, LOGISTICS_NO, COMPANY_ID, DELIVERY_TIME, ARRIVAL_STATUS, ARRIVAL_TIME, 
+    DELIVERY_FROM, LOGISTICS_COMMENTS, ADD_TIME, CREATOR, MOD_TIME, UPDATER
+  </sql>
+
+	<update id="updateExpressArrivalStatusById" parameterType="com.vedeng.logistics.model.Express" >
+		update T_EXPRESS
+		<set>
+			<if test="arrivalStatus != null" >
+				ARRIVAL_STATUS = #{arrivalStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where EXPRESS_ID = #{expressId,jdbcType=INTEGER}
+	</update>
+
+  <!-- 查询未到货的订单的物流单号  -->
+  <select id="getExpressInfoList" resultMap="BaseResultMap" parameterType="com.vedeng.logistics.model.Express" >
+   SELECT
+		a.*, c. NAME LOGISTICS_NAME,
+		c. CODE
+	FROM
+		T_EXPRESS a
+	LEFT JOIN T_LOGISTICS b ON a.LOGISTICS_ID = b.LOGISTICS_ID
+	LEFT JOIN T_LOGISTICS_CODE c ON b. NAME = c. NAME
+	LEFT JOIN T_EXPRESS_DETAIL d ON a.EXPRESS_ID = d.EXPRESS_ID
+	WHERE
+		a.ARRIVAL_STATUS != 2
+	AND a.IS_ENABLE = 1
+	AND a.COMPANY_ID = 1
+	AND d.BUSINESS_TYPE != 515
+	AND a.LOGISTICS_NO IS NOT NULL AND a.LOGISTICS_NO <![CDATA[ <> ]]> ''
+	and a.DELIVERY_TIME <![CDATA[ <= ]]> #{endTime,jdbcType=INTEGER}
+	and a.DELIVERY_TIME  <![CDATA[ > ]]>  1535677167000
+	GROUP BY
+		a.EXPRESS_ID
+	UNION ALL
+		SELECT
+			T.*, c. NAME LOGISTICS_NAME,
+			c. CODE
+		FROM
+			T_EXPRESS T
+		LEFT JOIN T_LOGISTICS L ON T.LOGISTICS_ID = L.LOGISTICS_ID
+		LEFT JOIN T_LOGISTICS_CODE c ON L. NAME = c. NAME
+		LEFT JOIN T_EXPRESS_DETAIL TT ON T.EXPRESS_ID = TT.EXPRESS_ID
+		AND TT.BUSINESS_TYPE = 515
+		LEFT JOIN T_BUYORDER_GOODS a ON TT.RELATED_ID = a.BUYORDER_GOODS_ID
+		LEFT JOIN T_BUYORDER b ON a.BUYORDER_ID = b.BUYORDER_ID
+		WHERE
+			1 = 1
+		AND T.IS_ENABLE = 1
+		AND T.COMPANY_ID = 1
+		AND T.ARRIVAL_STATUS = 0
+		AND TT.BUSINESS_TYPE = 515
+		AND b.DELIVERY_DIRECT = 1
+	and T.DELIVERY_TIME <![CDATA[ < ]]> #{endTime,jdbcType=INTEGER}
+	and T.DELIVERY_TIME  <![CDATA[ > ]]>  1535677167000
+	AND T.LOGISTICS_NO IS NOT NULL AND T.LOGISTICS_NO <![CDATA[ <> ]]> ''
+		GROUP BY
+			T.EXPRESS_ID
+
+  </select>
+  
+   <select id="getLendOutExpressInfo" parameterType="com.vedeng.logistics.model.Express" resultMap="ExpressResultMap">
+	  select a.*,b.EXPRESS_DETAIL_ID,b.BUSINESS_TYPE,b.RELATED_ID,b.NUM DNUM,b.AMOUNT,c.NAME as LOGISTICS_NAME,l.CONTENT
+	  	<if test="businessType!=null and (businessType== 496 or businessType== 515 )">
+	    ,d.GOODS_NAME as GOOD_NAME,d.UNIT_NAME,d.GOODS_ID as GOOD_ID,d.SKU as SKU
+	  	</if>
+	  	<if test="businessType!=null and (businessType== 497)">
+	    ,d.AMOUNT AS INVOICE_AMOUNT,d.INVOICE_NO AS INVOICE_NO
+	  	</if>
+	  	<if test="businessType!=null and (businessType== 582)">
+	    ,e.GOODS_NAME AS GOOD_NAME,e.SKU AS SKU
+	  	</if>
+	  	<if test="businessType!=null and (businessType== 660)">
+	    ,d.GOODS_NAME AS GOOD_NAME,
+        e.UNIT_NAME,
+        d.GOODS_ID AS GOOD_ID 
+	  	</if>
+	    from T_EXPRESS a
+	    left join T_EXPRESS_DETAIL b on a.EXPRESS_ID=b.EXPRESS_ID 
+	    left join T_LOGISTICS c on a.LOGISTICS_ID = c.LOGISTICS_ID and c.IS_ENABLE =1
+	    left join T_LOGISTICS_DETAIL  l on l.LOGISTICS_NO = a.LOGISTICS_NO
+	    <!-- 销售 -->
+	    <if test="businessType!=null and businessType== 496">
+	    left join T_SALEORDER_GOODS d on d.SALEORDER_GOODS_ID = b.RELATED_ID
+	    AND d.IS_DELETE =0
+	    </if>
+	    <!-- 发票寄送 -->
+	    <if test="businessType!=null and businessType== 497">
+	    left join T_INVOICE d on d.EXPRESS_ID = a.EXPRESS_ID
+	    </if>
+	    <!-- 采购 -->
+	    <if test="businessType!=null and businessType== 515">
+	    left join T_BUYORDER_GOODS d on d.BUYORDER_GOODS_ID = b.RELATED_ID
+	    AND d.IS_DELETE =0
+	    </if>
+	    <!-- 售后 -->
+	    <if test="businessType!=null and businessType== 582">
+	    left join T_AFTER_SALES_GOODS d on d.AFTER_SALES_GOODS_ID = b.RELATED_ID
+	    AND d.GOODS_TYPE =0 LEFT JOIN T_GOODS e ON d.GOODS_ID = e.GOODS_ID
+	    </if>
+	    <!-- 外接单  -->
+	    <if test="businessType!=null and businessType== 660">
+		LEFT JOIN T_LEND_OUT h
+		ON h.`LEND_OUT_ID` = b.RELATED_ID
+		LEFT JOIN T_GOODS d
+		ON d.`GOODS_ID` = h.`GOODS_ID`
+		LEFT JOIN T_UNIT e
+		ON d.`UNIT_ID` = e.`UNIT_ID`
+	    </if>
+	    where 1=1
+	        and a.IS_ENABLE=1
+		<if test="expressId!=null and expressId!='-1'">
+			and a.EXPRESS_ID=#{expressId,jdbcType=INTEGER}
+		</if>
+		<if test="companyId!=null and companyId!='-1'">
+			and a.COMPANY_ID=#{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="logisticsId!=null and logisticsId!='-1'">
+			and a.LOGISTICS_ID=#{logisticsId,jdbcType=INTEGER}
+		</if>
+		<if test="logisticsNo!=null and logisticsNo!=''">
+			and a.LOGISTICS_NO like CONCAT('%',#{logisticsNo,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="deliveryFrom!=null and deliveryFrom!='-1'">
+			and a.DELIVERY_FROM=#{deliveryFrom,jdbcType=INTEGER}
+		</if>
+		<if test="creator!=null and creator!='-1'">
+			and a.CREATOR=#{creator,jdbcType=INTEGER}
+		</if>
+		<if test="updater!=null and updater!='-1'">
+			and a.UPDATER=#{updater,jdbcType=INTEGER}
+		</if>
+		<if test="expressDetailId!=null and expressDetailId!='-1'">
+			and b.EXPRESS_DETAIL_ID=#{expressDetailId,jdbcType=INTEGER}
+		</if>
+		<if test="businessType!=null and businessType!='-1'">
+			and b.BUSINESS_TYPE=#{businessType,jdbcType=INTEGER}
+		</if>
+		<if test="relatedId!=null and relatedId!='-1'">
+			and b.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+		</if>
+		<if test="relatedIds !=null and relatedIds.size()>0">
+			and b.RELATED_ID in
+			<foreach collection="relatedIds" item="relatedId" index="index"
+	            open="(" close=")" separator=",">
+	            #{relatedId}
+	        </foreach>
+		</if>
+		<if test="num!=null and num!=''">
+			and b.NUM=#{num,jdbcType=INTEGER}
+		</if>
+		<if test="amount!=null and amount!=''">
+			and b.AMOUNT=#{amount,jdbcType=INTEGER}
+		</if>
+		
+	    order by  
+	  		a.ADD_TIME desc
+  </select>
+    <!--发货提醒-->
+<!--    <select id="shipmentToRemind" resultType="com.vedeng.logistics.model.ShipmentToRemind">
+     SELECT l.LOGISTICS_NO AS logIsTicsNo,s.GOODS_NAME goodsName,f.NUM AS afterSalesNum, s.NUM AS goodsNum,s.DELIVERY_NUM AS DeliveryNum,ts.VALID_TIME AS validTime,TRADER_CONTACT_NAME AS taaderContactName
+     ,TRADER_CONTACT_MOBILE AS traderContactMobile,lo.NAME ligisticsName,ts.SALEORDER_NO SaleOrderNo
+     FROM
+     T_EXPRESS l
+     LEFT JOIN
+     T_EXPRESS_DETAIL t
+     ON l.EXPRESS_ID=t.EXPRESS_ID
+     LEFT JOIN T_LOGISTICS lo
+     ON l.LOGISTICS_ID=lo.LOGISTICS_ID
+     LEFT JOIN T_SALEORDER_GOODS s
+     ON t.RELATED_ID=s.SALEORDER_GOODS_ID
+     LEFT JOIN T_AFTER_SALES_GOODS f
+     ON  f.ORDER_DETAIL_ID=s.SALEORDER_GOODS_ID
+     LEFT JOIN T_SALEORDER ts
+     ON ts.SALEORDER_ID=s.SALEORDER_ID
+    </select>-->
+
+   <!--根据快递单号查询发货的商品数量和sku-->
+	<select id="selectExpressGood" resultType="com.vedeng.logistics.model.LogisticsOrderGoodsData">
+		 SELECT tg.SKU skuNo,td.NUM num FROM T_EXPRESS te
+		 LEFT JOIN T_EXPRESS_DETAIL td
+		 ON te.EXPRESS_ID=td.EXPRESS_ID
+		 LEFT JOIN T_SALEORDER_GOODS tg
+		 ON td.RELATED_ID =tg.SALEORDER_GOODS_ID
+		 WHERE te.EXPRESS_ID=#{expressId}
+	</select>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		insert into T_LOGISTICS_DETAIL( LOGISTICS_NO, CONTENT, MOD_TIME)
+		values
+		<foreach collection="list" item="data" index="index" separator=",">
+			(
+			#{data.logisticsNo,jdbcType=VARCHAR},
+			#{data.content,jdbcType=VARCHAR},
+			#{data.modTime,jdbcType=BIGINT}
+			)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+		LOGISTICS_NO = VALUES(LOGISTICS_NO),
+		CONTENT = VALUES(CONTENT),
+		MOD_TIME = VALUES(MOD_TIME)
+	</insert>
+	<select id="getExpressDetailList" parameterType="com.vedeng.order.model.Saleorder" resultMap="ExpressDetailResultMap">
+		SELECT
+			A.*
+		FROM
+			T_EXPRESS_DETAIL A
+			LEFT JOIN T_SALEORDER_GOODS B ON A.RELATED_ID = B.SALEORDER_GOODS_ID
+			LEFT JOIN T_SALEORDER C ON B.SALEORDER_ID = C.SALEORDER_ID
+			LEFT JOIN T_EXPRESS D ON A.EXPRESS_ID = D.EXPRESS_ID
+		WHERE C.SALEORDER_ID= #{saleorderId,jdbcType=INTEGER}
+		AND D.IS_ENABLE=1
+		AND B.IS_DELETE=0
+		<if test="expressId != null">
+			AND D.EXPRESS_ID != #{expressId,jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="getExpressDetailNumByExpressId" parameterType="com.vedeng.logistics.model.ExpressDetail" resultMap="ExpressDetailResultMap">
+		SELECT A.* FROM T_EXPRESS_DETAIL A WHERE
+		 A.EXPRESS_ID= #{expressId,jdbcType=INTEGER}
+		AND A.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+	</select>
+
+	<select id="getExpressDetailByExpressId" resultMap="ExpressDetailResultMap">
+		SELECT A.* FROM T_EXPRESS_DETAIL A WHERE
+		 A.EXPRESS_ID= #{expressId,jdbcType=INTEGER}
+	</select>
+
+	<!--查询是否第一次物流-->
+	<select id="getFirst" resultMap="BaseResultMap">
+		select DISTINCT a.EXPRESS_ID  FROM `T_EXPRESS` a left join T_EXPRESS_DETAIL b on a.EXPRESS_ID=b.EXPRESS_ID
+		left join T_SALEORDER_GOODS c on c.SALEORDER_GOODS_ID=b.RELATED_ID
+		left join T_SALEORDER d on c.SALEORDER_ID=d.SALEORDER_ID
+		  where d.TRADER_ID=#{traId} and a.IS_ENABLE=1
+	</select>
+	<select id="getCountOfExpressNotAllReceived" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			T_SALEORDER_GOODS SG
+				JOIN T_EXPRESS_DETAIL ED ON SG.SALEORDER_GOODS_ID = ED.RELATED_ID
+				JOIN T_EXPRESS E ON ED.EXPRESS_ID = E.EXPRESS_ID
+		WHERE
+			SG.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+		  AND E.ARRIVAL_STATUS != 2;
+	</select>
+	<select id="getSaleorderGoodCountHasReceived" resultType="java.lang.Integer">
+		SELECT
+			IFNULL(SUM( ED.NUM ),0)
+		FROM
+			T_EXPRESS_DETAIL ED
+				JOIN T_EXPRESS E ON ED.EXPRESS_ID = E.EXPRESS_ID
+		WHERE
+			E.ARRIVAL_STATUS != 0
+		  AND RELATED_ID =(
+			SELECT
+				RELATED_ID
+			FROM
+				T_EXPRESS_DETAIL
+			WHERE
+				EXPRESS_DETAIL_ID = #{expressDetailId,jdbcType=INTEGER}
+		);
+	</select>
+	<select id="getSaleorderGoodsNumOfExpress" resultType="java.lang.Integer">
+		SELECT
+			IFNULL( SUM( NUM ), 0 )
+		FROM
+			T_EXPRESS_DETAIL
+		WHERE
+			RELATED_ID = #{saleorderGoodsId,jdbcType=INTEGER};
+	</select>
+
+	<!--改变是否开据发票的状态-->
+	<update id="changeIsinvoicing" parameterType="java.lang.Integer">
+			UPDATE T_EXPRESS SET IS_INVOICING=2 WHERE EXPRESS_ID=(SELECT EXPRESS_ID FROM T_INVOICE_APPLY WHERE INVOICE_APPLY_ID = #{invoiceApplyId}) AND IS_INVOICING=1
+	</update>
+
+	<!--改变是否开据发票的状态-->
+	<update id="updateIsinvoicing" parameterType="java.lang.Integer">
+			UPDATE T_EXPRESS SET IS_INVOICING=1 WHERE EXPRESS_ID=#{expressId} AND IS_INVOICING=0
+	</update>
+
+	<!--改变是否开据发票的状态-->
+	<update id="updateIsinvoicingNo" parameterType="java.lang.Integer">
+			UPDATE T_EXPRESS SET IS_INVOICING=0 WHERE EXPRESS_ID=#{expressId} AND IS_INVOICING=1
+	</update>
+	<select id="getExpressIdByWlogId" resultType="integer">
+		SELECT
+			A.EXPRESS_ID
+		FROM
+			T_EXPRESS A
+			LEFT JOIN T_EXPRESS_DETAIL B ON A.EXPRESS_ID = B.EXPRESS_ID
+			LEFT JOIN V_E_W_EXPRESS_WAREHOUSE C ON C.EXPRESS_DETAIL_ID = B.EXPRESS_DETAIL_ID
+		WHERE
+			A.IS_ENABLE = 1 AND C.IS_ENABLE= 0
+			AND C.WAREHOUSE_GOODS_OPERATE_LOG_ID = #{wlogId}
+	</select>
+	<!-- 查询销售产品已签收的快递数 -->
+	<select id="getSEGoodsNum" parameterType="com.vedeng.logistics.model.Express" resultMap="VoResultMap">
+	   SELECT
+			(A.ALLNUM - IFNULL(T.SHNUM, 0)) ALLNUM,
+			IFNULL(B.ALLNUM, 0) FNUM
+		FROM
+			(
+				SELECT
+					a.SALEORDER_GOODS_ID,
+					IFNULL(a.NUM, 0) ALLNUM
+				FROM
+					T_SALEORDER_GOODS a
+				LEFT JOIN T_EXPRESS_DETAIL b ON a.SALEORDER_GOODS_ID = b.RELATED_ID
+				AND b.BUSINESS_TYPE = 496
+				LEFT JOIN T_EXPRESS c ON b.EXPRESS_ID = c.EXPRESS_ID
+				AND c.IS_ENABLE = 1
+				WHERE
+					1 = 1
+				AND a.SALEORDER_GOODS_ID = #{orderGoodsId,jdbcType=INTEGER}
+				GROUP BY
+					a.SALEORDER_GOODS_ID
+			) A
+		LEFT JOIN (
+			SELECT
+				a.SALEORDER_GOODS_ID,
+				IFNULL(SUM(b.NUM), 0) ALLNUM
+			FROM
+				T_SALEORDER_GOODS a
+			LEFT JOIN T_EXPRESS_DETAIL b ON a.SALEORDER_GOODS_ID = b.RELATED_ID
+			AND b.BUSINESS_TYPE = 496
+			LEFT JOIN T_EXPRESS c ON b.EXPRESS_ID = c.EXPRESS_ID
+			AND c.IS_ENABLE = 1
+			WHERE
+				1 = 1
+			AND a.SALEORDER_GOODS_ID = #{orderGoodsId,jdbcType=INTEGER}
+			AND c.ARRIVAL_STATUS = 2
+			GROUP BY
+				a.SALEORDER_GOODS_ID
+		) B ON A.SALEORDER_GOODS_ID = B.SALEORDER_GOODS_ID
+		LEFT JOIN (
+			SELECT
+				SUM(b.NUM) SHNUM,
+				b.ORDER_DETAIL_ID
+			FROM
+				T_AFTER_SALES_GOODS b
+			LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+			WHERE
+				b.GOODS_TYPE = 0
+			AND b.ORDER_DETAIL_ID = #{orderGoodsId,jdbcType=INTEGER}
+			AND c.TYPE = 539
+			AND c.SUBJECT_TYPE = 535
+			AND c.ATFER_SALES_STATUS != 3
+			AND b.GOODS_ID NOT IN (
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+			GROUP BY
+				b.ORDER_DETAIL_ID
+		) T ON A.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+
+  </select>
+</mapper>

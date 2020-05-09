@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:apollo="http://www.ctrip.com/schema/apollo" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+	<!--rabbit连接-->
+	<rabbit:connection-factory
+			id="hcConnectionFactory"
+			addresses="${api_rabbitmq_host}"
+			username="${api_rabbitmq_username}"
+			password="${api_rabbitmq_password}"
+			virtual-host="${api_rabbitmq_virtualHost}"
+			channel-cache-size="100"
+			publisher-returns="true"
+			publisher-confirms="true" />
+
+	<!-- 定义mq管理 -->
+	<rabbit:admin connection-factory="hcConnectionFactory" />
+
+
+	<!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列-->
+
+	<rabbit:queue name="goHcOrderErpQueue" durable="true" auto-delete="false" exclusive="false" />
+
+	<rabbit:queue name="registerErpQueue" auto-declare="false" durable="true" exclusive="false" />
+
+  <!--消费者监听-->
+	<rabbit:listener-container connection-factory="hcConnectionFactory" acknowledge="manual">
+		<rabbit:listener  queues="goHcOrderErpQueue"  ref="hcorderConsumer"/>
+	</rabbit:listener-container>
+</beans>

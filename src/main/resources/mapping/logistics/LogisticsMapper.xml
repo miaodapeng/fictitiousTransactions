@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.LogisticsMapper" >
+  
+  <select id="getLogisticsListByParam" resultType="com.vedeng.logistics.model.Logistics">
+  	SELECT
+		t.*
+	FROM
+		T_LOGISTICS t
+	WHERE
+		1 = 1
+		
+		<if test="null != companyId">
+			AND t.COMPANY_ID = #{companyId, jdbcType=INTEGER}
+		</if>
+		
+		<if test="null != IS_ENABLE">
+			AND t.IS_ENABLE = #{IS_ENABLE, jdbcType=INTEGER}
+		</if>
+		<!-- 中通和顺丰 -->
+		<if test="null != ZT_LOGISTICS or null != SF_LOGISTICS">
+			AND (t.LOGISTICS_ID = #{ZT_LOGISTICS, jdbcType=INTEGER} OR t.LOGISTICS_ID = #{SF_LOGISTICS, jdbcType=INTEGER})
+		</if>
+		
+	ORDER BY
+		t.IS_DEFAULT DESC,
+		t.SORT DESC
+  </select>
+  
+  
+  <select id="getFreeByParam" resultType="java.math.BigDecimal">
+  	SELECT
+		COALESCE(a.FREIGHT, 0)
+	FROM
+		T_LOGISTICS_FREIGHT a
+	WHERE
+		a.REGION_ID = #{regionId, jdbcType=INTEGER}
+	AND a.LOGISTICS_ID = #{logisticsId, jdbcType=INTEGER}
+  </select>
+
+
+	<select id="getLogisticsById" resultType="com.vedeng.logistics.model.Logistics">
+		SELECT
+		t.*
+		FROM
+		T_LOGISTICS t
+		WHERE
+		1 = 1
+		<if test="null != logisticsId">
+			AND t.LOGISTICS_ID = #{logisticsId, jdbcType=INTEGER}
+		</if>
+		LIMIT 1
+	</select>
+
+  <!--根据快递名称查询物流编码-->
+	<select id="getLogisticsCode" resultType="java.lang.String">
+	SELECT
+	c.CODE
+	FROM
+	T_LOGISTICS t
+	LEFT JOIN T_LOGISTICS_CODE c
+	ON t.Name = c.Name
+	WHERE t.Name=#{name,jdbcType=VARCHAR}
+	</select>
+
+</mapper>
+

@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <body>
+  	 <!-- fragment name equals filename -->
+    <div th:fragment="extend">
+    <!-- your custom code  start -->
+      <div style="display:none">
+      
+       <script type="text/tmpl" class="J-Import-tmpl">
+       <form   method="post" id="importForm" enctype ="multipart/form-data"> 
+	<table>
+		<tr>
+		<td>请上传表格</td><td><input id=file type=file name=file></td>
+		</tr>
+		<tr>
+		<td></td><td>
+如果您没有标准模板，请<a href="/static/template/艾迪康-批量导入产品模板.xlsx" target="_blank">下载标准模板</a>
+</td>
+		</tr>
+<tr><td colspan=2><div class="font-red ml47 mb20" id="errorTit" style="color:red;display: none">表格项错误，第x行x列...</div></td></tr>
+		</table>
+	</form>
+    	</script>
+      </div>
+       <script  th:if="${not #strings.isEmpty(queryString)}">
+     $(function(){
+    		 $("html,body").scrollTop($("#VIEWINDEX").offset().top);
+     })
+    </script> 
+       <!-- your custom code  end -->
+    </div>
+  </body>
+  
+</html>
+ 

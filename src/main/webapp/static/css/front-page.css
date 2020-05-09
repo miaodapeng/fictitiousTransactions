@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, 微软雅黑, 宋体, Helvetica, sans-serif;
+    /*-moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing:antialiased;*/
+    color: #444;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+table {
+    margin: 0;
+    padding: 0;
+}
+
+a{
+    color: #444;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: none;
+    color: #ffaa01;
+}
+img {
+    border: 0;
+}
+ul,
+ol,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.front-page-slide .index-page{
+    position: relative;
+    height:100%;
+    width: 100%;
+}
+.front-page-slide .index-page .index-slide-banner{
+    width: 800px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -250px 0 0 -400px;
+}
+.index-page .index-slide-banner .bd {
+    height: 100%;
+}
+
+.index-page .index-slide-banner .bd li,.index-page .index-slide-banner .bd img {
+    width: 800px;
+    height: 500px;
+}
+
+.index-page .index-slide-banner .hd li {
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    font-size: 0;
+    border-radius: 50%;
+    /*opacity: 0.1;*/
+   /* border:4px solid #000;*/
+    background: rgba(0,0,0,0.3);
+    position: relative;
+}
+.index-page .index-slide-banner .hd li:after{
+    display: inline-block;
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: rgb(255,255,255,0.8);
+    border-radius: 50%;
+    position: relative;
+    top: 4px;
+    left: 0px;
+    /*margin: -5px 0 0 -5px;*/
+}
+.index-page .index-slide-banner .hd li.on:after {
+    background: rgb(232,145,0,0.8);
+}
+
+/*.index-page .index-slide-banner .hd li {
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}*/
+.slide_left,.slide_right,.index-page .prev,.index-page .next{
+    width: 40px;
+    z-index: 122;
+    height: 70px;
+    background:rgba(0,0,0,0.4);
+    position: absolute;
+    top: 50%;
+    margin-top: -35px;
+    cursor: pointer;
+    text-align: center;
+   line-height: 70px;
+}
+.index-page .prev:hover,.index-page .next:hover{
+    background:rgba(0,0,0,0.6);
+}
+.front-page-slide .hd-container{
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    /*margin-left: */
+}
+.slide_left,.index-page .prev{
+    left: 0;
+}
+.slide_right,.index-page .next{
+    right: 0;
+}
+
+.searchkey_result{
+    top:38px;
+    left:0;
+    margin-left:0;
+    width: 441px;
+}

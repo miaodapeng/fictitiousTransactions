@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.report.dao.LogisticsReportMapper">
+	<!-- 获取文件寄送列表 （分页） -->
+	<select id="getFileDeliveryListPage" parameterType="Map"
+		resultType="com.vedeng.logistics.model.FileDelivery">
+		select 
+		a.FILE_DELIVERY_ID,a.FILE_DELIVERY_NO,
+		c.USERNAME as CREATOR_USERNAME,
+		if(a.ADD_TIME > 0,FROM_UNIXTIME(a.ADD_TIME / 1000, '%Y-%m-%d %H:%i:%s'),'') as addTimeStr,
+		a.TRADER_NAME,a.TRADER_TYPE,
+		a.TRADER_CONTACT_NAME,a.MOBILE,a.TELEPHONE,
+		a.AREA,a.ADDRESS,
+		a.VERIFY_STATUS,a.DELIVERY_STATUS,
+		if(a.DELIVERY_TIME > 0,FROM_UNIXTIME(a.DELIVERY_TIME / 1000, '%Y-%m-%d %H:%i:%s'),'') as deliveryTimeStr,
+		b.USERNAME as DELIVERY_USERNAME
+		from T_FILE_DELIVERY a
+		left join T_USER b on a.DELIVERY_USER_ID = b.USER_ID
+		left join T_USER c on a.CREATOR = c.USER_ID
+		where 1=1
+		<if test="fileDelivery.companyId!=null">
+			and
+			a.COMPANY_ID=#{fileDelivery.companyId,jdbcType=INTEGER}
+		</if>
+		<!-- 寄送状态 -->
+		<if
+			test="fileDelivery.deliveryStatus!=null and fileDelivery.deliveryStatus!='-1'">
+			and
+			a.DELIVERY_STATUS=#{fileDelivery.deliveryStatus,jdbcType=INTEGER}
+		</if>
+		<!-- 快递 & 单号 -->
+		<if
+			test="relatedIds.size()>0 and ((fileDelivery.logisticsId!=null and fileDelivery.logisticsId!=-1) or (fileDelivery.logisticsNo!=null and fileDelivery.logisticsNo!=''))">
+			and a.FILE_DELIVERY_ID in
+			<foreach collection="relatedIds" item="relatedId" index="index"
+				open="(" close=")" separator=",">
+				#{relatedId}
+			</foreach>
+		</if>
+		<if
+			test="relatedIds.size()==0 and ((fileDelivery.logisticsId!=null and fileDelivery.logisticsId!=-1) or (fileDelivery.logisticsNo!=null and fileDelivery.logisticsNo!=''))">
+			and 1!=1
+		</if>
+		<if test="creatorIds.size()>0">
+			and a.CREATOR in
+			<foreach collection="creatorIds" item="creatorId" index="index"
+				open="(" close=")" separator=",">
+				#{creatorId}
+			</foreach>
+		</if>
+		
+		<!-- 客户名称 -->
+		<if test="fileDelivery.traderName!=null and fileDelivery.traderName!=''">
+			and a.TRADER_NAME like
+			CONCAT('%',#{fileDelivery.traderName},'%' )
+		</if>
+		<!-- 申请人 -->
+		<if test="fileDelivery.creator!=null and fileDelivery.creator!='-1'">
+			and a.CREATOR=#{fileDelivery.creator,jdbcType=INTEGER}
+		</if>
+		<!-- 审核状态 -->
+		<if
+			test="fileDelivery.verifyStatus!=null and fileDelivery.verifyStatus!='-1'">
+			and
+			a.VERIFY_STATUS=#{fileDelivery.verifyStatus,jdbcType=INTEGER}
+		</if>
+		<!-- 寄送形式 -->
+		<if test="fileDelivery.sendType!=null and fileDelivery.sendType!='-1'">
+			and a.SEND_TYPE=#{fileDelivery.sendType,jdbcType=INTEGER}
+		</if>
+		<!-- 操作人 -->
+		<if
+			test="fileDelivery.deliveryUserId!=null and fileDelivery.deliveryUserId!='-1'">
+			and
+			a.DELIVERY_USER_ID=#{fileDelivery.deliveryUserId,jdbcType=INTEGER}
+		</if>
+		<!-- 时间 -->
+		<if test="fileDelivery.type != null and fileDelivery.type != ''">
+			<choose>
+				<when test="fileDelivery.type == 1 or fileDelivery.type == '1'">
+					<if
+						test="fileDelivery.beginTime != null and fileDelivery.beginTime != ''">
+						AND a.ADD_TIME >= #{fileDelivery.beginTime,jdbcType=INTEGER}
+					</if>
+					<if test="fileDelivery.endTime != null and fileDelivery.endTime != ''">
+						AND a.ADD_TIME <![CDATA[ <= ]]>
+						#{fileDelivery.endTime,jdbcType=INTEGER}
+					</if>
+				</when>
+				<when test="fileDelivery.type == 2 or fileDelivery.type == '2'">
+					<if
+						test="fileDelivery.beginTime != null and fileDelivery.beginTime != ''">
+						AND a.DELIVERY_TIME >= #{fileDelivery.beginTime,jdbcType=INTEGER}
+					</if>
+					<if test="fileDelivery.endTime != null and fileDelivery.endTime != ''">
+						AND a.DELIVERY_TIME <![CDATA[ <= ]]>
+						#{fileDelivery.endTime,jdbcType=INTEGER}
+					</if>
+				</when>
+				<otherwise></otherwise>
+			</choose>
+		</if>
+		order by
+		a.ADD_TIME desc
+	</select>
+	
+	<select id="getFileDeliveryListByUName" resultType="com.vedeng.logistics.model.FileDelivery" parameterType="com.vedeng.authorization.model.User" >
+	    select 
+	    FILE_DELIVERY_ID,FILE_DELIVERY_NO, COMPANY_ID, SEND_TYPE, VERIFY_STATUS, DELIVERY_STATUS, DELIVERY_TIME, DELIVERY_USER_ID, 
+	    TRADER_ID, TRADER_TYPE, TRADER_NAME, TRADER_CONTACT_ID, TRADER_CONTACT_NAME, MOBILE, 
+	    TELEPHONE, TRADER_ADDRESS_ID, ADDRESS, CONTENT, ADD_TIME, CREATOR, MOD_TIME, UPDATER, AREA
+	    from T_FILE_DELIVERY
+	    where TRADER_CONTACT_NAME = #{username,jdbcType=VARCHAR}
+	    <if test="companyId!=null">
+			and COMPANY_ID=#{companyId,jdbcType=INTEGER}
+		</if>
+	  </select>
+	  
+	  <select id="getFileDeliveryListByIds" resultType="com.vedeng.logistics.model.FileDelivery" >
+	  	select 
+	    FILE_DELIVERY_ID,FILE_DELIVERY_NO, COMPANY_ID, SEND_TYPE, VERIFY_STATUS, DELIVERY_STATUS, DELIVERY_TIME, DELIVERY_USER_ID, 
+	    TRADER_ID, TRADER_TYPE, TRADER_NAME, TRADER_CONTACT_ID, TRADER_CONTACT_NAME, MOBILE, 
+	    TELEPHONE, TRADER_ADDRESS_ID, ADDRESS, CONTENT, ADD_TIME, CREATOR, MOD_TIME, UPDATER, AREA
+	    from T_FILE_DELIVERY
+	    where FILE_DELIVERY_ID in
+	    	<foreach collection="fileDeliveryIds" item="fileDeliveryId" index="index"
+				open="(" close=")" separator=",">
+				#{fileDeliveryId}
+			</foreach>
+	  </select>
+	<!--导出商品库位-->
+
+	<select id="exportWarehouseGoodsSetsList" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultType="com.vedeng.logistics.model.WarehouseGoodsSet">
+		SELECT
+		a.GOODS_NAME,
+		c.BRAND_NAME,
+		a.MODEL,
+		a.SKU,
+		a.MATERIAL_CODE,
+		d.UNIT_NAME,
+		e.WAREHOUSE_NAME,
+		e.WAREHOUSE_ID,
+		f.STORAGE_ROOM_NAME,
+		f.STORAGE_ROOM_ID,
+		g.STORAGE_AREA_NAME,
+		g.STORAGE_AREA_ID,
+		h.STORAGE_RACK_NAME,
+		h.STORAGE_RACK_ID,
+		i.STORAGE_LOCATION_NAME,
+		i.STORAGE_LOCATION_ID,
+		b.COMMENTS,
+		b.GOODS_ID,
+		a.IS_DISCARD
+		FROM
+		T_WAREHOUSE_GOODS_SET b
+		LEFT JOIN T_GOODS a ON a.GOODS_ID = b.GOODS_ID
+		LEFT JOIN T_BRAND c ON a.BRAND_ID = c.BRAND_ID
+		LEFT JOIN T_UNIT d ON a.UNIT_ID = d.UNIT_ID
+		LEFT JOIN T_WAREHOUSE e ON b.WAREHOUSE_ID = e.WAREHOUSE_ID
+		LEFT JOIN T_STORAGE_ROOM f ON b.STORAGE_ROOM_ID = f.STORAGE_ROOM_ID
+		LEFT JOIN T_STORAGE_AREA g ON b.STORAGE_AREA_ID = g.STORAGE_AREA_ID
+		LEFT JOIN T_STORAGE_RACK h ON b.STORAGE_RACK_ID = h.STORAGE_RACK_ID
+		LEFT JOIN T_STORAGE_LOCATION i ON b.STORAGE_LOCATION_ID = i.STORAGE_LOCATION_ID
+		<!--<if test="warehouseGoodsSet.storageroomId != null and warehouseGoodsSet.storageroomId != ''">
+       AND b.STORAGE_ROOM_ID = k.STORAGE_ROOM_ID
+       </if>
+        <if test="warehouseGoodsSet.storageAreaId != null and warehouseGoodsSet.storageAreaId != ''">
+       AND b.STORAGE_AREA_ID = k.STORAGE_AREA_ID
+       </if>
+       <if test="warehouseGoodsSet.storageRackId != null and warehouseGoodsSet.storageRackId != ''">
+       AND b.STORAGE_RACK_ID = k.STORAGE_RACK_ID
+       </if>
+       <if test="warehouseGoodsSet.storageLocationId != null and warehouseGoodsSet.storageLocationId != ''">
+       AND b.STORAGE_LOCATION_ID = k.STORAGE_LOCATION_ID
+       </if>-->
+		<where>
+			1=1
+			AND b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			<if test="goodsName != null and goodsName != ''">
+				AND a.GOODS_NAME like CONCAT('%',#{goodsName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="brandName != null and brandName != ''">
+				AND c.BRAND_NAME like CONCAT('%',#{brandName,jdbcType=VARCHAR},'%' )
+			</if>
+			<if test="model != null and model != ''">
+				AND a.MODEL = #{model,jdbcType=VARCHAR}
+			</if>
+			<if test="sku != null and sku != ''">
+				AND a.SKU = #{sku,jdbcType=VARCHAR}
+			</if>
+			<if test="materialCode != null and materialCode != ''">
+				AND a.MATERIAL_CODE = #{materialCode,jdbcType=VARCHAR}
+			</if>
+			<if test="wareHouseId != null and wareHouseId != ''">
+				AND e.WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+			</if>
+			<if test="storageroomId != null and storageroomId != ''">
+				AND f.STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+			</if>
+			<if test="storageAreaId != null and storageAreaId != ''">
+				AND g.STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+			</if>
+			<if test="storageRackId != null and storageRackId != ''">
+				AND h.STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+			</if>
+			<if test="storageLocationId != null and storageLocationId != ''">
+				AND i.STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+			</if>
+			<if test="comments != null and comments != ''">
+				AND b.COMMENTS = #{comments,jdbcType=VARCHAR}
+			</if>
+			<if test="isDiscard != null ">
+				AND a.IS_DISCARD = #{isDiscard,jdbcType=BIT}
+			</if>
+		</where>
+	</select>
+</mapper>

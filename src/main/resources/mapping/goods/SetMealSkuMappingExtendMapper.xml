@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.SetMealSkuMappingExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    <id column="SKU_SET_MEAL_MAPPING_ID" property="skuSetMealMappingId" jdbcType="INTEGER" />
+    <result column="SET_MEAL_ID" property="setMealId" jdbcType="INTEGER" />
+    <result column="SKU_ID" property="skuId" jdbcType="INTEGER" />
+    <result column="SKU_SIGN" property="skuSign" jdbcType="BIT" />
+    <result column="DEPARTMENT_IDS" property="departmentIds" jdbcType="VARCHAR" />
+    <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    SKU_SET_MEAL_MAPPING_ID, SET_MEAL_ID, SKU_ID, SKU_SIGN, DEPARTMENT_IDS, QUANTITY, 
+    PURPOSE, REMARK, IS_DELETED, CREATOR, UPDATER, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="getSetMealSkuMappingVoList" parameterType="com.vedeng.goods.model.vo.SetMealSkuMappingVo" resultType="com.vedeng.goods.model.vo.SetMealSkuMappingVo">
+    SELECT
+      a.SKU_SET_MEAL_MAPPING_ID,
+      a.SET_MEAL_ID,
+      a.SKU_ID,
+      a.SKU_SIGN,
+      a.DEPARTMENT_IDS,
+      a.QUANTITY,
+      a.PURPOSE,
+      a.REMARK,
+      a.IS_DELETED,
+      a.CREATOR,
+      a.UPDATER,
+      a.ADD_TIME,
+      a.MOD_TIME,
+      b.SHOW_NAME AS SKU_NAME,
+      c.UNIT_NAME AS SKU_UNIT_NAME,
+      b.STATUS,
+      b.CHECK_STATUS
+    FROM
+      V_SET_MEAL_SKU_MAPPING a
+    LEFT JOIN V_CORE_SKU b ON a.SKU_ID = b.SKU_ID
+    LEFT JOIN T_UNIT c ON b.BASE_UNIT_ID = c.UNIT_ID
+    WHERE a.IS_DELETED = #{isDeleted,jdbcType=BIT}
+    AND a.SET_MEAL_ID = #{setMealId,jdbcType=INTEGER}
+  </select>
+  <select id="getSetMealSkuDepartmentVoList" parameterType="java.util.List" resultType="com.vedeng.goods.model.vo.SetMealSkuMappingVo">
+    SELECT
+      DISTINCT
+      a.DEPARTMENT_ID,
+      a.DEPARTMENT_NAME
+    FROM
+      T_DEPARTMENTS_HOSPITAL a
+    WHERE
+    <if test="list != null and list.size() > 0">
+      a.DEPARTMENT_ID IN
+      <foreach collection="list" item="setMealSkuMappingVo" index="index" open="(" close=")" separator=",">
+        #{setMealSkuMappingVo.departmentId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+  <update id="deleteSetMealSkuMapping" parameterType="java.util.Map">
+    UPDATE
+      V_SET_MEAL_SKU_MAPPING
+    SET
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      UPDATER = #{userId,jdbcType=INTEGER},
+      MOD_TIME = #{nowDate,jdbcType=TIMESTAMP}
+    WHERE
+      SET_MEAL_ID IN
+      <foreach collection="list" index="index" item="setMealId" separator="," open="(" close=")">
+        #{setMealId,jdbcType=INTEGER}
+      </foreach>
+  </update>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into V_SET_MEAL_SKU_MAPPING ( SET_MEAL_ID, SKU_ID,
+      SKU_SIGN, DEPARTMENT_IDS, QUANTITY,
+      PURPOSE, REMARK, IS_DELETED,
+      CREATOR, UPDATER, ADD_TIME,
+      MOD_TIME)
+    values
+      <foreach collection="list" index="index" item="setMealSkuMappingVo" separator=",">
+        ( #{setMealSkuMappingVo.setMealId,jdbcType=INTEGER},
+        #{setMealSkuMappingVo.skuId,jdbcType=INTEGER},#{setMealSkuMappingVo.skuSign,jdbcType=BIT},
+        #{setMealSkuMappingVo.departmentIds,jdbcType=VARCHAR}, #{setMealSkuMappingVo.quantity,jdbcType=INTEGER},
+        #{setMealSkuMappingVo.purpose,jdbcType=VARCHAR}, #{setMealSkuMappingVo.remark,jdbcType=VARCHAR},
+        #{setMealSkuMappingVo.isDeleted,jdbcType=BIT}, #{setMealSkuMappingVo.creator,jdbcType=INTEGER},
+        #{setMealSkuMappingVo.updater,jdbcType=INTEGER}, #{setMealSkuMappingVo.addTime,jdbcType=TIMESTAMP},
+        #{setMealSkuMappingVo.modTime,jdbcType=TIMESTAMP})
+      </foreach>
+  </insert>
+  <select id="getDepartmentByskuIds" parameterType="java.util.List" resultType="map">
+    SELECT
+      a.SKU_ID,
+      c.DEPARTMENT_ID,
+      c.DEPARTMENT_NAME
+    FROM
+      V_CORE_SKU a
+    LEFT JOIN V_SPU_DEPARTMENT_MAPPING b ON a.SPU_ID = b.SPU_ID
+	LEFT JOIN T_DEPARTMENTS_HOSPITAL c on b.DEPARTMENT_ID = c.DEPARTMENT_ID
+	WHERE b.`STATUS` = 1
+	AND c.IS_DELETE =  0
+	<if test="list!=null and list.size()>0">
+	    AND a.SKU_ID IN
+      <foreach collection="list" item="setMealSkuMappingVo" index="index" open="(" close=")" separator=",">
+        #{setMealSkuMappingVo.skuId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+</mapper>

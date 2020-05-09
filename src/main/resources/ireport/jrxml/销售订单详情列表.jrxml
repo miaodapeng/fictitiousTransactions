@@ -1,0 +1,1405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="saleOrderList" language="groovy" printOrder="Horizontal" pageWidth="4500" pageHeight="635" orientation="Landscape" columnWidth="4500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="4e52887f-2521-4218-a53d-9416a548937f">
+	<property name="ireport.zoom" value="1.464100000000031"/>
+	<property name="ireport.x" value="4519"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style_detail_left" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontName="宋体" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="style_detail_center" hAlign="Center" vAlign="Middle" fontName="SansSerif" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="style_title_name" hAlign="Center" vAlign="Middle" fontName="宋体" fontSize="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="style_title_value" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontName="宋体" fontSize="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="style_detail_right" hAlign="Right" vAlign="Middle" fontName="宋体" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<style name="style_title_center" backcolor="#00FF00" hAlign="Center" vAlign="Middle" fontName="SansSerif" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H">
+		<box>
+			<pen lineWidth="0.5"/>
+			<topPen lineWidth="0.5"/>
+			<leftPen lineWidth="0.5"/>
+			<bottomPen lineWidth="0.5"/>
+			<rightPen lineWidth="0.5"/>
+		</box>
+	</style>
+	<field name="saleorder.saleorderNo" class="java.lang.String"/>
+	<field name="saleorder.traderName" class="java.lang.String"/>
+	<field name="saleorder.customerType" class="java.lang.String"/>
+	<field name="saleorder.customerNature" class="java.lang.String"/>
+	<field name="saleorder.customerLevelStr" class="java.lang.String"/>
+	<field name="saleorder.salesDeptName" class="java.lang.String"/>
+	<field name="saleorder.optUserName" class="java.lang.String"/>
+	<field name="saleorder.status" class="java.lang.String"/>
+	<field name="saleorder.validTimeStr" class="java.lang.String"/>
+	<field name="saleorder.totalAmount" class="java.math.BigDecimal"/>
+	<field name="saleorder.paymentAmount" class="java.math.BigDecimal"/>
+	<field name="saleorder.accountPeriodAmount" class="java.math.BigDecimal"/>
+	<field name="saleorder.invoiceTypeStr" class="java.lang.String"/>
+	<field name="saleorder.deliveryDirect" class="java.lang.String"/>
+	<field name="saleorder.paymentStatus" class="java.lang.String"/>
+	<field name="saleorder.invoiceStatus" class="java.lang.String"/>
+	<field name="saleorder.purchaseStatus" class="java.lang.String"/>
+	<field name="saleorder.deliveryStatus" class="java.lang.String"/>
+	<field name="saleorder.arrivalStatus" class="java.lang.String"/>
+	<field name="saleorder.communicateNum" class="java.lang.Integer"/>
+	<field name="saleorder.serviceStatus" class="java.lang.String"/>
+	<field name="saleorder.haveAdvancePurchase" class="java.lang.String"/>
+	<field name="saleorder.isContractReturn" class="java.lang.String"/>
+	<field name="saleorder.isDeliveryOrderReturn" class="java.lang.String"/>
+	<field name="goodsName" class="java.lang.String"/>
+	<field name="sku" class="java.lang.String"/>
+	<field name="brandName" class="java.lang.String"/>
+	<field name="model" class="java.lang.String"/>
+	<field name="materialCode" class="java.lang.String"/>
+	<field name="price" class="java.math.BigDecimal"/>
+	<field name="num" class="java.lang.Integer"/>
+	<field name="unitName" class="java.lang.String"/>
+	<field name="saleorder.salesArea" class="java.lang.String"/>
+	<field name="saleorder.haveAccountPeriod" class="java.lang.String"/>
+	<field name="expressPrice" class="java.math.BigDecimal"/>
+	<field name="insideComments" class="java.lang.String"/>
+	<field name="serviceNo" class="java.lang.String"/>
+	<field name="buyOrderNo" class="java.lang.String"/>
+	<field name="cgPrice" class="java.math.BigDecimal"/>
+	<field name="buyNum" class="java.lang.Integer"/>
+	<field name="creatorNm" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement style="style_detail_center" mode="Opaque" x="0" y="0" width="4500" height="25" backcolor="#99CCFF" uuid="a144a4a6-65db-4f80-9384-bbbdad2c8cea"/>
+				<box topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.3" lineStyle="Solid"/>
+					<topPen lineWidth="0.3" lineStyle="Solid"/>
+					<leftPen lineWidth="0.3" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+					<rightPen lineWidth="0.3" lineStyle="Solid"/>
+				</box>
+				<staticText>
+					<reportElement style="style_detail_center" x="100" y="0" width="220" height="25" forecolor="#000000" backcolor="#0099FF" uuid="18cedb62-bdd4-46f9-b1a8-270ff18d300a"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+						<paragraph tabStopWidth="30"/>
+					</textElement>
+					<text><![CDATA[客户名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="320" y="0" width="70" height="25" backcolor="#0099FF" uuid="71432a89-05dd-4b4d-827f-d27dfec4ab6a"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[客户类型]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="390" y="0" width="70" height="25" backcolor="#0099FF" uuid="51e32d51-563a-4747-ab56-28951ec3a1e5"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[客户性质]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="460" y="0" width="60" height="25" backcolor="#0099FF" uuid="bea791f6-763b-41e8-8672-a64be45165ed"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[客户等级]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="520" y="0" width="120" height="25" backcolor="#0099FF" uuid="de8ca1d5-fc92-45fd-8ab4-abb2f9ce38e8"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[部门]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="640" y="0" width="90" height="25" backcolor="#0099FF" uuid="039277e6-dd25-48ac-b57e-3eea0a4763a8"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[归属人员]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="730" y="0" width="70" height="25" backcolor="#0099FF" uuid="95455b76-85c2-4f2b-a83c-a98c53cef5dd"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[订单状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="800" y="0" width="140" height="25" backcolor="#0099FF" uuid="bc2b2d17-61d8-4f88-b85c-0b8de60858e5"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[生效时间]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="940" y="0" width="100" height="25" backcolor="#0099FF" uuid="dce86fe6-be50-4a9a-a5ab-41475e4f52c1"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[订单总额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1040" y="0" width="100" height="25" backcolor="#0099FF" uuid="3828a4eb-4772-4608-82c9-7b94b4ec0768"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[已收款金额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1140" y="0" width="100" height="25" backcolor="#0099FF" uuid="60c8ccd6-6dc1-465e-8930-726ef349af6e"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[剩余帐期金额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1240" y="0" width="120" height="25" backcolor="#0099FF" uuid="8e2076f1-0e63-460f-98d9-0e6ae6d9d96f"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[票种]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1360" y="0" width="70" height="25" backcolor="#0099FF" uuid="56dac134-7307-4a7f-ac87-d94aa9ff6cd0"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+						<paragraph tabStopWidth="30"/>
+					</textElement>
+					<text><![CDATA[普发/直发]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1430" y="0" width="80" height="25" backcolor="#0099FF" uuid="3a00f76f-ed2b-4150-9a78-2e4f4c96c83d"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[收款状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="0" y="0" width="100" height="25" backcolor="#0099FF" uuid="d5ac114e-6cf3-47ce-a4e2-4139cfb41edc"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[订单号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1510" y="0" width="80" height="25" backcolor="#0099FF" uuid="a02b0da3-78b1-413d-b91d-18ae24aa4430"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[开票状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1590" y="0" width="80" height="25" backcolor="#0099FF" uuid="56156e50-b958-40f2-ac37-c5022e7d1342"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[采购状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1670" y="0" width="80" height="25" backcolor="#0099FF" uuid="bbf6e3eb-ae71-432e-a5bf-1286893072f7"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[发货状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1750" y="0" width="80" height="25" backcolor="#0099FF" uuid="814023c8-1d76-4b42-bc98-570c019ef769"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[到货状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1830" y="0" width="80" height="25" backcolor="#0099FF" uuid="19a4ee1b-b786-4b2b-83fd-822b4ba2598d"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[沟通次数]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1910" y="0" width="80" height="25" backcolor="#0099FF" uuid="5f1409f0-0ec4-445d-9b09-4361793aa2ec"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[售后状态]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="1990" y="0" width="80" height="25" backcolor="#0099FF" uuid="3f2adfdc-abb0-438a-be62-c2db2d941304"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[提前采购]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2070" y="0" width="80" height="25" backcolor="#0099FF" uuid="17aa023b-e561-4518-824b-47f76e9ba2db"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[类别管制]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2150" y="0" width="80" height="25" backcolor="#0099FF" uuid="50476d83-c4cd-499d-8737-2e74e65b6478"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[合同回传]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2230" y="0" width="80" height="25" backcolor="#0099FF" uuid="b8918be3-1dc4-41b7-802e-9aef3693a361"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[送货单回传]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2310" y="0" width="240" height="25" backcolor="#0099FF" uuid="3a37232e-d1f4-46ea-977d-4d7f4cdefce9"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[产品]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2550" y="0" width="120" height="25" backcolor="#0099FF" uuid="08eec5e8-f4f1-414a-b794-79e6d3785731"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[订货号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2670" y="0" width="120" height="25" backcolor="#0099FF" uuid="5cf257cb-c1cf-442b-94eb-46de05e01898"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[品牌]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2790" y="0" width="140" height="25" backcolor="#0099FF" uuid="b908d06a-2833-4a9c-af53-ba9eef7fc908"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[型号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="2930" y="0" width="120" height="25" backcolor="#0099FF" uuid="8583152b-af34-4b1d-b479-5b67eaf5b82b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[物料编码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3050" y="0" width="100" height="25" backcolor="#0099FF" uuid="6b19bb3c-215a-4077-8fd9-b5604fb758b1"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[销售价]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3150" y="0" width="80" height="25" backcolor="#0099FF" uuid="d0b349cd-24ad-4332-8be1-bed02a27e004"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[数量]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3230" y="0" width="60" height="25" backcolor="#0099FF" uuid="57719d49-eedd-4042-9913-f7aee815f3cb"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[单位]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3290" y="0" width="100" height="25" backcolor="#0099FF" uuid="c1bb4f87-8e2e-45b7-aa65-d57b290c9665"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[销售总额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3390" y="0" width="80" height="25" backcolor="#0099FF" uuid="2448ab32-2aba-457e-be5f-54de98e16e0b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[销售地区省]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3470" y="0" width="100" height="25" backcolor="#0099FF" uuid="476f6727-a3c4-4d32-aa9b-5b45a2e0a05b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[销售地区市]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3570" y="0" width="80" height="25" backcolor="#0099FF" uuid="7b08e05a-a4d9-4b1b-a374-36931248037a"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[是否含帐期]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3650" y="0" width="100" height="25" backcolor="#0099FF" uuid="c7216905-2687-4033-852d-f9ba3c45dbce"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[运费总额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3750" y="0" width="80" height="25" backcolor="#0099FF" uuid="7193b4fd-e97f-471c-b202-6c145c72df82"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[毛利率]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3830" y="0" width="160" height="25" backcolor="#0099FF" uuid="e35bbab8-9035-4ace-b7bb-205ad035d97c"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[内部备注]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="3990" y="0" width="90" height="25" backcolor="#0099FF" uuid="db653850-8226-408e-989a-f0c49cdc8041"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[录保卡]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="4080" y="0" width="120" height="25" backcolor="#0099FF" uuid="6de8b955-b73c-4df6-af7e-1099381f62c0"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[采购订单]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="4200" y="0" width="100" height="25" backcolor="#0099FF" uuid="979dfaf7-2872-4bf9-bd2a-4f542dad4cfb"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[采购价]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="4300" y="0" width="100" height="25" backcolor="#0099FF" uuid="97cd6021-821c-4858-be64-e313ba343ec9"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[采购总额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="style_detail_center" x="4400" y="0" width="100" height="25" backcolor="#0099FF" uuid="28dd7bff-616d-479d-848c-197aa5bbad3b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[采购员]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="4500" height="20" backcolor="#FFFFFF" uuid="ff4f5f4f-741b-485d-b65c-040bc8627a9e"/>
+				<box topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.3" lineStyle="Solid"/>
+					<topPen lineWidth="0.3" lineStyle="Solid"/>
+					<leftPen lineWidth="0.3" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+					<rightPen lineWidth="0.3" lineStyle="Solid"/>
+				</box>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="20" uuid="ad9f938d-cc40-4433-a518-9da3e96b2997"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.saleorderNo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="100" y="0" width="220" height="20" uuid="3a2c85db-3545-459d-96ed-a21cf42d4aec"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.traderName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="320" y="0" width="70" height="20" uuid="aeb04abe-8103-4cb0-a21e-70e443835453"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.customerType}.equals( '426' )?'科研医疗':($F{saleorder.customerType}.equals( '427' )?'临床医疗':'-')]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="style_detail_left" stretchType="RelativeToTallestObject" x="390" y="0" width="70" height="20" uuid="51a539f9-dc20-454c-9654-f0f3ce675b41"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.customerNature}.equals( '465' )?'分销':($F{saleorder.customerNature}.equals( '466' )?'终端':'--')]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="style_detail_left" stretchType="RelativeToTallestObject" x="460" y="0" width="60" height="20" uuid="e4349903-ca9d-4e93-97e6-151614fa3748"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.customerLevelStr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="">
+					<reportElement style="style_detail_left" stretchType="RelativeToTallestObject" x="520" y="0" width="120" height="20" uuid="6f7e77f8-c3d1-45c9-9688-5f24272b7cd1"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.salesDeptName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="640" y="0" width="90" height="20" uuid="451aeb2a-cc72-401a-b61a-97a3c93e9f7b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.optUserName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="730" y="0" width="70" height="20" uuid="3ce049b8-7a92-48a1-af6e-2bb4bcc8b958"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.status}.equals( '1' )?'进行中':($F{saleorder.status}.equals( '2' )?'已完结':($F{saleorder.status}.equals( '3' )?'已关闭':'待确认'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="800" y="0" width="140" height="20" uuid="d86ed8a3-6e71-4c94-b1ae-cf9b1521c207"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.validTimeStr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="940" y="0" width="100" height="20" uuid="a3a5cb9f-975e-4ff9-b057-02c65b2665b3"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.totalAmount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1040" y="0" width="100" height="20" uuid="d94b9d56-2c20-4506-bb00-2707f21df4a0"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.paymentAmount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1240" y="0" width="120" height="20" uuid="f9c5610b-b456-432d-965f-24b0c0195588"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.invoiceTypeStr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1140" y="0" width="100" height="20" uuid="e8ad7409-7951-4715-9f9b-6c52db6658f0"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.accountPeriodAmount}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1360" y="0" width="70" height="20" uuid="0b40d5ef-367e-4ef7-ab54-0e46fc7febf7"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.deliveryDirect}.equals('0')?'否':'是']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1430" y="0" width="80" height="20" uuid="394a0bdc-6805-4090-a3d5-576b0023b49a"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.paymentStatus}.equals('0')?'未付款':($F{saleorder.paymentStatus}.equals('1')?'部分付款':($F{saleorder.paymentStatus}.equals('2')?'全部付款':'--'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1510" y="0" width="80" height="20" uuid="7b689cbd-4b37-4978-8c45-38aa1025cd6f"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.invoiceStatus}.equals('0')?'未开票':($F{saleorder.invoiceStatus}.equals('1')?'部分开票':($F{saleorder.invoiceStatus}.equals('2')?'全部开票':'--'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1590" y="0" width="80" height="20" uuid="b96949c6-d42b-4d84-b011-0915a5c89861"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.purchaseStatus}.equals('0')?'未采购':($F{saleorder.purchaseStatus}.equals('1')?'部分采购':($F{saleorder.purchaseStatus}.equals('2')?'已采购':'--'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1670" y="0" width="80" height="20" uuid="385d098b-9bb4-4c4e-b19c-1cfe5466dd2d"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.deliveryStatus}.equals('0')?'未发货':($F{saleorder.deliveryStatus}.equals('1')?'部分发货':($F{saleorder.deliveryStatus}.equals('2')?'全部发货':'--'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1750" y="0" width="80" height="20" uuid="f70528ac-ccaf-47a5-9671-eec15a39bc87"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.arrivalStatus}.equals('0')?'未收货':($F{saleorder.arrivalStatus}.equals('1')?'部分收货':($F{saleorder.arrivalStatus}.equals('2')?'全部收货':'--'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1830" y="0" width="80" height="20" uuid="3e96a6ab-93ee-4b48-a88b-35df27ec7376"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.communicateNum}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1910" y="0" width="80" height="20" uuid="52d47245-d110-4fe2-b588-3f5aa490c981"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.serviceStatus}.equals('1')?'售后中':($F{saleorder.serviceStatus}.equals('2')?'售后完成':($F{saleorder.serviceStatus}.equals('3')?'售后关闭':'无'))]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="1990" y="0" width="80" height="20" uuid="ccc6431a-dc7e-49ce-b862-b85ea3e565ec"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.haveAdvancePurchase}.equals('0')?'无':'有']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2070" y="0" width="80" height="20" uuid="73dae1a2-6e16-442d-986c-675cf597572c"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2150" y="0" width="80" height="20" uuid="d1bb8490-3483-483d-90cb-4d9c7098982b"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.isContractReturn}.equals('1')?'是':'否']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2230" y="0" width="80" height="20" uuid="e91ca03d-262e-4429-b1f5-3839a4869d50"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.isDeliveryOrderReturn}.equals('1')?'是':'否']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2310" y="0" width="240" height="20" uuid="89ecbff6-259a-41b5-846b-c85507dca884"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{goodsName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2550" y="0" width="120" height="20" uuid="83e6523f-2f7b-47fa-8675-c9a8dd050fb8"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sku}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2670" y="0" width="120" height="20" uuid="5ff21899-8005-47c2-aa8b-03ef1932ba23"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{brandName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2790" y="0" width="140" height="20" uuid="7bececb9-f7c3-4e97-b8e6-8389bef96c19"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="2930" y="0" width="120" height="20" uuid="40caea2a-b2d4-4520-99ff-aab003158edb"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{materialCode}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3050" y="0" width="100" height="20" uuid="fc227b45-5c26-417e-89bd-146f6926f677"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3150" y="0" width="80" height="20" uuid="c75aaf19-7120-4723-aa67-df286691d0ff"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{num}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3230" y="0" width="60" height="20" uuid="8a2305b6-fff3-4eea-ad41-84b03ededc27"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{unitName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3290" y="0" width="100" height="20" uuid="a379cef3-7990-48fb-aab4-bf1eb7569a35"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{price}*$F{num}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3390" y="0" width="80" height="20" uuid="edc217a4-324f-44e5-b172-4cb9cadef908"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.salesArea}.replaceAll('中国 ','').indexOf(' ')>0?($F{saleorder.salesArea}.replaceAll('中国 ','').split(' ')[0]):$F{saleorder.salesArea}.replaceAll('中国 ','')]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3470" y="0" width="100" height="20" uuid="75265924-c1f2-4b4c-9f0f-5c74fdfb6141"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.salesArea}.replaceAll('中国 ','').indexOf(' ')>0?($F{saleorder.salesArea}.replaceAll('中国 ','').split(' ')[1]):'']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3570" y="0" width="80" height="20" uuid="d25eb05e-9761-4a19-80e7-eb19f044a71c"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{saleorder.haveAccountPeriod}.equals( '1' )?'是':'否']]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3650" y="0" width="100" height="20" uuid="98c6c428-a8ec-4363-8201-5f5ec0ffb8db"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{expressPrice}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3750" y="0" width="80" height="20" uuid="0061e1dd-32c8-48df-923e-6bbb37c6fb61"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{cgPrice}==0?0.00:(($F{price}-$F{cgPrice})/$F{cgPrice}))*100]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3830" y="0" width="160" height="20" uuid="ae271834-b453-40cc-94ab-a7a0ab85764f"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{insideComments}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="3990" y="0" width="90" height="20" uuid="79c0fcb5-7a6f-43af-828b-b184bf148e40"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{serviceNo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="4080" y="0" width="120" height="20" uuid="ae2c2c5f-431f-4442-b5d9-a4c2a34c7a6a"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{buyOrderNo}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="4200" y="0" width="100" height="20" uuid="b9c63638-61aa-499f-880a-13ad3caac41c"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cgPrice}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="###0.00;-###0.00" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="4300" y="0" width="100" height="20" uuid="87473a99-9015-4878-a164-a5658331030c"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{buyNum}*$F{cgPrice})]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="style_detail_center" stretchType="RelativeToTallestObject" x="4400" y="0" width="100" height="20" uuid="ec556b79-ad85-444a-aab2-2444bdb31603"/>
+					<box topPadding="0" bottomPadding="0">
+						<pen lineWidth="0.3" lineStyle="Solid"/>
+						<topPen lineWidth="0.3" lineStyle="Solid"/>
+						<leftPen lineWidth="0.3" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.3" lineStyle="Solid"/>
+						<rightPen lineWidth="0.3" lineStyle="Solid"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{creatorNm}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

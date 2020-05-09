@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.WarehouseGoodsStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.logistics.model.WarehouseGoodsStatus" >
+    <id column="WAREHOUSE_GOODS_STATUS_ID" property="warehouseGoodsStatusId" jdbcType="INTEGER" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="WAREHOUSE_ID" property="warehouseId" jdbcType="INTEGER" />
+    <result column="STORAGE_ROOM_ID" property="storageRoomId" jdbcType="INTEGER" />
+    <result column="STORAGE_AREA_ID" property="storageAreaId" jdbcType="INTEGER" />
+    <result column="STORAGE_LOCATION_ID" property="storageLocationId" jdbcType="INTEGER" />
+    <result column="STORAGE_RACK_ID" property="storageRackId" jdbcType="INTEGER" />
+    <result column="NUM" property="num" jdbcType="INTEGER" />
+    <result column="WAREHOUSE_NAME" property="wareHouseName" jdbcType="VARCHAR" /><!-- 仓库 -->
+	<result column="STORAGE_ROOM_NAME" property="storageroomName" jdbcType="VARCHAR" /><!-- 库房 -->
+	<result column="STORAGE_AREA_NAME" property="storageAreaName" jdbcType="VARCHAR" /><!-- 货区 -->
+	<result column="STORAGE_RACK_NAME" property="storageRackName" jdbcType="VARCHAR" /><!-- 货架 -->
+	<result column="STORAGE_LOCATION_NAME" property="storageLocationName" jdbcType="VARCHAR" /><!-- 库位 -->
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.vedeng.logistics.model.vo.WarehouseGoodsStatusVo" extends="BaseResultMap">
+   <result column="WAREHOUSE_NAME" property="wareHouseName" jdbcType="VARCHAR" />
+    <result column="GOODS_NUM" property="goodsNum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap type="com.vedeng.order.model.GoodsData" id="goodsDataMap">
+  	<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+  	<result column="stockNum" property="stockNum" jdbcType="INTEGER" />
+  	<result column="SKU" property="sku" jdbcType="VARCHAR" />
+  	<result column="occupyNum" property="occupyNum" jdbcType="INTEGER" />
+  </resultMap>
+	<resultMap type="com.vedeng.logistics.model.WarehouseStock" id="warehouseStockMap">
+		<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+		<result column="SKU" property="sku" jdbcType="VARCHAR" />
+		<result column="STOCK_NUM" property="stockNum" jdbcType="INTEGER" />
+		<result column="OCCUPY_NUM" property="occupyNum" jdbcType="INTEGER" />
+	</resultMap>
+  
+  <sql id="Base_Column_List" >
+    WAREHOUSE_GOODS_STATUS_ID, COMPANY_ID, GOODS_ID, WAREHOUSE_ID, STORAGE_ROOM_ID, STORAGE_AREA_ID, 
+    STORAGE_LOCATION_ID, STORAGE_RACK_ID, NUM
+  </sql>
+
+
+	<select id="getGoodsStock" resultType="java.lang.Integer" parameterType="com.vedeng.logistics.model.WarehouseGoodsStatus" >
+		select
+		COALESCE(SUM(NUM),0)
+		from T_WAREHOUSE_GOODS_STATUS
+		where 1=1
+		<if test="companyId != null" >
+			and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="goodsId != null" >
+			and GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="getGoodsStockList" resultMap="goodsDataMap">
+		select
+		COALESCE(SUM(NUM),0) as stockNum,GOODS_ID
+		from T_WAREHOUSE_GOODS_STATUS
+		where 1=1
+		<if test="companyId != null" >
+			and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="goodsIds != null" >
+			and GOODS_ID in
+			<foreach collection="goodsIds" item="goodsId" index="index"
+					 open="(" close=")" separator=",">
+				#{goodsId}
+			</foreach>
+		</if>
+		group by GOODS_ID
+	</select>
+
+	<select id="getGoodsId" resultType="java.lang.Integer" parameterType="java.lang.String">
+		SELECT GOODS_ID FROM  T_GOODS WHERE SKU =  #{sku,jdbcType=VARCHAR};
+	</select>
+
+	<update id="updateGoodId">
+		update T_WAREHOUSE_GOODS_STATUS
+		<set>
+			<if test="isParentProblem!=null">
+				IS_PARENT_PROBLEM=#{isParentProblem}
+			</if>
+		</set>
+		where GOODS_ID=#{goodsId}
+	</update>
+	<select id="getAllStockId" resultMap="warehouseStockMap">
+	SELECT DISTINCT
+	a.GOODS_ID,
+	a.SKU
+	FROM
+	T_GOODS a
+	LEFT JOIN T_WAREHOUSE_GOODS_STATUS f ON f.`GOODS_ID` = a.`GOODS_ID`
+	WHERE a.IS_DISCARD=0 AND a.GOODS_ID NOT IN (
+		SELECT B.COMMENTS FROM T_SYS_OPTION_DEFINITION  B WHERE B.PARENT_ID=693
+	)
+
+	</select>
+	<select id="getOccupyNum" resultMap="goodsDataMap">
+	  SELECT
+		  b.`SKU`,
+		  COALESCE(
+			SUM(
+			  IF(
+				b.NUM - b.DELIVERY_NUM - IFNULL(c.thNum, 0) > 0,
+				b.NUM - b.DELIVERY_NUM - IFNULL(c.thNum, 0),
+				0
+			  )
+			),
+			0
+		  ) AS OCCUPY_NUM
+		FROM
+		  T_SALEORDER a
+		  LEFT JOIN T_SALEORDER_GOODS b
+			ON a.SALEORDER_ID = b.SALEORDER_ID
+		  LEFT JOIN
+			(SELECT
+			  COALESCE(SUM(aa.NUM), 0) AS thNum,
+			  aa.ORDER_DETAIL_ID
+			FROM
+			  T_AFTER_SALES_GOODS aa
+			  LEFT JOIN T_AFTER_SALES bb
+				ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+			  LEFT JOIN `T_GOODS` gg
+				ON aa.`GOODS_ID` = gg.`GOODS_ID`
+			WHERE bb.ATFER_SALES_STATUS IN (1, 2)
+			  AND bb.SUBJECT_TYPE = 535
+			  AND bb.TYPE = 539
+			  AND gg.`SKU` IN
+			<foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+			#{sku,jdbcType=VARCHAR}
+			</foreach>
+			GROUP BY aa.ORDER_DETAIL_ID,
+			  gg.`SKU`) AS c
+			ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+		WHERE a.STATUS = 1
+		  AND a.DELIVERY_STATUS != 2
+		  AND b.DELIVERY_DIRECT = 0
+		  AND b.IS_DELETE = 0
+		  AND a.ORDER_TYPE IN (0, 3)
+		  AND a.SATISFY_DELIVERY_TIME > 0
+		  AND b.`SKU` IN
+		  <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+			#{sku,jdbcType=VARCHAR}
+		  </foreach>
+		GROUP BY b.`SKU`
+	</select>
+	<select id="getStockNumByGoodsId" resultMap="warehouseStockMap">
+		SELECT
+			SKU,
+			GOODS_ID,
+		  IFNULL(SUM(ZKCNT),0) as STOCK_NUM
+		FROM
+		  (SELECT
+			e.*,
+			(
+			  IFNULL(SUM(e.NUM), 0) - IFNULL(ABS(aa.outnum), 0)
+			) ZKCNT,
+			l.BARCODE,
+				gg.SKU
+		  FROM
+			T_WAREHOUSE_GOODS_OPERATE_LOG e
+			LEFT JOIN
+			  (SELECT
+				SUM(b.NUM) AS outnum,
+				b.BARCODE_ID
+			  FROM
+				T_WAREHOUSE_GOODS_OPERATE_LOG b
+			  WHERE b.OPERATE_TYPE IN (2, 4, 6, 7, 10)
+				AND b.IS_ENABLE = 1
+				AND b.BARCODE_ID != 0
+			  GROUP BY b.BARCODE_ID) AS aa
+			  ON e.BARCODE_ID = aa.BARCODE_ID
+			LEFT JOIN T_WAREHOUSE g
+			  ON e.WAREHOUSE_ID = g.WAREHOUSE_ID
+			LEFT JOIN T_BARCODE l
+			  ON e.BARCODE_ID = l.BARCODE_ID
+			LEFT JOIN T_GOODS gg ON gg.GOODS_ID=e.GOODS_ID
+		  WHERE 1 = 1
+			AND e.OPERATE_TYPE IN (1, 3, 5, 8, 9)
+			AND e.IS_ENABLE = 1
+			AND e.GOODS_ID IN
+			<foreach item="goodsId" index="index" collection="list" open="(" separator="," close=")">
+			#{goodsId}
+			</foreach>
+			AND e.COMPANY_ID = 1
+			AND e.BARCODE_ID != 0
+		  GROUP BY e.BARCODE_ID) T
+		WHERE T.ZKCNT > 0 GROUP BY GOODS_ID
+	</select>
+
+	<select id="getWarehouseStatusByGoodsId" resultMap="BaseResultMap" resultType="integer">
+		select
+		WAREHOUSE_GOODS_STATUS_ID, COMPANY_ID, GOODS_ID, WAREHOUSE_ID, STORAGE_ROOM_ID, STORAGE_AREA_ID,
+    STORAGE_LOCATION_ID, STORAGE_RACK_ID, NUM
+		from T_WAREHOUSE_GOODS_STATUS
+		where
+			 COMPANY_ID = 1 and GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	</select>
+	<select id="getReallGoodsStockNumByGoodsId" resultMap="BaseResultMap">
+	 SELECT
+ 	T.GOODS_ID,
+	T.WAREHOUSE_ID,
+	T.STORAGE_ROOM_ID,
+	T.STORAGE_AREA_ID,
+	T.STORAGE_LOCATION_ID,
+	T.STORAGE_RACK_ID,
+	IFNULL( SUM( NUM ), 0 ) AS NUM
+	FROM (
+ 	SELECT
+	e.GOODS_ID,
+	e.WAREHOUSE_ID,
+	e.STORAGE_ROOM_ID,
+	e.STORAGE_AREA_ID,
+	e.STORAGE_LOCATION_ID,
+	e.STORAGE_RACK_ID,
+	(
+		IFNULL( SUM( e.NUM ), 0 ) - IFNULL( ABS( aa.outnum ), 0 )
+	) NUM
+	FROM
+	T_WAREHOUSE_GOODS_OPERATE_LOG e
+	LEFT JOIN (
+	SELECT
+		SUM( b.NUM ) AS outnum,
+		b.BARCODE_ID
+	FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG b
+	WHERE
+		b.OPERATE_TYPE IN ( 2, 4, 6, 7, 10 )
+		AND b.IS_ENABLE = 1 AND b.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		AND b.BARCODE_ID != 0
+	GROUP BY
+		b.BARCODE_ID
+	) AS aa ON e.BARCODE_ID = aa.BARCODE_ID
+	WHERE
+	1 = 1
+	AND e.OPERATE_TYPE IN ( 1, 3, 5, 8, 9 )
+	AND e.IS_ENABLE = 1
+	AND e.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	AND e.GOODS_ID NOT IN ( SELECT COMMENTS FROM T_SYS_OPTION_DEFINITION WHERE PARENT_ID = 693 )
+	AND e.COMPANY_ID = 1
+	AND e.BARCODE_ID != 0
+	GROUP BY
+	e.BARCODE_ID,
+	e.WAREHOUSE_ID,
+	e.STORAGE_ROOM_ID,
+	e.STORAGE_AREA_ID,
+	e.STORAGE_LOCATION_ID,
+	e.STORAGE_RACK_ID ) T
+	WHERE
+	T.NUM > 0
+	GROUP BY 	T.GOODS_ID,
+	T.WAREHOUSE_ID,
+	T.STORAGE_ROOM_ID,
+	T.STORAGE_AREA_ID,
+	T.STORAGE_LOCATION_ID,
+	T.STORAGE_RACK_ID
+	</select>
+	<update id="updateStockNumById" >
+		update T_WAREHOUSE_GOODS_STATUS set NUM =  #{num,jdbcType=INTEGER}
+		WHERE WAREHOUSE_GOODS_STATUS_ID = #{warehouseGoodsStatusId,jdbcType=INTEGER}
+	</update>
+</mapper>

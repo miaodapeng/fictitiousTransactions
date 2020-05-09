@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.RManageCategoryJUserMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.RManageCategoryJUser" >
+    <id column="R_MANAGE_CATEGORY_J_USER_ID" property="rManageCategoryJUserId" jdbcType="INTEGER" />
+    <result column="MANAGE_CATEGORY" property="manageCategory" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_MANAGE_CATEGORY_J_USER_ID, MANAGE_CATEGORY, USER_ID
+  </sql>
+  
+  <insert id="insert" parameterType="com.vedeng.goods.model.RManageCategoryJUser" >
+    insert into T_R_MANAGE_CATEGORY_J_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rManageCategoryJUserId != null" >
+        R_MANAGE_CATEGORY_J_USER_ID,
+      </if>
+      <if test="manageCategory != null" >
+        MANAGE_CATEGORY,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rManageCategoryJUserId != null" >
+        #{rManageCategoryJUserId,jdbcType=INTEGER},
+      </if>
+      <if test="manageCategory != null" >
+        #{manageCategory,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <select id="getUserByManageCategory" resultMap="BaseResultMap">
+  		select
+  			a.USER_ID,b.USERNAME
+  		from
+  			T_R_MANAGE_CATEGORY_J_USER a
+  		left join
+  			T_USER b
+  		on
+  			a.USER_ID = b.USER_ID
+  		where
+  			a.MANAGE_CATEGORY = #{manageCategory,jdbcType=INTEGER}
+  			and
+  			b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+
+	<select id="getUserNmByManageCategory" resultType="java.lang.String">
+		SELECT GROUP_CONCAT(B.USERNAME)
+		FROM T_R_MANAGE_CATEGORY_J_USER A 
+			LEFT JOIN T_USER B ON A.USER_ID = B.USER_ID
+		WHERE A.MANAGE_CATEGORY = #{manageCategory,jdbcType=INTEGER} AND B.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	</select>
+  
+  <delete id="deleteByCateCompany">
+  	delete 
+  	from 
+  		T_R_MANAGE_CATEGORY_J_USER
+	where 
+		USER_ID in ( select USER_ID from T_USER where COMPANY_ID = #{companyId,jdbcType=INTEGER}) 
+		and 
+		MANAGE_CATEGORY = #{manageCategory,jdbcType=INTEGER} 
+  </delete>
+  
+  <select id="getUserByManageCategories"  resultMap="BaseResultMap">
+  	select
+  			a.USER_ID,b.USERNAME
+  		from
+  			T_R_MANAGE_CATEGORY_J_USER a
+  		left join
+  			T_USER b
+  		on
+  			a.USER_ID = b.USER_ID
+  		where
+  			a.MANAGE_CATEGORY in
+  			<foreach item="manageCategory" index="index" collection="manageCategories" open="(" separator="," close=")">
+				#{manageCategory,jdbcType=INTEGER}
+			</foreach>
+  			and
+  			b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+</mapper>

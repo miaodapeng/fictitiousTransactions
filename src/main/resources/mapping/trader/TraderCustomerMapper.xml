@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.TraderCustomerMapper">
+    <resultMap id="BaseResultMap" type="com.vedeng.trader.model.TraderCustomer">
+        <id column="TRADER_CUSTOMER_ID" property="traderCustomerId" jdbcType="INTEGER"/>
+        <result column="TRADER_ID" property="traderId" jdbcType="INTEGER"/>
+        <result column="TRADER_CUSTOMER_CATEGORY_ID" property="traderCustomerCategoryId" jdbcType="INTEGER"/>
+        <result column="CUSTOMER_TYPE" property="customerType" jdbcType="INTEGER"/>
+        <result column="CUSTOMER_NATURE" property="customerNature" jdbcType="INTEGER"/>
+        <result column="IS_ENABLE" property="isEnable" jdbcType="BIT"/>
+        <result column="IS_TOP" property="isTop" jdbcType="BIT"/>
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL"/>
+        <result column="PERIOD_AMOUNT" property="periodAmount" jdbcType="DECIMAL"/>
+        <result column="PERIOD_DAY" property="periodDay" jdbcType="INTEGER"/>
+        <result column="DISABLE_TIME" property="disableTime" jdbcType="BIGINT"/>
+        <result column="CUSTOMER_FROM" property="customerFrom" jdbcType="INTEGER"/>
+        <result column="FIRST_ENQUIRY_TYPE" property="firstEnquiryType" jdbcType="INTEGER"/>
+        <result column="CUSTOMER_LEVEL" property="customerLevel" jdbcType="INTEGER"/>
+        <result column="USER_EVALUATE" property="userEvaluate" jdbcType="INTEGER"/>
+        <result column="CUSTOMER_SCORE" property="customerScore" jdbcType="INTEGER"/>
+        <result column="BASIC_MEDICAL_DEALER" property="basicMedicalDealer" jdbcType="BIT"/>
+        <result column="IS_VIP" property="isVip" jdbcType="BIT"/>
+        <result column="OWNERSHIP" property="ownership" jdbcType="INTEGER"/>
+        <result column="MEDICAL_TYPE" property="medicalType" jdbcType="INTEGER"/>
+        <result column="HOSPITAL_LEVEL" property="hospitalLevel" jdbcType="INTEGER"/>
+        <result column="EMPLOYEES" property="employees" jdbcType="INTEGER"/>
+        <result column="ANNUAL_SALES" property="annualSales" jdbcType="INTEGER"/>
+        <result column="SALES_MODEL" property="salesModel" jdbcType="INTEGER"/>
+        <result column="REGISTERED_CAPITAL" property="registeredCapital" jdbcType="DECIMAL"/>
+        <result column="REGISTERED_DATE" property="registeredDate" jdbcType="DATE"/>
+        <result column="DIRECT_SELLING" property="directSelling" jdbcType="DECIMAL"/>
+        <result column="WHOLESALE" property="wholesale" jdbcType="DECIMAL"/>
+        <result column="DISABLE_REASON" property="disableReason" jdbcType="VARCHAR"/>
+        <result column="COMMENTS" property="comments" jdbcType="VARCHAR"/>
+        <result column="FINANCE_COMMENTS" property="financeComments" jdbcType="VARCHAR"/>
+        <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR"/>
+        <result column="BRIEF" property="brief" jdbcType="VARCHAR"/>
+        <result column="HISTORY" property="history" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_CONDITION" property="businessCondition" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_PLAN" property="businessPlan" jdbcType="VARCHAR"/>
+        <result column="ADVANTAGE" property="advantage" jdbcType="VARCHAR"/>
+        <result column="PRIMAL_PROBLEM" property="primalProblem" jdbcType="VARCHAR"/>
+        <result column="ORGANIZATION_CODE" property="orgNumber" jdbcType="VARCHAR"/>
+        <result column="UNIFIED_SOCIAL_CREDIT_IDENTIFIER" property="creditCode" jdbcType="VARCHAR"/>
+        <result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR"/>
+        <result column="HISTORY_NAME" property="historyNames" jdbcType="VARCHAR"/>
+        <result column="ADD_TIME" property="addTime" jdbcType="BIGINT"/>
+        <result column="CREATOR" property="creator" jdbcType="INTEGER"/>
+        <result column="IS_PROFIT" property="isProfit" jdbcType="INTEGER"/>
+        <result column="MOD_TIME" property="modTime" jdbcType="BIGINT"/>
+        <result column="UPDATER" property="updater" jdbcType="INTEGER"/>
+        <result column="MN_CODE" property="meiNianCode" jdbcType="VARCHAR"/>
+        <result column="TRADER_LEVEL" property="traderLevel" jdbcType="INTEGER"/>
+        <result column="SOURCE" property="source" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <resultMap type="com.vedeng.trader.model.vo.TraderCustomerVo" id="VoBaseResultMap" extends="BaseResultMap">
+        <result column="TRADER_NAME" property="name" jdbcType="VARCHAR" />
+        <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+        <result column="STATUS" property="customerStatus" jdbcType="INTEGER" />
+        <result column="APTITUDE_STATUS" property="aptitudeStatus" jdbcType="INTEGER" />
+        <result column="CUSTOMER_BUY_COUNT" property="buyCount" jdbcType="INTEGER" />
+        <result column="CUSTOMER_QUOTE_COUNT" property="quoteCount" jdbcType="INTEGER" />
+        <result column="CUSTOMER_BUY_MONEY" property="buyMoney" jdbcType="DECIMAL" />
+        <result column="AREA_ID" property="areaId" jdbcType="INTEGER"/>
+        <result column="AREA_IDS" property="areaIds" jdbcType="VARCHAR"/>
+        <result column="QUOTE_COUNT" property="quoteCount" jdbcType="INTEGER" />
+        <result column="COMMUNCATE_COUNT" property="communcateCount" jdbcType="INTEGER" />
+        <result column="BUSSINESS_CHANCE_COUNT" property="bussinessChanceCount" jdbcType="INTEGER" />
+        <result column="IS_PROFIT" property="isProfit" jdbcType="INTEGER" />
+        <result column="LAST_BUSSINESS_TIME" property="lastBussinessTime" jdbcType="BIGINT" />
+        <result column="FIRST_BUSSINESS_TIME" property="firstBussinessTime" jdbcType="BIGINT" />
+
+        <result column="USED_PERIOD_AMOUNT" property="usedPeriodAmount" jdbcType="DECIMAL" />
+        <result column="USED_TIMES" property="usedTimes" jdbcType="INTEGER"/>
+        <result column="CAPITAL_BILL_ID" property="capitalBillId" jdbcType="INTEGER" />
+        <result column="TRADER_MODE" property="traderMode" jdbcType="INTEGER" />
+        <result column="ORDER_PERIOD_AMOUNT" property="orderPeriodAmount" jdbcType="DECIMAL" />
+        <result column="ORDER_PAYMENT_STATUS" property="orderPaymentStatus" jdbcType="INTEGER" />
+        <result column="SALEORDER_ID" property="saleorderId" jdbcType="INTEGER" />
+
+        <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+        <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+        <result column="LAST_VERIFY_USERNAME" property="lastVerifyUsermae" jdbcType="VARCHAR" />
+        <result column="VERIFY_USERNAME" property="verifyUsername" jdbcType="VARCHAR" />
+        <result column="VERIFY_STATUS" property="verifyStatus" jdbcType="INTEGER" />
+
+        <result column="CUSTOMER_TYPE_STR" property="customerTypeStr" jdbcType="VARCHAR" />
+        <result column="CUSTOMER_NATURE_STR" property="customerNatureStr" jdbcType="VARCHAR" />
+        <result column="CUSTOMER_CATEGORY" property="customerCategory" jdbcType="INTEGER" />
+        <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+        <result column="SOURCE" property="source" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        TRADER_CUSTOMER_ID, TRADER_ID, TRADER_CUSTOMER_CATEGORY_ID, CUSTOMER_TYPE, CUSTOMER_NATURE, IS_ENABLE, IS_TOP, AMOUNT,
+        PERIOD_AMOUNT, PERIOD_DAY, DISABLE_TIME, CUSTOMER_FROM, FIRST_ENQUIRY_TYPE, CUSTOMER_LEVEL,
+        USER_EVALUATE, CUSTOMER_SCORE, BASIC_MEDICAL_DEALER, IS_VIP, OWNERSHIP, MEDICAL_TYPE,
+        HOSPITAL_LEVEL, EMPLOYEES, ANNUAL_SALES, SALES_MODEL, REGISTERED_CAPITAL, REGISTERED_DATE,
+        DIRECT_SELLING, WHOLESALE, DISABLE_REASON, COMMENTS, FINANCE_COMMENTS, LOGISTICS_COMMENTS,
+        BRIEF, HISTORY, BUSINESS_CONDITION, BUSINESS_PLAN, ADVANTAGE, PRIMAL_PROBLEM, ADD_TIME, HISTORY_NAME,BUSINESS_SCOPE,
+        CREATOR, MOD_TIME, UPDATER
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        T_TRADER_CUSTOMER
+        WHERE
+        TRADER_CUSTOMER_ID = #{traderId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateCustomerIsProfit">
+        update T_TRADER_CUSTOMER SET IS_PROFIT=#{isProfit}
+        WHERE TRADER_ID=#{traderId}
+    </update>
+
+    <select id="getTraderCustomerIdsListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID FROM T_TRADER_CUSTOMER t LEFT JOIN T_VERIFIES_INFO v ON v.RELATE_TABLE_KEY=t.TRADER_CUSTOMER_ID AND v.relate_table='T_CUSTOMER_APTITUDE'
+        WHERE 1=1
+        <if test="trader.customerNature!=null">
+            AND t.CUSTOMER_NATURE=#{trader.customerNature}
+        </if>
+        AND v.STATUS IS NULL
+    </select>
+
+    <select id="getTraderCustomerListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID,tr.SOURCE FROM T_TRADER_CUSTOMER t LEFT JOIN T_TRADER tr on tr.TRADER_ID=t.TRADER_ID
+        WHERE 1=1 and t.IS_ENABLE=1
+    </select>
+
+
+    <select id="getTraderCustomerByOrganizationsListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID,tr.SOURCE
+        FROM T_TRADER_CUSTOMER t
+        LEFT JOIN T_TRADER tr ON tr.TRADER_ID = t.TRADER_ID
+        LEFT JOIN T_R_TRADER_J_USER B ON tr.TRADER_ID = B.TRADER_ID
+        LEFT JOIN T_USER C ON B.USER_ID = C.USER_ID
+        LEFT JOIN T_R_USER_POSIT D ON C.USER_ID = D.USER_ID
+        LEFT JOIN T_POSITION E ON D.POSITION_ID = E.POSITION_ID
+        LEFT JOIN T_ORGANIZATION F ON E.ORG_ID = F.ORG_ID
+        WHERE
+        1 = 1
+        AND t.IS_ENABLE = 1
+        AND F.ORG_ID IN
+        <foreach collection="organizations" separator="," open="(" close=")" item="i">
+            #{i.orgId}
+        </foreach>
+    </select>
+
+    <select id="getYXGCustomerListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID,tr.SOURCE FROM T_TRADER_CUSTOMER t LEFT JOIN T_TRADER tr on tr.TRADER_ID=t.TRADER_ID
+        WHERE 1=1 and t.IS_ENABLE=1 AND tr.SOURCE=1
+    </select>
+
+    <select id="getTraderCustomerByTraderId" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID,tr.SOURCE FROM T_TRADER_CUSTOMER t LEFT JOIN T_TRADER tr on tr.TRADER_ID=t.TRADER_ID
+        WHERE 1=1 and  t.TRADER_ID=#{traderId}
+    </select>
+
+    <select id="getBaseCustomerByTraderId" resultMap="BaseResultMap">
+        SELECT t.TRADER_ID,t.TRADER_CUSTOMER_ID,t.CUSTOMER_NATURE,t.IS_PROFIT FROM T_TRADER_CUSTOMER t
+        WHERE 1=1 and  t.TRADER_ID=#{traderId}
+    </select>
+
+    <update id="updateCustomerCategoryById" parameterType="com.vedeng.trader.model.TraderCustomer">
+        update T_TRADER_CUSTOMER SET CUSTOMER_CATEGORY=#{customerCategory} WHERE TRADER_CUSTOMER_ID=#{traderCustomerId}
+    </update>
+
+    <update id="updateCustomerLevelById" parameterType="com.vedeng.trader.model.TraderCustomer">
+        update T_TRADER_CUSTOMER SET CUSTOMER_LEVEL=#{customerLevel} WHERE TRADER_CUSTOMER_ID=#{traderCustomerId}
+    </update>
+    <update id="updateTraderCustomerAmount">
+        UPDATE T_TRADER_CUSTOMER A
+        SET A.AMOUNT = A.AMOUNT + #{amount,jdbcType=DECIMAL},
+            A.UPDATER = #{updater,jdbcType=INTEGER},
+            A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+        WHERE A.TRADER_ID = #{traderId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getCustomerInfo" resultMap="VoBaseResultMap" parameterType="java.lang.Integer">
+	SELECT B.TRADER_NAME,
+	       B.AREA_ID,
+	       A.TRADER_CUSTOMER_CATEGORY_ID,
+	       A.CUSTOMER_TYPE,
+	       A.CUSTOMER_NATURE,
+	       A.TRADER_CUSTOMER_ID,
+	       A.TRADER_ID,
+	       A.COMMENTS,
+	       B.AREA_IDS,
+	       A.IS_ENABLE,
+	       A.CUSTOMER_LEVEL,
+	       A.PERIOD_DAY,
+	       A.AMOUNT,
+	       A.OWNERSHIP
+	FROM T_TRADER_CUSTOMER A LEFT JOIN T_TRADER B ON A.TRADER_ID = B.TRADER_ID
+  	WHERE
+  		A.TRADER_ID = #{traderId,jdbcType=INTEGER}
+  </select>
+
+    
+    <select id="getTraderCustomerById" resultMap="BaseResultMap">
+        select * from T_TRADER_CUSTOMER where TRADER_ID=#{traderId}
+    </select>
+    <select id="getTraderCustomerByPayApply" resultType="com.vedeng.trader.model.TraderCustomer">
+        SELECT
+            TC.*
+        FROM
+            T_PAY_APPLY PA
+                LEFT JOIN T_AFTER_SALES A ON PA.RELATED_ID = A.AFTER_SALES_ID
+                LEFT JOIN T_SALEORDER S ON A.ORDER_ID = S.SALEORDER_ID
+                LEFT JOIN T_TRADER_CUSTOMER TC ON S.TRADER_ID = TC.TRADER_ID
+        WHERE
+            PA.PAY_APPLY_ID = #{payApplyId,jdbcType=INTEGER};
+    </select>
+
+
+    <select id="getTraderCustomerIsMember" resultType="integer">
+    SELECT
+	A.TRADER_CUSTOMER_ID
+    FROM
+	T_TRADER_CUSTOMER A
+	 JOIN T_TRADER B ON A.TRADER_ID = B.TRADER_ID
+	 JOIN T_VERIFIES_INFO C ON A.TRADER_CUSTOMER_ID = C.RELATE_TABLE_KEY
+    WHERE
+    A. CUSTOMER_NATURE = 465
+	AND C.RELATE_TABLE='T_CUSTOMER_APTITUDE'
+	AND C.`STATUS`=1
+	AND B.BELONG_PLATFORM=1
+	AND A.IS_VEDENG_MEMBER!=1;
+
+    </select>
+
+    <update id="updateIsVedengMember">
+        UPDATE T_TRADER_CUSTOMER
+        SET IS_VEDENG_MEMBER = #{status}
+        WHERE
+        TRADER_CUSTOMER_ID IN
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="id">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </update>
+</mapper>

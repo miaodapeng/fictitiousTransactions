@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.UserLoginLogMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.UserLoginLog">
+		<id column="USER_LOGIN_LOG_ID" property="userLoginLogId" jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="ACCESS_TYPE" property="accessType" jdbcType="INTEGER" />
+		<result column="ACCESS_TIME" property="accessTime" jdbcType="BIGINT" />
+		<result column="AGENT_INFO" property="agentInfo" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_LOGIN_LOG_ID, USER_ID, USERNAME, IP, ACCESS_TYPE, ACCESS_TIME, AGENT_INFO
+	</sql>
+	<!-- 查询登录日志信息列表 -->
+	<select id="querylistPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from T_USER_LOGIN_LOG a
+		<where>
+			1 = 1
+			<if test="userLoginLog.username!=null and userLoginLog.username!=''">
+				and a.USERNAME like
+				CONCAT('%',#{userLoginLog.username},'%' )
+			</if>
+		</where>
+		order by a.USER_LOGIN_LOG_ID
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_USER_LOGIN_LOG
+		where USER_LOGIN_LOG_ID = #{userLoginLogId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from T_USER_LOGIN_LOG
+		where USER_LOGIN_LOG_ID = #{userLoginLogId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.vedeng.authorization.model.UserLoginLog">
+		insert into T_USER_LOGIN_LOG (USER_LOGIN_LOG_ID, USER_ID, USERNAME,
+		IP, ACCESS_TYPE, ACCESS_TIME,
+		AGENT_INFO)
+		values (#{userLoginLogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+		#{username,jdbcType=VARCHAR},
+		#{ip,jdbcType=VARCHAR}, #{accessType,jdbcType=INTEGER}, #{accessTime,jdbcType=BIGINT},
+		#{agentInfo,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.vedeng.authorization.model.UserLoginLog">
+		insert into T_USER_LOGIN_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userLoginLogId != null">
+				USER_LOGIN_LOG_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="username != null">
+				USERNAME,
+			</if>
+			<if test="ip != null">
+				IP,
+			</if>
+			<if test="accessType != null">
+				ACCESS_TYPE,
+			</if>
+			<if test="accessTime != null">
+				ACCESS_TIME,
+			</if>
+			<if test="agentInfo != null">
+				AGENT_INFO,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userLoginLogId != null">
+				#{userLoginLogId,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="accessType != null">
+				#{accessType,jdbcType=INTEGER},
+			</if>
+			<if test="accessTime != null">
+				#{accessTime,jdbcType=BIGINT},
+			</if>
+			<if test="agentInfo != null">
+				#{agentInfo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vedeng.authorization.model.UserLoginLog">
+		update T_USER_LOGIN_LOG
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				USERNAME = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				IP = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="accessType != null">
+				ACCESS_TYPE = #{accessType,jdbcType=INTEGER},
+			</if>
+			<if test="accessTime != null">
+				ACCESS_TIME = #{accessTime,jdbcType=BIGINT},
+			</if>
+			<if test="agentInfo != null">
+				AGENT_INFO = #{agentInfo,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where USER_LOGIN_LOG_ID = #{userLoginLogId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.vedeng.authorization.model.UserLoginLog">
+		update T_USER_LOGIN_LOG
+		set USER_ID = #{userId,jdbcType=INTEGER},
+		USERNAME = #{username,jdbcType=VARCHAR},
+		IP = #{ip,jdbcType=VARCHAR},
+		ACCESS_TYPE = #{accessType,jdbcType=INTEGER},
+		ACCESS_TIME = #{accessTime,jdbcType=BIGINT},
+		AGENT_INFO = #{agentInfo,jdbcType=VARCHAR}
+		where USER_LOGIN_LOG_ID = #{userLoginLogId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 查询 用户登录 -->
+	<select id="queryUserLogOrOutInfo" resultMap="BaseResultMap" parameterType="com.vedeng.authorization.model.UserLoginLog">
+		select
+		<include refid="Base_Column_List" />
+		from T_USER_LOGIN_LOG
+		where 
+			1 = 1
+		<if test="userId != null">			
+			AND USER_ID = #{userId, jdbcType=INTEGER}
+		</if>
+		<if test="userId != null">			
+			AND ACCESS_TIME <![CDATA[ >= ]]> #{accessTime, jdbcType=INTEGER}
+		</if>
+		ORDER BY ACCESS_TIME DESC LIMIT 1
+	</select>
+</mapper>

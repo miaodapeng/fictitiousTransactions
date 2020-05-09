@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElTraderMapper">
+  <resultMap id="BaseResultMap" type="com.smallhospital.model.ElTrader">
+    <id column="EL_TRADER_ID" jdbcType="INTEGER" property="elTraderId" />
+    <result column="TRADER_ID" jdbcType="INTEGER" property="traderId" />
+    <result column="OWNER" jdbcType="INTEGER" property="owner" />
+
+    <result column="CONTACT_NAME" jdbcType="VARCHAR" property="contactName" />
+    <result column="CONTACTNUMBER1" jdbcType="VARCHAR" property="contactNumber1" />
+    <result column="CONTACTNUMBER2" jdbcType="VARCHAR" property="contactNumber2" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+
+
+    <result column="ADD_TIME" jdbcType="BIGINT" property="addTime" />
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="UPDATOR" jdbcType="INTEGER" property="updator" />
+
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    EL_TRADER_ID, TRADER_ID, OWNER, CONTACT_NAME, CONTACTNUMBER1 , CONTACTNUMBER2 , ADDRESS , EMAIL , ADD_TIME, UPDATE_TIME, CREATOR, UPDATOR
+  </sql>
+
+  <select id="querylistPage" parameterType="Map" resultType="com.smallhospital.model.vo.ElTraderVo">
+    select
+    a.TRADER_ID,a.ADDRESS,a.CONTACT_NAME,a.CONTACTNUMBER1,a.CONTACTNUMBER2,b.TRADER_NAME,a.ADD_TIME
+    from T_EL_TRADER a
+    left join T_TRADER b on a.TRADER_ID = b.TRADER_ID
+    <where>
+      <if test="trader.traderName != null and trader.traderName != ''">
+        and b.TRADER_NAME like CONCAT('%',#{trader.traderName},'%' )
+      </if>
+      <if test="trader.owner != null and trader.owner != ''">
+        and a.OWNER = #{trader.owner}
+      </if>
+    </where>
+    order by EL_TRADER_ID DESC
+  </select>
+
+   <select id="findCustomerByLoginId" parameterType="java.lang.Integer" resultType="com.smallhospital.model.vo.ElTraderVo">
+        select
+          a.TRADER_ID,b.TRADER_NAME
+        from T_EL_TRADER a
+        left join T_TRADER b on a.TRADER_ID = b.TRADER_ID
+        where a.OWNER = #{owner,jdbcType=INTEGER}
+   </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_EL_TRADER
+    where EL_TRADER_ID = #{elTraderId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getExpressByLogisticsNo" parameterType="java.lang.String" resultType="java.lang.String">
+    SELECT
+      LC.CODE
+    FROM
+      T_EXPRESS E
+    JOIN T_LOGISTICS L ON E.LOGISTICS_ID = L.LOGISTICS_ID
+    JOIN T_LOGISTICS_CODE LC ON L.NAME = LC.NAME
+    WHERE
+      E.LOGISTICS_NO = #{logisticsNo,jdbcType=VARCHAR}
+    LIMIT 1
+</select>
+
+
+  <select id="getElTraderByTraderId" parameterType="java.lang.Integer" resultType="com.smallhospital.model.vo.ElTraderVo">
+    select
+      <include refid="Base_Column_List" />
+    from T_EL_TRADER
+    where TRADER_ID = #{traderId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_EL_TRADER
+    where EL_TRADER_ID = #{elTraderId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" keyColumn="EL_TRADER_ID" keyProperty="elTraderId" parameterType="com.smallhospital.model.ElTrader" useGeneratedKeys="true">
+    insert into T_EL_TRADER (TRADER_ID,OWNER,CONTACT_NAME,CONTACTNUMBER1,CONTACTNUMBER2,ADDRESS,EMAIL,ADD_TIME, UPDATE_TIME,
+      CREATOR, UPDATOR)
+    values (#{traderId,jdbcType=INTEGER}, #{owner,jdbcType=INTEGER},
+      #{contactName,jdbcType=VARCHAR},#{contactNumber1,jdbcType=VARCHAR},#{contactNumber2,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},
+      #{addTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+      #{creator,jdbcType=INTEGER}, #{updator,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="EL_TRADER_ID" keyProperty="elTraderId" parameterType="com.smallhospital.model.ElTrader" useGeneratedKeys="true">
+    insert into T_EL_TRADER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="traderId != null">
+        TRADER_ID,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+
+      <if test="contactName != null">
+        CONTACT_NAME,
+      </if>
+      <if test="contactNumber1 != null">
+        CONTACTNUMBER1,
+      </if>
+      <if test="contactNumber2 != null">
+        CONTACTNUMBER2,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="updator != null">
+        UPDATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="traderId != null">
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=INTEGER},
+      </if>
+
+      <if test="contactName != null">
+        #{contactName,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber1 != null">
+        #{contactNumber1,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber2 != null">
+        #{contactNumber2,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+
+      <if test="addTime != null">
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.smallhospital.model.ElTrader">
+    update T_EL_TRADER
+    <set>
+      <if test="traderId != null">
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        OWNER = #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        UPDATOR = #{updator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EL_TRADER_ID = #{elTraderId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

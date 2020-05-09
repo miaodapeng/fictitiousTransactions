@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.report.dao.CommonReportMapper">
+    <select id="getUserByPositTypes" resultType="com.vedeng.authorization.model.User" parameterType="com.vedeng.authorization.model.User">
+  	select 
+  		 DISTINCT a.USER_ID, a.COMPANY_ID, a.USERNAME, a.NUMBER, a.PASSWORD, a.SALT, a.PARENT_ID, a.IS_DISABLED, a.DISABLED_REASON, 
+    	a.LAST_LOGIN_TIME, a.LAST_LOGIN_IP, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	c.CC_NUMBER
+  	from
+  		T_USER a
+  	left join
+  		T_R_USER_POSIT b on a.USER_ID=b.USER_ID
+  	left join
+  		T_POSITION d ON d.POSITION_ID = b.POSITION_ID
+  	left join
+		T_USER_DETAIL c on a.USER_ID = c.USER_ID
+  	<where>
+  		1=1
+  		<if test="positionTypes != null and positionTypes.size > 0">
+  			and d.TYPE IN 
+			<foreach item="positionType" index="index" collection="positionTypes" open="(" separator="," close=")">  
+			  #{positionType}  
+			</foreach> 
+  		</if>
+  		<if test="companyId != null">
+   			and a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+   		</if>
+   		<if test="isDisabled != null">
+   			and a.IS_DISABLED = #{isDisabled,jdbcType=INTEGER}
+   		</if>
+  		ORDER BY a.USERNAME
+  	</where>
+  </select>
+  
+	<select id="getUserByUserIds" resultType="com.vedeng.authorization.model.User">
+		SELECT *
+		FROM T_USER
+		WHERE USER_ID IN
+		<foreach item="userId" index="index" collection="userIdList" open="(" separator="," close=")">
+			#{userId,jdbcType=INTEGER}
+		</foreach>
+		ORDER BY USERNAME
+	</select>
+  	<!-- 根据日期范围查询沟通记录ID -->
+	<select id="getCommunicateRecordByDate" resultType="java.lang.Integer">
+		SELECT
+			A.COMMUNICATE_RECORD_ID
+		FROM T_COMMUNICATE_RECORD A
+		WHERE 1 = 1 
+			<if test="beginDate!=null and beginDate!=''">
+				AND A.BEGINTIME <![CDATA[>=]]> #{beginDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				AND A.ENDTIME <![CDATA[<=]]> #{endDate,jdbcType=VARCHAR}
+			</if>
+			AND A.COMMUNICATE_TYPE IN (#{communicateType,jdbcType=VARCHAR})
+	</select>
+	
+	<!-- 查询销售部门group by去除重复 -->
+	<select id="getSalesOrgList" parameterType="java.lang.Integer" resultType="com.vedeng.authorization.model.Organization">
+		SELECT A.ORG_ID,
+		       A.COMPANY_ID,
+		       A.PARENT_ID,
+		       A.ORG_NAME,
+		       A.LEVEL,
+		       A.ADD_TIME,
+		       A.CREATOR,
+		       A.MOD_TIME,
+		       A.UPDATER
+		FROM T_ORGANIZATION A LEFT JOIN T_POSITION B ON A.ORG_ID = B.ORG_ID
+		WHERE B.TYPE = #{orgType,jdbcType=INTEGER} 
+		GROUP BY A.ORG_ID
+	</select>
+	
+	<!-- 销售人员所属(客户或供应商)ID -->
+	<select id="getTraderIdListByUserList" resultType="java.lang.Integer">
+		SELECT A.TRADER_ID
+		FROM T_R_TRADER_J_USER A
+		WHERE A.USER_ID IN 
+			<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+				#{userId,jdbcType=VARCHAR}
+			</foreach>
+			<if test="traderType != null">
+				 AND A.TRADER_TYPE = #{traderType,jdbcType=INTEGER}
+			</if>
+	</select>
+	<!-- 根据客户ID查询客户负责人信息 -->
+	<select id="getUserByTraderIdList" resultType="com.vedeng.authorization.model.User" parameterType="java.util.List">
+		SELECT DISTINCT A.USER_ID,
+		                A.COMPANY_ID,
+		                A.USERNAME,
+		                A.NUMBER,
+		                A.PASSWORD,
+		                A.SALT,
+		                A.PARENT_ID,
+		                A.IS_DISABLED,
+		                A.DISABLED_REASON,
+		                A.LAST_LOGIN_TIME,
+		                A.LAST_LOGIN_IP,
+		                A.ADD_TIME,
+		                A.CREATOR,
+		                A.MOD_TIME,
+		                A.UPDATER,
+		                TR.TRADER_ID
+		FROM T_USER A LEFT JOIN T_R_TRADER_J_USER TR ON TR.USER_ID = A.USER_ID
+		WHERE TR.TRADER_ID IN 
+			<foreach collection="traderIdList" item="traderId" open="(" close=")" separator=",">
+				#{traderId,jdbcType=INTEGER}
+			</foreach>
+			<if test="traderType != null">
+				AND TR.TRADER_TYPE = #{traderType,jdbcType=INTEGER}
+			</if>
+	</select>
+	<!-- 根据部门IDlist查询部门信息 -->
+	<select id="getOrgNameByOrgIdList" resultType="com.vedeng.authorization.model.Organization" parameterType="java.util.List">
+		SELECT * 
+	  	FROM T_ORGANIZATION
+	  	<where>
+        	ORG_ID IN 
+        	<foreach collection="orgIdList" item="orgId" open="(" close=")" separator=",">
+	        	#{orgId,jdbcType=INTEGER}
+        	</foreach>
+	  	</where>
+	</select>
+	<!-- 根据订单ID、商机ID等查询沟通记录数 -->
+	<select id="getCommunicateRecordCountList" parameterType="java.util.List" resultType="com.report.model.export.ExportAssist">
+		SELECT COUNT(*) AS relatedData,A.RELATED_ID AS relatedId
+		FROM T_COMMUNICATE_RECORD A
+		WHERE
+			<if test="communicateRecordList != null and communicateRecordList.size > 0">
+				<if test="bussinessType != null">
+					 (A.RELATED_ID IN 
+					<foreach collection="communicateRecordList" item="communicateRecord" open="(" close=")" separator=",">
+						<if test="communicateRecord.bussinessChanceId != null and communicateRecord.bussinessChanceId != ''">
+							 #{communicateRecord.bussinessChanceId,jdbcType=INTEGER}
+						</if>
+					</foreach>
+					AND A.COMMUNICATE_TYPE =  #{bussinessType,jdbcType=INTEGER})
+				</if>
+				<if test="bussinessType != null and quoteType != null">
+					OR 
+				</if>
+				<if test="quoteType != null">
+					(A.RELATED_ID IN 
+					<foreach collection="communicateRecordList" item="communicateRecord" open="(" close=")" separator=",">
+						<if test="communicateRecord.quoteorderId != null and communicateRecord.quoteorderId != ''">
+							 #{communicateRecord.quoteorderId,jdbcType=INTEGER}
+						</if>
+					</foreach>
+					AND A.COMMUNICATE_TYPE =  #{quoteType,jdbcType=INTEGER})
+				</if>
+			</if>
+			GROUP BY A.RELATED_ID
+	</select>
+	
+	<select id="getCommunicateNumList" parameterType="java.util.List" resultType="com.vedeng.trader.model.CommunicateRecord">
+		SELECT COUNT(*) AS communicateCount,A.RELATED_ID
+		FROM T_COMMUNICATE_RECORD A
+		WHERE 
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList != null and businessIdList.size > 0)">
+				 (A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList == null or businessIdList.size == 0)">
+				 (A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+			</if>
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList != null or saleIdList.size > 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList == null and businessIdList.size == 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList == null or businessIdList.size == 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			GROUP BY A.RELATED_ID
+	</select>
+	
+	<select id="getRegionById" resultType="com.vedeng.authorization.model.Region" parameterType="java.lang.Integer">
+		SELECT * 
+		FROM T_REGION
+		WHERE REGION_ID=#{regionId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getUserListByOrgIdList" resultType="com.vedeng.authorization.model.User">
+		SELECT A.USER_ID, A.COMPANY_ID, A.USERNAME, A.NUMBER, A.PASSWORD, A.SALT, A.PARENT_ID, A.IS_DISABLED, A.DISABLED_REASON, 
+    		A.LAST_LOGIN_TIME, A.LAST_LOGIN_IP, A.ADD_TIME, A.CREATOR, A.MOD_TIME, A.UPDATER
+		FROM T_USER A
+			LEFT JOIN T_R_USER_POSIT B ON A.USER_ID = B.USER_ID
+			LEFT JOIN T_POSITION C ON B.POSITION_ID = C.POSITION_ID
+		WHERE C.ORG_ID IN 
+			<foreach item="orgId" index="index" collection="orgIdList" open="(" separator="," close=")">  
+				#{orgId,jdbcType=INTEGER}
+			</foreach>
+			AND A.IS_DISABLED = 0 and A.COMPANY_ID = #{companyId,jdbcType=INTEGER} order by A.USERNAME
+	</select>
+	
+	<select id="getCategoryUserAndOrgList" resultType="com.vedeng.authorization.model.User" parameterType="java.util.List">
+		SELECT GROUP_CONCAT(B.USERNAME) AS USERNAME,
+		       GROUP_CONCAT(E.ORG_NAME) AS ORG_NAME,
+		       A.CATEGORY_ID
+		FROM T_R_CATEGORY_J_USER A
+		     INNER JOIN T_USER B ON A.USER_ID = B.USER_ID
+		     LEFT JOIN T_R_USER_POSIT C ON B.USER_ID = C.USER_ID
+		     LEFT JOIN T_POSITION D ON C.POSITION_ID = D.POSITION_ID
+		     LEFT JOIN T_ORGANIZATION E ON D.ORG_ID = E.ORG_ID
+		WHERE A.CATEGORY_ID IN 
+			<foreach collection="categoryIdList" item="categoryId" open="(" close=")" separator=",">
+				#{categoryId,jdbcType=INTEGER}
+			</foreach>
+		GROUP BY A.CATEGORY_ID
+	</select>
+	
+	<select id="getTraderUserAndOrgList" resultType="com.vedeng.authorization.model.User" parameterType="java.util.List">
+		SELECT A.USER_ID,
+		       B.USERNAME,
+		       E.ORG_NAME,
+		       A.TRADER_ID
+		FROM T_R_TRADER_J_USER A
+		     INNER JOIN T_USER B ON A.USER_ID = B.USER_ID
+		     LEFT JOIN T_R_USER_POSIT C ON B.USER_ID = C.USER_ID
+		     LEFT JOIN T_POSITION D ON C.POSITION_ID = D.POSITION_ID
+		     LEFT JOIN T_ORGANIZATION E ON D.ORG_ID = E.ORG_ID
+		WHERE A.TRADER_ID IN 
+			<foreach collection="traderIdList" item="traderId" open="(" close=")" separator=",">
+				#{traderId,jdbcType=INTEGER}
+			</foreach>
+	</select>
+	
+	<select id="getCategoryIdListByUserId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT CATEGORY_ID
+		FROM T_R_CATEGORY_J_USER
+		WHERE USER_ID = #{goodsUserId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getCategoryUserList" parameterType="java.util.List" resultType="com.vedeng.authorization.model.User">
+		SELECT GROUP_CONCAT(B.USERNAME) AS USERNAME, A.CATEGORY_ID
+		FROM T_R_CATEGORY_J_USER A INNER JOIN T_USER B ON A.USER_ID = B.USER_ID
+		WHERE A.CATEGORY_ID IN 
+			<foreach collection="categoryIdList" item="categoryId" open="(" close=")" separator=",">
+				#{categoryId,jdbcType=INTEGER}
+			</foreach>
+		GROUP BY A.CATEGORY_ID
+	</select>
+	
+	<select id="getActTaskList" parameterType="java.util.List" resultType="com.vedeng.system.model.ActProcinst">
+    	SELECT C.*,
+		       B.BUSINESS_KEY_,
+		       FROM_UNIXTIME(C.END_TIME_ / 1000, '%Y-%m-%d %H:%i:%s') AS END_TIME_STR
+		FROM (SELECT MAX(A.PROC_INST_ID_) AS PROC_INST_ID_, A.BUSINESS_KEY_
+		      FROM ACT_HI_PROCINST A
+		      WHERE A.BUSINESS_KEY_ IN
+		      	<foreach collection="businessKeyList" item="businessKey" open="(" close=")" separator=",">
+		      		#{businessKey,jdbcType=VARCHAR}
+		      	</foreach>
+		      GROUP BY A.BUSINESS_KEY_) B
+		     LEFT JOIN ACT_HI_TASKINST C ON B.PROC_INST_ID_ = C.PROC_INST_ID_
+		ORDER BY C.PROC_INST_ID_, ID_ ASC
+    </select>
+    
+    <select id="getUserOrgByUserIdList" parameterType="java.util.List" resultType="com.vedeng.authorization.model.User">
+    	SELECT A.USER_ID,
+		       A.USERNAME,
+		       GROUP_CONCAT(C.POSITION_NAME) AS POSITION_NAME,
+		       GROUP_CONCAT(D.ORG_NAME) AS ORG_NAME
+		FROM T_USER A
+		     LEFT JOIN T_R_USER_POSIT B ON A.USER_ID = B.USER_ID
+		     LEFT JOIN T_POSITION C ON B.POSITION_ID = C.POSITION_ID
+		     LEFT JOIN T_ORGANIZATION D ON C.ORG_ID = D.ORG_ID
+		WHERE A.USER_ID IN 
+			<foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+	      		#{userId,jdbcType=INTEGER}
+	      	</foreach>
+		GROUP BY A.USER_ID
+    </select>
+    
+    <select id="getTraderCustomerVoFromCommunicate" parameterType="com.vedeng.homepage.model.vo.SaleEngineerDataVo" resultType="com.vedeng.trader.model.vo.TraderCustomerVo">
+	 	SELECT 
+			d.COMMUNICATE_RECORD_ID as communicateRecordId,IFNULL(d.TRADER_ID,0) as traderId,d.PHONE as phone,d.IS_DONE, d.ADD_TIME,d.CREATOR, IFNULL(d.TRADER_CONTACT_ID,0) as traderContactId
+		FROM T_COMMUNICATE_RECORD d 
+		  	LEFT JOIN T_R_TRADER_J_USER e ON d.TRADER_ID = e.TRADER_ID
+		WHERE d.TRADER_TYPE = 1 AND d.COMMUNICATE_TYPE = 242  AND d.IS_DONE = 0 
+			AND e.TRADER_TYPE = 1 AND d.NEXT_CONTACT_DATE <![CDATA[<=]]> DATE(NOW()) 
+			AND YEAR(d.NEXT_CONTACT_DATE) = YEAR(NOW()) AND MONTH(d.NEXT_CONTACT_DATE)+1 >= MONTH(NOW())
+			AND e.USER_ID = #{userId,jdbcType=INTEGER} 
+			AND d.COMPANY_ID = #{companyId,jdbcType=INTEGER} 	
+	</select>
+	
+	<select id="getQuoteorderVoFromCommunicate" parameterType="com.vedeng.homepage.model.vo.SaleEngineerDataVo" resultType="com.vedeng.order.model.vo.QuoteorderVo">
+	 	select
+			 IFNULL(d.TRADER_ID,0) as traderId, IFNULL(d.RELATED_ID,0) as quoteorderId, e.USER_ID AS nowUserId, DATE_FORMAT(d.NEXT_CONTACT_DATE,"%Y-%m-%d") AS nextContactDate
+		from
+			T_COMMUNICATE_RECORD d 
+  		LEFT JOIN T_R_TRADER_J_USER e ON d.TRADER_ID = e.TRADER_ID
+		WHERE d.TRADER_TYPE = 1 AND d.COMMUNICATE_TYPE = 245  AND d.IS_DONE = 0
+			and FROM_UNIXTIME(d.ADD_TIME / 1000, '%Y-%m-%d %H:%i:%s') BETWEEN date_sub(now(), interval '10' month) AND NOW()
+	        AND d.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			and e.USER_ID = #{userId,jdbcType=INTEGER}	
+	</select>
+</mapper>

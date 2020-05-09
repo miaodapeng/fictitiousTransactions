@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.SetMealSkuMappingMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    <id column="SKU_SET_MEAL_MAPPING_ID" property="skuSetMealMappingId" jdbcType="INTEGER" />
+    <result column="SET_MEAL_ID" property="setMealId" jdbcType="INTEGER" />
+    <result column="SKU_ID" property="skuId" jdbcType="INTEGER" />
+    <result column="SKU_SIGN" property="skuSign" jdbcType="BIT" />
+    <result column="DEPARTMENT_IDS" property="departmentIds" jdbcType="VARCHAR" />
+    <result column="QUANTITY" property="quantity" jdbcType="INTEGER" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    SKU_SET_MEAL_MAPPING_ID, SET_MEAL_ID, SKU_ID, SKU_SIGN, DEPARTMENT_IDS, QUANTITY,
+    PURPOSE, REMARK, IS_DELETED, CREATOR, UPDATER, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from V_SET_MEAL_SKU_MAPPING
+    where SKU_SET_MEAL_MAPPING_ID = #{skuSetMealMappingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from V_SET_MEAL_SKU_MAPPING
+    where SKU_SET_MEAL_MAPPING_ID = #{skuSetMealMappingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    insert into V_SET_MEAL_SKU_MAPPING (SKU_SET_MEAL_MAPPING_ID, SET_MEAL_ID, SKU_ID, 
+      SKU_SIGN, DEPARTMENT_IDS, QUANTITY,
+      PURPOSE, REMARK, IS_DELETED, 
+      CREATOR, UPDATER, ADD_TIME, 
+      MOD_TIME)
+    values (#{skuSetMealMappingId,jdbcType=INTEGER}, #{setMealId,jdbcType=INTEGER}, #{skuId,jdbcType=INTEGER}, 
+      #{skuSign,jdbcType=BIT}, #{departmentIds,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER},
+      #{purpose,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT},
+      #{creator,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, 
+      #{modTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    insert into V_SET_MEAL_SKU_MAPPING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="skuSetMealMappingId != null" >
+        SKU_SET_MEAL_MAPPING_ID,
+      </if>
+      <if test="setMealId != null" >
+        SET_MEAL_ID,
+      </if>
+      <if test="skuId != null" >
+        SKU_ID,
+      </if>
+      <if test="skuSign != null" >
+        SKU_SIGN,
+      </if>
+      <if test="departmentIds != null" >
+        DEPARTMENT_IDS,
+      </if>
+      <if test="quantity != null" >
+        QUANTITY,
+      </if>
+      <if test="purpose != null" >
+        PURPOSE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="skuSetMealMappingId != null" >
+        #{skuSetMealMappingId,jdbcType=INTEGER},
+      </if>
+      <if test="setMealId != null" >
+        #{setMealId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuSign != null" >
+        #{skuSign,jdbcType=BIT},
+      </if>
+      <if test="departmentIds != null" >
+        #{departmentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    update V_SET_MEAL_SKU_MAPPING
+    <set >
+      <if test="setMealId != null" >
+        SET_MEAL_ID = #{setMealId,jdbcType=INTEGER},
+      </if>
+      <if test="skuId != null" >
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="skuSign != null" >
+        SKU_SIGN = #{skuSign,jdbcType=BIT},
+      </if>
+      <if test="departmentIds != null" >
+        DEPARTMENT_IDS = #{departmentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        QUANTITY = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="purpose != null" >
+        PURPOSE = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SKU_SET_MEAL_MAPPING_ID = #{skuSetMealMappingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.SetMealSkuMapping" >
+    <!--          -->
+    update V_SET_MEAL_SKU_MAPPING
+    set SET_MEAL_ID = #{setMealId,jdbcType=INTEGER},
+      SKU_ID = #{skuId,jdbcType=INTEGER},
+      SKU_SIGN = #{skuSign,jdbcType=BIT},
+      DEPARTMENT_IDS = #{departmentIds,jdbcType=VARCHAR},
+      QUANTITY = #{quantity,jdbcType=INTEGER},
+      PURPOSE = #{purpose,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+    where SKU_SET_MEAL_MAPPING_ID = #{skuSetMealMappingId,jdbcType=INTEGER}
+  </update>
+</mapper>

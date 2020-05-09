@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.ActiongroupMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.Actiongroup">
+		<id column="ACTIONGROUP_ID" property="actiongroupId" jdbcType="INTEGER" />
+		<result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+		<result column="LEVEL" property="level" jdbcType="INTEGER" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+		<result column="ICON_STYLE" property="iconStyle" jdbcType="VARCHAR"/>
+		<result column="PLATFORM_ID" property="platformId" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		ACTIONGROUP_ID, PARENT_ID, LEVEL, NAME, ORDER_NO,ICON_STYLE,PLATFORM_ID
+	</sql>
+	<!-- 根据主键查询部门信息详情  -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_ACTIONGROUP
+		where ACTIONGROUP_ID = #{actiongroupId,jdbcType=INTEGER}
+	</select>
+	<!-- 根据主键查询部门信息详情  -->
+	<select id="getActionGroupByKey" resultMap="BaseResultMap" parameterType="com.vedeng.authorization.model.Actiongroup">
+		select
+		<include refid="Base_Column_List" />
+		from T_ACTIONGROUP
+		where ACTIONGROUP_ID = #{actiongroupId,jdbcType=INTEGER}
+	</select>
+	<!-- 保存功能分组信息 -->
+	<insert id="insert" parameterType="com.vedeng.authorization.model.Actiongroup">
+		insert into T_ACTIONGROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="actiongroupId != null">
+				ACTIONGROUP_ID,
+			</if>
+			<if test="parentId != null">
+				PARENT_ID,
+			</if>
+			<if test="level != null">
+				LEVEL,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="platformId != null">
+				PLATFORM_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="actiongroupId != null">
+				#{actiongroupId,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=INTEGER},
+			</if>
+			<if test="platformId != null">
+				#{platformId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改功能分组信息 -->
+	<update id="update" parameterType="com.vedeng.authorization.model.Actiongroup">
+		update T_ACTIONGROUP
+		<set>
+			<if test="parentId != null">
+				PARENT_ID = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="level != null">
+				LEVEL = #{level,jdbcType=INTEGER},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=INTEGER},
+			</if>
+			<if test="platformId != null">
+				PLATFORM_ID = #{platformId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where ACTIONGROUP_ID = #{actiongroupId,jdbcType=INTEGER}
+	</update>
+
+	<!-- findActiongroupByParentId start -->
+	<select id="findActiongroupByParentId" resultMap="BaseResultMap"
+		parameterType="com.vedeng.authorization.model.Actiongroup">
+		select
+		*
+		from T_ACTIONGROUP
+		WHERE PARENT_ID = #{parentId}
+		<if test="sortField!=null and order!=null">
+			order by ${sortField} ${order}
+		</if>
+	</select>
+	<!-- findActiongroupByParentId end -->
+	<select id="findActiongroupByActiongroupId" resultMap="BaseResultMap"
+		parameterType="com.vedeng.authorization.model.Actiongroup">
+		select
+		*
+		from T_ACTIONGROUP
+		WHERE PARENT_ID = #{actiongroupId}
+		<if test="sortField!=null and order!=null">
+			order by ${sortField} ${order}
+		</if>
+	</select>
+
+	<!-- 查询全部部门信息 -->	
+	<select id="getActionGroupList" resultMap="BaseResultMap">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM 
+		T_ACTIONGROUP 
+		ORDER BY ORDER_NO DESC
+	</select>
+
+	<!-- 查询全部功能分组信息 -->
+	<select id="getActionGroupListByPlatformId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		T_ACTIONGROUP
+		<if test="platformId != null">
+			WHERE PLATFORM_ID = #{platformId}
+		</if>
+		ORDER BY LEVEL ASC,ORDER_NO DESC
+	</select>
+	
+	<select id="getActionGroupListByRoleIds" resultMap="BaseResultMap">
+		SELECT 
+			a.ACTIONGROUP_ID, a.PARENT_ID, a.LEVEL, a.NAME, a.ORDER_NO,a.ICON_STYLE
+		FROM 
+		T_ACTIONGROUP a
+		left join T_R_ROLE_ACTIONGROUP ra on a.ACTIONGROUP_ID = ra.ACTIONGROUP_ID
+		where ra.ROLE_ID in
+		<foreach item="roleId" index="index" collection="roleIds" open="(" separator="," close=")">  
+			  #{roleId}  
+		</foreach>
+		AND a.PLATFORM_ID = #{currentLoginSystem,jdbcType=INTEGER}
+		AND ra.PLATFORM_ID = #{currentLoginSystem,jdbcType=INTEGER}
+		GROUP BY a.ACTIONGROUP_ID
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<select id="getParentLevel" parameterType="com.vedeng.authorization.model.Actiongroup" resultType="int">
+		SELECT B.LEVEL
+			FROM T_ACTIONGROUP B
+			WHERE B.PARENT_ID = (SELECT A.PARENT_ID
+			                     FROM T_ACTIONGROUP A
+			                     WHERE A.ACTIONGROUP_ID = #{parentId}) GROUP BY B.PARENT_ID
+	</select>
+	
+	<update id="batchUpdateLevel" parameterType="java.util.List">
+		<foreach item="mapData" index="index" collection="list" separator=";">
+			<foreach collection="mapData" index="key" item="value" >
+				UPDATE T_ACTIONGROUP SET LEVEL = #{value} WHERE ACTIONGROUP_ID = #{key}
+			</foreach>
+		</foreach>
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from T_ACTIONGROUP
+		where ACTIONGROUP_ID = #{actiongroupId,jdbcType=INTEGER}
+	</delete>
+
+</mapper>

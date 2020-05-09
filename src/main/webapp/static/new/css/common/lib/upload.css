@@ -1,0 +1,302 @@
+.vd-progress-circle {
+    width: 32px;
+    height: 32px;
+    position: relative;
+}
+
+.vd-progress-circle * {
+    box-sizing: content-box !important;
+}
+
+.vd-circle {
+    width: 16px;
+    height: 32px;
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+}
+
+.vd-circle-right {
+    right: 0;
+}
+
+.vd-circle-right .vd-circle-cnt {
+    border-top: 3px solid transparent;
+    border-right: 3px solid transparent;
+    right: 0;
+}
+
+.vd-circle-left {
+    left: 0;
+}
+
+.vd-circle-left .vd-circle-cnt {
+    border-bottom: 3px solid transparent;
+    border-left: 3px solid transparent;
+    left: 0;
+}
+
+.vd-circle-cnt {
+    width: 26px;
+    height: 26px;
+    border: 3px solid #13bf13;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    transform: rotate(43deg);
+}
+
+.vd-progress-line {
+    background: #DAE0E6;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.vd-progress-line .vd-progress-line-inner {
+    background: #26BF99;
+    height: 6px;
+    border-radius: 3px;
+    width: 0;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap {
+    display: flex;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap * {
+    box-sizing: border-box;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap.vd-upload-limit {
+    padding-right: 0;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-list {
+    display: flex;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item {
+    margin-right: 20px;
+    border: 1px solid #dae0e6;
+    position: relative;
+    cursor: pointer;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item.vd-item-ghost {
+    border-style: dashed;
+    border-color: #e64545;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item.vd-drag {
+    cursor: move;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item .vd-item-pic {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item .vd-item-pic img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-item:hover .vd-item-option {
+    display: block;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-loading {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #dae0e6;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-btn {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #dae0e6;
+    text-align: center;
+    line-height: 100px;
+    background: #f5f7fa;
+    cursor: pointer;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-btn .icon-add {
+    font-size: 32px;
+    color: #dae0e6;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-btn:hover {
+    border-color: #2E8AE6;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-upload-btn:hover .icon-add {
+    color: #2E8AE6;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    line-height: 100px;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option .vd-item-link {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option .vd-item-link:hover {
+    text-decoration: none;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option .icon-search {
+    color: #fff;
+    font-size: 16px;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option .icon-delete {
+    position: absolute;
+    right: -12px;
+    top: -12px;
+    z-index: 11;
+    color: #fff;
+    line-height: 24px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #e64545;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap .vd-item-option .icon-delete:hover {
+    background: #d93636;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap.vd-upload-pic-dragable .vd-item-option {
+    background: transparent;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap.vd-upload-pic-dragable .vd-item-option .vd-item-link {
+    background: rgba(0, 0, 0, 0.5);
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    bottom: 0;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap.vd-upload-pic-dragable .vd-upload-item.sortable-chosen .vd-item-option {
+    opacity: 0 !important;
+}
+
+.vd-upload-wrap.vd-upload-pic-wrap.no-mouse-in .vd-item-option {
+    display: none !important;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-btn-wrap {
+    margin-bottom: 10px;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-item {
+    padding: 10px 46px 10px 20px;
+    background: #F5F7FA;
+    width: 450px;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 12px;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-item:last-child {
+    margin-bottom: 0;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-item .icon-delete {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-item .icon-delete:hover {
+    color: #f60;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-loading {
+    padding: 10px 20px;
+    background: #F5F7FA;
+    width: 450px;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 12px;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-loading .icon-delete {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-loading .icon-delete:hover {
+    color: #f60;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-loading {
+    display: none;
+}
+
+.vd-upload-wrap.vd-upload-file-wrap .vd-upload-loading-line {
+    margin-top: 10px;
+}
+
+.vd-upload-large-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none;
+}
+
+.vd-upload-large-wrap .vd-upload-large-mask {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.vd-upload-large-wrap .vd-upload-large-img {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.vd-upload-large-wrap .vd-upload-large-img img {
+    position: absolute;
+    top: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 100%;
+    max-width: 100%;
+}

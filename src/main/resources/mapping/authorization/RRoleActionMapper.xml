@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.RRoleActionMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.authorization.model.RRoleAction" >
+    <id column="ROLE_ACTION_ID" property="roleActionId" jdbcType="INTEGER" />
+    <result column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="ACTION_ID" property="actionId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ACTION_ID, ROLE_ID, ACTION_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_R_ROLE_ACTION
+    where ROLE_ACTION_ID = #{roleActionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_R_ROLE_ACTION
+    where ROLE_ACTION_ID = #{roleActionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.authorization.model.RRoleAction" >
+    insert into T_R_ROLE_ACTION (ROLE_ACTION_ID, ROLE_ID, ACTION_ID
+      )
+    values (#{roleActionId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{actionId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.authorization.model.RRoleAction" >
+    insert into T_R_ROLE_ACTION
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleActionId != null" >
+        ROLE_ACTION_ID,
+      </if>
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="actionId != null" >
+        ACTION_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleActionId != null" >
+        #{roleActionId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="actionId != null" >
+        #{actionId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.authorization.model.RRoleAction" >
+    update T_R_ROLE_ACTION
+    <set >
+      <if test="roleId != null" >
+        ROLE_ID = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="actionId != null" >
+        ACTION_ID = #{actionId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ROLE_ACTION_ID = #{roleActionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.authorization.model.RRoleAction" >
+    update T_R_ROLE_ACTION
+    set ROLE_ID = #{roleId,jdbcType=INTEGER},
+      ACTION_ID = #{actionId,jdbcType=INTEGER}
+    where ROLE_ACTION_ID = #{roleActionId,jdbcType=INTEGER}
+  </update>
+  
+    <select id="getRRoleActionListByActionId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from T_R_ROLE_ACTION
+	    where ACTION_ID = #{actionId,jdbcType=INTEGER}
+	</select>
+
+    <delete id="deleteByRoleIdAndPlatformId">
+      delete from T_R_ROLE_ACTION
+      where ROLE_ID = #{roleId,jdbcType=INTEGER} and PLATFORM_ID in
+      <foreach collection="ids" open="(" close=")" separator="," item="ids">
+        #{ids, jdbcType=INTEGER}
+        </foreach>
+    </delete>
+
+</mapper>

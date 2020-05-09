@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>语音转文字</title>
+    <link rel="stylesheet" href="../common/base.css">
+    <link rel="stylesheet" href="./VoiceToText.css">
+</head>
+<body>
+    <div class="pageFull">
+        <div class="voice-to-text">
+            <!-- 标题：查看录音 -->
+            <div class="voice-to-text-title">
+                <div class="left">查看录音</div>
+                <div class="right">
+                    <i class="hc-icon icon-delete"></i>
+                </div>
+            </div>
+            <!-- 文本内容 -->
+            <div class="content">
+                <!-- 原文 -->
+                <div class="before-content">
+                    <div class="before-content-title">原文</div>
+                    <div class="before-content-word">
+                        <p>有人吗今天天气不好</p>
+                    </div>
+                </div>
+                <!-- 修改后 -->
+                <div class="after-content">
+                    <div class="after-content-title">修改后</div>
+                    <div class="after-content-word">
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <!-- 替换 -->
+            <div class="content-change">
+                <div class="before">
+                    <div class="change-before">修正前：</div>
+                    <input class="input-before" type="text">
+                </div>
+                <div class="after">
+                    <div class="change-after">修正后：</div>
+                    <input class="input-after" type="text">
+                </div>
+                <div class="change-button">替换</div>
+            </div>
+            <!-- 修正记录 -->
+            <div class="change-record">
+                <div class="record-title">修正记录</div>
+                <!-- 表格 -->
+                <table class="record-table">
+                    <!-- 表头th -->
+                    <tr>
+                        <th class="th-number">序号</th>
+                        <th class="th-before">修正前</th>
+                        <th class="th-after">修正后</th>
+                        <th class="th-type">替换类型</th>
+                        <th class="th-use">操作</th>
+                    </tr>
+                    <!-- 表格内容td -->
+                    <tr>
+                        <td class="td-number">1</td>
+                        <td class="td-before">哈哈</td>
+                        <td class="td-after">嘻嘻</td>
+                        <td class="td-type">本页替换</td>
+                        <td class="td-use">
+                            <span class="delete">删除</span>
+                            <span class="submit">提交至全局</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-number">2</td>
+                        <td class="td-before">哈哈</td>
+                        <td class="td-after">嘻嘻</td>
+                        <td class="td-type">本页替换</td>
+                        <td class="td-use">
+                            <span class="delete">删除</span>
+                            <span class="submit">提交至全局</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-number">3</td>
+                        <td class="td-before">哈哈</td>
+                        <td class="td-after">嘻嘻</td>
+                        <td class="td-type">全局替换</td>
+                        <td class="td-use">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td-number">4</td>
+                        <td class="td-before">哈哈</td>
+                        <td class="td-after">嘻嘻</td>
+                        <td class="td-type">本页替换</td>
+                        <td class="td-use">
+                            <span class="delete">删除</span>
+                            <span class="submit">提交至全局</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!-- 点评 -->
+            <div class="review">
+                <!-- 点评标题 -->
+                <div class="review-title">
+                    点评（<span class="review-number">3</span>）
+                </div>
+                <!-- 点评内容 -->
+                <div class="review-content">
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                    <p class="review-one">
+                        <span class="review-person">Lisa.Fang:不错，继续改进</span>
+                        <span class="review-date">2019-04-25</span>
+                    </p>
+                </div>
+                <!-- 增加点评 -->
+                <div class="review-add">
+                    <input class="review-input" type="text" placeholder="为该录音添加点评">
+                    <div class="review-button">点评</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/module/jquery3.3.1min.js"></script>
+<script src="../js/VoiceToText.js"></script>
+</html>

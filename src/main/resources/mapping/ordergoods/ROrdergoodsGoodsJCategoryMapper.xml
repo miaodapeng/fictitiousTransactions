@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.ordergoods.dao.ROrdergoodsGoodsJCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.ordergoods.model.ROrdergoodsGoodsJCategory" >
+    <id column="R_ORDERGOODS_GOODS_J_CATEGORY_ID" property="rOrdergoodsGoodsJCategoryId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_GOODS_ID" property="ordergoodsGoodsId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_CATEGORY_ID" property="ordergoodsCategoryId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_ORDERGOODS_GOODS_J_CATEGORY_ID, ORDERGOODS_GOODS_ID, ORDERGOODS_CATEGORY_ID, SORT
+  </sql>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from T_R_ORDERGOODS_GOODS_J_CATEGORY
+    where 
+    	1=1
+    <if test="ordergoodsGoodsId != null">
+		and ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER}
+    </if>
+    <if test="rOrdergoodsGoodsJCategoryId != null">
+		and R_ORDERGOODS_GOODS_J_CATEGORY_ID = #{rOrdergoodsGoodsJCategoryId,jdbcType=INTEGER}
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.ordergoods.model.ROrdergoodsGoodsJCategory" >
+    insert into T_R_ORDERGOODS_GOODS_J_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rOrdergoodsGoodsJCategoryId != null" >
+        R_ORDERGOODS_GOODS_J_CATEGORY_ID,
+      </if>
+      <if test="ordergoodsGoodsId != null" >
+        ORDERGOODS_GOODS_ID,
+      </if>
+      <if test="ordergoodsCategoryId != null" >
+        ORDERGOODS_CATEGORY_ID,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rOrdergoodsGoodsJCategoryId != null" >
+        #{rOrdergoodsGoodsJCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsGoodsId != null" >
+        #{ordergoodsGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsCategoryId != null" >
+        #{ordergoodsCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.vedeng.ordergoods.model.ROrdergoodsGoodsJCategory" >
+    update T_R_ORDERGOODS_GOODS_J_CATEGORY
+    <set >
+      <if test="ordergoodsGoodsId != null and ordergoodsGoodsId > 0" >
+        ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsCategoryId != null and ordergoodsCategoryId > 0" >
+        ORDERGOODS_CATEGORY_ID = #{ordergoodsCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null and sort > 0" >
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where R_ORDERGOODS_GOODS_J_CATEGORY_ID = #{rOrdergoodsGoodsJCategoryId,jdbcType=INTEGER}
+  </update>
+  <select id="getByROrdergoodsGoodsJCategory"  parameterType="com.vedeng.ordergoods.model.ROrdergoodsGoodsJCategory" resultMap="BaseResultMap">
+  select 
+  	a.R_ORDERGOODS_GOODS_J_CATEGORY_ID, a.ORDERGOODS_GOODS_ID, a.ORDERGOODS_CATEGORY_ID, a.SORT,b.GOODS_ID
+  from
+  	T_R_ORDERGOODS_GOODS_J_CATEGORY a
+  left join
+  	T_ORDERGOODS_GOODS b
+  on
+  	a.ORDERGOODS_GOODS_ID = b.ORDERGOODS_GOODS_ID
+  where
+  	a.ORDERGOODS_CATEGORY_ID = #{ordergoodsCategoryId,jdbcType=INTEGER}
+  	and
+  	a.ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getGoodsIdsByCategoryIds" resultType="java.lang.Integer">
+  	select 
+  		b.GOODS_ID
+  	from
+  		T_R_ORDERGOODS_GOODS_J_CATEGORY a
+  	left join
+  		T_ORDERGOODS_GOODS b
+  	on
+  		a.ORDERGOODS_GOODS_ID = b.ORDERGOODS_GOODS_ID
+  	where
+  	 1=1
+  	 <if test="ordergoodsStoreId != null">
+  	 and b.ORDERGOODS_STORE_ID=#{ordergoodsStoreId,jdbcType=INTEGER}
+  	 </if>
+  	 <if test="ordergoodsCategoryIds != null and ordergoodsCategoryIds.size > 0">
+  	 	and a.ORDERGOODS_CATEGORY_ID in
+  	 	<foreach collection="ordergoodsCategoryIds" item="ordergoodsCategoryId" open="(" close=")" separator=",">
+			#{ordergoodsCategoryId,jdbcType=INTEGER}
+		</foreach>
+  	 </if>
+  </select>
+  <select id="getById" parameterType="com.vedeng.ordergoods.model.ROrdergoodsGoodsJCategory" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from
+  	T_R_ORDERGOODS_GOODS_J_CATEGORY
+  	where
+  	R_ORDERGOODS_GOODS_J_CATEGORY_ID = #{rOrdergoodsGoodsJCategoryId,jdbcType=INTEGER}
+  </select>
+</mapper>

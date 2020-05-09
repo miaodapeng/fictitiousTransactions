@@ -1,0 +1,2868 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.order.dao.SaleorderGoodsMapper" >
+  <resultMap id="BaseSku" type="com.vedeng.order.model.Spu">
+    <result column="USERNAME" property="assignmentManagerId"></result>
+    <result column="USERNAME1" property="assignmentAssistantId"></result>
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.vedeng.order.model.SaleorderGoods" >
+    <id column="SALEORDER_GOODS_ID" property="saleorderGoodsId" jdbcType="INTEGER" />
+    <result column="SALEORDER_ID" property="saleorderId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+    <!-- 单价 在耗材商城订单中为优惠后的实际单价  erp的单价 -->
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <!-- 实际单价, 耗材商城订单优惠前原来的单价 -->
+    <result column="REAL_PRICE" property="realPrice" jdbcType="DECIMAL" />
+    <result column="CURRENCY_UNIT_ID" property="currencyUnitId" jdbcType="INTEGER" />
+    <result column="NUM" property="num" jdbcType="INTEGER" />
+    <result column="BUY_NUM" property="dbBuyNum" jdbcType="INTEGER" />
+    <result column="DELIVERY_NUM" property="deliveryNum" jdbcType="INTEGER" />
+    <result column="DELIVERY_STATUS" property="deliveryStatus" jdbcType="BIT" />
+    <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="BIGINT" />
+    <result column="IS_IGNORE" property="isIgnore" jdbcType="BIT" />
+    <result column="IGNORE_TIME" property="ignoreTime" jdbcType="BIGINT" />
+    <result column="IGNORE_USER_ID" property="ignoreUserId" jdbcType="INTEGER" />
+    <result column="PURCHASING_PRICE" property="purchasingPrice" jdbcType="VARCHAR" />
+    <result column="DELIVERY_CYCLE" property="deliveryCycle" jdbcType="VARCHAR" />
+    <result column="DELIVERY_DIRECT" property="deliveryDirect" jdbcType="BIT" />
+    <result column="DELIVERY_DIRECT_COMMENTS" property="deliveryDirectComments" jdbcType="VARCHAR" />
+    <result column="REGISTRATION_NUMBER" property="registrationNumber" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_NAME" property="supplierName" jdbcType="VARCHAR" />
+    <result column="REFERENCE_COST_PRICE" property="referenceCostPrice" jdbcType="DECIMAL" />
+    <result column="REFERENCE_PRICE" property="referencePrice" jdbcType="DECIMAL" />
+    <result column="REFERENCE_DELIVERY_CYCLE" property="referenceDeliveryCycle" jdbcType="VARCHAR" />
+    <result column="REPORT_STATUS" property="reportStatus" jdbcType="BIT" />
+    <result column="REPORT_COMMENTS" property="reportComments" jdbcType="VARCHAR" />
+    <result column="HAVE_INSTALLATION" property="haveInstallation" jdbcType="BIT" />
+    <result column="GOODS_COMMENTS" property="goodsComments" jdbcType="VARCHAR" />
+    <result column="INSIDE_COMMENTS" property="insideComments" jdbcType="VARCHAR" />
+    <result column="ARRIVAL_USER_ID" property="arrivalUserId" jdbcType="INTEGER" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="BIGINT" />
+    <result column="IS_DELETE" property="isDelete" jdbcType="BIT" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="LOCKED_STATUS" property="lockedStatus" jdbcType="INTEGER" />
+    <!-- 当前sku最大退款金额即当前订单商品实际金额(含退货) -->
+    <result column="MAX_SKU_REFUND_AMOUNT" property="maxSkuRefundAmount" jdbcType="DECIMAL" />
+    <result column="JX_MARKET_PRICE" property="jxMarketPrice" jdbcType="DECIMAL" />
+    <result column="JX_SALE_PRICE" property="jxSalePrice" jdbcType="DECIMAL" />
+    <result column="OCCUPY_NUM" property="occupyNum" jdbcType="INTEGER" />
+    <result column="IS_ACTION_GOODS" property="isActionGoods" jdbcType="INTEGER" />
+    <result column="ACTION_OCCUPY_NUM" property="actionOccupyNum" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.vedeng.order.model.vo.SaleorderGoodsVo" id="VoResultMap" extends="BaseResultMap">
+    <result column="QUOTEORDER_ID" property="quoteorderId" jdbcType="INTEGER" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="NEEDCNT" property="needCnt" jdbcType="INTEGER" />
+    <result column="SALEORDER_NO" property="saleorderNo" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="BIT" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+    <result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="PURCHASE_STATUS" property="purchaseStatus" jdbcType="BIT" />
+    <result column="LOCKED_STATUS" property="lockedStatus" jdbcType="BIT" />
+    <result column="INVOICE_STATUS" property="invoiceStatus" jdbcType="BIT" />
+    <result column="INVOICE_TIME" property="invoiceTime" jdbcType="BIGINT" />
+    <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="BIT" />
+    <result column="PAYMENT_TIME" property="paymentTime" jdbcType="BIGINT" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="BIGINT" />
+    <result column="SERVICE_STATUS" property="serviceStatus" jdbcType="BIT" />
+    <result column="HAVE_ACCOUNT_PERIOD" property="haveAccountPeriod" jdbcType="BIT" />
+    <result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_TYPE" property="customerType" jdbcType="INTEGER" />
+    <result column="CUSTOMER_NATURE" property="customerNature" jdbcType="INTEGER" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_TELEPHONE" property="traderContactTelephone" jdbcType="VARCHAR" />
+    <result column="TRADER_ADDRESS_ID" property="traderAddressId" jdbcType="INTEGER" />
+    <result column="TRADER_ADDRESS" property="traderAddress" jdbcType="VARCHAR" />
+    <result column="TRADER_COMMENTS" property="traderComments" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_ID" property="takeTraderId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_NAME" property="takeTraderName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_ID" property="takeTraderContactId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_CONTACT_NAME" property="takeTraderContactName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_MOBILE" property="takeTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_TELEPHONE" property="takeTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_ADDRESS_ID" property="takeTraderAddressId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_ADDRESS" property="takeTraderAddress" jdbcType="VARCHAR" />
+    <result column="IS_SEND_INVOICE" property="isSendInvoice" jdbcType="BIT" />
+    <result column="INVOICE_TRADER_ID" property="invoiceTraderId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_NAME" property="invoiceTraderName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_ID" property="invoiceTraderContactId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_CONTACT_NAME" property="invoiceTraderContactName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_MOBILE" property="invoiceTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_TELEPHONE" property="invoiceTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_ADDRESS_ID" property="invoiceTraderAddressId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_ADDRESS" property="invoiceTraderAddress" jdbcType="VARCHAR" />
+    <result column="SALES_AREA_ID" property="salesAreaId" jdbcType="INTEGER" />
+    <result column="SALES_AREA" property="salesArea" jdbcType="VARCHAR" />
+    <result column="TERMINAL_TRADER_ID" property="terminalTraderId" jdbcType="INTEGER" />
+    <result column="TERMINAL_TRADER_NAME" property="terminalTraderName" jdbcType="VARCHAR" />
+    <result column="TERMINAL_TRADER_TYPE" property="terminalTraderType" jdbcType="INTEGER" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+    <result column="FREIGHT_DESCRIPTION" property="freightDescription" jdbcType="INTEGER" />
+    <result column="DELIVERY_TYPE" property="deliveryType" jdbcType="INTEGER" />
+    <result column="LOGISTICS_ID" property="logisticsId" jdbcType="INTEGER" />
+    <result column="PAYMENT_TYPE" property="paymentType" jdbcType="INTEGER" />
+    <result column="PREPAID_AMOUNT" property="prepaidAmount" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_PERIOD_AMOUNT" property="accountPeriodAmount" jdbcType="DECIMAL" />
+    <result column="LOGISTICS_COLLECTION" property="logisticsCollection" jdbcType="BIT" />
+    <result column="RETAINAGE_AMOUNT" property="retainageAmount" jdbcType="DECIMAL" />
+    <result column="RETAINAGE_AMOUNT_MONTH" property="retainageAmountMonth" jdbcType="INTEGER" />
+    <result column="PAYMENT_COMMENTS" property="paymentComments" jdbcType="VARCHAR" />
+    <result column="ADDITIONAL_CLAUSE" property="additionalClause" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR" />
+    <result column="FINANCE_COMMENTS" property="financeComments" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="INVOICE_COMMENTS" property="invoiceComments" jdbcType="VARCHAR" />
+    <result column="SUPPLIER_CLAUSE" property="supplierClause" jdbcType="VARCHAR" />
+    <result column="HAVE_ADVANCE_PURCHASE" property="haveAdvancePurchase" jdbcType="BIT" />
+    <result column="IS_URGENT" property="isUrgent" jdbcType="BIT" />
+    <result column="URGENT_AMOUNT" property="urgentAmount" jdbcType="DECIMAL" />
+    <result column="HAVE_COMMUNICATE" property="haveCommunicate" jdbcType="BIT" />
+    <result column="PREPARE_COMMENTS" property="prepareComments" jdbcType="VARCHAR" />
+    <result column="MARKETING_PLAN" property="marketingPlan" jdbcType="VARCHAR" />
+    <result column="SYNC_STATUS" property="syncStatus" jdbcType="BIT" />
+    <result column="TRADER_AREA" property="traderArea" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_AREA" property="takeTraderArea" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_AREA" property="invoiceTraderArea" jdbcType="VARCHAR" />
+    <result column="TITLE" property="goodsLevelName" jdbcType="VARCHAR" />
+    <result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" /> 
+    <result column="BUYNUM" property="buyNum" jdbcType="INTEGER" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER" />
+    <result column="SHNUM" property="shNum" jdbcType="INTEGER" />
+    <result column="CGPRICE" property="cgprice" jdbcType="DECIMAL" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    SALEORDER_GOODS_ID, SALEORDER_ID, GOODS_ID, SKU, GOODS_NAME, BRAND_NAME, MODEL, UNIT_NAME, BUY_NUM,
+    PRICE, CURRENCY_UNIT_ID, NUM, DELIVERY_CYCLE, DELIVERY_DIRECT, DELIVERY_DIRECT_COMMENTS, 
+    REGISTRATION_NUMBER, SUPPLIER_NAME, REFERENCE_COST_PRICE, REFERENCE_PRICE, REFERENCE_DELIVERY_CYCLE, 
+    REPORT_STATUS, REPORT_COMMENTS, HAVE_INSTALLATION, GOODS_COMMENTS, INSIDE_COMMENTS, 
+    ARRIVAL_USER_ID, ARRIVAL_STATUS, ARRIVAL_TIME, IS_DELETE, ADD_TIME, CREATOR, MOD_TIME, 
+    UPDATER, DELIVERY_NUM, DELIVERY_STATUS, DELIVERY_TIME, IS_IGNORE, PURCHASING_PRICE, IGNORE_TIME, IGNORE_USER_ID, MAX_SKU_REFUND_AMOUNT,OCCUPY_NUM,IS_ACTION_GOODS,ACTION_OCCUPY_NUM
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_SALEORDER_GOODS
+    where SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_SALEORDER_GOODS
+    where SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.order.model.SaleorderGoods" >
+    insert into T_SALEORDER_GOODS (SALEORDER_GOODS_ID, SALEORDER_ID, GOODS_ID, 
+      SKU, GOODS_NAME, BRAND_NAME, 
+      MODEL, UNIT_NAME, PRICE, REAL_PRICE, BUY_NUM,
+      CURRENCY_UNIT_ID, NUM, DELIVERY_CYCLE, 
+      DELIVERY_DIRECT, DELIVERY_DIRECT_COMMENTS, REGISTRATION_NUMBER, 
+      SUPPLIER_NAME, REFERENCE_COST_PRICE, REFERENCE_PRICE, 
+      REFERENCE_DELIVERY_CYCLE, REPORT_STATUS, REPORT_COMMENTS, 
+      HAVE_INSTALLATION, GOODS_COMMENTS, INSIDE_COMMENTS, 
+      ARRIVAL_USER_ID, ARRIVAL_STATUS, ARRIVAL_TIME, 
+      IS_DELETE, ADD_TIME, CREATOR, 
+      MOD_TIME, UPDATER, DELIVERY_NUM, DELIVERY_STATUS, DELIVERY_TIME, IS_IGNORE, PURCHASING_PRICE, IGNORE_TIME, IGNORE_USER_ID, MAX_SKU_REFUND_AMOUNT,
+      OCCUPY_NUM,IS_ACTION_GOODS,ACTION_OCCUPY_NUM)
+    values (#{saleorderGoodsId,jdbcType=INTEGER}, #{saleorderId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, 
+      #{sku,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{realPrice,jdbcType=DECIMAL}, #{dbBuyNum,jdbcType=INTEGER},
+      #{currencyUnitId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{deliveryCycle,jdbcType=VARCHAR}, 
+      #{deliveryDirect,jdbcType=BIT}, #{deliveryDirectComments,jdbcType=VARCHAR}, #{registrationNumber,jdbcType=VARCHAR}, 
+      #{supplierName,jdbcType=VARCHAR}, #{referenceCostPrice,jdbcType=DECIMAL}, #{referencePrice,jdbcType=DECIMAL}, 
+      #{referenceDeliveryCycle,jdbcType=VARCHAR}, #{reportStatus,jdbcType=BIT}, #{reportComments,jdbcType=VARCHAR}, 
+      #{haveInstallation,jdbcType=BIT}, #{goodsComments,jdbcType=VARCHAR}, #{insideComments,jdbcType=VARCHAR}, 
+      #{arrivalUserId,jdbcType=INTEGER}, #{arrivalStatus,jdbcType=BIT}, #{arrivalTime,jdbcType=BIGINT}, 
+      #{isDelete,jdbcType=BIT}, #{addTime,jdbcType=BIGINT}, #{creator,jdbcType=INTEGER}, 
+      #{modTime,jdbcType=BIGINT}, #{updater,jdbcType=INTEGER},
+       #{deliveryNum,jdbcType=INTEGER},  #{deliveryStatus,jdbcType=BIT},  #{deliveryTime,jdbcType=BIGINT},  
+       #{isIgnore,jdbcType=BIT},  #{purchasingPrice,jdbcType=VARCHAR}, #{ignoreTime,jdbcType=BIGINT}, #{ignoreUserId,jdbcType=INTEGER}, 
+       #{maxSkuRefundAmount,jdbcType=DECIMAL},#{occupyNum,jdbcType=INTEGER},#{isActionGoods,jdbcType=INTEGER},#{actionOccupyNum,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.order.model.SaleorderGoods" >
+    insert into T_SALEORDER_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="saleorderGoodsId != null" >
+        SALEORDER_GOODS_ID,
+      </if>
+      <if test="saleorderId != null" >
+        SALEORDER_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="sku != null" >
+        SKU,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME,
+      </if>
+      <if test="model != null" >
+        MODEL,
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="realPrice != null" >
+        REAL_PRICE,
+      </if>
+      <if test="currencyUnitId != null" >
+        CURRENCY_UNIT_ID,
+      </if>
+      <if test="num != null" >
+        NUM,
+      </if>
+      <if test="dbBuyNum != null" >
+        BUY_NUM,
+      </if>
+      <if test="deliveryCycle != null" >
+        DELIVERY_CYCLE,
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT,
+      </if>
+      <if test="deliveryDirectComments != null" >
+        DELIVERY_DIRECT_COMMENTS,
+      </if>
+      <if test="registrationNumber != null" >
+        REGISTRATION_NUMBER,
+      </if>
+      <if test="supplierName != null" >
+        SUPPLIER_NAME,
+      </if>
+      <if test="referenceCostPrice != null" >
+        REFERENCE_COST_PRICE,
+      </if>
+      <if test="referencePrice != null" >
+        REFERENCE_PRICE,
+      </if>
+      <if test="referenceDeliveryCycle != null" >
+        REFERENCE_DELIVERY_CYCLE,
+      </if>
+      <if test="reportStatus != null" >
+        REPORT_STATUS,
+      </if>
+      <if test="reportComments != null" >
+        REPORT_COMMENTS,
+      </if>
+      <if test="haveInstallation != null" >
+        HAVE_INSTALLATION,
+      </if>
+      <if test="goodsComments != null" >
+        GOODS_COMMENTS,
+      </if>
+      <if test="insideComments != null" >
+        INSIDE_COMMENTS,
+      </if>
+      <if test="arrivalUserId != null" >
+        ARRIVAL_USER_ID,
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS,
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="deliveryNum != null" >
+        DELIVERY_NUM,
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS,
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME,
+      </if>
+      <if test="isIgnore != null" >
+        IS_IGNORE,
+      </if>
+      <if test="purchasingPrice != null" >
+        PURCHASING_PRICE,
+      </if>
+       <if test="ignoreTime != null" >
+        IGNORE_TIME,
+      </if>
+      <if test="ignoreUserId != null" >
+        IGNORE_USER_ID,
+      </if>
+      <if test="maxSkuRefundAmount != null" >
+        MAX_SKU_REFUND_AMOUNT,
+      </if>
+      <if test="isCoupons!=null">
+        IS_COUPONS,
+      </if>
+      <if test="isActionGoods!=null">
+        IS_ACTION_GOODS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="saleorderGoodsId != null" >
+        #{saleorderGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="saleorderId != null" >
+        #{saleorderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      
+      <if test="realPrice != null" >
+        #{realPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyUnitId != null" >
+        #{currencyUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="dbBuyNum != null" >
+        #{dbBuyNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryCycle != null" >
+        #{deliveryCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDirect != null" >
+        #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="deliveryDirectComments != null" >
+        #{deliveryDirectComments,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationNumber != null" >
+        #{registrationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceCostPrice != null" >
+        #{referenceCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referencePrice != null" >
+        #{referencePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceDeliveryCycle != null" >
+        #{referenceDeliveryCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="reportStatus != null" >
+        #{reportStatus,jdbcType=BIT},
+      </if>
+      <if test="reportComments != null" >
+        #{reportComments,jdbcType=VARCHAR},
+      </if>
+      <if test="haveInstallation != null" >
+        #{haveInstallation,jdbcType=BIT},
+      </if>
+      <if test="goodsComments != null" >
+        #{goodsComments,jdbcType=VARCHAR},
+      </if>
+      <if test="insideComments != null" >
+        #{insideComments,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalUserId != null" >
+        #{arrivalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalStatus != null" >
+        #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryNum != null" >
+        #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="isIgnore != null" >
+        #{isIgnore,jdbcType=BIT},
+      </if>
+      <if test="purchasingPrice != null" >
+        #{purchasingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="ignoreTime != null" >
+        #{ignoreTime,jdbcType=BIGINT},
+      </if>
+      <if test="ignoreUserId != null" >
+        #{ignoreUserId,jdbcType=INTEGER},
+      </if>
+      <if test="maxSkuRefundAmount != null" >
+        #{maxSkuRefundAmount, jdbcType=DECIMAL},
+      </if>
+      <if test="isCoupons!=null">
+        #{isCoupons},
+      </if>
+      <if test="isActionGoods!=null">
+        #{isActionGoods},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.order.model.SaleorderGoods" >
+    update T_SALEORDER_GOODS
+    <set >
+      <if test="saleorderId != null" >
+        SALEORDER_ID = #{saleorderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="sku != null" >
+        SKU = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null" >
+        MODEL = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="currencyUnitId != null" >
+        CURRENCY_UNIT_ID = #{currencyUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="dbBuyNum != null" >
+        BUY_NUM = #{dbBuyNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryCycle != null" >
+        DELIVERY_CYCLE = #{deliveryCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="deliveryDirectComments != null" >
+        DELIVERY_DIRECT_COMMENTS = #{deliveryDirectComments,jdbcType=VARCHAR},
+      </if>
+      <if test="registrationNumber != null" >
+        REGISTRATION_NUMBER = #{registrationNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierName != null" >
+        SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR},
+      </if>
+      <if test="referenceCostPrice != null" >
+        REFERENCE_COST_PRICE = #{referenceCostPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referencePrice != null" >
+        REFERENCE_PRICE = #{referencePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="referenceDeliveryCycle != null" >
+        REFERENCE_DELIVERY_CYCLE = #{referenceDeliveryCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="reportStatus != null" >
+        REPORT_STATUS = #{reportStatus,jdbcType=BIT},
+      </if>
+      <if test="reportComments != null" >
+        REPORT_COMMENTS = #{reportComments,jdbcType=VARCHAR},
+      </if>
+      <if test="haveInstallation != null" >
+        HAVE_INSTALLATION = #{haveInstallation,jdbcType=BIT},
+      </if>
+      <if test="goodsComments != null" >
+        GOODS_COMMENTS = #{goodsComments,jdbcType=VARCHAR},
+      </if>
+      <if test="insideComments != null" >
+        INSIDE_COMMENTS = #{insideComments,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalUserId != null" >
+        ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryNum != null" >
+        DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="isIgnore != null" >
+        IS_IGNORE = #{isIgnore,jdbcType=BIT},
+      </if>
+      <if test="purchasingPrice != null" >
+        PURCHASING_PRICE = #{purchasingPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="ignoreTime != null" >
+        IGNORE_TIME = #{ignoreTime,jdbcType=BIGINT},
+      </if>
+      <if test="ignoreUserId != null" >
+        IGNORE_USER_ID = #{ignoreUserId,jdbcType=INTEGER},
+      </if>
+      <if test="maxSkuRefundAmount != null" >
+        MAX_SKU_REFUND_AMOUNT = #{maxSkuRefundAmount, jdbcType=DECIMAL},
+      </if>
+        <if test="occupyNum != null ">
+            OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+        </if>
+        <if test="actionOccupyNum != null">
+            ACTION_OCCUPY_NUM = #{actionOccupyNum,jdbcType=INTEGER}
+        </if>
+    </set>
+    where SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.order.model.SaleorderGoods" >
+    update T_SALEORDER_GOODS
+    set SALEORDER_ID = #{saleorderId,jdbcType=INTEGER},
+      GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      SKU = #{sku,jdbcType=VARCHAR},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      MODEL = #{model,jdbcType=VARCHAR},
+      UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      PRICE = #{price,jdbcType=DECIMAL},
+      CURRENCY_UNIT_ID = #{currencyUnitId,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      BUY_NUM = #{dbBuyNum,jdbcType=INTEGER},
+      DELIVERY_CYCLE = #{deliveryCycle,jdbcType=VARCHAR},
+      DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      DELIVERY_DIRECT_COMMENTS = #{deliveryDirectComments,jdbcType=VARCHAR},
+      REGISTRATION_NUMBER = #{registrationNumber,jdbcType=VARCHAR},
+      SUPPLIER_NAME = #{supplierName,jdbcType=VARCHAR},
+      REFERENCE_COST_PRICE = #{referenceCostPrice,jdbcType=DECIMAL},
+      REFERENCE_PRICE = #{referencePrice,jdbcType=DECIMAL},
+      REFERENCE_DELIVERY_CYCLE = #{referenceDeliveryCycle,jdbcType=VARCHAR},
+      REPORT_STATUS = #{reportStatus,jdbcType=BIT},
+      REPORT_COMMENTS = #{reportComments,jdbcType=VARCHAR},
+      HAVE_INSTALLATION = #{haveInstallation,jdbcType=BIT},
+      GOODS_COMMENTS = #{goodsComments,jdbcType=VARCHAR},
+      INSIDE_COMMENTS = #{insideComments,jdbcType=VARCHAR},
+      ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER},
+      ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      IS_DELETE = #{isDelete,jdbcType=BIT},
+      ADD_TIME = #{addTime,jdbcType=BIGINT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=BIGINT},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      IS_IGNORE = #{isIgnore,jdbcType=BIT},
+      PURCHASING_PRICE = #{purchasingPrice,jdbcType=VARCHAR},
+      IGNORE_TIME = #{ignoreTime,jdbcType=BIGINT},
+      IGNORE_USER_ID = #{ignoreUserId,jdbcType=INTEGER},
+      MAX_SKU_REFUND_AMOUNT = #{maxSkuRefundAmount, jdbcType=DECIMAL}
+    where SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </update>
+  
+  
+ 	<resultMap type="com.vedeng.order.model.SaleorderGoods" id="getSaleorderGoodsResult" extends="BaseResultMap">
+		<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+		<result column="STORAGEADDRESS" property="storageAddress" jdbcType="VARCHAR" />
+		<result column="MANAGECATEGORYNAME" property="manageCategoryName" jdbcType="VARCHAR" />
+		<result column="TNUM" property="tNum" jdbcType="INTEGER" />
+		<result column="NOOUTNUM" property="noOutNum" jdbcType="INTEGER" /> <!-- 拣货未发数 -->
+		<result column="NOWNUM" property="nowNum" jdbcType="INTEGER" /> <!-- 本次拣货数 -->
+		<result column="PICKCNT" property="pickCnt" jdbcType="INTEGER" /> <!-- 拣货总数 -->
+		<result column="TOTALNUM" property="totalNum" jdbcType="INTEGER" /> <!-- 库存商品总数 -->
+		<result column="GOODS_REGISTRATION_NUMBER" property="registrationNumber" jdbcType="INTEGER" />
+		<result column="LOCKED_STATUS" property="lockedStatus" jdbcType="VARCHAR" />
+		<result column="afterReturnNum" property="afterReturnNum" jdbcType="INTEGER" />
+		<result column="warehouseReturnNum" property="warehouseReturnNum" jdbcType="INTEGER" />
+		<result column="afterReturnAmount" property="afterReturnAmount" jdbcType="DECIMAL" />
+		<association property="goods" javaType="com.vedeng.goods.model.Goods">
+			<id column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+			<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+			<result column="MANAGE_CATEGORY" property="manageCategory" jdbcType="INTEGER" />
+			<result column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER" />
+			<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+			<result column="GOODS_REGISTRATION_NUMBER" property="registrationNumber" jdbcType="VARCHAR" />
+			<result column="PURCHASE_REMIND" property="purchaseRemind" jdbcType="VARCHAR" />
+			<result column="PACKING_LIST" property="packingList" jdbcType="VARCHAR" />
+			<result column="TOS" property="tos" jdbcType="VARCHAR" />
+			<result column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER" />
+			<result column="GOODS_TYPE" property="goodsType" jdbcType="INTEGER" />
+			<result column="verifyStatus" property="verifyStatus" jdbcType="INTEGER" />
+			<result column="SOURCE" property="source" />
+		</association>
+	</resultMap>
+	<!-- 获取订单下的产品列表 -->
+	<select id="getSaleorderGoodsById" parameterType="com.vedeng.order.model.Saleorder" resultMap="getSaleorderGoodsResult">
+			SELECT
+				A.*, B.MATERIAL_CODE,
+				B.MANAGE_CATEGORY,
+				B.CATEGORY_ID,
+				B.PURCHASE_REMIND,
+				B.PACKING_LIST,
+				B.TOS,
+				B.COMPANY_ID,
+				B.CATEGORY_ID,
+				B.REGISTRATION_NUMBER AS GOODS_REGISTRATION_NUMBER,
+				B.GOODS_TYPE,
+                B.SOURCE,
+                C.TITLE AS MANAGECATEGORYNAME,
+                IFNULL(aa.afterReturnNum, 0) AS afterReturnNum,
+                IFNULL(aa.SKU_REFUND_AMOUNT, 0) AS afterReturnAmount,
+                IFNULL(aa.loNum, 0) AS warehouseReturnNum
+                FROM
+                T_SALEORDER_GOODS A
+                INNER JOIN T_GOODS B ON A.GOODS_ID = B.GOODS_ID
+                LEFT JOIN T_SYS_OPTION_DEFINITION C ON B.MANAGE_CATEGORY = C.SYS_OPTION_DEFINITION_ID
+                LEFT JOIN
+                (SELECT SUM(F.NUM) AS afterReturnNum,
+                SUM(F.SKU_REFUND_AMOUNT) AS SKU_REFUND_AMOUNT,
+                F.ORDER_DETAIL_ID,aaa.loNum
+                FROM T_AFTER_SALES_GOODS F
+                LEFT JOIN T_AFTER_SALES E ON E.AFTER_SALES_ID = F.AFTER_SALES_ID
+                LEFT JOIN (
+                SELECT
+                sum(abs(NUM)) AS loNum,
+                RELATED_ID
+                FROM
+                T_WAREHOUSE_GOODS_OPERATE_LOG
+                WHERE
+                IS_ENABLE = 1
+                AND OPERATE_TYPE = 5
+                GROUP BY
+                RELATED_ID
+                ) aaa ON aaa.RELATED_ID = F.AFTER_SALES_GOODS_ID
+                WHERE     E.ATFER_SALES_STATUS = 2
+                AND E.SUBJECT_TYPE = 535	<!-- 销售 -->
+                AND E.TYPE = 539	<!-- 退货 -->
+                AND E.ORDER_ID = #{saleorderId,jdbcType=INTEGER}	<!-- 于2019-02-05日添加 -->
+                GROUP BY F.ORDER_DETAIL_ID) aa ON aa.ORDER_DETAIL_ID = A.SALEORDER_GOODS_ID
+            WHERE
+            A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}  AND A.IS_DELETE =0
+            <if test="goodsId != null and goodsId != 0">
+              and A.GOODS_ID =#{goodsId,jdbcType=INTEGER}
+            </if>
+            <if test="isSaleOut!=0">
+              AND A.GOODS_ID NOT IN ( SELECT
+              COMMENTS
+              FROM
+              T_SYS_OPTION_DEFINITION
+              WHERE
+              PARENT_ID = 693)
+            </if>
+			order by A.DELIVERY_DIRECT desc,A.SALEORDER_GOODS_ID asc
+	</select>
+	<!-- 除去售后产品的销售产品列表 -->
+	<select id="getSaleorderGoodsNoSH" parameterType="com.vedeng.order.model.Saleorder" resultMap="getSaleorderGoodsResult">
+			SELECT
+				A.SALEORDER_GOODS_ID,
+				A.SALEORDER_ID,
+				A.GOODS_ID,
+				(A.NUM - IFNULL(T.SHNUM, 0)) NUM,
+				A.DELIVERY_DIRECT,
+				A.ARRIVAL_STATUS,
+				A.DELIVERY_NUM,
+				A.DELIVERY_STATUS
+			FROM
+				T_SALEORDER_GOODS A
+			LEFT JOIN (
+				SELECT
+					SUM(b.NUM) SHNUM,
+					b.ORDER_DETAIL_ID
+				FROM
+					T_AFTER_SALES_GOODS b
+				LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+				WHERE
+					b.GOODS_TYPE = 0
+				AND b.ORDER_DETAIL_ID IN (
+					SELECT
+						b.SALEORDER_GOODS_ID
+					FROM
+						T_SALEORDER a LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID AND b.IS_DELETE = 0 
+					WHERE
+						a.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}  
+				)
+				AND c.TYPE = 539
+				AND c.SUBJECT_TYPE = 535
+				AND c.ATFER_SALES_STATUS != 3
+				AND b.GOODS_ID NOT IN (
+					SELECT
+						COMMENTS
+					FROM
+						T_SYS_OPTION_DEFINITION
+					WHERE
+						PARENT_ID = 693
+				)
+				GROUP BY
+					b.ORDER_DETAIL_ID
+			) T ON A.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+			WHERE
+				A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}  
+			AND A.NUM > 0
+			AND A.IS_DELETE = 0 
+			ORDER BY
+				A.DELIVERY_DIRECT DESC,
+				A.SALEORDER_GOODS_ID ASC
+	</select>
+	<!-- 根据订单产品ID查询采购状态和入库状态 -->
+	<select id="getGoodsBuyWarehouseStatus" parameterType="java.util.List" resultType="com.vedeng.order.model.SaleorderGoods">
+		SELECT SUM(Z.NUM) AS BUY_NUM,
+		       Z.BUYORDER_GOODS_ID,
+		       L.SALEORDER_GOODS_ID,
+		       IFNULL(SUM(V.NUM), 0) AS WAREHOUSE_NUM
+		FROM T_R_BUYORDER_J_SALEORDER L
+		     LEFT JOIN T_BUYORDER_GOODS Z
+		        ON L.BUYORDER_GOODS_ID = Z.BUYORDER_GOODS_ID
+		     LEFT JOIN T_BUYORDER X
+		        ON     Z.BUYORDER_ID = X.BUYORDER_ID
+		           AND X.ORDER_TYPE = 0
+		           AND X.VALID_STATUS = 1
+		     LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG V
+		        ON Z.BUYORDER_GOODS_ID = V.RELATED_ID AND V.IS_ENABLE = 1 AND V.OPERATE_TYPE = 1
+		WHERE L.SALEORDER_GOODS_ID IN 
+		<foreach collection="saleGoodsIdList" item="list" open="(" close=")" separator=",">
+			#{list.saleorderGoodsId,jdbcType=INTEGER}
+		</foreach>
+		GROUP BY Z.BUYORDER_GOODS_ID
+	</select>
+	<select id="getsaleordergoodsbyidnew" parameterType="com.vedeng.order.model.Saleorder" resultMap="getSaleorderGoodsResult">
+		select SALEORDER_GOODS_ID,NUM,DELIVERY_NUM,PRICE,IS_DELETE from T_SALEORDER_GOODS 
+		where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} 
+	</select>
+		<!-- 根据订单产品ID查询采购状态和入库状态 -->
+	<select id="getGoodsBuyWarehouseStatusBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT IFNULL(SUM(V.NUM), 0) 
+		FROM T_R_BUYORDER_J_SALEORDER L
+		     LEFT JOIN T_BUYORDER_GOODS Z
+		        ON L.BUYORDER_GOODS_ID = Z.BUYORDER_GOODS_ID
+		     LEFT JOIN T_BUYORDER X
+		        ON     Z.BUYORDER_ID = X.BUYORDER_ID
+		           AND X.ORDER_TYPE = 0
+		           AND X.VALID_STATUS = 1
+		     LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG V
+		        ON Z.BUYORDER_GOODS_ID = V.RELATED_ID AND V.IS_ENABLE = 1 AND V.OPERATE_TYPE = 1
+		WHERE L.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+	</select>
+	<select id="getGoodsBhWarehouseStatusBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT SUM(ABS(A.NUM)) AS AMOUNT
+		FROM T_WAREHOUSE_GOODS_OPERATE_LOG A
+		     JOIN T_WAREHOUSE_GOODS_OPERATE_LOG B
+		        ON A.BARCODE_ID = B.BARCODE_ID AND A.BARCODE_ID <![CDATA[ <> ]]> 0
+		     JOIN T_BUYORDER_GOODS C ON B.RELATED_ID = C.BUYORDER_GOODS_ID
+		WHERE     A.OPERATE_TYPE = 2
+		      AND B.OPERATE_TYPE = 1
+		      AND A.IS_ENABLE = 1
+		      AND B.IS_ENABLE = 1
+		      AND A.RELATED_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+		GROUP BY A.RELATED_ID
+	</select>
+	<!-- 获取订单下的产品列表 -->
+	<select id="getSaleordergoodsInfo" parameterType="com.vedeng.order.model.Saleorder" resultMap="getSaleorderGoodsResult">
+		<if test="isOut ==1">
+		select * from(
+		</if>
+		SELECT
+			A.*, B.MATERIAL_CODE,
+			B.MANAGE_CATEGORY,
+			B.PURCHASE_REMIND,
+			B.PACKING_LIST,
+			B.TOS,
+			C.TITLE AS MANAGECATEGORYNAME,			
+			IFNULL(SUM(k.NUM), 0) PICKCNT,
+            IFNULL(F.TNUM,0) - IFNULL(G.TNUM, 0) TNUM,
+            B.GOODS_TYPE
+		FROM
+			T_SALEORDER_GOODS A
+		LEFT JOIN T_GOODS B ON A.GOODS_ID = B.GOODS_ID
+		LEFT JOIN T_SYS_OPTION_DEFINITION C ON B.MANAGE_CATEGORY = C.SYS_OPTION_DEFINITION_ID		
+		LEFT JOIN T_WAREHOUSE_PICKING j ON A.SALEORDER_ID = j.ORDER_ID AND j.IS_ENABLE = 1
+		AND j.ORDER_TYPE = 2
+		LEFT JOIN T_WAREHOUSE_PICKING_DETAIL k ON j.WAREHOUSE_PICKING_ID = k.WAREHOUSE_PICKING_ID
+		AND k.IS_ENABLE=1
+		AND k.GOODS_ID = A.GOODS_ID
+		<!-- AND A.IS_IGNORE =0 -->
+        AND A.IS_DELETE =0
+				LEFT JOIN (
+			SELECT
+				a.ORDER_ID,
+				b.GOODS_ID,
+				IFNULL(SUM(b.NUM), 0) TNUM
+			FROM
+				T_AFTER_SALES a
+			LEFT JOIN T_AFTER_SALES_GOODS b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+			AND b.GOODS_TYPE = 0
+			WHERE
+				a.VALID_STATUS = 1
+			AND a.ORDER_ID = #{saleorderId,jdbcType=INTEGER}
+		  AND a.TYPE = 539
+			GROUP BY
+				b.GOODS_ID
+		) F ON F.GOODS_ID = A.GOODS_ID
+		LEFT JOIN (
+			SELECT
+				a.ORDER_ID,
+				b.GOODS_ID,
+				IFNULL(SUM(b.NUM), 0) TNUM
+			FROM
+				T_AFTER_SALES a
+			LEFT JOIN T_AFTER_SALES_GOODS b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+			AND b.GOODS_TYPE = 0
+			WHERE
+				a.VALID_STATUS = 1
+			AND a.ORDER_ID = #{saleorderId,jdbcType=INTEGER}
+		  AND a.TYPE = 539
+		  AND a.ATFER_SALES_STATUS IN (0,3)
+			GROUP BY
+				b.GOODS_ID
+		) G ON G.GOODS_ID = A.GOODS_ID
+		<!-- LEFT JOIN (
+			SELECT
+				GOODS_ID GID,
+				IFNULL(SUM(NUM), 0) GOODSNUM
+			FROM
+				T_WAREHOUSE_GOODS_STATUS
+			GROUP BY
+				GOODS_ID
+		) TT ON A.GOODS_ID = TT.GID -->
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND A.IS_DELETE =0 AND A.DELIVERY_DIRECT = 0
+		 AND A.GOODS_ID NOT IN ( SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+		<!--  AND TT.GOODSNUM>0 -->
+        <!--  AND A.DELIVERY_STATUS!=2 -->
+		<if test="eFlag ==1">
+		    AND A.DELIVERY_NUM>0
+		</if>
+		GROUP BY
+			A.SALEORDER_GOODS_ID
+		<if test="isOut ==1">
+		)T
+        WHERE T.PICKCNT > 0
+		</if>
+	</select>
+	<!-- 获取商品的所属仓库名称 -->
+	<select id="getWarehouseName" parameterType="com.vedeng.order.model.Saleorder" resultMap="getSaleorderGoodsResult">
+		SELECT	
+		    DISTINCT		
+			e.WAREHOUSE_NAME AS STORAGEADDRESS	
+		FROM
+			T_SALEORDER_GOODS A		
+		LEFT JOIN T_WAREHOUSE_GOODS_SET D ON A.GOODS_ID = D.GOODS_ID
+		LEFT JOIN T_WAREHOUSE e ON D.WAREHOUSE_ID = e.WAREHOUSE_ID
+		WHERE
+			A.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER} AND A.IS_DELETE =0
+	</select>
+  <!-- 根据商品id查询商品的可拣货总库存量 -->
+  <select id="getTotalNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+		SELECT
+			IFNULL(sum(IFNULL(A.CNT, 0) - IFNULL(B.CNT, 0)),0)
+		FROM
+			(
+				SELECT
+					IFNULL(a.BATCH_NUMBER ,- 1) TEMP_BATCH_NUMBER,
+								a.BATCH_NUMBER,
+								a.EXPIRATION_DATE,
+								a.ADD_TIME,
+								a.GOODS_ID,
+								SUM(IFNULL(a.NUM, 0)) CNT
+				FROM
+					T_WAREHOUSE_GOODS_OPERATE_LOG a
+				WHERE
+					a.OPERATE_TYPE IN (1, 3, 5, 8)
+				AND a.IS_ENABLE = 1
+				AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+				AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+				AND a.BARCODE_ID > 0
+				AND a.BARCODE_ID NOT IN (
+					SELECT DISTINCT
+						BARCODE_ID
+					FROM
+						T_WAREHOUSE_GOODS_OPERATE_LOG
+					WHERE
+						OPERATE_TYPE IN (2, 4, 6, 7)
+					AND IS_ENABLE = 1
+					AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+					AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+					AND BARCODE_ID > 0
+				)
+				AND (
+					a.EXPIRATION_DATE = 0
+					OR a.EXPIRATION_DATE >= (
+						SELECT
+							unix_timestamp(now()) * 1000
+					)
+				)
+				AND a.RELATED_ID NOT IN (
+					SELECT
+						AFTER_SALES_GOODS_ID
+					FROM
+						T_AFTER_SALES_GOODS
+					WHERE
+						ORDER_DETAIL_ID =  #{saleorderGoodsId,jdbcType=INTEGER}
+				)
+				GROUP BY
+								
+								IFNULL(a.BATCH_NUMBER ,- 1),
+								a.EXPIRATION_DATE
+			) A
+		LEFT JOIN (
+			SELECT
+							a.GOODS_ID,
+							a.EXPIRATION_DATE,
+							IFNULL(a.BATCH_NUMBER ,- 1) TEMP_BATCH_NUMBER,
+							SUM(
+								IFNULL(a.NUM, 0) - IFNULL(a.DELIVERY_NUM, 0)
+							) CNT
+						FROM
+							T_WAREHOUSE_PICKING_DETAIL a
+						LEFT JOIN T_WAREHOUSE_PICKING b ON a.WAREHOUSE_PICKING_ID = b.WAREHOUSE_PICKING_ID
+						LEFT JOIN T_AFTER_SALES c  ON a.RELATED_ID = c.AFTER_SALES_ID 
+						WHERE
+							a.IS_ENABLE = 1
+						AND b.IS_ENABLE = 1
+						AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+						AND b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+						AND a.DELIVERY_STATUS != 2
+						AND c.AFTER_SALES_ID NOT IN
+						(
+						    SELECT
+								AFTER_SALES_ID
+							FROM
+								T_AFTER_SALES_GOODS
+							WHERE
+								ORDER_DETAIL_ID =  #{saleorderGoodsId,jdbcType=INTEGER}
+						)
+						GROUP BY
+							a.EXPIRATION_DATE,
+							IFNULL(a.BATCH_NUMBER ,- 1)
+					) B ON A.TEMP_BATCH_NUMBER = B.TEMP_BATCH_NUMBER
+					AND A.EXPIRATION_DATE = B.EXPIRATION_DATE
+
+   </select>
+    <!-- 采购业务可拣货量 -->
+   <select id="getCGTotalNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+				 SELECT
+					(
+						IFNULL(sum(IFNULL(T.NUM, 0) - IFNULL(TT.NUM, 0)),0)
+					) CNT
+				FROM
+					(
+						SELECT
+							IFNULL(a.BATCH_NUMBER ,- 1) TEMP_BATCH_NUMBER,
+							a.BATCH_NUMBER,
+							a.EXPIRATION_DATE,
+							a.ADD_TIME,
+							a.GOODS_ID,
+							SUM(IFNULL(a.NUM, 0)) NUM
+						FROM
+							T_WAREHOUSE_GOODS_OPERATE_LOG a
+						LEFT JOIN T_AFTER_SALES_GOODS b ON a.RELATED_ID = b.AFTER_SALES_GOODS_ID
+						WHERE
+							a.OPERATE_TYPE IN (3, 5)
+						AND a.IS_ENABLE = 1
+						AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+						AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+						AND a.BARCODE_ID > 0
+						AND (
+							a.EXPIRATION_DATE = 0
+							OR a.EXPIRATION_DATE >= (
+								SELECT
+									unix_timestamp(now()) * 1000
+							)
+						)
+						AND a.BARCODE_ID NOT IN (
+							SELECT DISTINCT
+								BARCODE_ID
+							FROM
+								T_WAREHOUSE_GOODS_OPERATE_LOG
+							WHERE
+								OPERATE_TYPE IN (2, 4, 6, 7)
+							AND IS_ENABLE = 1
+							AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+							AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+							AND BARCODE_ID > 0
+						)
+						GROUP BY
+							CONCAT(
+								IFNULL(a.BATCH_NUMBER ,- 1),
+								a.EXPIRATION_DATE
+							)
+					) T
+				LEFT JOIN (
+					SELECT
+						a.GOODS_ID,
+						a.EXPIRATION_DATE,
+						IFNULL(a.BATCH_NUMBER ,- 1) TEMP_BATCH_NUMBER,
+						SUM(
+							IFNULL(a.NUM, 0) - IFNULL(a.DELIVERY_NUM, 0)
+						) NUM
+					FROM
+						T_WAREHOUSE_PICKING_DETAIL a
+					LEFT JOIN T_WAREHOUSE_PICKING b ON a.WAREHOUSE_PICKING_ID = b.WAREHOUSE_PICKING_ID
+					LEFT JOIN T_AFTER_SALES c ON c.AFTER_SALES_ID = a.RELATED_ID
+					WHERE
+						a.IS_ENABLE = 1
+					AND b.IS_ENABLE = 1
+					AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+					AND b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+					AND a.DELIVERY_STATUS != 2
+					AND c.TYPE IN (539,540)
+					GROUP BY
+						CONCAT(
+							IFNULL(a.BATCH_NUMBER ,- 1),
+							a.EXPIRATION_DATE
+						)
+				) TT ON T.TEMP_BATCH_NUMBER = TT.TEMP_BATCH_NUMBER
+				AND TT.GOODS_ID = T.GOODS_ID
+				AND T.EXPIRATION_DATE = TT.EXPIRATION_DATE
+			<!-- SELECT
+				IFNULL(SUM(T.NUM - T.CNT), 0)
+			FROM
+				(
+					SELECT
+						IFNULL(h.NUM, 0) NUM,
+						IFNULL(SUM(o.NUM), 0) CNT
+					FROM
+						T_AFTER_SALES_GOODS i
+					LEFT JOIN T_AFTER_SALES a ON i.AFTER_SALES_ID = a.AFTER_SALES_ID
+					LEFT JOIN T_BUYORDER b ON a.ORDER_ID = b.BUYORDER_ID
+					LEFT JOIN T_BUYORDER_GOODS c ON b.BUYORDER_ID = c.BUYORDER_ID
+					AND c.IS_DELETE = 0
+					LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG d ON c.BUYORDER_GOODS_ID = d.RELATED_ID
+					AND d.IS_ENABLE = 1
+					AND d.OPERATE_TYPE = 1
+					LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG e ON d.BARCODE_ID = e.BARCODE_ID
+					AND e.IS_ENABLE = 1
+					AND e.OPERATE_TYPE = 2
+					LEFT JOIN T_SALEORDER_GOODS f ON e.RELATED_ID = f.SALEORDER_GOODS_ID
+					AND f.IS_DELETE = 0
+					LEFT JOIN T_AFTER_SALES_GOODS g ON f.SALEORDER_GOODS_ID = g.ORDER_DETAIL_ID
+					LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG h ON g.AFTER_SALES_GOODS_ID = h.RELATED_ID
+					AND h.IS_ENABLE = 1
+					AND h.OPERATE_TYPE IN (3, 5)
+					AND h.BARCODE_ID NOT IN (
+						SELECT DISTINCT
+							BARCODE_ID
+						FROM
+							T_WAREHOUSE_GOODS_OPERATE_LOG
+						WHERE
+							OPERATE_TYPE in (2, 4, 6, 7)
+						AND IS_ENABLE = 1
+						AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+						AND BARCODE_ID != null
+					)
+					LEFT JOIN T_WAREHOUSE_PICKING_DETAIL o ON h.WAREHOUSE_GOODS_OPERATE_LOG_ID = o.WAREHOUSE_GOODS_OPERATE_LOG_ID
+					AND o.IS_ENABLE = 1
+					WHERE
+						i.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+					AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+					AND i.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+					AND (
+						h.EXPIRATION_DATE >= (
+							SELECT
+								unix_timestamp(now()) * 1000
+						)
+						OR h.EXPIRATION_DATE = 0
+					)
+					GROUP BY
+						h.WAREHOUSE_GOODS_OPERATE_LOG_ID
+				) T -->
+   </select>
+   <!-- 销售业务拣货量 -->
+   <select id="getXSTotalNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+					SELECT
+						IFNULL(SUM(IFNULL(A.CNT, 0) - IFNULL(B.CNT, 0)),0)
+					FROM
+						(
+							SELECT
+								a.GOODS_ID,
+								SUM(a.NUM) CNT,
+								IFNULL(a.BATCH_NUMBER ,- 1) BATCH_NUMBER,
+								a.EXPIRATION_DATE
+							FROM
+								T_WAREHOUSE_GOODS_OPERATE_LOG a
+							LEFT JOIN T_BUYORDER_GOODS b ON a.RELATED_ID = b.BUYORDER_GOODS_ID
+							LEFT JOIN T_BUYORDER c ON b.BUYORDER_ID = c.BUYORDER_ID
+							WHERE
+								a.OPERATE_TYPE IN (1, 3, 5, 8)
+							AND a.IS_ENABLE = 1
+							AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+							AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+							AND a.BARCODE_ID > 0
+							AND (
+								CASE
+								WHEN a.OPERATE_TYPE = 1 THEN
+									c.ORDER_TYPE = 1
+								ELSE
+									1
+								END
+							)
+							AND (
+								a.EXPIRATION_DATE = 0
+								OR a.EXPIRATION_DATE >= (
+									SELECT
+										unix_timestamp(now()) * 1000
+								)
+							)
+							AND a.BARCODE_ID NOT IN (
+								SELECT DISTINCT
+									BARCODE_ID
+								FROM
+									T_WAREHOUSE_GOODS_OPERATE_LOG
+								WHERE
+									OPERATE_TYPE IN (2, 4, 6, 7)
+								AND IS_ENABLE = 1
+								AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+								AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+								AND BARCODE_ID > 0
+							)
+							AND (
+								a.RELATED_ID NOT IN (
+									SELECT
+										AFTER_SALES_GOODS_ID
+									FROM
+										T_AFTER_SALES_GOODS
+									WHERE
+										ORDER_DETAIL_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+								)
+							)
+							GROUP BY
+								a.EXPIRATION_DATE,
+								IFNULL(a.BATCH_NUMBER ,- 1)
+						) A
+					LEFT JOIN (
+						SELECT
+							a.GOODS_ID,
+							a.EXPIRATION_DATE,
+							IFNULL(a.BATCH_NUMBER ,- 1) TEMP_BATCH_NUMBER,
+							SUM(
+								IFNULL(a.NUM, 0) - IFNULL(a.DELIVERY_NUM, 0)
+							) CNT
+						FROM
+							T_WAREHOUSE_PICKING_DETAIL a
+						LEFT JOIN T_WAREHOUSE_PICKING b ON a.WAREHOUSE_PICKING_ID = b.WAREHOUSE_PICKING_ID
+						LEFT JOIN T_BUYORDER c ON a.RELATED_ID = c.BUYORDER_ID
+						WHERE
+							a.IS_ENABLE = 1
+						AND b.IS_ENABLE = 1
+						AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+						AND b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+						AND a.DELIVERY_STATUS != 2
+						AND b.ORDER_ID NOT IN (
+							SELECT
+								AFTER_SALES_GOODS_ID
+							FROM
+								T_AFTER_SALES_GOODS
+							WHERE
+								ORDER_DETAIL_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+						)
+						AND (
+							c.ORDER_TYPE = 1
+							OR b.ORDER_TYPE = 1
+						)
+						GROUP BY
+							a.EXPIRATION_DATE,
+							IFNULL(a.BATCH_NUMBER ,- 1)
+					) B ON A.BATCH_NUMBER = B.TEMP_BATCH_NUMBER
+					AND A.EXPIRATION_DATE = B.EXPIRATION_DATE
+<!--  SELECT
+	IFNULL(a.CNT, 0) - IFNULL(b.CNT, 0) - IFNULL(d.CNT, 0)
+FROM
+	(
+		SELECT
+			a.GOODS_ID,
+			SUM(a.NUM) CNT
+		FROM
+			T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_BUYORDER_GOODS b ON a.RELATED_ID = b.BUYORDER_GOODS_ID
+		LEFT JOIN T_BUYORDER c ON b.BUYORDER_ID = c.BUYORDER_ID
+		WHERE
+			a.OPERATE_TYPE IN (1, 3, 5, 8)
+		AND a.IS_ENABLE = 1
+		AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		AND a.BARCODE_ID NOT IN (
+			SELECT DISTINCT
+				BARCODE_ID
+			FROM
+				T_WAREHOUSE_GOODS_OPERATE_LOG
+			WHERE
+				OPERATE_TYPE in (2, 4, 6, 7)
+			AND IS_ENABLE = 1
+			AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			AND BARCODE_ID != null
+		)
+		AND (
+			CASE
+			WHEN a.OPERATE_TYPE = 1 THEN
+				c.ORDER_TYPE = 1
+			ELSE
+				1
+			END
+		)
+		AND (
+			EXPIRATION_DATE = 0
+			OR EXPIRATION_DATE >= (
+				SELECT
+					unix_timestamp(now()) * 1000
+			)
+		)
+	) a
+LEFT JOIN (
+	SELECT
+		a.GOODS_ID,
+		IFNULL(SUM(b.NUM), 0) CNT
+	FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+	LEFT JOIN T_WAREHOUSE_PICKING_DETAIL b ON a.WAREHOUSE_GOODS_OPERATE_LOG_ID = b.WAREHOUSE_GOODS_OPERATE_LOG_ID
+	LEFT JOIN T_BUYORDER_GOODS d ON a.RELATED_ID = d.BUYORDER_GOODS_ID
+	LEFT JOIN T_BUYORDER e ON d.BUYORDER_ID = e.BUYORDER_ID
+	WHERE
+		a.OPERATE_TYPE IN (1, 3, 5, 8)
+	AND a.IS_ENABLE = 1
+	AND b.IS_ENABLE = 1
+	AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	AND a.BARCODE_ID NOT IN (
+		SELECT DISTINCT
+			BARCODE_ID
+		FROM
+			T_WAREHOUSE_GOODS_OPERATE_LOG
+		WHERE
+			OPERATE_TYPE in (2, 4, 6, 7)
+		AND IS_ENABLE = 1
+		AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND BARCODE_ID != null
+	)
+	AND (
+		CASE
+		WHEN a.OPERATE_TYPE = 1 THEN
+			e.ORDER_TYPE = 1
+		ELSE
+			1
+		END
+	)
+	AND (
+		a.RELATED_ID NOT IN (
+			SELECT
+				AFTER_SALES_GOODS_ID
+			FROM
+				T_AFTER_SALES_GOODS
+			WHERE
+				ORDER_DETAIL_ID =  #{saleorderGoodsId,jdbcType=INTEGER}
+		)
+		)
+		AND (
+			a.EXPIRATION_DATE = 0
+			OR a.EXPIRATION_DATE >= (
+				SELECT
+					unix_timestamp(now()) * 1000
+			)
+		)
+	
+) b ON a.GOODS_ID = b.GOODS_ID
+LEFT JOIN (
+	SELECT
+		a.GOODS_ID,
+		IFNULL(SUM(a.NUM), 0) CNT
+	FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+	LEFT JOIN T_BUYORDER_GOODS b ON a.RELATED_ID = b.BUYORDER_GOODS_ID
+	LEFT JOIN T_BUYORDER c ON b.BUYORDER_ID = c.BUYORDER_ID
+	WHERE
+		a.OPERATE_TYPE IN (1, 3, 5, 8)
+	AND a.IS_ENABLE = 1
+	AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	AND a.BARCODE_ID NOT IN (
+		SELECT DISTINCT
+			BARCODE_ID
+		FROM
+			T_WAREHOUSE_GOODS_OPERATE_LOG
+		WHERE
+			OPERATE_TYPE in (2, 4, 6, 7)
+		AND IS_ENABLE = 1
+		AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND BARCODE_ID != null
+	)
+	AND a.RELATED_ID IN (
+		SELECT
+			AFTER_SALES_GOODS_ID
+		FROM
+			T_AFTER_SALES_GOODS
+		WHERE
+			ORDER_DETAIL_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+	)
+	OR (
+		a.EXPIRATION_DATE != 0
+		AND a.EXPIRATION_DATE <![CDATA[ < ]]> (
+			SELECT
+				unix_timestamp(now()) * 1000
+		)
+		AND a.OPERATE_TYPE IN (1, 3, 5, 8)
+		AND a.IS_ENABLE = 1
+		AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	)
+) d ON a.GOODS_ID = d.GOODS_ID -->
+   </select>
+   <!-- 获取已经被快递关联的出库商品数 -->
+   <select id="getKdNum" resultType="java.lang.Integer" parameterType="com.vedeng.order.model.SaleorderGoods">
+		SELECT SUM(a.NUM) CNT FROM T_EXPRESS_DETAIL a INNER  JOIN T_SALEORDER_GOODS b
+		ON a.RELATED_ID = b.SALEORDER_GOODS_ID INNER  JOIN T_EXPRESS c ON a.EXPRESS_ID = c.EXPRESS_ID AND c.IS_ENABLE=1
+		WHERE b.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER} AND b.IS_DELETE =0
+		AND b.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+		<if test="bussinessType != null ">
+			AND a.BUSINESS_TYPE = #{bussinessType,jdbcType=INTEGER}
+		</if>
+   </select>
+  <!-- 获取订单产品信息（根据订单产品主键ID） -->
+  <select id="getSaleorderGoodsInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT A.*, C.TITLE AS goodsLevelName
+			FROM T_SALEORDER_GOODS A
+			     LEFT JOIN T_GOODS B ON A.GOODS_ID = B.GOODS_ID
+			     LEFT JOIN T_SYS_OPTION_DEFINITION C
+			        ON B.GOODS_LEVEL = C.SYS_OPTION_DEFINITION_ID AND C.PARENT_ID = 334
+			WHERE A.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+   </select>
+   
+   <!-- 验证订单产品是否重复 -->
+   <select id="vailSaleorderGoods" parameterType="com.vedeng.order.model.SaleorderGoods" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_SALEORDER_GOODS A
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND A.GOODS_ID = #{goodsId,jdbcType=INTEGER} AND A.IS_DELETE = 0
+	</select>
+	
+	<!-- 验证销售订单商品是否含有直发 -->
+    <select id="vailSaleorderIsDirect" parameterType="com.vedeng.order.model.SaleorderGoods" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_SALEORDER_GOODS A
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND A.DELIVERY_DIRECT = 1 AND A.IS_DELETE = 0
+	</select>
+	
+	<!-- 判断订单中产品报价或者货期是否为空 -->
+    <select id="vailSaleorderPriceDeliveryCycle" parameterType="com.vedeng.order.model.SaleorderGoods" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_SALEORDER_GOODS A
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND A.IS_DELETE = 0 AND (A.DELIVERY_CYCLE IS NULL || A.DELIVERY_CYCLE = '')
+	</select>
+	
+	<!-- 判断订单中未删除产品数量 -->
+    <select id="vailSaleorderNotDelNum" parameterType="com.vedeng.order.model.SaleorderGoods" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_SALEORDER_GOODS A
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND A.IS_DELETE = 0
+	</select>
+	
+	<select id="vailSaleorderTotle" parameterType="com.vedeng.order.model.SaleorderGoods" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_SALEORDER A
+		WHERE     IFNULL(A.TOTAL_AMOUNT, 0) <![CDATA[ <> ]]>
+		          (SELECT IFNULL(SUM(B.PRICE * B.NUM), 0)
+		           FROM T_SALEORDER_GOODS B
+		           WHERE B.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND B.IS_DELETE = 0)
+		      AND A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 修改订单主表总价格 -->
+	<update id="updateSaleorderTotal" parameterType="com.vedeng.order.model.SaleorderGoods">
+		UPDATE T_SALEORDER A
+		SET A.TOTAL_AMOUNT =
+		       (SELECT SUM(B.PRICE * B.NUM)
+		        FROM T_SALEORDER_GOODS B
+		        WHERE B.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND B.IS_DELETE = 0),
+		    A.PAYMENT_TYPE = 419,
+		    A.PREPAID_AMOUNT = 
+		    	(SELECT SUM(B.PRICE * B.NUM)
+		        FROM T_SALEORDER_GOODS B
+		        WHERE B.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND B.IS_DELETE = 0),
+		    A.HAVE_ACCOUNT_PERIOD = 0,
+		    A.ACCOUNT_PERIOD_AMOUNT = 0,
+		    A.LOGISTICS_COLLECTION = 0,
+		    A.RETAINAGE_AMOUNT = 0,
+		    A.RETAINAGE_AMOUNT_MONTH = 0,
+		    A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getSaleOrderGoodsIdList"  resultType="java.lang.Integer">
+		select 
+			sg.SALEORDER_GOODS_ID
+		FROM T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID 
+		where s.STATUS between 1 and 2 and s.SALEORDER_NO like concat ('%',#{saleorderNo,jdbcType=VARCHAR},'%')
+	</select>
+	
+	<select id="getSaleorderGoodsVosList" resultMap="VoResultMap" parameterType="java.lang.Integer">
+		select 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, sg.IGNORE_USER_ID,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, sod.TITLE,g.MATERIAL_CODE
+		from 
+			T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID 
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID
+		left join T_SYS_OPTION_DEFINITION sod on sod.SYS_OPTION_DEFINITION_ID = g.GOODS_LEVEL
+			<if test="null != saleorderGoodsIds and saleorderGoodsIds.size()>0">
+		    where sg.SALEORDER_GOODS_ID in
+			<foreach item="saleorderGoodsId" index="index" collection="saleorderGoodsIds" separator="," open="(" close=")">
+				#{saleorderGoodsId}
+			</foreach>
+			</if>
+	</select>
+	<select id="getSaleorderGoodsVosListByLists" resultMap="VoResultMap" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+		select 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, sg.IGNORE_USER_ID,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, sod.TITLE,g.MATERIAL_CODE
+		from 
+			T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID 
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID
+		left join T_SYS_OPTION_DEFINITION sod on sod.SYS_OPTION_DEFINITION_ID = g.GOODS_LEVEL
+		left join T_R_BUYORDER_J_SALEORDER rjs ON rjs.SALEORDER_GOODS_ID=sg.SALEORDER_GOODS_ID
+			<if test="null != lists and lists.size()>0">
+		    where rjs.BUYORDER_GOODS_ID in
+			<foreach item="bgv" index="index" collection="lists" separator="," open="(" close=")">
+				#{bgv.buyorderGoodsId}
+			</foreach>
+			</if>
+	</select>
+	<select id="getSaleorderGoodsVosListByIds" resultMap="VoResultMap" parameterType="com.vedeng.order.model.RBuyorderSaleorder">  
+		select 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, sg.IGNORE_USER_ID,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, sod.TITLE,g.MATERIAL_CODE
+		from 
+			T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID 
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID
+		left join T_SYS_OPTION_DEFINITION sod on sod.SYS_OPTION_DEFINITION_ID = g.GOODS_LEVEL
+			<if test="null != lists and lists.size()>0">
+		    where sg.SALEORDER_GOODS_ID in
+			<foreach item="rBuyorderSaleorder" index="index" collection="lists" separator="," open="(" close=")">
+				#{rBuyorderSaleorder.saleorderGoodsId}
+			</foreach>
+			</if>
+	</select>
+	<select id="getSaleorderIdList" resultType="java.lang.Integer" parameterType="com.vedeng.order.model.RBuyorderSaleorder">
+		select 
+			distinct SALEORDER_ID
+		from 
+			T_SALEORDER_GOODS 
+
+		    where SALEORDER_GOODS_ID in
+			<foreach item="rbs" index="index" collection="rbsIds" separator="," open="(" close=")">
+				#{rbs.saleorderGoodsId}
+			</foreach>
+	</select>
+	<!-- 根据销售商品id List查询销售商品 -->
+	<select id="getSaleorderGoodsList" resultMap="VoResultMap" parameterType="com.vedeng.order.model.RBuyorderSaleorder">
+		select 
+			*
+		from 
+			T_SALEORDER_GOODS 
+		    where SALEORDER_GOODS_ID in
+			<foreach item="rbs" index="index" collection="rbsIds" separator="," open="(" close=")">
+				#{rbs.saleorderGoodsId}
+			</foreach>
+	</select>
+	
+	<select id="getIgnoreSaleorderListPage" resultMap="VoResultMap" parameterType="Map">
+		select 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, sg.IGNORE_USER_ID,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, sod.TITLE,g.MATERIAL_CODE,buynumtable.BUYNUM 
+		from 
+			T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID  
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID
+		left join T_SYS_OPTION_DEFINITION sod on sod.SYS_OPTION_DEFINITION_ID = g.GOODS_LEVEL
+		left join (
+			select 
+				SUM(bg.NUM) as BUYNUM , bs.SALEORDER_GOODS_ID
+			FROM T_BUYORDER_GOODS bg
+			LEFT JOIN T_BUYORDER b on b.BUYORDER_ID = bg.BUYORDER_ID and b.STATUS in(0,1,2)
+			LEFT JOIN T_R_BUYORDER_J_SALEORDER bs on bs.BUYORDER_GOODS_ID = bg.BUYORDER_GOODS_ID
+			GROUP BY bs.SALEORDER_GOODS_ID
+		) AS buynumtable on sg.SALEORDER_GOODS_ID = buynumtable.SALEORDER_GOODS_ID 
+		    where sg.IS_IGNORE = 1 and s.STATUS = 1 and sg.NUM > IFNULL(buynumtable.BUYNUM,0)
+		<if test="saleorderGoods.companyId != null and saleorderGoods.companyId != ''">
+			<!-- 订单号 -->
+			AND s.COMPANY_ID = #{saleorderGoods.companyId}
+		</if>
+		<if test="saleorderGoods.goodsName != null and saleorderGoods.goodsName != ''">
+			<!-- 产品名称 -->
+			AND sg.GOODS_NAME like CONCAT('%',#{saleorderGoods.goodsName,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="saleorderGoods.brandName != null and saleorderGoods.brandName != ''">
+			<!-- 品牌 -->
+			AND sg.BRAND_NAME like CONCAT('%',#{saleorderGoods.brandName,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="saleorderGoods.model != null and saleorderGoods.model != ''">
+			<!-- 型号 -->
+			AND sg.MODEL like CONCAT('%',#{saleorderGoods.model,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="saleorderGoods.sku != null and saleorderGoods.sku != ''">
+			<!-- 订货号 -->
+			AND sg.SKU like CONCAT('%',#{saleorderGoods.sku,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="saleorderGoods.deliveryDirect != null and saleorderGoods.deliveryDirect != -1">
+			<!-- 直发？ -->
+			AND sg.DELIVERY_DIRECT = #{saleorderGoods.deliveryDirect,jdbcType=INTEGER}
+		</if>
+		<if test="saleorderGoods.saleorderNo != null and saleorderGoods.saleorderNo != ''">
+			<!-- 订单号 -->
+			AND s.SALEORDER_NO like CONCAT('%',#{saleorderGoods.saleorderNo,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="saleorderGoods.userIds != null">
+			and  s.USER_ID in 
+	 		<foreach item="userIds" index="index" collection="saleorderGoods.userIds" open="(" separator="," close=")">  
+			  #{userIds}  
+			</foreach>
+  		</if>
+	</select>
+	
+	<select id="getSaleorderGoodsVoListByGoodsVo" parameterType="com.vedeng.goods.model.vo.GoodsVo" resultMap="VoResultMap">
+		<!-- 包含采购订单所有产品退货了重新采购  OR (s.SERVICE_STATUS =2 AND sg.DELIVERY_STATUS = 2) 此种情况不做考虑-->
+		SELECT 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+			sg.NUM,sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS,sg.LOCKED_STATUS,
+			s.SALEORDER_NO,sod.TITLE, g.CATEGORY_ID,g.MATERIAL_CODE
+		<!-- 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, sg.IGNORE_USER_ID,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, sod.TITLE,g.MATERIAL_CODE
+		     -->
+		from  T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID 
+		left join T_SYS_OPTION_DEFINITION sod on sod.SYS_OPTION_DEFINITION_ID = g.GOODS_LEVEL
+			WHERE  s.STATUS = 1 AND s.PURCHASE_STATUS between 0 and 1  
+				and (((s.PAYMENT_STATUS = 2 or s.SATISFY_DELIVERY_TIME > 0) and s.ORDER_TYPE !=2 ) OR (s.ORDER_TYPE = 2) or (s.ADVANCE_PURCHASE_STATUS =2 ))
+	   			and sg.IS_IGNORE = 0 AND sg.IS_DELETE = 0 AND (sg.NUM > sg.DELIVERY_NUM and sg.DELIVERY_STATUS between 0 and 1) 
+	   			and FROM_UNIXTIME(s.VALID_TIME/1000,'%Y') >= YEAR(NOW())-1
+	   		<if test="orderType != null and orderType != 0 and orderType != -1 and orderType == 1">
+	   			and s.ORDER_TYPE in (0,1,3,4,5)
+	   		</if>
+	   		<if test="orderType != null and orderType != 0 and orderType != -1 and orderType == 2">
+	   			and s.ORDER_TYPE = 2
+	   		</if>
+	   		<!--  对应 4 经销商订单类型 -->
+	   		<if test="orderType != null and orderType != 0 and orderType != -1 and orderType == 4">
+	   			and s.ORDER_TYPE = 4
+	   		</if>
+	   		<!--  对应 5 耗材商城订单类型  -->
+	   		<if test="orderType != null and orderType != 0 and orderType != -1 and orderType == 5">
+	   			and s.ORDER_TYPE = 5
+	   		</if>
+	   		<if test="companyId != null and companyId != 0">
+	   			and s.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	   		</if>
+			<if test="goodsName != null and goodsName != ''">
+				and sg.GOODS_NAME LIKE CONCAT ('%',#{goodsName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="brandName != null and brandName != ''">
+				and sg.BRAND_NAME LIKE CONCAT ('%',#{brandName,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="model != null and model != ''">
+				and sg.MODEL LIKE CONCAT ('%',#{model,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="sku != null and sku != ''">
+				and sg.SKU LIKE CONCAT ('%',#{sku,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="saleorderNo != null and saleorderNo != ''">
+				and s.SALEORDER_NO LIKE CONCAT ('%',#{saleorderNo,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="userId != null and userId != 0">
+				and s.USER_ID =#{userId,jdbcType=INTEGER}
+			</if>
+			<if test="deliveryDirect != null and deliveryDirect != -1">
+				and sg.DELIVERY_DIRECT =#{deliveryDirect,jdbcType=INTEGER}
+			</if>
+			<!-- 暂时采购不做产品归属的查询-->
+			<if test="categoryIdList != null">
+				and g.CATEGORY_ID in 
+				<foreach item="categoryId" index="index" collection="categoryIdList" separator="," open="(" close=")">
+					#{categoryId,jdbcType=INTEGER}
+				</foreach>
+			</if>
+	</select>
+	
+	
+	<select id="vailSkuExistGoods" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT A.SKU FROM T_GOODS A WHERE A.IS_DISCARD = 0
+		AND A.SKU IN
+		<foreach item="list" index="index" collection="saleorderGoodsList" separator="," open="(" close=")" >
+			#{list.sku,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+	<!-- 判断要出库的商品是否包含有已锁定 -->
+	<select id="getSaleorderGoodLockList" parameterType="com.vedeng.order.model.SaleorderGoods" resultMap="VoResultMap">
+		SELECT * FROM T_SALEORDER_GOODS
+        WHERE LOCKED_STATUS =1 
+        and SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+        and GOODS_ID in
+		<foreach item="goodsId" index="index" collection="goodsIdList" separator="," open="(" close=")" >
+			#{goodsId,jdbcType=INTEGER}
+		</foreach>
+	</select>
+
+	<select id="vailSkuExistSaleGoods" resultType="java.lang.String">
+		SELECT A.SKU FROM T_SALEORDER_GOODS A 
+		WHERE A.IS_DELETE = 0
+			AND A.SKU IN
+			<foreach item="list" index="index" collection="saleGoodsList" separator="," open="(" close=")">
+				#{list.sku,jdbcType=VARCHAR}
+			</foreach>
+			AND A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</select>
+	
+	<insert id="batchSaveBhSaleorderGoods" parameterType="java.util.List">
+		<foreach item="list" index="index" collection="saleGoodsList" separator=";" >
+			insert into T_SALEORDER_GOODS
+				(SALEORDER_ID,
+				GOODS_ID,
+				SKU,
+				GOODS_NAME,
+				BRAND_NAME,
+				MODEL,
+				UNIT_NAME,
+				PRICE,
+				NUM,
+				ADD_TIME,
+				CREATOR,
+				MOD_TIME,
+				UPDATER)
+			SELECT #{list.saleorderId,jdbcType=INTEGER},
+				   A.GOODS_ID,
+			       A.SKU,
+			       A.GOODS_NAME,
+			       B.BRAND_NAME,
+			       A.MODEL,
+			       C.UNIT_NAME,
+			       #{list.price,jdbcType=DECIMAL},
+			       #{list.num,jdbcType=INTEGER},
+			       #{list.addTime,jdbcType=BIGINT},
+			       #{list.creator,jdbcType=INTEGER},
+			       #{list.modTime,jdbcType=BIGINT},
+			       #{list.updater,jdbcType=INTEGER}
+			FROM T_GOODS A
+			     LEFT JOIN T_BRAND B ON A.BRAND_ID = B.BRAND_ID
+			     LEFT JOIN T_UNIT C ON A.UNIT_ID = C.UNIT_ID
+			WHERE SKU = #{list.sku,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+	<!-- 在售列表 -->
+	<select id="getSdList" parameterType="com.vedeng.goods.model.Goods" resultMap="VoResultMap">
+			 <!-- SELECT
+			*
+		FROM
+			(
+				SELECT
+					b.SALEORDER_ID,
+					b.SALEORDER_NO,
+					b.VALID_TIME,
+					b.SATISFY_DELIVERY_TIME,
+                    b.DELIVERY_DIRECT,
+					b.TRADER_ID,
+					SUM(a.NUM) NUM,
+					CASE
+				WHEN b.PAYMENT_TIME = 0 THEN
+					NULL
+				ELSE
+					b.PAYMENT_TIME
+				END PAYMENT_TIME,
+				(
+					SUM(a.NUM) - SUM(a.DELIVERY_NUM)
+				) NEEDCNT,
+				SUM(a.DELIVERY_NUM) DELIVERY_NUM
+			FROM
+				T_SALEORDER_GOODS a
+			LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+			WHERE
+				b.ORDER_TYPE = 0
+			AND a.DELIVERY_DIRECT = 0
+			AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+			AND a.IS_DELETE = 0
+			AND a.GOODS_ID NOT IN (253620,251462,140633,127063,251526,256675)
+			AND b.VALID_STATUS = 1
+			AND b.STATUS = 1
+			GROUP BY
+				b.SALEORDER_ID
+			) T
+		ORDER BY
+		IF (ISNULL(T.PAYMENT_TIME), 1, 0),
+		 T.PAYMENT_TIME -->
+		 SELECT
+			*
+		FROM
+			(
+				SELECT
+					b.SALEORDER_ID,
+					b.SALEORDER_NO,
+					b.VALID_TIME,
+					b.SATISFY_DELIVERY_TIME,
+					b.DELIVERY_DIRECT,
+					b.TRADER_ID,
+					(a.NUM - IFNULL(SUM(c.NUM), 0)) NUM,
+					a.GOODS_ID,
+					CASE
+				WHEN b.PAYMENT_TIME = 0 THEN
+					NULL
+				ELSE
+					b.PAYMENT_TIME
+				END PAYMENT_TIME,
+				(
+					a.NUM - IFNULL(SUM(c.NUM), 0) - a.DELIVERY_NUM
+				) NEEDCNT,
+				a.DELIVERY_NUM DELIVERY_NUM
+			FROM
+				T_SALEORDER_GOODS a
+			LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+			LEFT JOIN T_AFTER_SALES d ON b.SALEORDER_ID = d.ORDER_ID
+		    AND d.TYPE = 539 AND d.ATFER_SALES_STATUS IN (1,2) 
+			LEFT JOIN T_AFTER_SALES_GOODS c ON d.AFTER_SALES_ID = c.AFTER_SALES_ID
+			AND c.GOODS_TYPE =0 and c.GOODS_ID=a.GOODS_ID
+			WHERE
+				b.ORDER_TYPE != 2
+			AND a.DELIVERY_DIRECT = 0
+			AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+			AND a.IS_DELETE = 0
+			AND b.VALID_STATUS = 1
+			AND b. STATUS = 1
+			GROUP BY
+				a.SALEORDER_GOODS_ID
+			) T
+			WHERE T.NEEDCNT>0
+		ORDER BY
+		IF (ISNULL(T.PAYMENT_TIME), 1, 0),
+		 T.PAYMENT_TIME
+	</select>
+	
+	<select id="getSaleorderGoodsVoListBySaleorderId" parameterType="com.vedeng.order.model.Saleorder" resultMap="VoResultMap">
+		SELECT 
+			sg.SALEORDER_GOODS_ID, sg.SALEORDER_ID, sg.GOODS_ID, sg.SKU, sg.GOODS_NAME, sg.BRAND_NAME, sg.MODEL, sg.UNIT_NAME, 
+		    sg.PRICE, sg.CURRENCY_UNIT_ID, sg.NUM, sg.DELIVERY_CYCLE, sg.DELIVERY_DIRECT, sg.DELIVERY_DIRECT_COMMENTS, sg.BUY_NUM,
+		    sg.REGISTRATION_NUMBER, sg.SUPPLIER_NAME, sg.REFERENCE_COST_PRICE, sg.REFERENCE_PRICE, sg.REFERENCE_DELIVERY_CYCLE, 
+		    sg.REPORT_STATUS, sg.REPORT_COMMENTS, sg.HAVE_INSTALLATION, sg.GOODS_COMMENTS, sg.INSIDE_COMMENTS, 
+		    sg.ARRIVAL_USER_ID, sg.ARRIVAL_STATUS, sg.ARRIVAL_TIME, sg.IS_DELETE, sg.ADD_TIME, sg.CREATOR, sg.MOD_TIME, 
+		    sg.UPDATER, sg.DELIVERY_NUM, sg.DELIVERY_STATUS, sg.DELIVERY_TIME, sg.IS_IGNORE, sg.PURCHASING_PRICE,sg.IGNORE_TIME, 
+		    sg.IGNORE_USER_ID, sg.LOCKED_STATUS, sg.MAX_SKU_REFUND_AMOUNT,
+			s.QUOTEORDER_ID, s.PARENT_ID, s.SALEORDER_NO, s.ORDER_TYPE, s.ORG_ID, s.USER_ID, s.VALID_STATUS, s.VALID_TIME, 
+		    s.STATUS, s.PURCHASE_STATUS, s.LOCKED_STATUS, s.INVOICE_STATUS, s.INVOICE_TIME, s.PAYMENT_STATUS, 
+		    s.PAYMENT_TIME, s.SERVICE_STATUS, 
+		    s.HAVE_ACCOUNT_PERIOD, s.TOTAL_AMOUNT, s.TRADER_ID, s.CUSTOMER_TYPE, s.CUSTOMER_NATURE, s.TRADER_NAME, s.TRADER_CONTACT_ID, s.TRADER_CONTACT_NAME, 
+		    s.TRADER_CONTACT_MOBILE, s.TRADER_CONTACT_TELEPHONE, s.TRADER_ADDRESS_ID, s.TRADER_ADDRESS, 
+		    s.TRADER_COMMENTS, s.TAKE_TRADER_ID, s.TAKE_TRADER_NAME, s.TAKE_TRADER_CONTACT_ID, s.TAKE_TRADER_CONTACT_NAME, 
+		    s.TAKE_TRADER_CONTACT_MOBILE, s.TAKE_TRADER_CONTACT_TELEPHONE, s.TAKE_TRADER_ADDRESS_ID, 
+		    s.TAKE_TRADER_ADDRESS, s.IS_SEND_INVOICE, s.INVOICE_TRADER_ID, s.INVOICE_TRADER_NAME, s.INVOICE_TRADER_CONTACT_ID, 
+		    s.INVOICE_TRADER_CONTACT_NAME, s.INVOICE_TRADER_CONTACT_MOBILE, s.INVOICE_TRADER_CONTACT_TELEPHONE, 
+		    s.INVOICE_TRADER_ADDRESS_ID, s.INVOICE_TRADER_ADDRESS, s.SALES_AREA_ID, s.SALES_AREA, s.TERMINAL_TRADER_ID, 
+		    s.TERMINAL_TRADER_NAME, s.TERMINAL_TRADER_TYPE, s.INVOICE_TYPE, s.FREIGHT_DESCRIPTION, s.DELIVERY_TYPE, 
+		    s.LOGISTICS_ID, s.PAYMENT_TYPE, s.PREPAID_AMOUNT, s.ACCOUNT_PERIOD_AMOUNT, s.LOGISTICS_COLLECTION, 
+		    s.RETAINAGE_AMOUNT, s.RETAINAGE_AMOUNT_MONTH, s.PAYMENT_COMMENTS, s.ADDITIONAL_CLAUSE, s.LOGISTICS_COMMENTS, 
+		    s.FINANCE_COMMENTS, s.COMMENTS, s.INVOICE_COMMENTS, s.SUPPLIER_CLAUSE, s.HAVE_ADVANCE_PURCHASE, 
+		    s.IS_URGENT, s.URGENT_AMOUNT, s.HAVE_COMMUNICATE, s.PREPARE_COMMENTS, s.MARKETING_PLAN, s.SYNC_STATUS, 
+		    s.TRADER_AREA, s.TAKE_TRADER_AREA, s.INVOICE_TRADER_AREA, g.MATERIAL_CODE
+		from  T_SALEORDER_GOODS sg
+		left join T_SALEORDER s on s.SALEORDER_ID = sg.SALEORDER_ID
+		left join T_GOODS g on sg.GOODS_ID = g.GOODS_ID
+			WHERE sg.IS_DELETE = 0
+			<if test="saleorderId != null and saleorderId != 0">
+				and s.SALEORDER_ID =#{saleorderId,jdbcType=INTEGER}
+			</if>
+	</select>
+	<!-- 根据销售单id或产品id查询销售产品 -->
+	<select id="getSaleordergoodsList" parameterType="com.vedeng.order.model.Saleorder" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from T_SALEORDER_GOODS
+		WHERE IS_DELETE = 0 and IS_IGNORE = 0
+			<if test="saleorderId != null and saleorderId != 0">
+				and SALEORDER_ID =#{saleorderId,jdbcType=INTEGER}
+			</if>
+	</select>
+    <select id="getSaleordergoodsOccupyNumList" parameterType="com.vedeng.order.model.Saleorder" resultMap="BaseResultMap">
+        select
+        SALEORDER_GOODS_ID, SALEORDER_ID,SKU,OCCUPY_NUM,ACTION_OCCUPY_NUM,IS_ACTION_GOODS
+        from T_SALEORDER_GOODS
+        WHERE IS_DELETE = 0 AND IS_IGNORE = 0 AND IS_ACTION_GOODS = 0
+        <if test="saleorderId != null and saleorderId != 0">
+            and SALEORDER_ID =#{saleorderId,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="getActionGoodsList" parameterType="com.vedeng.order.model.Saleorder" resultMap="BaseResultMap">
+        select
+        SALEORDER_GOODS_ID, SALEORDER_ID,SKU,OCCUPY_NUM,ACTION_OCCUPY_NUM,IS_ACTION_GOODS
+        from T_SALEORDER_GOODS
+        WHERE IS_DELETE = 0 AND IS_IGNORE = 0 AND IS_ACTION_GOODS > 0
+        <if test="saleorderId != null and saleorderId != 0">
+            and SALEORDER_ID =#{saleorderId,jdbcType=INTEGER}
+        </if>
+    </select>
+
+    <!-- 根据销售单id或产品id查询销售产品 -->
+	<select id="getSaleordergoodsVoList" parameterType="com.vedeng.order.model.Saleorder" resultMap="VoResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from T_SALEORDER_GOODS
+		WHERE IS_DELETE = 0
+			<if test="saleorderId != null and saleorderId != 0">
+				and SALEORDER_ID =#{saleorderId,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<select id="getArrivalNum" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select 
+			COALESCE(SUM(a.NUM),0)
+		from
+			T_EXPRESS_DETAIL a
+		left join
+			T_EXPRESS b
+		on
+			a.EXPRESS_ID = b.EXPRESS_ID
+		where
+			b.ARRIVAL_STATUS = 2
+		and
+			b.IS_ENABLE = 1
+		and
+			a.BUSINESS_TYPE = 496
+		and
+			a.RELATED_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+	</select>
+	<!-- 获取销售单价和采购单价 -->
+	<select id="getPriceById" parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog" resultMap="BaseResultMap">
+		SELECT
+		a.PRICE,
+		SUM(c.PRICE * b.NUM) * 1.0 / SUM(b.NUM) CGPRICE
+	FROM
+		T_AFTER_SALES_GOODS d 
+    LEFT JOIN T_SALEORDER_GOODS a ON d.ORDER_DETAIL_ID = a.SALEORDER_GOODS_ID
+	LEFT JOIN T_R_BUYORDER_J_SALEORDER b ON a.SALEORDER_GOODS_ID = b.SALEORDER_GOODS_ID
+	LEFT JOIN T_BUYORDER_GOODS c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+	WHERE  d.AFTER_SALES_GOODS_ID = #{relatedId,jdbcType=INTEGER}
+	<!-- GROUP BY
+		b.BUYORDER_GOODS_ID -->
+	</select>
+	
+	<!-- 获取待同步订单数据 -->
+	<select id="getWaitSyncSaleorderGoodsList" resultMap="BaseResultMap" parameterType="com.vedeng.order.model.SaleorderGoods">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			T_SALEORDER_GOODS 
+		WHERE
+			SALEORDER_GOODS_ID NOT IN (
+				SELECT
+					SALEORDER_GOODS_ID
+				FROM
+					T_SALEORDER_GOODS a
+				JOIN T_DATA_SYNC_STATUS b ON a.SALEORDER_GOODS_ID = b.RELATED_ID
+				WHERE
+					b.SOURCE_TABLE = 'T_SALEORDER_GOODS' 
+					AND	b.GOAL_TYPE = 591
+					AND b. STATUS = 1
+			);
+	</select>
+	
+	<select id="getBusinessListPage" parameterType="com.vedeng.order.model.vo.SaleorderGoodsVo" resultType="com.vedeng.order.model.vo.SaleorderGoodsVo">
+		select
+			b.VALID_TIME,b.SALEORDER_ID,b.SALEORDER_NO,b.TERMINAL_TRADER_NAME,b.SALES_AREA,
+			a.GOODS_NAME,a.GOODS_ID,a.SKU,a.BRAND_NAME,a.MODEL,a.PRICE,a.UNIT_NAME,a.NUM
+		from
+			T_SALEORDER_GOODS a
+		left join
+			T_SALEORDER b
+		on
+			a.SALEORDER_ID = b.SALEORDER_ID
+		where
+			b.VALID_STATUS = 1
+		and b.PAYMENT_STATUS = 2	<!-- 付款状态 0未付款 1部分付款 2全部付款 -->
+		and b.TRADER_ID = #{saleorderGoodsVo.traderId}
+		<if test="saleorderGoodsVo.goodsName != null">
+			and a.GOODS_NAME like CONCAT('%',#{saleorderGoodsVo.goodsName},'%' )
+		</if>
+		<if test="saleorderGoodsVo.brandName != null">
+			and a.BRAND_NAME like CONCAT('%',#{saleorderGoodsVo.brandName},'%' )
+		</if>
+		<if test="saleorderGoodsVo.model != null">
+			and a.MODEL like CONCAT('%',#{saleorderGoodsVo.model},'%' )
+		</if>
+		<if test="saleorderGoodsVo.sku != null">
+			and a.SKU like CONCAT('%',#{saleorderGoodsVo.sku},'%' )
+		</if>
+		<if test="saleorderGoodsVo.terminalTraderName != null">
+			and b.TERMINAL_TRADER_NAME like CONCAT('%',#{saleorderGoodsVo.terminalTraderName},'%' )
+		</if>
+		<if test="saleorderGoodsVo.saleorderNo != null">
+			and b.SALEORDER_NO like CONCAT('%',#{saleorderGoodsVo.saleorderNo},'%' )
+		</if>
+		<if test="saleorderGoodsVo.starttimeLong != null">
+			and b.VALID_TIME <![CDATA[>=]]> #{saleorderGoodsVo.starttimeLong} 
+		</if>
+		<if test="saleorderGoodsVo.endtimeLong != null">
+			and b.VALID_TIME <![CDATA[<=]]> #{saleorderGoodsVo.endtimeLong} 
+		</if>
+		order by
+			b.VALID_TIME desc
+	</select>
+	
+	<update id="updateSaleorderGoodsArrivalStatus" parameterType="com.vedeng.order.model.SaleorderGoods">
+		update T_SALEORDER_GOODS set ARRIVAL_STATUS = #{arrivalStatus,jdbcType=INTEGER},ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT}
+			where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getSaleorderGoodsForSync" parameterType = "java.lang.Integer" resultType="com.vedeng.order.model.SaleorderGoods">
+		select
+			* 
+		from 
+			T_SALEORDER_GOODS
+		where
+			SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+			and
+			IS_DELETE = 0
+	</select>
+	<!-- 将订单下的所有特殊商品都改为已发货 -->
+	<update id="updateTsSaleorderGoods" parameterType="com.vedeng.order.model.SaleorderGoods">
+		update T_SALEORDER_GOODS set DELIVERY_STATUS = 2,DELIVERY_TIME = #{arrivalTime,jdbcType=BIGINT},DELIVERY_NUM =1
+			where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND GOODS_ID  IN (SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+	</update>
+	
+	<update id="updateTsSaleorderGoodsByParam" parameterType="com.vedeng.order.model.SaleorderGoods">
+		update T_SALEORDER_GOODS set ARRIVAL_STATUS = #{arrivalStatus},ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+									DELIVERY_STATUS = #{deliveryStatus},DELIVERY_TIME = #{arrivalTime,jdbcType=BIGINT},DELIVERY_NUM =1,
+									ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER}
+			where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND GOODS_ID  IN (SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+	</update>
+	
+	<!-- 将订单下的所有特殊商品都改为已收货 -->
+	<update id="updateShSaleorderGoods" parameterType="com.vedeng.order.model.SaleorderGoods">
+		update T_SALEORDER_GOODS set ARRIVAL_STATUS = 2,ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT}
+			where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND GOODS_ID  IN (SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+	</update>
+	
+	<select id="getGoodsBySku" parameterType="java.util.List" resultType="com.vedeng.order.model.SaleorderGoods">
+		SELECT A.GOODS_ID,
+		       A.SKU,
+		       A.GOODS_NAME,
+		       B.BRAND_NAME,
+		       A.MODEL,
+		       C.UNIT_NAME,
+		       1 AS CURRENCY_UNIT_ID,
+		       IFNULL(D.STATUS, 0) verifyStatus
+		FROM T_GOODS A
+		     LEFT JOIN T_BRAND B ON A.BRAND_ID = B.BRAND_ID
+		     LEFT JOIN T_UNIT C ON A.UNIT_ID = C.UNIT_ID
+		     LEFT JOIN T_VERIFIES_INFO D
+        		ON A.GOODS_ID = D.RELATE_TABLE_KEY AND D.RELATE_TABLE = 'T_GOODS'
+		WHERE A.COMPANY_ID = #{companyId,jdbcType=INTEGER} 
+			AND A.IS_DISCARD = 0
+			AND A.SKU IN 
+			<foreach collection="saleOrderGoodslist" item="saleOrderGoods" open="(" close=")" separator=",">
+				#{saleOrderGoods.sku,jdbcType=VARCHAR}
+			</foreach>
+	</select>
+	
+	<insert id="saveBatchAddSaleGoods" parameterType="java.util.List">
+		INSERT INTO T_SALEORDER_GOODS (SALEORDER_ID,GOODS_ID,SKU,GOODS_NAME,BRAND_NAME,MODEL,UNIT_NAME,PRICE,NUM,DELIVERY_CYCLE,EL_ORDERLIST_ID,MAX_SKU_REFUND_AMOUNT)
+		VALUES   
+        <foreach collection="saleOrderGoodsList" item="saleOrderGoods" separator=",">  
+            (#{saleOrderGoods.saleorderId},
+            #{saleOrderGoods.goodsId},
+            #{saleOrderGoods.sku},
+            #{saleOrderGoods.goodsName},
+            #{saleOrderGoods.brandName},
+            #{saleOrderGoods.model},
+            #{saleOrderGoods.unitName},
+            #{saleOrderGoods.price},
+            #{saleOrderGoods.num},
+            #{saleOrderGoods.deliveryCycle},
+            #{saleOrderGoods.elOrderlistId},
+            #{saleOrderGoods.maxSkuRefundAmount}
+            )
+        </foreach>  
+	</insert>
+
+
+	<select id="getSaleorderGoodsSku" parameterType="java.lang.Integer" resultType="java.lang.String">
+		SELECT A.SKU
+		FROM T_SALEORDER_GOODS A
+		WHERE A.SALEORDER_ID = #{saleOrderId,jdbcType=INTEGER} AND A.IS_DELETE = 0
+	</select>
+	<!-- 查询没出库的销售产品 -->
+	<select id="getSaleorderGoodNoOut" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.SaleorderGoods">
+		<!-- SELECT
+			*
+		FROM
+			T_SALEORDER_GOODS
+		WHERE
+			IS_DELETE = 0
+		AND GOODS_ID NOT IN (
+			253620,
+			251462,
+			140633,
+			127063,
+			251526,
+			256675
+		)
+		AND DELIVERY_STATUS != 2
+		AND DELIVERY_DIRECT = 0
+		AND SALEORDER_ID = #{saleOrderId,jdbcType=INTEGER} -->
+		SELECT
+			a.*,(IFNULL(a.NUM,0) - IFNULL(T.NUM,0)) TOTALNUM
+		FROM
+			T_SALEORDER_GOODS a
+		LEFT JOIN (
+			SELECT
+				SUM(b.NUM) NUM,
+		    b.ORDER_DETAIL_ID
+			FROM
+				T_AFTER_SALES_GOODS b
+			LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+			WHERE
+				b.ORDER_DETAIL_ID = #{saleOrderId,jdbcType=INTEGER}
+			AND c.ATFER_SALES_STATUS = 2
+		  GROUP BY b.ORDER_DETAIL_ID
+		) T ON a.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+		WHERE
+			a.IS_DELETE = 0
+		AND a.GOODS_ID NOT IN (
+			SELECT
+				COMMENTS
+			FROM
+				T_SYS_OPTION_DEFINITION
+			WHERE
+				PARENT_ID = 693
+		)
+		AND a.DELIVERY_STATUS != 2
+		AND a.DELIVERY_DIRECT = 0
+		AND a.SALEORDER_ID = #{saleOrderId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getSaleorderGoodsVoByBuyorderGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.SaleorderGoods">
+		SELECT
+			a.SALEORDER_GOODS_ID, a.SALEORDER_ID, a.NUM
+		FROM
+			T_SALEORDER_GOODS a
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER b ON a.SALEORDER_GOODS_ID = b.SALEORDER_GOODS_ID	
+		WHERE b.BUYORDER_GOODS_ID = #{buyorderGoodsId,jdbcType=INTEGER}
+	</select>
+	<!-- 批量更新发货状态 -->
+	<update id="updateByPrimaryKeySelectiveBatch" parameterType="java.util.List" >
+	   UPDATE T_SALEORDER_GOODS
+	        SET DELIVERY_NUM = CASE SALEORDER_GOODS_ID 
+	        	<foreach collection="list" item="SaleorderGoods" index="index" separator="" >
+	        	  WHEN #{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER} THEN #{SaleorderGoods.deliveryNum,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_STATUS = CASE SALEORDER_GOODS_ID 
+	        	<foreach collection="list" item="SaleorderGoods" index="index" separator="" >
+	        	  WHEN #{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER} THEN #{SaleorderGoods.deliveryStatus,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_TIME = CASE SALEORDER_GOODS_ID
+	        	<foreach collection="list" item="SaleorderGoods" index="index" separator="" >
+	        	  WHEN #{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER} THEN #{SaleorderGoods.deliveryTime,jdbcType=BIGINT} 
+				</foreach> 
+	        END
+	    WHERE SALEORDER_GOODS_ID IN 
+	    	<foreach collection="list" item="SaleorderGoods" separator="," open="(" close=")">
+						#{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER}
+			</foreach>
+  </update>
+  
+  <!-- 批量更新销售订单产品参考成本-->
+	<update id="updateReferenceCostPriceBatch" parameterType="java.util.List" >
+	   UPDATE T_SALEORDER_GOODS
+	   		SET
+	   		REFERENCE_COST_PRICE = CASE SALEORDER_GOODS_ID
+	        	<foreach collection="list" item="SaleorderGoods" index="index" separator="" >
+	        	  WHEN #{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER} THEN #{SaleorderGoods.referenceCostPrice,jdbcType=DECIMAL} 
+				</foreach> 
+	        END
+	    WHERE SALEORDER_GOODS_ID IN 
+	    	<foreach collection="list" item="SaleorderGoods" separator="," open="(" close=")">
+						#{SaleorderGoods.saleorderGoodsId,jdbcType=INTEGER}
+			</foreach>
+  </update>
+
+	<update id="updateSaleTerminalInfo" parameterType="com.vedeng.order.model.SaleorderGoods">
+		UPDATE T_SALEORDER A
+		SET A.UPDATER = #{updater,jdbcType=INTEGER},
+		    A.MOD_TIME = #{modTime,jdbcType=BIGINT}
+		    <if test="terminalTraderId != null and terminalTraderId != ''">
+		    	,A.TERMINAL_TRADER_ID = #{terminalTraderId,jdbcType=INTEGER}
+		    </if>
+		    <if test="terminalTraderName != null and terminalTraderName != ''">
+		    	,A.TERMINAL_TRADER_NAME = #{terminalTraderName,jdbcType=VARCHAR}
+		    </if>
+		    <if test="terminalTraderType != null and terminalTraderType != ''">
+		    	,A.TERMINAL_TRADER_TYPE = #{terminalTraderType,jdbcType=INTEGER}
+		    </if>
+		    <if test="salesArea != null and salesArea != ''">
+		    	,A.SALES_AREA = #{salesArea,jdbcType=VARCHAR}
+		    </if>
+		    <if test="salesAreaId != null and salesAreaId != ''">
+		    	,A.SALES_AREA_ID = #{salesAreaId,jdbcType=INTEGER}
+		    </if>
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</update>
+	<!-- 根据id查询销售订单详情 -->
+	<select id="selectsGoodsbyKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    SELECT
+		SALEORDER_GOODS_ID,
+		SALEORDER_ID,
+		GOODS_ID,
+		SKU,
+		GOODS_NAME,
+		BRAND_NAME,
+		MODEL,
+		UNIT_NAME,
+		BUY_NUM,
+		PRICE,
+		CURRENCY_UNIT_ID,
+		(NUM - IFNULL(SHNUM, 0)) NUM,
+		DELIVERY_CYCLE,
+		DELIVERY_DIRECT,
+		DELIVERY_DIRECT_COMMENTS,
+		REGISTRATION_NUMBER,
+		SUPPLIER_NAME,
+		REFERENCE_COST_PRICE,
+		REFERENCE_PRICE,
+		REFERENCE_DELIVERY_CYCLE,
+		REPORT_STATUS,
+		REPORT_COMMENTS,
+		HAVE_INSTALLATION,
+		GOODS_COMMENTS,
+		INSIDE_COMMENTS,
+		ARRIVAL_USER_ID,
+		ARRIVAL_STATUS,
+		ARRIVAL_TIME,
+		IS_DELETE,
+		ADD_TIME,
+		CREATOR,
+		MOD_TIME,
+		UPDATER,
+		DELIVERY_NUM,
+		DELIVERY_STATUS,
+		DELIVERY_TIME,
+		IS_IGNORE,
+		PURCHASING_PRICE,
+		IGNORE_TIME,
+		IGNORE_USER_ID
+		FROM
+			T_SALEORDER_GOODS a
+		LEFT JOIN (
+			SELECT
+				SUM(b.NUM) SHNUM,
+				b.ORDER_DETAIL_ID
+			FROM
+				T_AFTER_SALES_GOODS b
+			LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+			WHERE
+				b.GOODS_TYPE = 0
+			AND b.ORDER_DETAIL_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+			AND c.TYPE = 539
+			AND c.SUBJECT_TYPE = 535
+		    AND c.ATFER_SALES_STATUS !=3
+			AND b.GOODS_ID NOT IN (
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+			GROUP BY
+				b.ORDER_DETAIL_ID
+		) T ON a.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+		WHERE
+			SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </select>
+  <select id="getSaleorderGoodsListBySaleorderId" resultType="com.vedeng.order.model.SaleorderGoods">
+  	select
+  		<include refid="Base_Column_List"/>
+  	from
+  		T_SALEORDER_GOODS
+  	where GOODS_ID not in (select COMMENTS from T_SYS_OPTION_DEFINITION where PARENT_ID = 693)
+  			and SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </select>
+	
+	<update id="updateSaleGoodsSave" parameterType="com.vedeng.order.model.SaleorderGoods">
+		UPDATE T_SALEORDER_GOODS A
+		SET A.DELIVERY_DIRECT = #{deliveryDirect,jdbcType=INTEGER}, 
+			A.DELIVERY_DIRECT_COMMENTS = #{deliveryDirectComments,jdbcType=VARCHAR},
+			A.MOD_TIME =  #{modTime,jdbcType=BIGINT}, 
+			A.UPDATER = #{updater,jdbcType=INTEGER}
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} 
+			AND A.SALEORDER_GOODS_ID IN 
+				<foreach collection="saleorderGoodsIdList" item="saleorderGoodsId" open="(" close=")" separator=",">
+					#{saleorderGoodsId,jdbcType=INTEGER}
+				</foreach>
+	</update>
+  <!-- 查询商品去除售后的总数和已出库数量 -->
+   <select id="getListNumbyMap" resultMap="VoResultMap" parameterType="java.util.Map">
+		  SELECT
+				a.SALEORDER_GOODS_ID,
+				a.GOODS_ID,
+				a.NUM,
+				a.DELIVERY_NUM,
+				a.DELIVERY_STATUS,
+				IFNULL(SUM(T.NUM), 0) SHNUM
+			FROM
+				T_SALEORDER_GOODS a
+			LEFT JOIN (
+				SELECT
+					b.AFTER_SALES_GOODS_ID,
+					b.NUM,
+					b.ORDER_DETAIL_ID
+				FROM
+					T_AFTER_SALES_GOODS b
+				INNER JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+				AND c.SUBJECT_TYPE = 535
+				AND c.TYPE = 539
+				AND c.ATFER_SALES_STATUS IN (0, 1, 2)
+				AND c.VALID_STATUS = 1
+				AND c.ORDER_ID = (
+					SELECT
+						a.SALEORDER_ID
+					FROM
+						T_SALEORDER_GOODS a
+					WHERE
+						a.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+				)
+			) T ON a.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+			WHERE
+				a.SALEORDER_ID = (
+					SELECT
+						a.SALEORDER_ID
+					FROM
+						T_SALEORDER_GOODS a
+					WHERE
+						a.SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+				)
+			<!-- AND a.DELIVERY_DIRECT = 0 -->
+			AND a.IS_DELETE = 0
+			AND a.GOODS_ID NOT IN (
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+			GROUP BY
+				a.SALEORDER_GOODS_ID
+  </select>
+  
+  <!-- 根据id的List查询销售订单详情 -->
+	<select id="selectsGoodsbyList" resultMap="BaseResultMap" parameterType="java.util.List" >
+	    SELECT
+		SALEORDER_GOODS_ID,
+		SALEORDER_ID,
+		GOODS_ID,
+		SKU,
+		GOODS_NAME,
+		BRAND_NAME,
+		MODEL,
+		UNIT_NAME,
+		BUY_NUM,
+		PRICE,
+		CURRENCY_UNIT_ID,
+		(NUM - IFNULL(SHNUM, 0)) NUM,
+		DELIVERY_CYCLE,
+		DELIVERY_DIRECT,
+		DELIVERY_DIRECT_COMMENTS,
+		REGISTRATION_NUMBER,
+		SUPPLIER_NAME,
+		REFERENCE_COST_PRICE,
+		REFERENCE_PRICE,
+		REFERENCE_DELIVERY_CYCLE,
+		REPORT_STATUS,
+		REPORT_COMMENTS,
+		HAVE_INSTALLATION,
+		GOODS_COMMENTS,
+		INSIDE_COMMENTS,
+		ARRIVAL_USER_ID,
+		ARRIVAL_STATUS,
+		ARRIVAL_TIME,
+		IS_DELETE,
+		ADD_TIME,
+		CREATOR,
+		MOD_TIME,
+		UPDATER,
+		DELIVERY_NUM,
+		DELIVERY_STATUS,
+		DELIVERY_TIME,
+		IS_IGNORE,
+		PURCHASING_PRICE,
+		IGNORE_TIME,
+		IGNORE_USER_ID
+		FROM
+			T_SALEORDER_GOODS a
+		LEFT JOIN (
+			SELECT
+				SUM(b.NUM) SHNUM,
+				b.ORDER_DETAIL_ID
+			FROM
+				T_AFTER_SALES_GOODS b
+			LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+			WHERE
+				b.GOODS_TYPE = 0
+			AND c.TYPE = 539
+			AND c.SUBJECT_TYPE = 535
+		    AND c.ATFER_SALES_STATUS !=3
+			AND b.GOODS_ID NOT IN (
+				SELECT
+					SYS_OPTION_DEFINITION_ID
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+			GROUP BY
+				b.ORDER_DETAIL_ID
+		) T ON a.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+		WHERE 1=1
+			<if test="list != null">
+			AND	SALEORDER_GOODS_ID IN
+				<foreach collection="list" item="sog" separator="," open="(" close=")">
+					#{sog,jdbcType=INTEGER}
+				</foreach>
+			</if>
+			<if test="list = null">
+			AND 1=2
+			</if>
+  </select>
+  
+	<update id="updateGoodsLockStatusBySku" parameterType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+		
+		<foreach collection="list" item="list" separator=";">
+			UPDATE T_SALEORDER_GOODS SET LOCKED_STATUS = 1 WHERE SKU = #{list.sku, jdbcType=VARCHAR} AND SALEORDER_ID = #{list.saleorderId, jdbcType=INTEGER}
+		</foreach>
+	</update>
+  <!-- 查询当前产品在当前订单下是否锁定 -->
+  <select id="getIsLockSaleorderGoods" resultType="com.vedeng.order.model.SaleorderGoods">
+  	select
+  		<include refid="Base_Column_List"/>
+  	from
+  		T_SALEORDER_GOODS
+  	where GOODS_ID =  #{goodsId,jdbcType=INTEGER}
+  	and SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} 
+  	and LOCKED_STATUS = 1 
+  </select>
+	<update id="updateGoodsNoLockStatusBySku" parameterType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+		
+		<foreach collection="list" item="list" separator=";">
+			UPDATE T_SALEORDER_GOODS SET LOCKED_STATUS = 0 WHERE SKU = #{list.sku, jdbcType=VARCHAR} AND SALEORDER_ID = #{list.saleorderId, jdbcType=INTEGER}
+		</foreach>
+	</update>
+  <select id="getLockedSaleoderGoodsNumBySaleorderGoodsIds" resultType="int" parameterType="java.lang.Integer">
+  	select
+  		count(1)
+  	from
+  		T_SALEORDER_GOODS
+  	where  LOCKED_STATUS = 1 
+		AND	SALEORDER_GOODS_ID IN
+		<foreach collection="saleorderGoodsIds" item="saleorderGoodsId" separator="," open="(" close=")">
+			#{saleorderGoodsId,jdbcType=INTEGER}
+		</foreach>
+  </select>
+ 	<insert id="insertOrderCouponBatch" parameterType="java.util.List">
+		insert into T_SALEORDER_COUPON (SALEORDER_ID, COUPON_TYPE, DENOMINATION)
+		values 
+		<foreach collection="couponList" item="coupon" separator=",">
+			(#{coupon.saleorderId,jdbcType=INTEGER}, #{coupon.couponType,jdbcType=INTEGER}, #{coupon.denomination,jdbcType=DECIMAL})
+		</foreach>
+	</insert>
+<!--	<insert id="insertOrderFreight" parameterType="com.vedeng.model.order.SaleorderFreight">
+		insert into
+		T_SALEORDER_FREIGHT
+		(SALEORDER_ID,FREIGHT_TYPE,AMOUNT,CREATOR,ADD_TIME)
+		values
+		(#{saleorderId,jdbcType=INTEGER},#{freightType,jdbcType=INTEGER},#{amount,jdbcType=DOUBLE},#{creator,jdbcType=INTEGER},#{addTime,jdbcType=BIGINT})
+	</insert>-->
+	
+	<!-- 订单下的所有特殊商品都更新为收货  -->
+  	<update id="updateAllTsGoodsInfo" parameterType="java.lang.Integer">
+		UPDATE T_SALEORDER_GOODS A
+		SET A.ARRIVAL_STATUS = 2
+		WHERE A.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} 
+			AND A.GOODS_ID IN (
+			SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+	</update>
+
+  <insert id="saveBatchAddMSaleGoods" parameterType="java.util.List">
+    INSERT INTO T_SALEORDER_GOODS (NUM,PRICE,SKU,GOODS_NAME,GOODS_COMMENTS,DELIVERY_NUM,UNIT_NAME,SALEORDER_ID,
+    ADD_TIME,MOD_TIME,CREATOR,GOODS_ID,MODEL,BRAND_NAME,CURRENCY_UNIT_ID,DELIVERY_CYCLE)
+    VALUES
+    <foreach collection="msaleOrderGoodsList" item="msaleOrderGoods" separator=",">
+      (#{msaleOrderGoods.num},
+      #{msaleOrderGoods.price},
+      #{msaleOrderGoods.sku},
+      #{msaleOrderGoods.goodsName},
+      #{msaleOrderGoods.goodsComments},
+      #{msaleOrderGoods.deliveryNum},
+      #{msaleOrderGoods.unitName},
+      #{msaleOrderGoods.saleorderId},
+      #{msaleOrderGoods.addTime},
+      #{msaleOrderGoods.modTime},
+      #{msaleOrderGoods.creator},
+      #{msaleOrderGoods.goodsId},
+      #{msaleOrderGoods.model},
+      #{msaleOrderGoods.brandName},
+      #{msaleOrderGoods.currencyUnitId},
+      #{msaleOrderGoods.deliveryCycle}
+      )
+    </foreach>
+  </insert>
+
+  <select id="getSaleorderGoodsListByExId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		SELECT
+			c.SKU,
+			c.DELIVERY_NUM,
+			c.DELIVERY_STATUS,
+			c.DELIVERY_TIME,
+			c.ARRIVAL_TIME,
+			c.ARRIVAL_STATUS
+		FROM
+			T_EXPRESS a
+		LEFT JOIN T_EXPRESS_DETAIL b ON a.EXPRESS_ID = b.EXPRESS_ID
+		LEFT JOIN T_SALEORDER_GOODS c ON b.RELATED_ID = c.SALEORDER_GOODS_ID
+		WHERE a.EXPRESS_ID =#{expressId,jdbcType=INTEGER}
+  </select>
+  <select id="getGoodsPriceList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	SELECT
+	*
+	FROM
+	`T_SALEORDER_GOODS` A
+	LEFT JOIN `V_CORE_SKU` B
+	ON A.`SKU` = B.`SKU_NO`
+	WHERE A.`SALEORDER_ID` = #{saleorderId};
+  </select>
+  <update id="updateOccupyNum" parameterType="com.vedeng.order.model.SaleorderGoods">
+    UPDATE T_SALEORDER_GOODS
+   <set>
+        <if test="occupyNum != null ">
+        OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+        </if>
+       <if test="actionOccupyNum != null ">
+        ACTION_OCCUPY_NUM = #{actionOccupyNum,jdbcType=INTEGER}
+        </if>
+    </set>
+    WHERE SALEORDER_GOODS_ID = #{saleorderGoodsId,jdbcType=INTEGER}
+  </update>
+  <select id="getNewSdList" resultMap="VoResultMap">
+  SELECT
+	B.SALEORDER_NO,
+	A.SKU,
+	B.TRADER_ID,
+	A.GOODS_ID,
+	B.SALEORDER_ID,
+	B.VALID_TIME,
+	B.ADD_TIME,
+	SATISFY_DELIVERY_TIME,
+	A.DELIVERY_NUM DELIVERY_NUM,
+	<if test="goodsType ==2">
+      A.ACTION_OCCUPY_NUM,
+    </if>
+    <if test="goodsType ==1">
+	A.OCCUPY_NUM,
+    </if>
+    COALESCE (
+    IF
+    (
+    A.NUM - IFNULL( C.afterReturnNum, 0 ) > 0,
+    A.NUM - IFNULL( C.afterReturnNum, 0 ),
+    0
+    ) )AS NEEDCNT,
+	IFNULL(B.PAYMENT_STATUS , 0) AS PAYMENT_STATUS,
+	B.`STATUS`,
+	CASE
+		WHEN B.PAYMENT_TIME = 0 THEN
+		NULL ELSE B.PAYMENT_TIME
+	END PAYMENT_TIME
+  FROM
+	T_SALEORDER_GOODS A
+	LEFT JOIN T_SALEORDER B ON A.SALEORDER_ID = B.SALEORDER_ID
+    LEFT JOIN
+    (SELECT SUM(F.NUM) AS afterReturnNum,
+    SUM(F.SKU_REFUND_AMOUNT) AS SKU_REFUND_AMOUNT,
+    F.ORDER_DETAIL_ID
+    FROM T_AFTER_SALES_GOODS F
+    LEFT JOIN T_AFTER_SALES E ON E.AFTER_SALES_ID = F.AFTER_SALES_ID
+    WHERE     E.ATFER_SALES_STATUS = 2
+    AND E.SUBJECT_TYPE = 535	<!-- 销售 -->
+    AND E.TYPE = 539	<!-- 退货 -->
+    AND F.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+    GROUP BY F.ORDER_DETAIL_ID) C ON C.ORDER_DETAIL_ID = A.SALEORDER_GOODS_ID
+  WHERE
+	A.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+    <if test="goodsType ==2">
+      AND A.ACTION_OCCUPY_NUM > 0
+    </if>
+    <if test="goodsType ==1">
+      AND A.OCCUPY_NUM > 0
+    </if>
+	AND A.IS_DELETE = 0 AND B.SALEORDER_ID IS NOT NULL
+  </select>
+    <select id="getSaleGoodsNoOutNumList" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.SaleorderGoods">
+       SELECT
+            a.GOODS_ID,a.DELIVERY_NUM,SUM(
+            IFNULL( a.NUM, 0 ) - IFNULL( T.NUM, 0 )) TOTALNUM
+        FROM
+            T_SALEORDER_GOODS a
+            LEFT JOIN (
+            SELECT
+                SUM( b.NUM ) NUM,
+                b.ORDER_DETAIL_ID
+            FROM
+                T_AFTER_SALES_GOODS b
+                LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+            WHERE
+               b.ORDER_DETAIL_ID = #{saleorderId,jdbcType=INTEGER}
+
+                AND c.ATFER_SALES_STATUS = 2
+            GROUP BY
+                b.ORDER_DETAIL_ID
+            ) T ON a.SALEORDER_GOODS_ID = T.ORDER_DETAIL_ID
+        WHERE
+            a.IS_DELETE = 0
+            AND a.GOODS_ID NOT IN ( SELECT COMMENTS FROM T_SYS_OPTION_DEFINITION WHERE PARENT_ID = 693 )
+            AND a.DELIVERY_STATUS != 2
+            AND a.DELIVERY_DIRECT = 0
+            AND a.SALEORDER_ID= #{saleorderId,jdbcType=INTEGER}
+            GROUP BY a.GOODS_ID
+
+    </select>
+  <select id="getActionGoodsInfo" parameterType="com.vedeng.order.model.vo.SaleorderVo" resultMap="BaseResultMap">
+    SELECT
+		G.SKU,
+      COALESCE(SUM(
+      IF(
+      G.DELIVERY_NUM - IFNULL( ARN, 0 )>0,
+      G.DELIVERY_NUM - IFNULL( ARN, 0 ),0))) AS DELIVERY_NUM,
+		SUM(G.ACTION_OCCUPY_NUM) AS ACTION_OCCUPY_NUM,
+        SAL.ACTION_ID
+	FROM
+	T_SALEORDER_GOODS G
+	LEFT JOIN `T_SALEORDER` SAL ON SAL.`SALEORDER_ID` = G.`SALEORDER_ID`
+	LEFT JOIN (
+	SELECT
+		SUM( F.ARRIVAL_NUM ) AS ARN,
+		F.ORDER_DETAIL_ID
+	FROM
+		T_AFTER_SALES_GOODS F
+		LEFT JOIN T_AFTER_SALES E ON E.AFTER_SALES_ID = F.AFTER_SALES_ID
+		LEFT JOIN T_GOODS GO ON GO.GOODS_ID = F.GOODS_ID
+	WHERE
+		E.ATFER_SALES_STATUS IN (1,2)
+		AND E.SUBJECT_TYPE = 535
+		AND E.TYPE = 539
+	GROUP BY
+		F.ORDER_DETAIL_ID
+	) AA ON AA.ORDER_DETAIL_ID = G.SALEORDER_GOODS_ID
+	WHERE
+		G.IS_DELETE = 0
+        <if test="type == 1">
+		AND G.IS_ACTION_GOODS = #{isActionGoods}
+		AND SAL.ACTION_ID = #{actionId}
+	    AND G.SKU = #{sku}
+        </if>
+        <if test="type == 2">
+        AND G.IS_ACTION_GOODS > 0
+        AND SAL.ACTION_ID = #{actionId,jdbcType=INTEGER}
+        </if>
+    GROUP BY G.SKU
+
+  </select>
+
+  <select id="getSaleOrderGoodsIdListByUserId" resultType="java.lang.Integer">
+    select SALEORDER_GOODS_ID from
+    T_SALEORDER_GOODS s
+    join V_CORE_SKU cs on s.SKU=cs.SKU_NO
+    join V_CORE_SPU csp on cs.SPU_ID=csp.SPU_ID
+    where csp.ASSIGNMENT_MANAGER_ID=#{proUserId} or csp.ASSIGNMENT_ASSISTANT_ID=#{proUserId}
+  </select>
+
+  <select id="getSaleOrderGoodsIdListByUserIds" resultType="java.lang.Integer">
+    select SALEORDER_GOODS_ID from
+    T_SALEORDER_GOODS s
+    join V_CORE_SKU cs on s.SKU=cs.SKU_NO
+    join V_CORE_SPU csp on cs.SPU_ID=csp.SPU_ID
+    where csp.ASSIGNMENT_MANAGER_ID in
+    <foreach collection="userList" item="user" index="index" open="(" close=")" separator=",">
+      #{user.userId}
+    </foreach>
+    or csp.ASSIGNMENT_ASSISTANT_ID in
+    <foreach collection="userList" item="user" index="index" open="(" close=")" separator=",">
+      #{user.userId}
+    </foreach>
+  </select>
+
+  <!--根据sku查找归属人信息-->
+  <select id="getSku" resultMap="BaseSku">
+    select a.USERNAME as USERNAME,b.USERNAME as USERNAME1
+    from V_CORE_SKU sk
+    left join V_CORE_SPU sp on sk.SPU_ID=sp.SPU_ID left join T_USER a on ASSIGNMENT_MANAGER_ID=a.USER_ID
+    left join T_USER b on ASSIGNMENT_ASSISTANT_ID=b.USER_ID
+    where sk.SKU_NO=#{sku}
+  </select>
+    <select id="getSaleorderGoodsBySaleorderId" resultType="com.vedeng.order.model.SaleorderGoods">
+      SELECT * FROM T_SALEORDER_GOODS WHERE SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+    </select>
+  <select id="getSaleorderGoodsByExpressDetailId" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT SG.*
+    FROM T_SALEORDER_GOODS SG JOIN T_EXPRESS_DETAIL ED
+                                   ON SG.SALEORDER_GOODS_ID = ED.RELATED_ID
+    WHERE ED.EXPRESS_DETAIL_ID = #{expressDetailId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getSaleorderGoodsByExpressDetailIdList" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT SG.SALEORDER_ID, SG.SKU, SG.GOODS_NAME, ED.EXPRESS_DETAIL_ID AS GOODS_ID FROM T_SALEORDER_GOODS SG JOIN T_EXPRESS_DETAIL ED ON SG.SALEORDER_GOODS_ID = ED.RELATED_ID
+    WHERE ED.EXPRESS_DETAIL_ID IN
+    <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </select>
+
+
+  <select id="getCountOfNotAllReceived" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM T_SALEORDER_GOODS WHERE ARRIVAL_STATUS != 2 AND SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </select>
+  <update id="updateDataTimeByOrderId">
+	UPDATE T_SALEORDER_GOODS
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	IS_DELETE = 0 AND
+	SALEORDER_ID = #{orderId,jdbcType=INTEGER}
+  </update>
+  <select id="getSpuBase" resultType="com.vedeng.goods.model.CoreSpuGenerate">
+    select sp.ASSIGNMENT_MANAGER_ID,sp.ASSIGNMENT_ASSISTANT_ID
+    from V_CORE_SKU sk
+    left join V_CORE_SPU sp on sk.SPU_ID=sp.SPU_ID
+    where sk.SKU_ID=#{skuId}
+  </select>
+
+  <select id="getGoodsSkuByOrderId" resultMap="BaseResultMap">
+     select GOODS_ID,SKU FROM T_SALEORDER_GOODS WHERE IS_DELETE=0
+      AND GOODS_ID NOT IN ( SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+	  AND SALEORDER_ID=#{saleorderId}
+  </select>
+  <update id="updateDataTimeByDetailId">
+	UPDATE T_SALEORDER_GOODS
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	SALEORDER_GOODS_ID = #{orderDetailId,jdbcType=INTEGER}
+	</update>
+</mapper>

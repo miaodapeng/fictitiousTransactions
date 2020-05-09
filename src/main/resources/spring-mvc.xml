@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:apollo="http://www.ctrip.com/schema/apollo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd">
+
+	<apollo:config/>
+
+	<!-- 默认的注解映射的支持 -->
+	<mvc:annotation-driven />
+	<!-- aop扫描器 -->
+	<context:component-scan base-package="com.vedeng.common.aop" />
+	<context:component-scan base-package="com.vedeng.common.annotation" />
+	<!-- 
+	<context:component-scan base-package="com.vedeng.*.service.impl" /> -->
+	<!-- aop注解-->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<!-- validator ConversionService 在使用 mvc:annotation-driven 会 自动注册 -->
+	<!-- <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"> 
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" 
+		/> </bean> -->
+
+
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!-- 配置Fastjson支持 -->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>application/json</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 注解Controller扫描器 -->
+	<context:component-scan base-package="com.**.controller" use-default-filters="true">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<bean id="systemLogAspect" class="com.vedeng.common.aop.SystemLogAspect"></bean>
+
+	<!-- 前后缀配置 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
+	
+	<!-- 注册XmlViewResolver，用于iReport & JasperReports报表生成 -->
+	<bean id="jasperReportResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order">
+			<value>0</value>
+		</property>
+		<property name="location">
+			<value>WEB-INF/ireport/jasper-defs.xml</value>
+		</property>
+	</bean>
+
+	<!-- 上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="maxUploadSize" value="10485760000"></property>
+		<property name="maxInMemorySize" value="40960"></property>
+		<property name="resolveLazily" value="true"></property>
+	</bean>
+	<!-- 权限拦截器 -->
+	<bean id="securityInterceptor" class="com.vedeng.common.shiro.SecurityInterceptor" init-method="init" >
+		<property name="userService" ref="userService"></property>
+	</bean> 
+
+	<!-- static -->
+	<mvc:resources mapping="/static/**" location="/static/" />
+
+	<!-- 引入 activiti 流程模块配置文件 -->
+	<import resource="classpath:activiti.cfg.xml" />
+
+	<!-- 拦截器，拦截*.do请求 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<!-- 需拦截的地址 -->
+			<mvc:mapping path="/**" />
+			<!-- 部分springmvc此版本不支持以下写法 -->
+			<!-- 一级目录 -->
+			<!-- <mvc:mapping path="/*.do" /> <mvc:mapping path="/*.jsp" /> -->
+
+			<!-- 二级目录 -->
+			<!-- <mvc:mapping path="/*/*.do" /> <mvc:mapping path="/*/*.jsp" /> -->
+			<!-- 需排除拦截的地址 -->
+			<!-- <mvc:exclude-mapping path="/login.jsp" /> -->
+			<bean class="com.vedeng.common.shiro.TimeInterceptor" />
+			
+		</mvc:interceptor>
+		<!-- 权限拦截器   ：暂时注释掉，不能删-->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/dologin.do" />
+			<mvc:exclude-mapping path="/login.do" />
+            <mvc:exclude-mapping path="/logout.do" />
+            <mvc:exclude-mapping path="/code.do" />
+            <mvc:exclude-mapping path="/checkSession.do" />
+            <mvc:exclude-mapping path="/index.do" />
+            <mvc:exclude-mapping path="/menu.do" />
+            <mvc:exclude-mapping path="/welcome.do" />
+            <mvc:exclude-mapping path="/selectorg.do" />
+            <mvc:exclude-mapping path="/changeorg.do" />
+            <mvc:exclude-mapping path="/savechangeorg.do" />
+            <mvc:exclude-mapping path="/saveselectorg.do" />
+            <mvc:exclude-mapping path="/fileUpload/ajaxFileUpload.do" />
+            <mvc:exclude-mapping path="/fileUpload/uploadFile2Oss.do" />
+            <mvc:exclude-mapping path="/fileUpload/ueditFileUpload.do" />
+            <mvc:exclude-mapping path="/order/adkorder/add.do" />
+             <mvc:exclude-mapping path="/sqlist/**" />
+			<mvc:exclude-mapping path="/system/message/getAllMessageNoread.do" />
+			<mvc:exclude-mapping path="/system/message/queryNoReadMsgNum.do" />
+			<mvc:exclude-mapping path="/phoneticTranscription/phonetic/viewContent.do" />
+			<mvc:exclude-mapping path="/phoneticTranscription/phonetic/addComments.do" />
+			<mvc:exclude-mapping path="/tradermsg/sendMsg/sendTraderMsg.do" />
+			<mvc:exclude-mapping path="/tradermsg/sendMsg/sendWebaccountCertificateMsg.do" />
+			<mvc:exclude-mapping path="/order/saleorder/saveBDAddSaleorder.do" />
+			<mvc:exclude-mapping path="/order/saleorder/updateBDSaleStatus.do" />
+			<mvc:exclude-mapping path="/goods/vgoods/viewSku.do" />
+			<mvc:exclude-mapping path="/goods/vgoods/viewSpu.do" />
+			<mvc:exclude-mapping path="/goods/vgoods/static/getCostPrice.do" />
+			<mvc:exclude-mapping path="/vgoods/operate/handleOldData.do" />
+			<mvc:exclude-mapping path="/trader/customer/saveMjxContactAdders.do" />
+			<mvc:exclude-mapping path="/order/saleorder/searchOrderInfo.do" />
+			<mvc:exclude-mapping path="/order/saleorder/updateOrderDeliveryStatus.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/updateWarehouseProblem.do" />
+			<mvc:exclude-mapping path="/warehouse/warehouses/insertNewStock.do" />
+			<mvc:exclude-mapping path="/warehouse/warehouses/updateSaleorderOccupyNum.do" />
+			<mvc:exclude-mapping path="/order/saleorder/queryOutBoundQuantity.do" />
+			<mvc:exclude-mapping path="/order/hc/updateorderstatus.do" />
+			<mvc:exclude-mapping path="/aftersales/webaccount/certificate/update.do" />
+			<mvc:exclude-mapping path="/aftersales/webaccount/certificate/add.do" />
+			<mvc:exclude-mapping path="/trader/customer/aptitude/status.do" />
+
+			<mvc:exclude-mapping path="/producter/productering.do" />
+			<mvc:exclude-mapping path="/warehouse/warehouses/getErrorStockGoodsList.do" />
+			<!--<mvc:exclude-mapping path="/warehouse/warehousesout/viewAppliedItems.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/checkInvoiceParams.do" />-->
+
+
+			<!-- 商品外借开始 -->
+			<!-- <mvc:exclude-mapping path="/warehouse/warehousesout/lendOutdetailJump.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/lendOutIndex.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/saveAddLendOutInfo.do" />
+			<mvc:exclude-mapping path="/aftersales/order/searchAfterOrder.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/searchLendOutDelivery.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/saveLendOutEdit.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/viewLendOutPicking.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/viewLendOutPickingDetail.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/warehouseSmLendOut.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/warehouselendoutSMEnd.do" /> 
+			<mvc:exclude-mapping path="/logistics/warehousein/lendOutIndex.do" />  
+			<mvc:exclude-mapping path="/logistics/warehousein/lendoutListView.do" />   -->
+			<!--  商品外借结束 -->
+			<!--对外提供接口服务-->
+			<mvc:exclude-mapping path="/mjx/**" />
+			<mvc:exclude-mapping path="/yxg/**" />
+			<mvc:exclude-mapping path="/el/**" />
+			<mvc:exclude-mapping path="/checkpreload.html" />
+			<mvc:exclude-mapping path="/batSyncToPhp.html" />
+			<mvc:exclude-mapping path="/nopower.do" />
+			<mvc:exclude-mapping path="/order/saleorder/queryOutBoundQuantity.do" />
+			<mvc:exclude-mapping path="/warehouse/warehousesout/getInLibraryBarcode.do" />
+			<!--<mvc:exclude-mapping path="/finance/invoice/uplodebatchsign.do" />
+
+			<mvc:exclude-mapping path="/finance/invoice/saveuplodebatchsign.do" />-->
+
+			<!--<mvc:exclude-mapping path="/op/**" />-->
+			<ref bean="securityInterceptor"/>
+		</mvc:interceptor> 
+		 
+		<mvc:interceptor> 
+			<mvc:mapping path="/**" />
+			<bean class="com.vedeng.common.validator.FormTokenInterceptor" />
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+	<!-- 定时任务 -->
+	<!-- <import resource="classpath:spring-task.xml" /> -->
+
+</beans>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElAfterSaleIntentionMapper">
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="elAfterSaleIntentionId" keyColumn="EL_AFTER_SALE_INTENTION_ID">
+        INSERT INTO T_EL_AFTER_SALE_INTENTION
+        (SALEORDER_ID,SALEORDER_NO,TRADER_NAME,TYPE,EL_AFTER_SALE_ID,ADD_TIME)
+        VALUE
+        (#{saleorderId,jdbcType=INTEGER},#{saleorderNo,jdbcType=VARCHAR},#{traderName,jdbcType=VARCHAR},#{type,jdbcType=INTEGER},#{elAfterSaleId,jdbcType=VARCHAR},#{addTime,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertBatch">
+        INSERT INTO T_EL_AFTER_SALE_INTENTION
+          (SALEORDER_ID,SALEORDER_NO,TRADER_NAME,TYPE,EL_AFTER_SALE_ID,STATUS,ADD_TIME)
+        VALUES
+        <foreach collection="list" item="item" index="index"  separator=",">
+            (#{item.saleoderId,jdbcType=INTEGER},#{item.saleorderNo,jdbcType=VARCHAR},#{item.traderName,jdbcType=VARCHAR},#{item.type,jdbcType=INTEGER},#{item.elAfterSaleId,jdbcType=VARCHAR},#{item.status,jdbcType=INTEGER},#{item.addTime,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <update id="updateStatus" parameterType="com.smallhospital.model.ElAfterSalesIntention">
+        UPDATE T_EL_AFTER_SALE_INTENTION
+        SET
+          STATUS= #{status,jdbcType=INTEGER}, UPDATE_TIME=#{updateTime,jdbcType=BIGINT}
+        WHERE
+          EL_AFTER_SALE_INTENTION_ID = #{elAfterSaleIntentionId,jdbcType=INTEGER}
+    </update>
+    <select id="getIntentionsUnHandledlistPage" parameterType="map" resultType="com.smallhospital.model.ElAfterSalesIntention">
+        SELECT * FROM T_EL_AFTER_SALE_INTENTION
+        <if test="status != null">
+            WHERE STATUS = #{status,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="getIntentionById" resultType="com.smallhospital.model.ElAfterSalesIntention">
+        SELECT * FROM T_EL_AFTER_SALE_INTENTION WHERE EL_AFTER_SALE_INTENTION_ID = #{intentionId,jdbcType=INTEGER}
+    </select>
+
+
+</mapper>

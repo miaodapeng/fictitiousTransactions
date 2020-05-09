@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.GoodsChannelPriceExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    <id column="GOODS_CHANNEL_PRICE_EXTEND_ID" property="goodsChannelPriceExtendId" jdbcType="INTEGER" />
+    <result column="GOODS_CHANNEL_PRICE_ID" property="goodsChannelPriceId" jdbcType="INTEGER" />
+    <result column="PRICE_TYPE" property="priceType" jdbcType="BIT" />
+    <result column="CONDITION_TYPE" property="conditionType" jdbcType="BIT" />
+    <result column="START_TIME" property="startTime" jdbcType="BIGINT" />
+    <result column="END_TIME" property="endTime" jdbcType="BIGINT" />
+    <result column="MIN_NUM" property="minNum" jdbcType="INTEGER" />
+    <result column="MAX_NUM" property="maxNum" jdbcType="INTEGER" />
+    <result column="BATCH_PRICE" property="batchPrice" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GOODS_CHANNEL_PRICE_EXTEND_ID, GOODS_CHANNEL_PRICE_ID, PRICE_TYPE, CONDITION_TYPE, 
+    START_TIME, END_TIME, MIN_NUM, MAX_NUM, BATCH_PRICE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_GOODS_CHANNEL_PRICE_EXTEND
+    where GOODS_CHANNEL_PRICE_EXTEND_ID = #{goodsChannelPriceExtendId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_GOODS_CHANNEL_PRICE_EXTEND
+    where GOODS_CHANNEL_PRICE_EXTEND_ID = #{goodsChannelPriceExtendId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    insert into T_GOODS_CHANNEL_PRICE_EXTEND (GOODS_CHANNEL_PRICE_EXTEND_ID, GOODS_CHANNEL_PRICE_ID, 
+      PRICE_TYPE, CONDITION_TYPE, START_TIME, 
+      END_TIME, MIN_NUM, MAX_NUM, 
+      BATCH_PRICE)
+    values (#{goodsChannelPriceExtendId,jdbcType=INTEGER}, #{goodsChannelPriceId,jdbcType=INTEGER}, 
+      #{priceType,jdbcType=BIT}, #{conditionType,jdbcType=BIT}, #{startTime,jdbcType=BIGINT}, 
+      #{endTime,jdbcType=BIGINT}, #{minNum,jdbcType=INTEGER}, #{maxNum,jdbcType=INTEGER}, 
+      #{batchPrice,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    insert into T_GOODS_CHANNEL_PRICE_EXTEND
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsChannelPriceExtendId != null" >
+        GOODS_CHANNEL_PRICE_EXTEND_ID,
+      </if>
+      <if test="goodsChannelPriceId != null" >
+        GOODS_CHANNEL_PRICE_ID,
+      </if>
+      <if test="priceType != null" >
+        PRICE_TYPE,
+      </if>
+      <if test="conditionType != null" >
+        CONDITION_TYPE,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="minNum != null" >
+        MIN_NUM,
+      </if>
+      <if test="maxNum != null" >
+        MAX_NUM,
+      </if>
+      <if test="batchPrice != null" >
+        BATCH_PRICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsChannelPriceExtendId != null" >
+        #{goodsChannelPriceExtendId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsChannelPriceId != null" >
+        #{goodsChannelPriceId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null" >
+        #{priceType,jdbcType=BIT},
+      </if>
+      <if test="conditionType != null" >
+        #{conditionType,jdbcType=BIT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="minNum != null" >
+        #{minNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxNum != null" >
+        #{maxNum,jdbcType=INTEGER},
+      </if>
+      <if test="batchPrice != null" >
+        #{batchPrice,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    update T_GOODS_CHANNEL_PRICE_EXTEND
+    <set >
+      <if test="goodsChannelPriceId != null" >
+        GOODS_CHANNEL_PRICE_ID = #{goodsChannelPriceId,jdbcType=INTEGER},
+      </if>
+      <if test="priceType != null" >
+        PRICE_TYPE = #{priceType,jdbcType=BIT},
+      </if>
+      <if test="conditionType != null" >
+        CONDITION_TYPE = #{conditionType,jdbcType=BIT},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="minNum != null" >
+        MIN_NUM = #{minNum,jdbcType=INTEGER},
+      </if>
+      <if test="maxNum != null" >
+        MAX_NUM = #{maxNum,jdbcType=INTEGER},
+      </if>
+      <if test="batchPrice != null" >
+        BATCH_PRICE = #{batchPrice,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where GOODS_CHANNEL_PRICE_EXTEND_ID = #{goodsChannelPriceExtendId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    update T_GOODS_CHANNEL_PRICE_EXTEND
+    set GOODS_CHANNEL_PRICE_ID = #{goodsChannelPriceId,jdbcType=INTEGER},
+      PRICE_TYPE = #{priceType,jdbcType=BIT},
+      CONDITION_TYPE = #{conditionType,jdbcType=BIT},
+      START_TIME = #{startTime,jdbcType=BIGINT},
+      END_TIME = #{endTime,jdbcType=BIGINT},
+      MIN_NUM = #{minNum,jdbcType=INTEGER},
+      MAX_NUM = #{maxNum,jdbcType=INTEGER},
+      BATCH_PRICE = #{batchPrice,jdbcType=DECIMAL}
+    where GOODS_CHANNEL_PRICE_EXTEND_ID = #{goodsChannelPriceExtendId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询产品核价附属信息 -->
+  <select id="getGoodsChannelPriceExtendList" resultMap="BaseResultMap" parameterType="com.vedeng.goods.model.GoodsChannelPriceExtend" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_GOODS_CHANNEL_PRICE_EXTEND
+    where 1=1
+    <if test="goodsChannelPriceId != null" >
+        and GOODS_CHANNEL_PRICE_ID = #{goodsChannelPriceId,jdbcType=INTEGER}
+    </if>
+    <if test="priceType != null" >
+        and PRICE_TYPE = #{priceType,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!-- 删除扩展信息 -->
+  <delete id="deleteGoodsChannelPriceExtend" parameterType="com.vedeng.goods.model.GoodsChannelPrice" >
+    delete from T_GOODS_CHANNEL_PRICE_EXTEND
+    where GOODS_CHANNEL_PRICE_ID = #{goodsChannelPriceId,jdbcType=INTEGER}
+  </delete>
+   <!-- 删除扩展信息 -->
+  <delete id="deleteGoodsChannelPriceExtendAll" parameterType="com.vedeng.goods.model.GoodsChannelPrice" >
+    delete from T_GOODS_CHANNEL_PRICE_EXTEND
+    where GOODS_CHANNEL_PRICE_ID = #{goodsChannelPriceId,jdbcType=INTEGER}
+  </delete>
+</mapper>

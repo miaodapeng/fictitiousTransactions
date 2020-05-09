@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.ParamsConfigValueMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.ParamsConfigValue" >
+    <id column="PARAMS_CONFIG_VALUE_ID" property="paramsConfigValueId" jdbcType="INTEGER" />
+    <result column="PARAMS_CONFIG_ID" property="paramsConfigId" jdbcType="INTEGER" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="PARAMS_VALUE" property="paramsValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PARAMS_CONFIG_VALUE_ID, PARAMS_CONFIG_ID, COMPANY_ID, PARAMS_VALUE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PARAMS_CONFIG_VALUE
+    where PARAMS_CONFIG_VALUE_ID = #{paramsConfigValueId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_PARAMS_CONFIG_VALUE
+    where PARAMS_CONFIG_VALUE_ID = #{paramsConfigValueId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.ParamsConfigValue" >
+    insert into T_PARAMS_CONFIG_VALUE (PARAMS_CONFIG_VALUE_ID, PARAMS_CONFIG_ID, 
+      COMPANY_ID, PARAMS_VALUE)
+    values (#{paramsConfigValueId,jdbcType=INTEGER}, #{paramsConfigId,jdbcType=INTEGER}, 
+      #{companyId,jdbcType=INTEGER}, #{paramsValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.ParamsConfigValue" >
+    insert into T_PARAMS_CONFIG_VALUE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paramsConfigValueId != null" >
+        PARAMS_CONFIG_VALUE_ID,
+      </if>
+      <if test="paramsConfigId != null" >
+        PARAMS_CONFIG_ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="paramsValue != null" >
+        PARAMS_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paramsConfigValueId != null" >
+        #{paramsConfigValueId,jdbcType=INTEGER},
+      </if>
+      <if test="paramsConfigId != null" >
+        #{paramsConfigId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="paramsValue != null" >
+        #{paramsValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.ParamsConfigValue" >
+    update T_PARAMS_CONFIG_VALUE
+    <set >
+      <if test="paramsConfigId != null" >
+        PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="paramsValue != null" >
+        PARAMS_VALUE = #{paramsValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PARAMS_CONFIG_VALUE_ID = #{paramsConfigValueId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.ParamsConfigValue" >
+    update T_PARAMS_CONFIG_VALUE
+    set PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      PARAMS_VALUE = #{paramsValue,jdbcType=VARCHAR}
+    where PARAMS_CONFIG_VALUE_ID = #{paramsConfigValueId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getParamsValueList" resultType="java.lang.Integer" parameterType="com.vedeng.system.model.ParamsConfigValue" >
+  	select 
+  		PARAMS_VALUE 
+  	from T_PARAMS_CONFIG_VALUE
+  	where PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER} and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="delParamsConfigValue" parameterType="java.lang.Integer" >
+  	<if test="paramsConfigIds != null ">
+		delete from T_PARAMS_CONFIG_VALUE
+    		where PARAMS_CONFIG_ID in 
+    		<foreach item="paramsConfigId" index="index" collection="paramsConfigIds" open="(" separator="," close=")">  
+			  #{paramsConfigId}  
+			</foreach>
+			and COMPANY_ID = #{companyId,jdbcType=INTEGER} 
+  	</if>
+  </delete>	
+  
+  <select id="getParamsValue" resultMap="BaseResultMap" parameterType="com.vedeng.system.model.vo.ParamsConfigVo" >
+  	select 
+  		 a.PARAMS_CONFIG_VALUE_ID, a.PARAMS_CONFIG_ID, a.COMPANY_ID, a.PARAMS_VALUE
+  	from T_PARAMS_CONFIG_VALUE a
+  	left join T_PARAMS_CONFIG b on a.PARAMS_CONFIG_ID = b.PARAMS_CONFIG_ID
+  	where b.STATUS = 1 
+  		and b.PARAMS_KEY = #{paramsKey,jdbcType=INTEGER} and a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+
+	<select id="getQuoteConsultant" resultType="com.vedeng.authorization.model.User" parameterType="java.lang.Integer">
+		SELECT B.PARAMS_VALUE, C.USERNAME
+		FROM T_PARAMS_CONFIG A
+		     INNER JOIN T_PARAMS_CONFIG_VALUE B
+		        ON A.PARAMS_CONFIG_ID = B.PARAMS_CONFIG_ID
+		     INNER JOIN T_USER C ON B.PARAMS_VALUE = C.USER_ID
+		WHERE A.STATUS = 1 AND A.PARAMS_KEY = #{paramsKey,jdbcType=INTEGER} AND B.COMPANY_ID = #{companyId,jdbcType=INTEGER} 
+	</select>
+  
+</mapper>

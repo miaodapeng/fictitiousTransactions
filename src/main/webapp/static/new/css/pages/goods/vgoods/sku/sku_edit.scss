@@ -1,0 +1,89 @@
+@import url('../../../../common/lib/form.css');
+@import url('../../../../common/lib/input.css');
+@import url('../../../../common/lib/button.css');
+@import url('../../../../common/lib/tip.css');
+@import url('../../../../common/lib/dialog.css');
+@import url('../../../../common/lib/select.css');
+@import url('../../../../common/lib/upload.css');
+@import url('../../../../common/lib/table.css');
+@import url('../../../../pages/modules/form.css');
+
+.fields-label {
+    padding-top: 6px;
+}
+
+.form-container {
+    .form-block {
+        &.form-info {
+            .form-block-title {
+                margin-top: -10px;
+                margin-bottom: 10px;
+            }
+
+            .table-wrap {
+                border-top: 1px solid #EDF0F2;
+                margin: 0 -20px -20px -20px;
+            }
+        }
+    }
+
+    .form-col {
+        box-sizing: border-box;
+        padding-right: 10px;
+    }
+
+    .unit {
+        display: inline-block;
+        line-height: 30px;
+    }
+
+    .sort-item-wrap {
+        line-height: 30px;
+        margin-bottom: 10px;
+
+        &:last-child,
+        &.th-wrap {
+            margin-bottom: 0;
+        }
+
+        .sort-item {
+            box-sizing: border-box;
+            padding-right: 10px;
+
+            &.item-center {
+                .input-text {
+                    text-align: center;
+                }
+            }
+        }
+
+        .input-text {
+            width: 100%;
+        }
+
+        .icon-recycle {
+            cursor: pointer;
+            display: none;
+
+            &:hover {
+                color: #f60;
+            }
+        }
+    }
+
+    .sort-add {
+        padding-top: 10px;
+
+        .icon-add {
+            vertical-align: -2px;
+        }
+
+        .sort-add-btn {
+            margin-right: 7px;
+        }
+
+        .sort-add-tip {
+            color: #999;
+        }
+    }
+}

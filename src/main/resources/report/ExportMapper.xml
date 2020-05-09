@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.report.dao.ExportMapper">
+    <select id="queryList" resultType="com.vedeng.authorization.model.Action">
+        SELECT * FROM T_ACTION
+    </select>
+    
+    <select id="queryListSize" resultType="com.vedeng.authorization.model.Action">
+    	SELECT * FROM T_ACTION ORDER BY ADD_TIME DESC limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="getListCount" resultType="int">
+    	SELECT COUNT(*) FROM T_ACTION
+    </select>
+</mapper>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.CategoryAttrValueMappingMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.CategoryAttrValueMapping" >
+    <!--          -->
+    <id column="CATEGORY_ATTR_VALUE_MAPPING_ID" property="categoryAttrValueMappingId" jdbcType="INTEGER" />
+    <result column="BASE_CATEGORY_ID" property="baseCategoryId" jdbcType="INTEGER" />
+    <result column="BASE_ATTRIBUTE_ID" property="baseAttributeId" jdbcType="INTEGER" />
+    <result column="BASE_ATTRIBUTE_VALUE_ID" property="baseAttributeValueId" jdbcType="INTEGER" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.vedeng.goods.model.vo.CategoryAttrValueMappingVo" extends="BaseResultMap">
+    <result column="BASE_CATEGORY_NAME" property="baseCategoryName" jdbcType="VARCHAR" />
+    <result column="BASE_ATTRIBUTE_NAME" property="baseAttributeName" jdbcType="VARCHAR" />
+    <result column="BASE_ATTR_VALUE" property="baseAttrValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    CATEGORY_ATTR_VALUE_MAPPING_ID, BASE_CATEGORY_ID, BASE_ATTRIBUTE_ID,
+    BASE_ATTRIBUTE_VALUE_ID, IS_DELETED, CREATOR, UPDATER, MOD_TIME, ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from V_CATEGORY_ATTR_VALUE_MAPPING
+    where CATEGORY_ATTR_VALUE_MAPPING_ID = #{categoryAttrValueMappingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from V_CATEGORY_ATTR_VALUE_MAPPING
+    where CATEGORY_ATTR_VALUE_MAPPING_ID = #{categoryAttrValueMappingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.CategoryAttrValueMapping" >
+    <!--          -->
+    insert into V_CATEGORY_ATTR_VALUE_MAPPING (CATEGORY_ATTR_VALUE_MAPPING_ID,
+      BASE_CATEGORY_ID, BASE_ATTRIBUTE_ID, BASE_ATTRIBUTE_VALUE_ID, 
+      IS_DELETED, CREATOR, UPDATER, 
+      MOD_TIME, ADD_TIME)
+    values (#{categoryAttrValueMappingId,jdbcType=INTEGER}, #{baseCategoryId,jdbcType=INTEGER},
+      #{baseAttributeId,jdbcType=INTEGER}, #{baseAttributeValueId,jdbcType=INTEGER},
+      #{isDeleted,jdbcType=BIT}, #{creator,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.CategoryAttrValueMapping" >
+    <!--          -->
+    insert into V_CATEGORY_ATTR_VALUE_MAPPING
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="categoryAttrValueMappingId != null" >
+        CATEGORY_ATTR_VALUE_MAPPING_ID,
+      </if>
+      <if test="baseCategoryId != null" >
+        BASE_CATEGORY_ID,
+      </if>
+      <if test="baseAttributeId != null" >
+        BASE_ATTRIBUTE_ID,
+      </if>
+      <if test="baseAttributeValueId != null" >
+        BASE_ATTRIBUTE_VALUE_ID,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="categoryAttrValueMappingId != null" >
+        #{categoryAttrValueMappingId,jdbcType=INTEGER},
+      </if>
+      <if test="baseCategoryId != null" >
+        #{baseCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="baseAttributeId != null" >
+        #{baseAttributeId,jdbcType=INTEGER},
+      </if>
+      <if test="baseAttributeValueId != null" >
+        #{baseAttributeValueId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.CategoryAttrValueMapping" >
+    <!--          -->
+    update V_CATEGORY_ATTR_VALUE_MAPPING
+    <set >
+      <if test="baseCategoryId != null" >
+        BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="baseAttributeId != null" >
+        BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER},
+      </if>
+      <if test="baseAttributeValueId != null" >
+        BASE_ATTRIBUTE_VALUE_ID = #{baseAttributeValueId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where CATEGORY_ATTR_VALUE_MAPPING_ID = #{categoryAttrValueMappingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.CategoryAttrValueMapping" >
+    <!--          -->
+    update V_CATEGORY_ATTR_VALUE_MAPPING
+    set
+      BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER},
+      BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER},
+      BASE_ATTRIBUTE_VALUE_ID = #{baseAttributeValueId,jdbcType=INTEGER},
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP}
+    where CATEGORY_ATTR_VALUE_MAPPING_ID = #{categoryAttrValueMappingId,jdbcType=INTEGER}
+  </update>
+  <update id="deleteCategoryAttrValueMappingByCategoryIds" parameterType="java.util.Map">
+    update V_CATEGORY_ATTR_VALUE_MAPPING
+    SET
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+    WHERE
+      IS_DELETED = 0
+      <if test="list != null and list.size()>0">
+        AND BASE_CATEGORY_ID IN
+        <foreach collection="list" item="category" separator="," open="(" close=")" index="index">
+          #{category.baseCategoryId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      <if test="list == null or list.size() == 0">
+        AND BASE_CATEGORY_ID = null
+      </if>
+  </update>
+  <select id="getCategoryAttrValueMappingVoList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT
+        DISTINCT
+          a.BASE_CATEGORY_ID,
+          a.BASE_ATTRIBUTE_ID,
+          a.IS_DELETED,
+          b.BASE_ATTRIBUTE_NAME
+      FROM
+          V_CATEGORY_ATTR_VALUE_MAPPING a
+      LEFT JOIN V_BASE_ATTRIBUTE b ON a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID AND b.IS_DELETED = #{isDeleted,jdbcType=BIT}
+      WHERE a.IS_DELETED = #{isDeleted,jdbcType=BIT}
+      <if test="list != null and list.size()>0">
+        AND a.BASE_CATEGORY_ID IN
+        <foreach collection="list" item="category" separator="," open="(" close=")" index="index">
+          #{category.baseCategoryId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+  </select>
+  <select id="getCategoryAttrValueMappingList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    SELECT
+    DISTINCT
+    a.BASE_CATEGORY_ID,
+    a.BASE_ATTRIBUTE_ID,
+    a.BASE_ATTRIBUTE_VALUE_ID
+    FROM
+    V_CATEGORY_ATTR_VALUE_MAPPING a
+    WHERE a.IS_DELETED = #{isDeleted,jdbcType=BIT}
+      AND a.BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertCategoryAttrValueMappingBatch" parameterType="java.util.List">
+    insert into V_CATEGORY_ATTR_VALUE_MAPPING (
+      BASE_CATEGORY_ID, BASE_ATTRIBUTE_ID, BASE_ATTRIBUTE_VALUE_ID,
+      IS_DELETED, CREATOR, UPDATER,
+      MOD_TIME, ADD_TIME)
+    values
+    <foreach collection="list" index="index" separator="," item="mapping">
+      (#{mapping.baseCategoryId,jdbcType=INTEGER},
+      #{mapping.baseAttributeId,jdbcType=INTEGER}, #{mapping.baseAttributeValueId,jdbcType=INTEGER},
+      #{mapping.isDeleted,jdbcType=BIT}, #{mapping.creator,jdbcType=INTEGER}, #{mapping.updater,jdbcType=INTEGER},
+      #{mapping.modTime,jdbcType=TIMESTAMP}, #{mapping.addTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+</mapper>

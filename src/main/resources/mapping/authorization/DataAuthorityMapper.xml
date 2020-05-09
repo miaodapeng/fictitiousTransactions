@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.DataAuthorityMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.RRoleDataAuthority">
+		<id column="ROLE_DATA_AUTHORITY_ID" property="roleDataAuthorityId" jdbcType="INTEGER" />
+		<result column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+		<result column="PLATFORM_ID" property="platformId" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<insert id="insertDataAuthorityBatch">
+		insert into T_R_ROLE_DATA_AUTHORITY (ROLE_ID,PLATFORM_ID)
+		values
+		<foreach collection="list" item="g" separator="," index="index">
+			(#{g.roleId,jdbcType=INTEGER},#{g.platformId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+
+	<select id="queryList" resultMap="BaseResultMap">
+		select ROLE_DATA_AUTHORITY_ID,ROLE_ID,PLATFORM_ID
+		from T_R_ROLE_DATA_AUTHORITY
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+
+	<delete id="delete" >
+		delete from T_R_ROLE_DATA_AUTHORITY where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</delete>
+
+</mapper>

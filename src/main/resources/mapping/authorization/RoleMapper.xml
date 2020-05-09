@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.RoleMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.Role">
+		<id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ROLE_ID, COMPANY_ID, ROLE_NAME
+	</sql>
+	<!-- 获取角色信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+			<include refid="Base_Column_List" />
+		from T_ROLE
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+	<!-- 获取角色信息 -->
+	<select id="getRoleByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_ROLE
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+	<!-- 删除角色 -->
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from T_ROLE
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</delete>
+	<!-- 新增角色 -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="roleId" parameterType="com.vedeng.authorization.model.Role">
+		insert into T_ROLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="companyId != null">
+				COMPANY_ID,
+			</if>
+			<if test="roleName != null">
+				ROLE_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+			<if test="companyId != null">
+				#{companyId,jdbcType=INTEGER},
+			</if>
+			<if test="roleName != null">
+				#{roleName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改角色 -->
+	<update id="update" parameterType="com.vedeng.authorization.model.Role">
+		update T_ROLE
+		<set>
+			<if test="companyId != null">
+				COMPANY_ID = #{companyId,jdbcType=INTEGER},
+			</if>
+			<if test="roleName != null">
+				ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</update>
+	<!-- 查询角色列表数据 -->
+	<select id="querylistPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		T_ROLE a
+		<where>
+			1=1
+			<if test="role.roleName !=null and role.roleName != ''">
+				and a.ROLE_NAME like CONCAT('%',#{role.roleName},'%' )
+			</if>
+			<if test="role.companyId !=null">
+				and a.COMPANY_ID =#{role.companyId,jdbcType=INTEGER }
+			</if>
+		</where>
+		order by a.ROLE_ID DESC
+	</select>
+	
+	<!-- getAllRoles -->
+	<select id="getAllRoles" resultMap="BaseResultMap" parameterType="com.vedeng.authorization.model.Role">
+		select 
+		<include refid="Base_Column_List" />
+		from 
+			T_ROLE a
+		<where>
+			1=1
+			<if test="companyId != null">
+			and a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by a.ROLE_ID
+	</select>
+	
+	<!-- getUserRoles -->
+	<select id="getUserRoles" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select 
+		a.ROLE_ID, a.COMPANY_ID, a.ROLE_NAME
+		from 
+			T_ROLE a
+		left join T_R_USER_ROLE b on a.ROLE_ID=b.ROLE_ID
+		<where>
+			1=1
+			<if test="userId != null and userId != 0">
+			and b.USER_ID = #{userId,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by a.ROLE_ID
+	</select>
+	
+	<!-- getUserRoles -->
+	<select id="getUserRolesByUserName" resultMap="BaseResultMap" parameterType="com.vedeng.authorization.model.User">
+		select 
+		a.ROLE_ID, a.COMPANY_ID, a.ROLE_NAME
+		from 
+			T_ROLE a
+		left join T_R_USER_ROLE b on a.ROLE_ID=b.ROLE_ID
+		LEFT JOIN T_USER u ON u.USER_ID = b.USER_ID
+		<where>
+			1=1
+			<if test="username != null and username != ''">
+				and u.USERNAME = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="companyId!=null and companyId!=0">
+				AND u.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			</if>
+		</where>
+		order by a.ROLE_ID
+	</select>
+	
+	<!-- getAdminUserRoles -->
+	<select id="getAdminUserRoles" resultMap="BaseResultMap" >
+		select 
+		<include refid="Base_Column_List" />
+		from 
+			T_ROLE a
+		<where>
+			1=1
+		</where>
+		order by a.ROLE_ID
+	</select>
+	
+	<resultMap type="com.vedeng.authorization.model.Actiongroup" id="selectMenuResultMap">
+	  	<id column="ACTIONGROUP_ID" property="actiongroupId" jdbcType="INTEGER" />
+		<result column="NAME" property="name" jdbcType="VARCHAR"/>
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR"/>
+	  	<collection property="actionList" ofType="com.vedeng.authorization.model.Action">
+			<id column="ACTION_ID" property="actionId" jdbcType="INTEGER"/>
+			<result column="ACTION_NAME" property="actionName" jdbcType="VARCHAR" />
+	  	</collection>
+	</resultMap>
+	<select id="queryMenuList" resultMap="selectMenuResultMap">
+		SELECT B.ACTION_ID,
+		       A.ACTIONGROUP_ID,
+		       A.PARENT_ID,
+		       A.NAME,
+		       B.ACTION_NAME,
+		       A.LEVEL
+		FROM T_ACTIONGROUP    A
+		     LEFT JOIN T_ACTION B ON A.ACTIONGROUP_ID = B.ACTIONGROUP_ID
+		ORDER BY A.PARENT_ID
+	</select>
+	
+	<!-- getRoleByActiongroupId -->
+	<select id="getRoleByActiongroupId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select 
+		a.ROLE_ID,a.ROLE_NAME
+		from 
+			T_ROLE a
+		left join
+			T_R_ROLE_ACTIONGROUP b on a.ROLE_ID=b.ROLE_ID
+		<where>
+			b.ACTIONGROUP_ID = #{actiongroupId,jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<!-- getUserByActionId -->
+  <select id="getRoleByActionId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  		a.ROLE_ID,a.ROLE_NAME
+  	from
+  		T_ROLE a
+  	left join
+  		T_R_ROLE_ACTION b on a.ROLE_ID=b.ROLE_ID
+  	<where>
+  		b.ACTION_ID = #{actionId,jdbcType=INTEGER}
+  	</where>
+  </select>
+	
+	<insert id="insertRoleAction">
+		<foreach collection="actionIdList" item="list" index="index" separator=";">
+			INSERT INTO T_R_ROLE_ACTION (ROLE_ACTION_ID,ROLE_ID,ACTION_ID,PLATFORM_ID) VALUES(null,#{roleId,jdbcType=VARCHAR},#{list,jdbcType=INTEGER},#{platformId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	
+	<insert id="insertRoleGroup">
+		<foreach collection="groupIdList" item="list" index="index" separator=";">
+			INSERT INTO T_R_ROLE_ACTIONGROUP (ROLE_ACTIONGROUP_ID,ROLE_ID,ACTIONGROUP_ID,PLATFORM_ID) VALUES(null,#{roleId,jdbcType=VARCHAR},#{list,jdbcType=INTEGER},#{platformId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+	
+	<select id="getRoleAction" parameterType="com.vedeng.authorization.model.Role" resultType="com.vedeng.authorization.model.RRoleAction">
+		SELECT A.ROLE_ACTION_ID AS roleActionId,A.ROLE_ID AS roleId,A.ACTION_ID AS actionId
+		FROM T_R_ROLE_ACTION A
+		LEFT JOIN T_ACTION B
+		ON A.ACTION_ID = B.ACTION_ID
+		WHERE A.ROLE_ID = #{role.roleId} AND A.PLATFORM_ID = #{platformId}
+	</select>
+	
+	<select id="getRoleGroup" parameterType="com.vedeng.authorization.model.Role" resultType="com.vedeng.authorization.model.RRoleActiongroup">
+		SELECT A.ROLE_ACTIONGROUP_ID AS roleActiongroupId,A.ROLE_ID AS roleId,A.ACTIONGROUP_ID AS actiongroupId
+		FROM T_R_ROLE_ACTIONGROUP A
+		LEFT JOIN T_ACTIONGROUP B
+		ON A.ACTIONGROUP_ID = B.ACTIONGROUP_ID
+		WHERE A.ROLE_ID = #{role.roleId} AND A.PLATFORM_ID = #{platformId}
+	</select>
+
+	<select id="getChoosedRoleAction" parameterType="com.vedeng.authorization.model.Role" resultType="com.vedeng.authorization.model.vo.RRoleActionVo">
+		SELECT A.ROLE_ACTION_ID AS roleActionId,A.ROLE_ID AS roleId,A.ACTION_ID AS actionId,B.ACTION_DESC as actionName,B.ACTIONGROUP_ID as actiongroupId
+		FROM T_R_ROLE_ACTION A
+		LEFT JOIN T_ACTION B
+		ON A.ACTION_ID = B.ACTION_ID
+		WHERE A.ROLE_ID = #{role.roleId} AND A.PLATFORM_ID = #{platformId}
+	</select>
+
+	<select id="getChoosedRoleGroup" parameterType="com.vedeng.authorization.model.Role" resultType="com.vedeng.authorization.model.vo.RRoleActionGroupVo">
+		SELECT A.ROLE_ACTIONGROUP_ID AS roleActiongroupId,A.ROLE_ID AS roleId,A.ACTIONGROUP_ID AS actiongroupId,A.PLATFORM_ID AS platformId,B.NAME as groupName,B.PARENT_ID as parentId
+		FROM T_R_ROLE_ACTIONGROUP A
+		LEFT JOIN T_ACTIONGROUP B
+		ON A.ACTIONGROUP_ID = B.ACTIONGROUP_ID
+		WHERE A.ROLE_ID = #{role.roleId} AND A.PLATFORM_ID = #{platformId}
+	</select>
+
+	
+	<delete id="deleteAction" parameterType="java.lang.Integer">
+		delete from T_R_ROLE_ACTION where ROLE_ID = #{roleId} AND PLATFORM_ID = #{platformId}
+	</delete>
+	
+	<delete id="deleteGroup" parameterType="java.lang.Integer">
+		delete from T_R_ROLE_ACTIONGROUP where ROLE_ID = #{roleId} AND PLATFORM_ID = #{platformId}
+	</delete>
+	
+	<select id="vailRole" parameterType="com.vedeng.authorization.model.Role" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM T_ROLE 
+		<where>
+			ROLE_NAME = #{roleName}
+			<if test="roleId!=null and roleId!=''">
+				AND ROLE_ID <![CDATA[ <> ]]> #{roleId}
+			</if>
+			<if test="companyId!=null and companyId!=''">
+				AND COMPANY_ID = #{companyId}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 获取角色信息 -->
+	<select id="getUserNameByRoleName" resultType="String">
+		select
+		u.USERNAME
+		from T_USER u
+		left join T_R_USER_ROLE ur on ur.USER_ID = u.USER_ID
+		left join T_ROLE r on r.ROLE_ID = ur.ROLE_ID
+		where r.ROLE_NAME = #{roleName,jdbcType=INTEGER}
+		and u.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 获取角色信息ID -->
+	<select id="getUserIdByRoleName" resultType="Integer">
+		select
+		u.USER_ID
+		from T_USER u
+		left join T_R_USER_ROLE ur on ur.USER_ID = u.USER_ID
+		left join T_ROLE r on r.ROLE_ID = ur.ROLE_ID
+		where r.ROLE_NAME = #{roleName,jdbcType=INTEGER}
+		and u.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	</select>
+
+	<!-- 查询角色列表数据 -->
+	<select id="queryListPage" parameterType="Map" resultMap="BaseResultMap">
+		select
+		distinct (a.ROLE_ID), a.COMPANY_ID, a.ROLE_NAME
+		from
+		T_ROLE a
+		left join
+		T_R_ROLE_PLATFORM b on a.ROLE_ID = b.ROLE_ID
+		<where>
+			1=1
+			<if test="role.roleName !=null and role.roleName != ''">
+				and a.ROLE_NAME like CONCAT('%',#{role.roleName},'%' )
+			</if>
+			<if test="role.companyId !=null">
+				and a.COMPANY_ID =#{role.companyId,jdbcType=INTEGER }
+			</if>
+			<if test="platformId !=null and platformId !='0'">
+				and b.PLATFORM_ID =#{platformId,jdbcType=INTEGER }
+			</if>
+		</where>
+		order by a.ROLE_ID DESC
+	</select>
+</mapper>

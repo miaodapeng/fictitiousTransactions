@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElSaleOrderDeliveryMapper">
+
+
+  <insert id="insert" parameterType="com.smallhospital.model.ElSaleOrderDelivery">
+    INSERT INTO T_EL_SALE_ORDER_DELIVERY (EXPRESS_ID,EXPRESS_DETAIL_ID,NUM)
+    VALUE (#{saleOrderId,jdbcType=INTEGER}, #{saleOrderGoodsId, jdbcType=INTEGER},#{num,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertBatch" parameterType="list">
+    INSERT INTO
+      T_EL_SALE_ORDER_DELIVERY
+      (
+        EXPRESS_ID,
+        EXPRESS_DETAIL_ID,
+        NUM
+      )
+    VALUES
+      <foreach collection="list" item="item" index="index" separator=",">
+        (
+          #{item.expressId,jdbcType=INTEGER},
+          #{item.expressDetailId,jdbcType=INTEGER},
+          #{item.num,jdbcType=INTEGER}
+        )
+      </foreach>
+  </insert>
+
+  <update id="updateSaleorderArrivalStatus" parameterType="com.vedeng.order.model.Saleorder">
+    UPDATE
+      T_SALEORDER
+    SET
+      ARRIVAL_STATUS = #{arrivalStatus,jdbcType=INTEGER}, WEB_TAKE_DELIVERY_TIME = #{webTakeDeliveryTime,jdbcType=BIGINT}, MOD_TIME = #{modTime,jdbcType=BIGINT}
+    WHERE
+      SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateSaleOrderGoodsArrivalStatus" parameterType="com.vedeng.order.model.SaleorderGoods">
+    UPDATE
+      T_SALEORDER_GOODS
+    SET
+      ARRIVAL_STATUS = #{arrivalStatus,jdbcType=INTEGER},
+      ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT}
+    WHERE
+      SALEORDER_GOODS_ID = #{saleorderGoodsId}
+  </update>
+
+
+
+  <select id="getSaleOrderGoodsBySaleOrderId" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT
+	  *
+    FROM
+	  T_SALEORDER_GOODS
+    WHERE
+	  SALEORDER_GOODS_ID
+	  IN
+	  (
+	    SELECT RELATED_ID FROM T_EXPRESS_DETAIL  WHERE EXPRESS_ID = #{supplyId,jdbcType=INTEGER}
+	  )
+  </select>
+  <select id="getSaleOrderGoodsIdByExpressDetailId" resultType="com.vedeng.logistics.model.ExpressDetail">
+    SELECT EXPRESS_DETAIL_ID,RELATED_ID FROM T_EXPRESS_DETAIL WHERE EXPRESS_DETAIL_ID IN
+    <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+  <select id="getSaleOrderIdByExpressId" resultType="java.lang.Integer">
+    SELECT
+      SALEORDER_ID
+    FROM
+      T_EXPRESS_DETAIL a
+    JOIN
+      T_SALEORDER_GOODS b
+    ON
+      a.RELATED_ID = b.SALEORDER_GOODS_ID
+    WHERE
+      a.EXPRESS_ID = #{expressId,jdbcType=INTEGER}
+    LIMIT 1
+  </select>
+
+  <select id="getSaleGoodsByExpressDetailId" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT
+      *
+    FROM T_SALEORDER_GOODS S
+           JOIN
+         T_EXPRESS_DETAIL E
+         ON
+           S.SALEORDER_GOODS_ID = E.RELATED_ID
+    WHERE
+      E.EXPRESS_DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getSaleorderGoodsByExpressDetailId" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT
+    *
+    FROM T_SALEORDER_GOODS S
+    JOIN
+    T_EXPRESS_DETAIL E
+    ON
+    S.SALEORDER_GOODS_ID = E.RELATED_ID
+    WHERE
+    E.EXPRESS_DETAIL_ID
+    IN
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item,jdbcType=INTEGER}
+    </foreach>
+  </select>
+  <!--<select id="getSaleOrderByExpressDetailId" parameterType="list" resultType="com.vedeng.order.model.Saleorder">-->
+    <!--SELECT-->
+      <!--*-->
+    <!--FROM-->
+      <!--T_EXPRESS_DETAIL E-->
+        <!--JOIN T_SALEORDER_GOODS SG-->
+             <!--ON E.RELATED_ID = SG.SALEORDER_GOODS_ID-->
+        <!--JOIN T_SALEORDER TS on SG.SALEORDER_ID = TS.SALEORDER_ID-->
+    <!--WHERE EXPRESS_DETAIL_ID in-->
+    <!--<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">-->
+      <!--#{item,jdbcType=INTEGER}-->
+    <!--</foreach>-->
+  <!--</select>-->
+  <select id="getSaleOrderGoodsByExpressDetailId" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT
+      *
+    FROM
+      T_SALEORDER_GOODS S
+    JOIN T_EXPRESS_DETAIL E
+    ON S.SALEORDER_GOODS_ID = E.RELATED_ID
+    WHERE
+      E.EXPRESS_DETAIL_ID = #{expressDetailId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getElSaleorderDeliveryByExpressId" resultType="com.smallhospital.model.ElSaleOrderDelivery">
+    SELECT * FROM T_EL_SALE_ORDER_DELIVERY WHERE EXPRESS_ID = #{expressId,jdbcType=INTEGER}
+  </select>
+
+
+</mapper>

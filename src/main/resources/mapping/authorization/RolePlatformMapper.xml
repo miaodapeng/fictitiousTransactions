@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.RolePlatformMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.RolePlatform">
+		<id column="ROLE_PLATFORM_ID" property="rolePlatformId" jdbcType="INTEGER" />
+		<id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+		<id column="PLATFORM_ID" property="platformId" jdbcType="INTEGER" />
+	</resultMap>
+
+	<resultMap id="resultMap" type="com.vedeng.authorization.model.vo.RolePlatformVo">
+		<id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+		<id column="PLATFORM_ID" property="platformId" jdbcType="INTEGER" />
+		<id column="PLATFORM_NAME" property="platformName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertBatch">
+		insert into T_R_ROLE_PLATFORM (ROLE_ID,PLATFORM_ID)
+		values
+		<foreach collection="list" item="g" separator="," index="index">
+			(#{g.roleId,jdbcType=INTEGER},#{g.platformId,jdbcType=INTEGER})
+		</foreach>
+	</insert>
+
+	<select id="queryList" resultMap="BaseResultMap">
+		select ROLE_PLATFORM_ID,ROLE_ID,PLATFORM_ID
+		from T_R_ROLE_PLATFORM
+		where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryListByRoleId" resultMap="resultMap">
+		select a.ROLE_PLATFORM_ID,a.ROLE_ID,a.PLATFORM_ID,b.PLATFORM_NAME
+		from T_R_ROLE_PLATFORM a
+		left join
+		T_PLATFORM b on a.PLATFORM_ID = b.PLATFORM_ID
+		where a.ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+
+	<select id="deleteByRoleId">
+		delete from T_R_ROLE_PLATFORM where ROLE_ID = #{roleId,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryListByIds" resultMap="resultMap">
+		select * from T_R_ROLE_PLATFORM a
+		left join
+		T_PLATFORM b on a.PLATFORM_ID = b.PLATFORM_ID
+		where a.ROLE_ID in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

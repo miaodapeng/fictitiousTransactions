@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.report.dao.SaleReportMapper">
+    <select id="getCustomerCommunicateData" resultType="com.vedeng.trader.model.vo.TraderCustomerVo">
+    	SELECT
+			COUNT(*) as communcateCount,TRADER_ID,max(FROM_UNIXTIME(BEGINTIME/1000,'%Y-%m-%d %H:%i:%s')) as lastCommuncateTimeStr
+		FROM
+			T_COMMUNICATE_RECORD
+		WHERE
+			TRADER_TYPE=1
+		AND
+			TRADER_ID in
+   			<foreach collection="traderIds" item="traderId" index="index"
+	            open="(" close=")" separator=",">
+	            #{traderId}
+	        </foreach>
+		GROUP BY
+			TRADER_ID
+    </select>
+    <select id="getCustomerOwnerData" resultType="com.vedeng.trader.model.vo.TraderCustomerVo">
+    	SELECT
+			a.TRADER_ID,b.USERNAME as ownerSale,group_concat(d.ORG_NAME) as orgName
+		FROM
+			T_R_TRADER_J_USER a
+		LEFT JOIN
+			T_USER b
+		ON
+			a.USER_ID = b.USER_ID
+		LEFT JOIN
+			T_R_USER_POSIT r_u_p
+		ON
+			r_u_p.USER_ID = b.USER_ID
+		LEFT JOIN
+			T_POSITION c
+		ON
+			r_u_p.POSITION_ID = c.POSITION_ID
+		LEFT JOIN
+			T_ORGANIZATION d
+		ON
+			d.ORG_ID = c.ORG_ID
+		WHERE
+			a.TRADER_TYPE = 1
+		AND
+			a.TRADER_ID in
+   			<foreach collection="traderIds" item="traderId" index="index"
+	            open="(" close=")" separator=",">
+	            #{traderId}
+	        </foreach>
+		GROUP BY 
+			a.TRADER_ID
+		    	
+    </select>
+	
+	<select id="getTraderIdsByCommunicateIds" resultType="java.lang.Integer">
+		SELECT
+			DISTINCT TRADER_ID
+		FROM
+			T_COMMUNICATE_RECORD
+		WHERE
+			TRADER_TYPE = 1
+		AND
+			TRADER_ID > 0
+		and
+			COMMUNICATE_RECORD_ID in
+			<foreach collection="list" item="communicateRecordId" open="(" close=")" separator=",">
+				#{communicateRecordId}
+			</foreach>
+	</select>
+</mapper>

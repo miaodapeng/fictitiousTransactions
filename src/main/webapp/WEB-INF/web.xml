@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+		 id="WebApp_ID" version="3.0">
+
+  <!-- 項目描述 -->
+  <display-name>erp.vedeng.com</display-name>
+  
+  <!-- 设置Spring容器加载配置文件 -->
+  <context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:spring.xml
+		</param-value>
+  	</context-param>
+	<filter>
+		<description>
+		</description>
+
+		<filter-name>cosFilter</filter-name>
+		<filter-class>com.vedeng.common.shiro.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>cosFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+  	
+	<!-- 加载Spring容器配置 -->
+	<listener>
+		<description>spring listener</description>
+		<listener-class>com.vedeng.common.web.listener.Customlister</listener-class>
+	</listener>
+
+	<!-- 防止内存泄漏的监听器 -->
+    <listener>
+      	<listener-class>
+          org.springframework.web.util.IntrospectorCleanupListener
+      	</listener-class>
+    </listener>
+    
+     <listener>  
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
+	 </listener>
+
+	<!-- 配置Springmvc核心控制器 -->
+	<servlet>
+		<description>spring mvc servlet</description>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>springmvc config</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<!-- 立马启动servlet -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- servlet-mapping配置 -->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/checkpreload.html</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/batSyncToPhp.html</url-pattern>
+	</servlet-mapping>
+
+	<!-- axis2 -->
+	<servlet>
+    <servlet-name>AxisServlet</servlet-name>
+    <servlet-class>org.apache.axis2.transport.http.AxisServlet</servlet-class>
+    <load-on-startup>15</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>AxisServlet</servlet-name>
+	    <url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	
+
+
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 解决工程编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+
+
+
+	<!-- Shiro Filter -->  
+	
+
+
+
+<!-- 
+	<filter>  
+        <filter-name>authorityFilter</filter-name>  
+        	<filter-class>com.vedeng.common.shiro.AuthorityFilter</filter-class>
+        <init-param>    
+			<param-name>excludedPages</param-name>    
+			<param-value>/login.do,/dologin.do,/loginout.do</param-value>    
+		</init-param>     
+    </filter>  
+    <filter-mapping>  
+        <filter-name>authorityFilter</filter-name>  
+        <url-pattern>*.do</url-pattern>  
+    </filter-mapping>
+   -->
+	
+
+
+
+
+
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/common/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/common/404.jsp</location>
+	</error-page>
+	<!-- 设置默认打开页面列表 -->
+    <welcome-file-list>
+    	<welcome-file>/login.do</welcome-file>
+    	<welcome-file>/login.jsp</welcome-file>
+  	</welcome-file-list>
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>/WEB-INF/tld/myfn.tld</taglib-uri>
+			<taglib-location>/WEB-INF/tld/myfn.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+</web-app>

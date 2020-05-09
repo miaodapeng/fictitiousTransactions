@@ -1,0 +1,863 @@
+.form-span-1 .form-label {
+    width: 20px;
+}
+
+.form-span-1 .form-fields {
+    margin-left: 30px;
+}
+
+.form-span-2 .form-label {
+    width: 50px;
+}
+
+.form-span-2 .form-fields {
+    margin-left: 60px;
+}
+
+.form-span-3 .form-label {
+    width: 80px;
+}
+
+.form-span-3 .form-fields {
+    margin-left: 90px;
+}
+
+.form-span-4 .form-label {
+    width: 110px;
+}
+
+.form-span-4 .form-fields {
+    margin-left: 120px;
+}
+
+.form-span-5 .form-label {
+    width: 140px;
+}
+
+.form-span-5 .form-fields {
+    margin-left: 150px;
+}
+
+.form-span-6 .form-label {
+    width: 170px;
+}
+
+.form-span-6 .form-fields {
+    margin-left: 180px;
+}
+
+.form-span-7 .form-label {
+    width: 200px;
+}
+
+.form-span-7 .form-fields {
+    margin-left: 210px;
+}
+
+.form-span-8 .form-label {
+    width: 230px;
+}
+
+.form-span-8 .form-fields {
+    margin-left: 240px;
+}
+
+.form-span-9 .form-label {
+    width: 260px;
+}
+
+.form-span-9 .form-fields {
+    margin-left: 270px;
+}
+
+.form-span-10 .form-label {
+    width: 290px;
+}
+
+.form-span-10 .form-fields {
+    margin-left: 300px;
+}
+
+.form-span-11 .form-label {
+    width: 320px;
+}
+
+.form-span-11 .form-fields {
+    margin-left: 330px;
+}
+
+.form-span-12 .form-label {
+    width: 350px;
+}
+
+.form-span-12 .form-fields {
+    margin-left: 360px;
+}
+
+.form-span-13 .form-label {
+    width: 380px;
+}
+
+.form-span-13 .form-fields {
+    margin-left: 390px;
+}
+
+.form-span-14 .form-label {
+    width: 410px;
+}
+
+.form-span-14 .form-fields {
+    margin-left: 420px;
+}
+
+.form-span-15 .form-label {
+    width: 440px;
+}
+
+.form-span-15 .form-fields {
+    margin-left: 450px;
+}
+
+.form-span-16 .form-label {
+    width: 470px;
+}
+
+.form-span-16 .form-fields {
+    margin-left: 480px;
+}
+
+.form-span-17 .form-label {
+    width: 500px;
+}
+
+.form-span-17 .form-fields {
+    margin-left: 510px;
+}
+
+.form-span-18 .form-label {
+    width: 530px;
+}
+
+.form-span-18 .form-fields {
+    margin-left: 540px;
+}
+
+.form-span-19 .form-label {
+    width: 560px;
+}
+
+.form-span-19 .form-fields {
+    margin-left: 570px;
+}
+
+.form-span-20 .form-label {
+    width: 590px;
+}
+
+.form-span-20 .form-fields {
+    margin-left: 600px;
+}
+
+.form-span-21 .form-label {
+    width: 620px;
+}
+
+.form-span-21 .form-fields {
+    margin-left: 630px;
+}
+
+.form-span-22 .form-label {
+    width: 650px;
+}
+
+.form-span-22 .form-fields {
+    margin-left: 660px;
+}
+
+.form-span-23 .form-label {
+    width: 680px;
+}
+
+.form-span-23 .form-fields {
+    margin-left: 690px;
+}
+
+.form-span-24 .form-label {
+    width: 710px;
+}
+
+.form-span-24 .form-fields {
+    margin-left: 720px;
+}
+
+.form-span-25 .form-label {
+    width: 740px;
+}
+
+.form-span-25 .form-fields {
+    margin-left: 750px;
+}
+
+.form-span-26 .form-label {
+    width: 770px;
+}
+
+.form-span-26 .form-fields {
+    margin-left: 780px;
+}
+
+.form-span-27 .form-label {
+    width: 800px;
+}
+
+.form-span-27 .form-fields {
+    margin-left: 810px;
+}
+
+.form-span-28 .form-label {
+    width: 830px;
+}
+
+.form-span-28 .form-fields {
+    margin-left: 840px;
+}
+
+.form-span-29 .form-label {
+    width: 860px;
+}
+
+.form-span-29 .form-fields {
+    margin-left: 870px;
+}
+
+.form-span-30 .form-label {
+    width: 890px;
+}
+
+.form-span-30 .form-fields {
+    margin-left: 900px;
+}
+
+.base-form .form-item {
+    margin-bottom: 20px;
+}
+
+.base-form .form-item:last-child {
+    margin-bottom: 0;
+}
+
+.base-form .form-label {
+    line-height: 18px;
+    float: left;
+    padding-top: 6px;
+    margin-bottom: 6px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.base-form .form-label .must {
+    color: #e64545;
+    margin-right: 3px;
+    font-style: normal;
+}
+
+.base-form .form-fields {
+}
+
+.base-form .form-fields:before,
+.base-form .form-fields:after {
+    content: "";
+    display: table;
+}
+
+.base-form .form-fields:after {
+    clear: both;
+}
+
+.col-1 {
+    width: 8.33333%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-1 .input-text,
+.col-1 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-1 {
+    margin-left: 8.33333%;
+}
+
+.col-right-1 {
+    right: 8.33333%;
+}
+
+.col-left-1 {
+    left: 8.33333%;
+}
+
+.col-2 {
+    width: 16.66667%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-2 .input-text,
+.col-2 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-2 {
+    margin-left: 16.66667%;
+}
+
+.col-right-2 {
+    right: 16.66667%;
+}
+
+.col-left-2 {
+    left: 16.66667%;
+}
+
+.col-3 {
+    width: 25%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-3 .input-text,
+.col-3 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-3 {
+    margin-left: 25%;
+}
+
+.col-right-3 {
+    right: 25%;
+}
+
+.col-left-3 {
+    left: 25%;
+}
+
+.col-4 {
+    width: 33.33333%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-4 .input-text,
+.col-4 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-4 {
+    margin-left: 33.33333%;
+}
+
+.col-right-4 {
+    right: 33.33333%;
+}
+
+.col-left-4 {
+    left: 33.33333%;
+}
+
+.col-5 {
+    width: 41.66667%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-5 .input-text,
+.col-5 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-5 {
+    margin-left: 41.66667%;
+}
+
+.col-right-5 {
+    right: 41.66667%;
+}
+
+.col-left-5 {
+    left: 41.66667%;
+}
+
+.col-6 {
+    width: 50%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-6 .input-text,
+.col-6 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-6 {
+    margin-left: 50%;
+}
+
+.col-right-6 {
+    right: 50%;
+}
+
+.col-left-6 {
+    left: 50%;
+}
+
+.col-7 {
+    width: 58.33333%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-7 .input-text,
+.col-7 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-7 {
+    margin-left: 58.33333%;
+}
+
+.col-right-7 {
+    right: 58.33333%;
+}
+
+.col-left-7 {
+    left: 58.33333%;
+}
+
+.col-8 {
+    width: 66.66667%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-8 .input-text,
+.col-8 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-8 {
+    margin-left: 66.66667%;
+}
+
+.col-right-8 {
+    right: 66.66667%;
+}
+
+.col-left-8 {
+    left: 66.66667%;
+}
+
+.col-9 {
+    width: 75%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-9 .input-text,
+.col-9 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-9 {
+    margin-left: 75%;
+}
+
+.col-right-9 {
+    right: 75%;
+}
+
+.col-left-9 {
+    left: 75%;
+}
+
+.col-10 {
+    width: 83.33333%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-10 .input-text,
+.col-10 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-10 {
+    margin-left: 83.33333%;
+}
+
+.col-right-10 {
+    right: 83.33333%;
+}
+
+.col-left-10 {
+    left: 83.33333%;
+}
+
+.col-11 {
+    width: 91.66667%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-11 .input-text,
+.col-11 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-11 {
+    margin-left: 91.66667%;
+}
+
+.col-right-11 {
+    right: 91.66667%;
+}
+
+.col-left-11 {
+    left: 91.66667%;
+}
+
+.col-12 {
+    width: 100%;
+    float: left;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.col-12 .input-text,
+.col-12 .input-textarea {
+    width: 100%;
+}
+
+.col-offset-12 {
+    margin-left: 100%;
+}
+
+.col-right-12 {
+    right: 100%;
+}
+
+.col-left-12 {
+    left: 100%;
+}
+
+.span-1 {
+    display: inline-block;
+    width: 20px;
+    box-sizing: border-box;
+}
+
+.span-1 .input-text {
+    width: 100%;
+}
+
+.span-2 {
+    display: inline-block;
+    width: 40px;
+    box-sizing: border-box;
+}
+
+.span-2 .input-text {
+    width: 100%;
+}
+
+.span-3 {
+    display: inline-block;
+    width: 60px;
+    box-sizing: border-box;
+}
+
+.span-3 .input-text {
+    width: 100%;
+}
+
+.span-4 {
+    display: inline-block;
+    width: 80px;
+    box-sizing: border-box;
+}
+
+.span-4 .input-text {
+    width: 100%;
+}
+
+.span-5 {
+    display: inline-block;
+    width: 100px;
+    box-sizing: border-box;
+}
+
+.span-5 .input-text {
+    width: 100%;
+}
+
+.span-6 {
+    display: inline-block;
+    width: 120px;
+    box-sizing: border-box;
+}
+
+.span-6 .input-text {
+    width: 100%;
+}
+
+.span-7 {
+    display: inline-block;
+    width: 140px;
+    box-sizing: border-box;
+}
+
+.span-7 .input-text {
+    width: 100%;
+}
+
+.span-8 {
+    display: inline-block;
+    width: 160px;
+    box-sizing: border-box;
+}
+
+.span-8 .input-text {
+    width: 100%;
+}
+
+.span-9 {
+    display: inline-block;
+    width: 180px;
+    box-sizing: border-box;
+}
+
+.span-9 .input-text {
+    width: 100%;
+}
+
+.span-10 {
+    display: inline-block;
+    width: 200px;
+    box-sizing: border-box;
+}
+
+.span-10 .input-text {
+    width: 100%;
+}
+
+.span-11 {
+    display: inline-block;
+    width: 220px;
+    box-sizing: border-box;
+}
+
+.span-11 .input-text {
+    width: 100%;
+}
+
+.span-12 {
+    display: inline-block;
+    width: 240px;
+    box-sizing: border-box;
+}
+
+.span-12 .input-text {
+    width: 100%;
+}
+
+.span-13 {
+    display: inline-block;
+    width: 260px;
+    box-sizing: border-box;
+}
+
+.span-13 .input-text {
+    width: 100%;
+}
+
+.span-14 {
+    display: inline-block;
+    width: 280px;
+    box-sizing: border-box;
+}
+
+.span-14 .input-text {
+    width: 100%;
+}
+
+.span-15 {
+    display: inline-block;
+    width: 300px;
+    box-sizing: border-box;
+}
+
+.span-15 .input-text {
+    width: 100%;
+}
+
+.span-16 {
+    display: inline-block;
+    width: 320px;
+    box-sizing: border-box;
+}
+
+.span-16 .input-text {
+    width: 100%;
+}
+
+.span-17 {
+    display: inline-block;
+    width: 340px;
+    box-sizing: border-box;
+}
+
+.span-17 .input-text {
+    width: 100%;
+}
+
+.span-18 {
+    display: inline-block;
+    width: 360px;
+    box-sizing: border-box;
+}
+
+.span-18 .input-text {
+    width: 100%;
+}
+
+.span-19 {
+    display: inline-block;
+    width: 380px;
+    box-sizing: border-box;
+}
+
+.span-19 .input-text {
+    width: 100%;
+}
+
+.span-20 {
+    display: inline-block;
+    width: 400px;
+    box-sizing: border-box;
+}
+
+.span-20 .input-text {
+    width: 100%;
+}
+
+.span-21 {
+    display: inline-block;
+    width: 420px;
+    box-sizing: border-box;
+}
+
+.span-21 .input-text {
+    width: 100%;
+}
+
+.span-22 {
+    display: inline-block;
+    width: 440px;
+    box-sizing: border-box;
+}
+
+.span-22 .input-text {
+    width: 100%;
+}
+
+.span-23 {
+    display: inline-block;
+    width: 460px;
+    box-sizing: border-box;
+}
+
+.span-23 .input-text {
+    width: 100%;
+}
+
+.span-24 {
+    display: inline-block;
+    width: 480px;
+    box-sizing: border-box;
+}
+
+.span-24 .input-text {
+    width: 100%;
+}
+
+.span-25 {
+    display: inline-block;
+    width: 500px;
+    box-sizing: border-box;
+}
+
+.span-25 .input-text {
+    width: 100%;
+}
+
+.span-26 {
+    display: inline-block;
+    width: 520px;
+    box-sizing: border-box;
+}
+
+.span-26 .input-text {
+    width: 100%;
+}
+
+.span-27 {
+    display: inline-block;
+    width: 540px;
+    box-sizing: border-box;
+}
+
+.span-27 .input-text {
+    width: 100%;
+}
+
+.span-28 {
+    display: inline-block;
+    width: 560px;
+    box-sizing: border-box;
+}
+
+.span-28 .input-text {
+    width: 100%;
+}
+
+.span-29 {
+    display: inline-block;
+    width: 580px;
+    box-sizing: border-box;
+}
+
+.span-29 .input-text {
+    width: 100%;
+}
+
+.span-30 {
+    display: inline-block;
+    width: 600px;
+    box-sizing: border-box;
+}
+
+.span-30 .input-text {
+    width: 100%;
+}

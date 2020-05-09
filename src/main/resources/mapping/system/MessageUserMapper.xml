@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.MessageUserMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.MessageUser" >
+    <id column="MESSAGE_USER_ID" property="messageUserId" jdbcType="INTEGER" />
+    <result column="MESSAGE_ID" property="messageId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="IS_VIEW" property="isView" jdbcType="BIT" />
+    <result column="VIEW_TIME" property="viewTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MESSAGE_USER_ID, MESSAGE_ID, USER_ID, IS_VIEW, VIEW_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_MESSAGE_USER
+    where MESSAGE_USER_ID = #{messageUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_MESSAGE_USER
+    where MESSAGE_USER_ID = #{messageUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.MessageUser" >
+    insert into T_MESSAGE_USER (MESSAGE_USER_ID, MESSAGE_ID, USER_ID, 
+      IS_VIEW, VIEW_TIME)
+    values (#{messageUserId,jdbcType=INTEGER}, #{messageId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{isView,jdbcType=BIT}, #{viewTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.MessageUser" >
+    insert into T_MESSAGE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageUserId != null" >
+        MESSAGE_USER_ID,
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="isView != null" >
+        IS_VIEW,
+      </if>
+      <if test="viewTime != null" >
+        VIEW_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageUserId != null" >
+        #{messageUserId,jdbcType=INTEGER},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isView != null" >
+        #{isView,jdbcType=BIT},
+      </if>
+      <if test="viewTime != null" >
+        #{viewTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.MessageUser" >
+    update T_MESSAGE_USER
+    <set >
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isView != null" >
+        IS_VIEW = #{isView,jdbcType=BIT},
+      </if>
+      <if test="viewTime != null" >
+        VIEW_TIME = #{viewTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where MESSAGE_USER_ID = #{messageUserId,jdbcType=INTEGER}
+  </update>
+  <!-- 修改站内信息读取状态 -->
+  <update id="updateMessageViewStatus" parameterType="com.vedeng.system.model.MessageUser" >
+    update T_MESSAGE_USER
+    <set >
+      <if test="isView != null" >
+        IS_VIEW = #{isView, jdbcType=BIT},
+      </if>
+      <if test="viewTime != null" >
+        VIEW_TIME = #{viewTime, jdbcType=BIGINT},
+      </if>
+    </set>
+    where
+    	1 = 1
+	    <if test="messageUserId != null" > 
+	   	  AND MESSAGE_USER_ID = #{messageUserId, jdbcType=INTEGER}
+	    </if>
+	    <if test="userId != null" > 
+	      AND	USER_ID = #{userId, jdbcType=INTEGER}
+	    </if>
+	    <if test="messageId != null" > 
+	      AND MESSAGE_ID = #{messageId, jdbcType=INTEGER}
+	    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.MessageUser" >
+    update T_MESSAGE_USER
+    set MESSAGE_ID = #{messageId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      IS_VIEW = #{isView,jdbcType=BIT},
+      VIEW_TIME = #{viewTime,jdbcType=BIGINT}
+    where MESSAGE_USER_ID = #{messageUserId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="editMessageUser" parameterType="Map" >
+    update T_MESSAGE_USER
+    <set >
+      <if test="messageUser.isView != null" >
+        IS_VIEW = #{messageUser.isView,jdbcType=BIT},
+      </if>
+      <if test="messageUser.viewTime != null" >
+        VIEW_TIME = #{messageUser.viewTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where
+    <if test="messageUserId != null" > 
+    	MESSAGE_USER_ID = #{messageUserId,jdbcType=INTEGER}
+    </if>
+    <if test="userId != null" > 
+    	USER_ID = #{userId,jdbcType=INTEGER}
+    </if>
+  </update>
+  <!-- 批量保存 -->
+  <insert id="saveBatch" parameterType="java.util.List" >
+		<foreach item="data" index="index" collection="messageUserList" separator=";">
+			insert into T_MESSAGE_USER ( MESSAGE_ID, USER_ID,
+			IS_VIEW, VIEW_TIME)
+			values ( #{data.messageId,jdbcType=INTEGER},
+			#{data.userId,jdbcType=INTEGER},
+			#{data.isView,jdbcType=BIT}, #{data.viewTime,jdbcType=BIGINT})
+		</foreach>
+	</insert>
+</mapper>

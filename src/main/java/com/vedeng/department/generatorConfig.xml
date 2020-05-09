@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="context1">
+  <property name="autoDelimitKeywords" value="true"/>
+  <property name="beginningDelimiter" value="`"/>
+<property name="endingDelimiter" value="`"/>
+  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+	                        connectionURL="jdbc:mysql://192.168.1.54:3306/DEV_NEW_ERP_VEDENG_COM?tinyInt1isBit=false&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"
+	                        userId="devuser"
+	                        password="devuser!@#$qwer" />
+    <javaModelGenerator targetPackage="com.vedeng.department.model"  targetProject="erp.vedeng.com" />
+    <sqlMapGenerator targetPackage="com.vedeng.department.dao.mapper" targetProject="erp.vedeng.com" />
+    <javaClientGenerator targetPackage="com.vedeng.department.dao" targetProject="erp.vedeng.com" type="XMLMAPPER" />
+    
+	 <table tableName="T_DEPARTMENTS_HOSPITAL" domainObjectName="DepartmentsHospitalGenerate">
+       <generatedKey column="DEPARTMENT_ID" sqlStatement="MySql" identity="true"/>
+       <columnOverride column="IS_DELETE" javaType="java.lang.Integer"/>
+	</table>
+  </context>
+</generatorConfiguration>

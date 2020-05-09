@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.reportSaleorder.dao.ReportSaleorderMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.reportSaleorder.model.ReportSaleorder" >
+    <!--          -->
+    <id column="SALEORDER_ID" property="saleorderId" jdbcType="INTEGER" />
+    <result column="SALEORDER_NO" property="saleorderNo" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="BIT" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="BIT" />
+    <result column="ORDER_AMOUNT" property="orderAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="PURCHASE_AMOUNT" property="purchaseAmount" jdbcType="DECIMAL" />
+    <result column="IS_ACCOUNT_PERIOD" property="isAccountPeriod" jdbcType="BIT" />
+    <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="BIT" />
+    <result column="CUSTOMER_ID" property="customerId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_NAME" property="customerName" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_LEVEL_ID" property="customerLevelId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_LEVEL" property="customerLevel" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_NATURE_ID" property="customerNatureId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_NATURE" property="customerNature" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_PROVINCE_ID" property="customerProvinceId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_CITY_ID" property="customerCityId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_PROVINCE" property="customerProvince" jdbcType="VARCHAR" />
+    <result column="CUSTOMER_CITY" property="customerCity" jdbcType="VARCHAR" />
+    <result column="CREATOR_ID" property="creatorId" jdbcType="INTEGER" />
+    <result column="CREATOR_NAME" property="creatorName" jdbcType="VARCHAR" />
+    <result column="CREATOR_DEPT_ID" property="creatorDeptId" jdbcType="INTEGER" />
+    <result column="CREATOR_PARENT_DEPT_ID" property="creatorParentDeptId" jdbcType="INTEGER" />
+    <result column="CREATOR_DEPT_NAME" property="creatorDeptName" jdbcType="VARCHAR" />
+    <result column="CREATOR_PARENT_DEPT_NAME" property="creatorParentDeptName" jdbcType="VARCHAR" />
+    <result column="VALID_USER_ID" property="validUserId" jdbcType="INTEGER" />
+    <result column="VALID_USER_NAME" property="validUserName" jdbcType="VARCHAR" />
+    <result column="VALID_DEPT_ID" property="validDeptId" jdbcType="INTEGER" />
+    <result column="VALID_PARENT_DEPT_ID" property="validParentDeptId" jdbcType="INTEGER" />
+    <result column="VALID_DEPT_NAME" property="validDeptName" jdbcType="VARCHAR" />
+    <result column="VALID_PARENT_DEPT_NAME" property="validParentDeptName" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_YEAR" property="dataDateYear" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_MONTH" property="dataDateMonth" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_YM" property="dataDateYm" jdbcType="VARCHAR" />
+    <result column="DATA_DATE" property="dataDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    SALEORDER_ID, SALEORDER_NO, ORDER_TYPE, ORDER_STATUS, ORDER_AMOUNT, REFUND_AMOUNT,
+    PURCHASE_AMOUNT, IS_ACCOUNT_PERIOD, PAYMENT_STATUS, CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_LEVEL_ID, 
+    CUSTOMER_LEVEL, CUSTOMER_NATURE_ID, CUSTOMER_NATURE, CUSTOMER_PROVINCE_ID, CUSTOMER_CITY_ID, 
+    CUSTOMER_PROVINCE, CUSTOMER_CITY, CREATOR_ID, CREATOR_NAME, CREATOR_DEPT_ID, CREATOR_PARENT_DEPT_ID, 
+    CREATOR_DEPT_NAME, CREATOR_PARENT_DEPT_NAME, VALID_USER_ID, VALID_USER_NAME, VALID_DEPT_ID, 
+    VALID_PARENT_DEPT_ID, VALID_DEPT_NAME, VALID_PARENT_DEPT_NAME, DATA_DATE_YEAR, DATA_DATE_MONTH, 
+    DATA_DATE_YM, DATA_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_SALEORDER
+    where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from T_REPORT_SALEORDER
+    where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.reportSaleorder.model.ReportSaleorder" >
+    <!--          -->
+    insert into T_REPORT_SALEORDER (SALEORDER_ID, SALEORDER_NO, ORDER_TYPE, 
+      ORDER_STATUS, ORDER_AMOUNT, REFUND_AMOUNT, 
+      PURCHASE_AMOUNT, IS_ACCOUNT_PERIOD, PAYMENT_STATUS, 
+      CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_LEVEL_ID, 
+      CUSTOMER_LEVEL, CUSTOMER_NATURE_ID, CUSTOMER_NATURE, 
+      CUSTOMER_PROVINCE_ID, CUSTOMER_CITY_ID, CUSTOMER_PROVINCE, 
+      CUSTOMER_CITY, CREATOR_ID, CREATOR_NAME, 
+      CREATOR_DEPT_ID, CREATOR_PARENT_DEPT_ID, CREATOR_DEPT_NAME, 
+      CREATOR_PARENT_DEPT_NAME, VALID_USER_ID, VALID_USER_NAME, 
+      VALID_DEPT_ID, VALID_PARENT_DEPT_ID, VALID_DEPT_NAME, 
+      VALID_PARENT_DEPT_NAME, DATA_DATE_YEAR, DATA_DATE_MONTH, 
+      DATA_DATE_YM, DATA_DATE)
+    values (#{saleorderId,jdbcType=INTEGER}, #{saleorderNo,jdbcType=VARCHAR}, #{orderType,jdbcType=BIT}, 
+      #{orderStatus,jdbcType=BIT}, #{orderAmount,jdbcType=DECIMAL}, #{refundAmount,jdbcType=DECIMAL}, 
+      #{purchaseAmount,jdbcType=DECIMAL}, #{isAccountPeriod,jdbcType=BIT}, #{paymentStatus,jdbcType=BIT}, 
+      #{customerId,jdbcType=INTEGER}, #{customerName,jdbcType=VARCHAR}, #{customerLevelId,jdbcType=INTEGER}, 
+      #{customerLevel,jdbcType=VARCHAR}, #{customerNatureId,jdbcType=INTEGER}, #{customerNature,jdbcType=VARCHAR}, 
+      #{customerProvinceId,jdbcType=INTEGER}, #{customerCityId,jdbcType=INTEGER}, #{customerProvince,jdbcType=VARCHAR}, 
+      #{customerCity,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{creatorName,jdbcType=VARCHAR}, 
+      #{creatorDeptId,jdbcType=INTEGER}, #{creatorParentDeptId,jdbcType=INTEGER}, #{creatorDeptName,jdbcType=VARCHAR}, 
+      #{creatorParentDeptName,jdbcType=VARCHAR}, #{validUserId,jdbcType=INTEGER}, #{validUserName,jdbcType=VARCHAR}, 
+      #{validDeptId,jdbcType=INTEGER}, #{validParentDeptId,jdbcType=INTEGER}, #{validDeptName,jdbcType=VARCHAR}, 
+      #{validParentDeptName,jdbcType=VARCHAR}, #{dataDateYear,jdbcType=VARCHAR}, #{dataDateMonth,jdbcType=VARCHAR}, 
+      #{dataDateYm,jdbcType=VARCHAR}, #{dataDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.reportSaleorder.model.ReportSaleorder" >
+    <!--          -->
+    insert into T_REPORT_SALEORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="saleorderId != null" >
+        SALEORDER_ID,
+      </if>
+      <if test="saleorderNo != null" >
+        SALEORDER_NO,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="orderAmount != null" >
+        ORDER_AMOUNT,
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT,
+      </if>
+      <if test="purchaseAmount != null" >
+        PURCHASE_AMOUNT,
+      </if>
+      <if test="isAccountPeriod != null" >
+        IS_ACCOUNT_PERIOD,
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS,
+      </if>
+      <if test="customerId != null" >
+        CUSTOMER_ID,
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME,
+      </if>
+      <if test="customerLevelId != null" >
+        CUSTOMER_LEVEL_ID,
+      </if>
+      <if test="customerLevel != null" >
+        CUSTOMER_LEVEL,
+      </if>
+      <if test="customerNatureId != null" >
+        CUSTOMER_NATURE_ID,
+      </if>
+      <if test="customerNature != null" >
+        CUSTOMER_NATURE,
+      </if>
+      <if test="customerProvinceId != null" >
+        CUSTOMER_PROVINCE_ID,
+      </if>
+      <if test="customerCityId != null" >
+        CUSTOMER_CITY_ID,
+      </if>
+      <if test="customerProvince != null" >
+        CUSTOMER_PROVINCE,
+      </if>
+      <if test="customerCity != null" >
+        CUSTOMER_CITY,
+      </if>
+      <if test="creatorId != null" >
+        CREATOR_ID,
+      </if>
+      <if test="creatorName != null" >
+        CREATOR_NAME,
+      </if>
+      <if test="creatorDeptId != null" >
+        CREATOR_DEPT_ID,
+      </if>
+      <if test="creatorParentDeptId != null" >
+        CREATOR_PARENT_DEPT_ID,
+      </if>
+      <if test="creatorDeptName != null" >
+        CREATOR_DEPT_NAME,
+      </if>
+      <if test="creatorParentDeptName != null" >
+        CREATOR_PARENT_DEPT_NAME,
+      </if>
+      <if test="validUserId != null" >
+        VALID_USER_ID,
+      </if>
+      <if test="validUserName != null" >
+        VALID_USER_NAME,
+      </if>
+      <if test="validDeptId != null" >
+        VALID_DEPT_ID,
+      </if>
+      <if test="validParentDeptId != null" >
+        VALID_PARENT_DEPT_ID,
+      </if>
+      <if test="validDeptName != null" >
+        VALID_DEPT_NAME,
+      </if>
+      <if test="validParentDeptName != null" >
+        VALID_PARENT_DEPT_NAME,
+      </if>
+      <if test="dataDateYear != null" >
+        DATA_DATE_YEAR,
+      </if>
+      <if test="dataDateMonth != null" >
+        DATA_DATE_MONTH,
+      </if>
+      <if test="dataDateYm != null" >
+        DATA_DATE_YM,
+      </if>
+      <if test="dataDate != null" >
+        DATA_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="saleorderId != null" >
+        #{saleorderId,jdbcType=INTEGER},
+      </if>
+      <if test="saleorderNo != null" >
+        #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=BIT},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=BIT},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseAmount != null" >
+        #{purchaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isAccountPeriod != null" >
+        #{isAccountPeriod,jdbcType=BIT},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerLevelId != null" >
+        #{customerLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="customerLevel != null" >
+        #{customerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNatureId != null" >
+        #{customerNatureId,jdbcType=INTEGER},
+      </if>
+      <if test="customerNature != null" >
+        #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProvinceId != null" >
+        #{customerProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="customerCityId != null" >
+        #{customerCityId,jdbcType=INTEGER},
+      </if>
+      <if test="customerProvince != null" >
+        #{customerProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCity != null" >
+        #{customerCity,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorDeptId != null" >
+        #{creatorDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorParentDeptId != null" >
+        #{creatorParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorDeptName != null" >
+        #{creatorDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorParentDeptName != null" >
+        #{creatorParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validUserId != null" >
+        #{validUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validUserName != null" >
+        #{validUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDeptId != null" >
+        #{validDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validParentDeptId != null" >
+        #{validParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validDeptName != null" >
+        #{validDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validParentDeptName != null" >
+        #{validParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYear != null" >
+        #{dataDateYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateMonth != null" >
+        #{dataDateMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYm != null" >
+        #{dataDateYm,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDate != null" >
+        #{dataDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.reportSaleorder.model.ReportSaleorder" >
+    <!--          -->
+    update T_REPORT_SALEORDER
+    <set >
+      <if test="saleorderNo != null" >
+        SALEORDER_NO = #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType,jdbcType=BIT},
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS = #{orderStatus,jdbcType=BIT},
+      </if>
+      <if test="orderAmount != null" >
+        ORDER_AMOUNT = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="purchaseAmount != null" >
+        PURCHASE_AMOUNT = #{purchaseAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="isAccountPeriod != null" >
+        IS_ACCOUNT_PERIOD = #{isAccountPeriod,jdbcType=BIT},
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="customerId != null" >
+        CUSTOMER_ID = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="customerName != null" >
+        CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerLevelId != null" >
+        CUSTOMER_LEVEL_ID = #{customerLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="customerLevel != null" >
+        CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="customerNatureId != null" >
+        CUSTOMER_NATURE_ID = #{customerNatureId,jdbcType=INTEGER},
+      </if>
+      <if test="customerNature != null" >
+        CUSTOMER_NATURE = #{customerNature,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProvinceId != null" >
+        CUSTOMER_PROVINCE_ID = #{customerProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="customerCityId != null" >
+        CUSTOMER_CITY_ID = #{customerCityId,jdbcType=INTEGER},
+      </if>
+      <if test="customerProvince != null" >
+        CUSTOMER_PROVINCE = #{customerProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="customerCity != null" >
+        CUSTOMER_CITY = #{customerCity,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null" >
+        CREATOR_ID = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorName != null" >
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorDeptId != null" >
+        CREATOR_DEPT_ID = #{creatorDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorParentDeptId != null" >
+        CREATOR_PARENT_DEPT_ID = #{creatorParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="creatorDeptName != null" >
+        CREATOR_DEPT_NAME = #{creatorDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorParentDeptName != null" >
+        CREATOR_PARENT_DEPT_NAME = #{creatorParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validUserId != null" >
+        VALID_USER_ID = #{validUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validUserName != null" >
+        VALID_USER_NAME = #{validUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDeptId != null" >
+        VALID_DEPT_ID = #{validDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validParentDeptId != null" >
+        VALID_PARENT_DEPT_ID = #{validParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validDeptName != null" >
+        VALID_DEPT_NAME = #{validDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validParentDeptName != null" >
+        VALID_PARENT_DEPT_NAME = #{validParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYear != null" >
+        DATA_DATE_YEAR = #{dataDateYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateMonth != null" >
+        DATA_DATE_MONTH = #{dataDateMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYm != null" >
+        DATA_DATE_YM = #{dataDateYm,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDate != null" >
+        DATA_DATE = #{dataDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.reportSaleorder.model.ReportSaleorder" >
+    <!--          -->
+    update T_REPORT_SALEORDER
+    set SALEORDER_NO = #{saleorderNo,jdbcType=VARCHAR},
+      ORDER_TYPE = #{orderType,jdbcType=BIT},
+      ORDER_STATUS = #{orderStatus,jdbcType=BIT},
+      ORDER_AMOUNT = #{orderAmount,jdbcType=DECIMAL},
+      REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      PURCHASE_AMOUNT = #{purchaseAmount,jdbcType=DECIMAL},
+      IS_ACCOUNT_PERIOD = #{isAccountPeriod,jdbcType=BIT},
+      PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},
+      CUSTOMER_ID = #{customerId,jdbcType=INTEGER},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUSTOMER_LEVEL_ID = #{customerLevelId,jdbcType=INTEGER},
+      CUSTOMER_LEVEL = #{customerLevel,jdbcType=VARCHAR},
+      CUSTOMER_NATURE_ID = #{customerNatureId,jdbcType=INTEGER},
+      CUSTOMER_NATURE = #{customerNature,jdbcType=VARCHAR},
+      CUSTOMER_PROVINCE_ID = #{customerProvinceId,jdbcType=INTEGER},
+      CUSTOMER_CITY_ID = #{customerCityId,jdbcType=INTEGER},
+      CUSTOMER_PROVINCE = #{customerProvince,jdbcType=VARCHAR},
+      CUSTOMER_CITY = #{customerCity,jdbcType=VARCHAR},
+      CREATOR_ID = #{creatorId,jdbcType=INTEGER},
+      CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      CREATOR_DEPT_ID = #{creatorDeptId,jdbcType=INTEGER},
+      CREATOR_PARENT_DEPT_ID = #{creatorParentDeptId,jdbcType=INTEGER},
+      CREATOR_DEPT_NAME = #{creatorDeptName,jdbcType=VARCHAR},
+      CREATOR_PARENT_DEPT_NAME = #{creatorParentDeptName,jdbcType=VARCHAR},
+      VALID_USER_ID = #{validUserId,jdbcType=INTEGER},
+      VALID_USER_NAME = #{validUserName,jdbcType=VARCHAR},
+      VALID_DEPT_ID = #{validDeptId,jdbcType=INTEGER},
+      VALID_PARENT_DEPT_ID = #{validParentDeptId,jdbcType=INTEGER},
+      VALID_DEPT_NAME = #{validDeptName,jdbcType=VARCHAR},
+      VALID_PARENT_DEPT_NAME = #{validParentDeptName,jdbcType=VARCHAR},
+      DATA_DATE_YEAR = #{dataDateYear,jdbcType=VARCHAR},
+      DATA_DATE_MONTH = #{dataDateMonth,jdbcType=VARCHAR},
+      DATA_DATE_YM = #{dataDateYm,jdbcType=VARCHAR},
+      DATA_DATE = #{dataDate,jdbcType=VARCHAR}
+    where SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </update>
+  <select id="getOrderNum" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM T_REPORT_SALEORDER
+  </select>
+  <select id="getSaleorderList" parameterType="java.util.Map" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+        a.SALEORDER_ID,
+        a.COMPANY_ID,
+        a.SALEORDER_NO,
+        a.ORDER_TYPE,
+        a.`STATUS` AS ORDER_STATUS,
+        ROUND(a.TOTAL_AMOUNT / 10000, 4) AS ORDER_AMOUNT,
+        a.HAVE_ACCOUNT_PERIOD AS IS_ACCOUNT_PERIOD,
+        a.PAYMENT_STATUS,
+        a.TRADER_ID AS CUSTOMER_ID,
+        a.CREATOR AS CREATOR_ID,
+        IFNULL(d.USERNAME, '') AS CREATOR_NAME,
+        b.USER_ID AS VALID_USER_ID,
+        c.USERNAME AS VALID_USER_NAME,
+        a.VALID_TIME,
+        a.SATISFY_DELIVERY_TIME,
+        a.SALES_AREA_ID
+    FROM
+	    T_SALEORDER a
+    LEFT JOIN T_R_TRADER_J_USER b ON a.TRADER_ID = b.TRADER_ID AND b.TRADER_TYPE = 1
+    LEFT JOIN T_USER c ON b.USER_ID = c.USER_ID
+    LEFT JOIN T_USER d ON d.USER_ID = a.CREATOR
+    WHERE 1=1
+      <if test="orderType != null">
+        AND a.ORDER_TYPE != #{orderType,jdbcType=INTEGER}
+      </if>
+      <if test="companyId != null">
+        AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+      </if>
+      <if test="totalAmount != null">
+        AND a.TOTAL_AMOUNT > #{totalAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="beginTime != null">
+        AND a.SATISFY_DELIVERY_TIME >= #{beginTime,jdbcType=BIGINT}
+        AND a.VALID_TIME >= #{beginTime,jdbcType=BIGINT}
+      </if>
+      <if test="validBeginTime != null and validEndTime != null">
+        AND a.VALID_TIME &gt;= #{validBeginTime,jdbcType=BIGINT}
+        AND a.VALID_TIME &lt; #{validEndTime,jdbcType=BIGINT}
+      </if>
+      <if test="isAccountPeriod != null and paymentStatus != null">
+        AND
+        IF (
+          a.HAVE_ACCOUNT_PERIOD = #{isAccountPeriod,jdbcType=BIT},
+          a.PAYMENT_STATUS != #{paymentStatus,jdbcType=BIT},
+          1 = 1
+        )
+      </if>
+      <if test="userNameList != null and userNameList.size() > 0">
+        AND (
+          d.USERNAME NOT IN
+          <foreach collection="userNameList" index="index" open="(" close=")" separator="," item="userName" >
+            #{userName,jdbcType=VARCHAR}
+          </foreach>
+          OR d.USERNAME IS NULL
+        )
+      </if>
+        AND (a.`STATUS` = 1 OR a.`STATUS` = 2)
+  </select>
+  <delete id="deleteReportSaleorderListThisMon" parameterType="java.lang.String">
+    DELETE
+    FROM T_REPORT_SALEORDER
+    WHERE DATA_DATE_YM = #{saleorderYM,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO T_REPORT_SALEORDER ( SALEORDER_NO, ORDER_TYPE,
+      ORDER_STATUS, ORDER_AMOUNT, REFUND_AMOUNT,
+      PURCHASE_AMOUNT, IS_ACCOUNT_PERIOD, PAYMENT_STATUS,
+      CUSTOMER_ID, CUSTOMER_NAME, CUSTOMER_LEVEL_ID,
+      CUSTOMER_LEVEL, CUSTOMER_NATURE_ID, CUSTOMER_NATURE,
+      CUSTOMER_PROVINCE_ID, CUSTOMER_CITY_ID, CUSTOMER_PROVINCE,
+      CUSTOMER_CITY, CREATOR_ID, CREATOR_NAME,
+      CREATOR_DEPT_ID, CREATOR_PARENT_DEPT_ID, CREATOR_DEPT_NAME,
+      CREATOR_PARENT_DEPT_NAME, VALID_USER_ID, VALID_USER_NAME,
+      VALID_DEPT_ID, VALID_PARENT_DEPT_ID, VALID_DEPT_NAME,
+      VALID_PARENT_DEPT_NAME, DATA_DATE_YEAR, DATA_DATE_MONTH,
+      DATA_DATE_YM, DATA_DATE)
+    VALUES
+      <foreach collection="saleorderList" index="index" separator="," item="saleorder">
+        (#{saleorder.saleorderNo,jdbcType=VARCHAR}, #{saleorder.orderType,jdbcType=BIT},
+         #{saleorder.orderStatus,jdbcType=BIT}, #{saleorder.orderAmount,jdbcType=DECIMAL},
+         #{saleorder.refundAmount,jdbcType=DECIMAL}, #{saleorder.purchaseAmount,jdbcType=DECIMAL},
+         #{saleorder.isAccountPeriod,jdbcType=BIT}, #{saleorder.paymentStatus,jdbcType=BIT},
+         #{saleorder.customerId,jdbcType=INTEGER}, #{saleorder.customerName,jdbcType=VARCHAR},
+         #{saleorder.customerLevelId,jdbcType=INTEGER}, #{saleorder.customerLevel,jdbcType=VARCHAR},
+         #{saleorder.customerNatureId,jdbcType=INTEGER}, #{saleorder.customerNature,jdbcType=VARCHAR},
+         #{saleorder.customerProvinceId,jdbcType=INTEGER}, #{saleorder.customerCityId,jdbcType=INTEGER},
+         #{saleorder.customerProvince,jdbcType=VARCHAR}, #{saleorder.customerCity,jdbcType=VARCHAR},
+         #{saleorder.creatorId,jdbcType=INTEGER}, #{saleorder.creatorName,jdbcType=VARCHAR},
+         #{saleorder.creatorDeptId,jdbcType=INTEGER}, #{saleorder.creatorParentDeptId,jdbcType=INTEGER},
+         #{saleorder.creatorDeptName,jdbcType=VARCHAR}, #{saleorder.creatorParentDeptName,jdbcType=VARCHAR},
+         #{saleorder.validUserId,jdbcType=INTEGER}, #{saleorder.validUserName,jdbcType=VARCHAR},
+         #{saleorder.validDeptId,jdbcType=INTEGER}, #{saleorder.validParentDeptId,jdbcType=INTEGER},
+         #{saleorder.validDeptName,jdbcType=VARCHAR}, #{saleorder.validParentDeptName,jdbcType=VARCHAR},
+         #{saleorder.dataDateYear,jdbcType=VARCHAR}, #{saleorder.dataDateMonth,jdbcType=VARCHAR},
+         #{saleorder.dataDateYm,jdbcType=VARCHAR}, #{saleorder.dataDate,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+  <select id="getSaleorderCreatorOrgList" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+      a.SALEORDER_ID,
+      IFNULL(c.ORG_ID, 0) AS CREATOR_DEPT_ID,
+      IFNULL(
+              (
+                CASE
+                  WHEN d.PARENT_ID = 2 THEN
+                    c.ORG_ID
+                  ELSE
+                    d.PARENT_ID
+                  END
+                ),
+              0
+        ) AS CREATOR_PARENT_DEPT_ID,
+      IFNULL(d.ORG_NAME, '') AS CREATOR_DEPT_NAME,
+      IFNULL(
+              (
+                CASE
+                  WHEN d.PARENT_ID = 2 THEN
+                    d.ORG_NAME
+                  ELSE
+                    e.ORG_NAME
+                  END
+                ),
+              ''
+        ) AS CREATOR_PARENT_DEPT_NAME
+    FROM
+      T_SALEORDER a
+    LEFT JOIN T_R_USER_POSIT b ON b.USER_ID = a.CREATOR
+    LEFT JOIN T_POSITION c ON b.POSITION_ID = c.POSITION_ID
+    LEFT JOIN T_ORGANIZATION d ON c.ORG_ID = d.ORG_ID
+    LEFT JOIN T_ORGANIZATION e ON d.PARENT_ID = e.ORG_ID
+    WHERE 1=1
+    <if test="saleorderList != null and saleorderList.size() > 0">
+       AND a.SALEORDER_ID IN
+       <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+         #{saleorder.saleorderId,jdbcType=INTEGER}
+       </foreach>
+    </if>
+    AND IFNULL(c.ORG_ID, 0) != 10
+  </select>
+  <select id="getSaleorderValidOrgList" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+      a.SALEORDER_ID,
+      d.ORG_ID AS VALID_DEPT_ID,
+      IFNULL(
+              (
+                CASE
+                  WHEN e.PARENT_ID = 2 THEN
+                    d.ORG_ID
+                  ELSE
+                    e.PARENT_ID
+                  END
+                ),
+              0
+        ) AS VALID_PARENT_DEPT_ID,
+      e.ORG_NAME VALID_DEPT_NAME,
+      IFNULL(
+              (
+                CASE
+                  WHEN e.PARENT_ID = 2 THEN
+                    e.ORG_NAME
+                  ELSE
+                    f.ORG_NAME
+                  END
+                ),
+              ''
+        ) AS VALID_PARENT_DEPT_NAME
+    FROM
+      T_SALEORDER a
+        LEFT JOIN T_R_TRADER_J_USER b ON a.TRADER_ID = b.TRADER_ID
+        LEFT JOIN T_R_USER_POSIT c ON b.USER_ID = c.USER_ID
+        LEFT JOIN T_POSITION d ON c.POSITION_ID = d.POSITION_ID
+        LEFT JOIN T_ORGANIZATION e ON e.ORG_ID = d.ORG_ID
+        LEFT JOIN T_ORGANIZATION f ON e.PARENT_ID = f.ORG_ID
+    WHERE
+      1 = 1
+      <if test="saleorderList != null and saleorderList.size() > 0">
+        AND a.SALEORDER_ID IN
+        <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+          #{saleorder.saleorderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      AND (
+        e.PARENT_ID IN (36, 38, 39, 40)
+        OR d.ORG_ID IN (36, 38, 39, 40)
+      )
+  </select>
+  <select id="getSaleorderCustomerInfo" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+      a.SALEORDER_ID,
+      IFNULL(b.TRADER_NAME,'') AS CUSTOMER_NAME,
+      IFNULL(
+
+              IF (
+                      d.REGION_TYPE = 1,
+                      d.REGION_ID,
+                      e.REGION_ID
+                ),
+              0
+        ) AS CUSTOMER_VALID_PROVINCE_ID
+    FROM
+      T_SALEORDER a
+    LEFT JOIN T_TRADER b ON a.TRADER_ID = b.TRADER_ID
+    LEFT JOIN T_REGION c ON b.AREA_ID = c.REGION_ID
+    LEFT JOIN T_REGION d ON d.REGION_ID = c.PARENT_ID
+    LEFT JOIN T_REGION e ON e.REGION_ID = d.PARENT_ID
+    WHERE 1=1
+    <if test="saleorderList != null and saleorderList.size() > 0">
+      AND a.SALEORDER_ID IN
+      <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+        #{saleorder.saleorderId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+  <select id="getSaleorderSaleAreaInfo" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+    a.SALEORDER_ID,
+    (CASE
+      WHEN b.REGION_TYPE = 1 THEN b.REGION_ID
+      WHEN b.REGION_TYPE = 2 THEN c.REGION_ID
+      WHEN b.REGION_TYPE = 3 THEN d.REGION_ID
+      ELSE 0
+    END) as CUSTOMER_PROVINCE_ID,
+    (CASE
+      WHEN b.REGION_TYPE = 1 THEN b.REGION_NAME
+      WHEN b.REGION_TYPE = 2 THEN c.REGION_NAME
+      WHEN b.REGION_TYPE = 3 THEN d.REGION_NAME
+      ELSE ''
+    END) as CUSTOMER_PROVINCE,
+    (CASE
+      WHEN b.REGION_TYPE = 1 THEN b.REGION_ID
+      WHEN b.REGION_TYPE = 2 THEN b.REGION_ID
+      WHEN b.REGION_TYPE = 3 THEN (
+        CASE
+          WHEN d.REGION_ID IN (2,
+          25,
+          27,
+          32) THEN b.REGION_ID
+          ELSE c.REGION_ID
+          END )
+        ELSE 0
+    END) as CUSTOMER_CITY_ID,
+    (CASE
+      WHEN b.REGION_TYPE = 1 THEN b.REGION_NAME
+      WHEN b.REGION_TYPE = 2 THEN b.REGION_NAME
+      WHEN b.REGION_TYPE = 3 THEN (
+        CASE
+        WHEN d.REGION_ID IN (2,
+        25,
+        27,
+        32) THEN b.REGION_NAME
+        ELSE c.REGION_NAME
+        END )
+      ELSE ''
+    END) as CUSTOMER_CITY
+    FROM
+        T_SALEORDER a
+    LEFT JOIN T_REGION b ON
+        b.REGION_ID = a.SALES_AREA_ID
+    LEFT JOIN T_REGION c ON
+        c.REGION_ID = b.PARENT_ID
+    LEFT JOIN T_REGION d ON
+        d.REGION_ID = c.PARENT_ID
+    WHERE 1=1
+    <if test="saleorderList != null and saleorderList.size() > 0">
+      AND a.SALEORDER_ID IN
+      <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+        #{saleorder.saleorderId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+  <select id="getSaleorderCustomerNatureInfo" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+      a.SALEORDER_ID,
+      IFNULL(b.CUSTOMER_LEVEL, 0) AS CUSTOMER_LEVEL_ID,
+      IFNULL(b.CUSTOMER_NATURE, 0) AS CUSTOMER_NATURE_ID,
+      IFNULL(c.TITLE, '') AS CUSTOMER_LEVEL,
+      IFNULL(d.TITLE, '') AS CUSTOMER_NATURE
+    FROM
+      T_SALEORDER a
+    LEFT JOIN T_TRADER_CUSTOMER b ON b.TRADER_ID = a.TRADER_ID
+    LEFT JOIN T_SYS_OPTION_DEFINITION c ON b.CUSTOMER_LEVEL = c.SYS_OPTION_DEFINITION_ID
+    LEFT JOIN T_SYS_OPTION_DEFINITION d ON b.CUSTOMER_NATURE = d.SYS_OPTION_DEFINITION_ID
+    WHERE 1=1
+    <if test="saleorderList != null and saleorderList.size() > 0">
+      AND a.SALEORDER_ID IN
+      <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+        #{saleorder.saleorderId,jdbcType=INTEGER}
+      </foreach>
+    </if>
+  </select>
+  <select id="getSaleorderBuyAmount" parameterType="List" resultType="com.vedeng.order.model.SaleorderGoods">
+    SELECT
+      a.SALEORDER_ID,
+      a.REFERENCE_COST_PRICE,
+      a.NUM
+    FROM
+      T_SALEORDER_GOODS a
+        LEFT JOIN T_R_BUYORDER_J_SALEORDER b ON a.SALEORDER_GOODS_ID = b.SALEORDER_GOODS_ID
+        LEFT JOIN T_BUYORDER_GOODS c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+        LEFT JOIN T_BUYORDER d ON c.BUYORDER_ID = d.BUYORDER_ID
+    WHERE
+      a.IS_DELETE = 0
+      AND (
+        d.`STATUS` != 3
+        OR d.`STATUS` IS NULL
+      )
+      AND a.REFERENCE_COST_PRICE > 0
+      <if test="saleorderList != null and saleorderList.size() > 0">
+        AND a.SALEORDER_ID IN
+        <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+          #{saleorder.saleorderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+  </select>
+  <select id="getSaleorderRefundAmount" parameterType="java.util.List" resultType="com.vedeng.finance.model.vo.CapitalBillDetailVo">
+    SELECT
+      a.ORDER_ID AS SALEORDER_ID,
+      ABS(b.AMOUNT) AS AMOUNT
+    FROM
+      T_AFTER_SALES a
+    LEFT JOIN T_CAPITAL_BILL_DETAIL b ON b.RELATED_ID = a.AFTER_SALES_ID AND b.ORDER_TYPE = 3
+    WHERE
+      a.TYPE = 539
+      AND ABS(b.AMOUNT)>0
+      <if test="saleorderList != null and saleorderList.size() > 0">
+        AND a.ORDER_ID IN
+        <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+          #{saleorder.saleorderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+  </select>
+  <select id="getSaleorderFirstPayTimeList" parameterType="java.util.List" resultType="com.vedeng.reportSaleorder.model.vo.ReportSaleorderVo">
+    SELECT
+      a.RELATED_ID AS SALEORDER_ID,
+      b.TRADER_TIME
+    FROM
+      T_CAPITAL_BILL_DETAIL a
+        LEFT JOIN T_CAPITAL_BILL b ON b.CAPITAL_BILL_ID = a.CAPITAL_BILL_ID
+    WHERE
+      a.ORDER_TYPE = 1
+      AND a.BUSSINESS_TYPE = 526
+      <if test="saleorderList != null and saleorderList.size() > 0">
+        AND a.RELATED_ID IN
+        <foreach collection="saleorderList" index="index" separator="," open="(" close=")" item="saleorder">
+          #{saleorder.saleorderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+  </select>
+</mapper>

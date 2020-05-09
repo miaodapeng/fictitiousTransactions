@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.aftersales.dao.AfterSalesGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.aftersales.model.AfterSalesGoods" >
+    <id column="AFTER_SALES_GOODS_ID" property="afterSalesGoodsId" jdbcType="INTEGER" />
+    <result column="AFTER_SALES_ID" property="afterSalesId" jdbcType="INTEGER" />
+    <result column="ORDER_DETAIL_ID" property="orderDetailId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="NUM" property="num" jdbcType="INTEGER" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="DELIVERY_DIRECT" property="deliveryDirect" jdbcType="BIT" />
+    <result column="ARRIVAL_NUM" property="arrivalNum" jdbcType="INTEGER" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="BIGINT" />
+    <result column="ARRIVAL_USER_ID" property="arrivalUserId" jdbcType="INTEGER" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+      <result column="GOODS_TYPE" property="goodsType" jdbcType="BIT" />
+      <result column="SKU_REFUND_AMOUNT" property="skuRefundAmount" jdbcType="DECIMAL" />
+      <result column="IS_ACTION_GOODS" property="isActionGoods" jdbcType="INTEGER" />
+  </resultMap>
+
+  <resultMap type="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="MODEL" property="model" jdbcType="VARCHAR" />
+  	<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+  	<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+  	<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+  	<result column="SKU" property="sku" jdbcType="VARCHAR" />
+  	<result column="INCNT" property="incnt" jdbcType="INTEGER" />
+  	<result column="SALEORDER_PRICE" property="saleorderPrice" jdbcType="DECIMAL" />
+  	<result column="PURCHASE_REMIND" property="purchaseRemind" jdbcType="VARCHAR" />
+    <result column="REGISTRATION_NUMBER" property="registrationNumber" jdbcType="VARCHAR" />
+    <result column="MANAGE_CATEGORY_NAME" property="manageCategoryName" jdbcType="VARCHAR" />
+    <result column="PACKING_LIST" property="packingList" jdbcType="VARCHAR" />
+    <result column="TOS" property="tos" jdbcType="VARCHAR" />
+    <result column="SALREORDER_NUM" property="saleorderNum" jdbcType="INTEGER" />
+    <result column="DELIVERY_NUM" property="deliveryNum" jdbcType="INTEGER" />
+    <result column="SALREORDER_DELIVERY_DIRECT" property="saleorderDeliveryDirect" jdbcType="BIT" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="MANAGE_CATEGORY" property="manageCategory" jdbcType="INTEGER" />
+    <result column="STORAGEADDRESS" property="storageAddress" jdbcType="VARCHAR"/>
+    <result column="BUYORDER_PRICE" property="buyorderPrice" jdbcType="DECIMAL" />
+    <result column="BUYORDER_NUM" property="buyorderNum" jdbcType="INTEGER" />
+    <result column="BUYORDER_DELIVERY_DIRECT" property="buyorderDeliveryDirect" jdbcType="BIT" />
+    <result column="PICKCNT" property="pickCnt" jdbcType="INTEGER" /> 
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER" />
+    <result column="RKNUM" property="rknum" jdbcType="INTEGER" />
+    <result column="VERIFY_STATUS" property="verifyStatus" jdbcType="INTEGER" />
+    <result column="GOODS_GOODS_TYPE" property="goodsGoodType" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    AFTER_SALES_GOODS_ID, AFTER_SALES_ID, ORDER_DETAIL_ID, GOODS_ID, NUM, PRICE, DELIVERY_DIRECT, 
+    ARRIVAL_NUM, ARRIVAL_TIME, ARRIVAL_USER_ID, ARRIVAL_STATUS,GOODS_TYPE, SKU_REFUND_AMOUNT,IS_ACTION_GOODS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_AFTER_SALES_GOODS
+    where AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_AFTER_SALES_GOODS
+    where AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    insert into T_AFTER_SALES_GOODS (AFTER_SALES_GOODS_ID, AFTER_SALES_ID, 
+      ORDER_DETAIL_ID, GOODS_ID, NUM, 
+      PRICE, DELIVERY_DIRECT, ARRIVAL_NUM, 
+      ARRIVAL_TIME, ARRIVAL_USER_ID, ARRIVAL_STATUS,GOODS_TYPE, SKU_REFUND_AMOUNT
+      )
+    values (#{afterSalesGoodsId,jdbcType=INTEGER}, #{afterSalesId,jdbcType=INTEGER}, 
+      #{orderDetailId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{deliveryDirect,jdbcType=BIT}, #{arrivalNum,jdbcType=INTEGER}, 
+      #{arrivalTime,jdbcType=BIGINT}, #{arrivalUserId,jdbcType=INTEGER}, #{arrivalStatus,jdbcType=BIT}, #{goodsType,jdbcType=BIT},
+      #{skuRefundAmount,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    insert into T_AFTER_SALES_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afterSalesGoodsId != null" >
+        AFTER_SALES_GOODS_ID,
+      </if>
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID,
+      </if>
+      <if test="orderDetailId != null" >
+        ORDER_DETAIL_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="num != null" >
+        NUM,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT,
+      </if>
+      <if test="arrivalNum != null" >
+        ARRIVAL_NUM,
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME,
+      </if>
+      <if test="arrivalUserId != null" >
+        ARRIVAL_USER_ID,
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS,
+      </if>
+      <if test="goodsType != null" >
+        GOODS_TYPE,
+      </if>
+      <if test="skuRefundAmount != null" >
+        SKU_REFUND_AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afterSalesGoodsId != null" >
+        #{afterSalesGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalesId != null" >
+        #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="orderDetailId != null" >
+        #{orderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryDirect != null" >
+        #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="arrivalNum != null" >
+        #{arrivalNum,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="arrivalUserId != null" >
+        #{arrivalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalStatus != null" >
+        #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="goodsType != null" >
+        #{goodsType,jdbcType=BIT},
+      </if>
+      <if test="skuRefundAmount != null" >
+        #{skuRefundAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    update T_AFTER_SALES_GOODS
+    <set >
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="orderDetailId != null" >
+        ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="arrivalNum != null" >
+        ARRIVAL_NUM = #{arrivalNum,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="arrivalUserId != null" >
+        ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="goodsType != null" >
+       GOODS_TYPE = #{goodsType,jdbcType=BIT},
+      </if>
+      <if test="deliveryNum != null" >
+        DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="skuRefundAmount != null" >
+        SKU_REFUND_AMOUNT = #{skuRefundAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    update T_AFTER_SALES_GOODS
+    set AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER},
+      GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      NUM = #{num,jdbcType=INTEGER},
+      PRICE = #{price,jdbcType=DECIMAL},
+      DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      ARRIVAL_NUM = #{arrivalNum,jdbcType=INTEGER},
+      ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER},
+      ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      GOODS_TYPE = #{goodsType,jdbcType=BIT},
+      SKU_REFUND_AMOUNT = #{skuRefundAmount,jdbcType=DECIMAL}
+    where AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+  </update>
+  <!-- 将售后单下的所有特殊商品全部改为已发货/已收货 -->
+  <update id="updateAllTsGoodsInfo" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    UPDATE T_AFTER_SALES_GOODS
+    <if test="isIn == 1" >
+     SET ARRIVAL_NUM = 1,
+	 ARRIVAL_STATUS = 2
+    </if>
+	<if test="isIn == 2" >
+     SET DELIVERY_NUM = 1,
+	 DELIVERY_STATUS = 2
+    </if>
+	WHERE
+		AFTER_SALES_ID IN (
+			SELECT
+				A.AFTER_SALES_ID
+			FROM
+				(
+					SELECT
+						AFTER_SALES_ID
+					FROM
+						T_AFTER_SALES_GOODS
+					WHERE
+						AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+				) A
+		)
+	AND GOODS_TYPE = 1
+  </update>
+  <select id="getAfterSalesNumByParam" parameterType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo" resultType="java.lang.Integer">
+  	select 
+    	COALESCE(SUM(NUM),0)
+    from T_AFTER_SALES_GOODS a
+    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS != 3
+    <if test="afterSalesIdList != null" >
+        and a.AFTER_SALES_ID in
+        <foreach item="afterSalesId" index="index" collection="afterSalesIdList" open="(" separator="," close=")">  
+		  #{afterSalesId}  
+		</foreach>
+    </if>
+    <if test="orderDetailId != null" >
+        and a.ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER}
+    </if>
+    <if test="type != null" >
+        and b.TYPE = #{type,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="getPurchaseAfterSalesNum" parameterType="com.vedeng.order.model.vo.SaleorderGoodsVo" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+  	select 
+    	COALESCE(SUM(a.NUM),0) as afterSalesNum , a.ORDER_DETAIL_ID
+    from T_AFTER_SALES_GOODS a
+    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 539
+        and a.ORDER_DETAIL_ID in
+        <foreach item="sg" index="index" collection="saleorderGoodsIds" open="(" separator="," close=")">  
+		  #{sg.saleorderGoodsId}  
+		</foreach>
+    	group by a.ORDER_DETAIL_ID
+  </select>
+
+    <select id="getPurchaseAfterSalesNumList" parameterType="java.util.List" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+        select
+        COALESCE(SUM(a.NUM),0) as afterSalesNum , a.ORDER_DETAIL_ID
+        from T_AFTER_SALES_GOODS a
+        left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+        where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 539
+        and a.ORDER_DETAIL_ID in
+        <foreach item="saleorderGoodsId" index="index" collection="saleorderGoodsIdList" open="(" separator="," close=")">
+            #{saleorderGoodsId}
+        </foreach>
+        group by a.ORDER_DETAIL_ID
+    </select>
+  
+  <select id="getBuyorderAfterSalesNum" parameterType="com.vedeng.order.model.vo.SaleorderGoodsVo" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+  	SELECT 
+  		COALESCE(SUM(a.NUM),0) as afterSalesNum , c.SALEORDER_GOODS_ID as saleorderGoodsId
+  	FROM T_AFTER_SALES_GOODS a
+		LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+		LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+		LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+	WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2 
+		AND c.SALEORDER_GOODS_ID in
+		<foreach item="sg" index="index" collection="bgvList" open="(" separator="," close=")">  
+		  #{sg.saleorderGoodsId}  
+		</foreach>
+		group by c.SALEORDER_GOODS_ID
+
+  </select>
+
+
+    <select id="getBuyorderAfterSalesNumList" parameterType="java.util.List" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+        SELECT
+        COALESCE(SUM(a.NUM),0) as afterSalesNum , c.SALEORDER_GOODS_ID as saleorderGoodsId
+        FROM T_AFTER_SALES_GOODS a
+        LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+        LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+        LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+        LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+        WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2
+        AND c.SALEORDER_GOODS_ID in
+        <foreach item="saleorderGoodsId" index="index" collection="saleorderGoodsIdList" open="(" separator="," close=")">
+            #{saleorderGoodsId}
+        </foreach>
+        group by c.SALEORDER_GOODS_ID
+
+    </select>
+  
+  <select id="getBuyorderAfterSalesNumBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	SELECT 
+  		COALESCE(SUM(a.NUM),0) 
+  	FROM T_AFTER_SALES_GOODS a
+		LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+		LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+		LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+	WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2
+		AND c.SALEORDER_GOODS_ID = #{saleorderGoodsId}  
+		
+  </select>
+  <!-- 售后单下除去特殊商品的所有商品 -->
+  <select id="getAfterGoodsShList" parameterType="java.lang.Integer" resultMap="VoResultMap">
+  	SELECT
+		*
+	FROM
+		T_AFTER_SALES_GOODS
+	WHERE
+		AFTER_SALES_ID = (
+			SELECT
+				AFTER_SALES_ID
+			FROM
+				T_AFTER_SALES_GOODS
+			WHERE
+				AFTER_SALES_GOODS_ID = #{afterSalesGoodsId}  
+		)
+	AND GOODS_TYPE = 0
+	AND DELIVERY_DIRECT = 0
+	AND GOODS_ID NOT IN (
+		SELECT
+			COMMENTS
+		FROM
+			T_SYS_OPTION_DEFINITION
+		WHERE
+			PARENT_ID = 693
+	)
+  </select>
+  
+  <select id="batchBuyorderAfterSalesNums" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo" resultType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+  	select 
+    	COALESCE(SUM(a.NUM),0) as afterReturnNum, a.ORDER_DETAIL_ID as buyorderGoodsId
+    from T_AFTER_SALES_GOODS a
+    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2  AND b.TYPE = 546 and b.SUBJECT_TYPE = 536
+        and a.ORDER_DETAIL_ID in
+        	<foreach item="bg" index="index" collection="buyorderGoodsList" open="(" separator="," close=")">  
+				#{bg.buyorderGoodsId}  
+			</foreach>
+	group by a.ORDER_DETAIL_ID
+  </select>
+  
+  <select id="getBuyorderAfterSalesNumByIds" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+  	select 
+    	COALESCE(SUM(a.NUM),0) as afterReturnNum, a.ORDER_DETAIL_ID as buyorderGoodsId
+    from T_AFTER_SALES_GOODS a
+    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 546
+        and a.ORDER_DETAIL_ID in
+        	<foreach item="sg" index="index" collection="saleorderGoodsList" open="(" separator="," close=")">  
+				#{sg.saleorderGoodsId}  
+			</foreach>
+	group by a.ORDER_DETAIL_ID
+  </select>
+  <!-- 仓储物流订单下的商品  -->
+  <select id="getAfterSalesGoodsVoList" parameterType="com.vedeng.aftersales.model.vo.AfterSalesVo" resultMap="VoResultMap">
+		<if test="isOut ==1">
+			select * from(
+		</if>
+		    select A.*
+		    <if test="isNormal == 1">
+			   <if test="businessType == 1">
+		          <if test="isIn ==1">
+		    ,(A.DNUM - (TT.ALLNUM - TT.SHNUM)) RKNUM 
+		          </if>
+		       </if>
+		    </if>
+		    from(
+			SELECT
+			a.TYPE,
+			b.*,
+			c.GOODS_NAME,
+			c.BRAND_NAME,
+			c.MODEL,
+			c.SKU,
+			c.PRICE BUYORDER_PRICE,
+			c.UNIT_NAME,
+			<if test="businessType == 1">
+			c.DELIVERY_NUM DNUM,
+			</if>
+			f.MATERIAL_CODE,
+			f.MANAGE_CATEGORY,
+			f.REGISTRATION_NUMBER AS REGISTRATIONNUMBER,
+			f.PURCHASE_REMIND,
+			f.PACKING_LIST,
+			f.TOS,
+			k.TITLE AS MANAGE_CATEGORY_NAME,
+			f.CATEGORY_ID,
+			IFNULL(SUM(i.NUM), 0) PICKCNT
+			FROM
+			T_AFTER_SALES a
+			LEFT JOIN T_AFTER_SALES_GOODS b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+			AND b.GOODS_TYPE = 0
+			LEFT JOIN T_AFTER_SALES_DETAIL dt ON a.AFTER_SALES_ID = dt.AFTER_SALES_ID 
+			<if test="businessType == 1">
+				LEFT JOIN T_SALEORDER_GOODS c ON
+				b.ORDER_DETAIL_ID = c.SALEORDER_GOODS_ID
+				AND c.IS_DELETE = 0
+				LEFT JOIN
+				T_SALEORDER d ON c.SALEORDER_ID = d.SALEORDER_ID
+				AND d.VALID_STATUS = 1
+			</if>
+			<if test="businessType == 2">
+				LEFT JOIN T_BUYORDER_GOODS c ON
+				b.ORDER_DETAIL_ID = c.BUYORDER_GOODS_ID
+				AND c.IS_DELETE = 0
+				LEFT JOIN
+				T_BUYORDER d ON c.BUYORDER_ID = d.BUYORDER_ID
+				AND d.VALID_STATUS = 1
+			</if>
+			LEFT JOIN T_GOODS f ON b.GOODS_ID = f.GOODS_ID
+			LEFT JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+			LEFT JOIN T_UNIT h ON f.UNIT_ID = h.UNIT_ID
+			LEFT JOIN T_SYS_OPTION_DEFINITION k ON f.MANAGE_CATEGORY =
+			k.SYS_OPTION_DEFINITION_ID
+			LEFT JOIN T_WAREHOUSE_PICKING j ON a.AFTER_SALES_ID = j.ORDER_ID
+			AND j.IS_ENABLE = 1 AND j.ORDER_TYPE = 1
+			LEFT JOIN T_WAREHOUSE_PICKING_DETAIL i ON j.WAREHOUSE_PICKING_ID =
+			i.WAREHOUSE_PICKING_ID
+			AND i.IS_ENABLE = 1
+			AND i.GOODS_ID = b.GOODS_ID
+			WHERE
+			1 = 1
+			<if test="goodsId != null and goodsId != 0">
+				AND a.GOODS_ID =#{goodsId,jdbcType=INTEGER}
+			</if>
+			AND a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+			AND b.GOODS_ID NOT IN(
+			    SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+		     )
+		<!-- 	AND a.ATFER_SALES_STATUS in (0,1)
+			AND a.VALID_STATUS = 1 -->
+			<!-- AND b.DELIVERY_DIRECT = 0 -->
+			GROUP BY b.GOODS_ID
+			) A 
+			<if test="isNormal == 1">
+			   <if test="businessType == 1">
+		          <if test="isIn ==1">
+		             LEFT JOIN (
+						SELECT
+							a.SALEORDER_GOODS_ID,
+							IFNULL(SUM(b.NUM), 0) SHNUM,
+                            a.NUM ALLNUM
+						FROM
+							T_SALEORDER_GOODS a
+						LEFT JOIN T_AFTER_SALES_GOODS b ON a.SALEORDER_GOODS_ID = b.ORDER_DETAIL_ID
+						WHERE
+							a.IS_DELETE = 0
+							AND b.GOODS_TYPE =0 
+							AND b.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+						GROUP BY
+							a.SALEORDER_GOODS_ID
+					) TT ON A.ORDER_DETAIL_ID = TT.SALEORDER_GOODS_ID
+		          </if>
+			   </if>
+			</if>
+			WHERE 1=1
+			<if test="isNormal == 1">
+				<if test="businessType == 1">
+					<if test="isIn !=1">
+					 AND  A.ARRIVAL_NUM > 0
+					</if>
+					<if test="isIn ==1">
+					<!-- AND A.DNUM - (TT.ALLNUM - TT.SHNUM)  > 0 -->
+					</if>
+				</if>
+				<if test="businessType == 2">
+				    <if test="isIn ==1">
+					 AND  A.DELIVERY_NUM > 0
+					</if>
+				</if>
+			</if>
+			<if test="eFlag ==1">
+				AND A.DELIVERY_NUM>0
+			</if>
+			 GROUP BY
+			A.GOODS_ID
+			<if test="isOut ==1">
+				)T
+				WHERE T.PICKCNT > 0
+			</if>
+  </select>
+  <!-- 根据id查询售后商品 -->
+  <select id="getAfterSalesGoodsInfo" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+	    select 
+	    b.*,
+	    a.type,
+	    f.GOODS_NAME,
+		g.BRAND_NAME,
+		f.MODEL,
+		f.SKU,
+		f.MATERIAL_CODE,
+		h.UNIT_NAME
+	    from T_AFTER_SALES_GOODS b
+	    LEFT JOIN T_AFTER_SALES a ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    INNER JOIN T_GOODS f ON b.GOODS_ID = f.GOODS_ID
+		INNER JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+		INNER JOIN T_UNIT h ON f.UNIT_ID = h.UNIT_ID
+	    where b.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+  </select>
+  <!-- 根据id查询售后商品的条码数-->
+  <select id="getAfterSalesGoodsBnum" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+	   SELECT
+			(
+				b.DELIVERY_NUM - (b.NUM - SUM(a.NUM))
+			) NUM
+		FROM
+			T_AFTER_SALES_GOODS a
+		LEFT JOIN T_SALEORDER_GOODS b ON a.ORDER_DETAIL_ID = b.SALEORDER_GOODS_ID
+		WHERE
+			a.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+		GROUP BY
+			b.SALEORDER_GOODS_ID
+  </select>
+  
+  <select id="getAfterSalesGoodsVosList" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultMap="VoResultMap">
+  		select 
+  			a.AFTER_SALES_GOODS_ID, a.AFTER_SALES_ID, a.ORDER_DETAIL_ID, a.GOODS_ID, a.NUM, a.PRICE, a.DELIVERY_DIRECT, 
+    		a.ARRIVAL_NUM, a.ARRIVAL_TIME, a.ARRIVAL_USER_ID, a.ARRIVAL_STATUS,a.GOODS_TYPE,
+    		b.SKU, b.GOODS_NAME, b.BRAND_NAME, b.MODEL, b.UNIT_NAME, b.PRICE as SALEORDER_PRICE, b.NUM as SALREORDER_NUM, 
+    		b.DELIVERY_NUM, b.DELIVERY_DIRECT as SALREORDER_DELIVERY_DIRECT,c.CATEGORY_ID,
+    		c.MATERIAL_CODE,c.REGISTRATION_NUMBER, c.PURCHASE_REMIND, c.PACKING_LIST,c.TOS,c.CATEGORY_ID, d.TITLE as MANAGE_CATEGORY_NAME,
+    		IFNULL(G.STATUS, -1) AS VERIFY_STATUS,
+    		c.GOODS_TYPE as GOODS_GOODS_TYPE
+  		from T_AFTER_SALES_GOODS a
+	  		left join T_SALEORDER_GOODS b on a.ORDER_DETAIL_ID = b.SALEORDER_GOODS_ID
+	  		left join T_GOODS c on b.GOODS_ID = c.GOODS_ID
+	  		left join T_SYS_OPTION_DEFINITION d on c.MANAGE_CATEGORY = d.SYS_OPTION_DEFINITION_ID
+	  		left join T_AFTER_SALES f on a.AFTER_SALES_ID = f.AFTER_SALES_ID
+	  		LEFT JOIN T_VERIFIES_INFO G
+        		ON c.GOODS_ID = G.RELATE_TABLE_KEY AND G.RELATE_TABLE = 'T_GOODS'
+  		where a.GOODS_TYPE = 0 and f.SUBJECT_TYPE = 535
+  		    <if test="afterSalesId != null and afterSalesId != 0" >
+		        and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		    </if>
+  </select>
+  
+  <select id="getBuyorderAfterSalesGoodsVosList" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultMap="VoResultMap">
+  		select 
+  			a.AFTER_SALES_GOODS_ID, a.AFTER_SALES_ID, a.ORDER_DETAIL_ID, a.GOODS_ID, a.NUM, a.PRICE, a.DELIVERY_DIRECT, 
+    		b.ARRIVAL_NUM, a.ARRIVAL_TIME, a.ARRIVAL_USER_ID, a.ARRIVAL_STATUS,a.GOODS_TYPE,
+    		b.SKU, b.GOODS_NAME, b.BRAND_NAME, b.MODEL, b.UNIT_NAME, b.PRICE as BUYORDER_PRICE, b.NUM as BUYORDER_NUM, b.ARRIVAL_NUM AS receiveNum,
+    		e.DELIVERY_DIRECT as BUYORDER_DELIVERY_DIRECT,c.CATEGORY_ID,
+    		c.MATERIAL_CODE,c.REGISTRATION_NUMBER, c.PURCHASE_REMIND, c.PACKING_LIST,c.TOS, d.TITLE as MANAGE_CATEGORY_NAME,
+    		c.GOODS_TYPE as GOODS_GOODS_TYPE
+  		from T_AFTER_SALES_GOODS a
+	  		left join T_BUYORDER_GOODS b on a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+	  		left join T_BUYORDER e on e.BUYORDER_ID = b.BUYORDER_ID
+	  		left join T_GOODS c on b.GOODS_ID = c.GOODS_ID
+	  		left join T_SYS_OPTION_DEFINITION d on c.MANAGE_CATEGORY = d.SYS_OPTION_DEFINITION_ID
+	  		left join T_AFTER_SALES f on a.AFTER_SALES_ID = f.AFTER_SALES_ID
+  		where a.GOODS_TYPE = 0 and f.SUBJECT_TYPE = 536
+  		    <if test="afterSalesId != null and afterSalesId != 0" >
+		        and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		    </if>
+  </select>
+  
+  <select id="getAfterSalesGoodsVosListByAfterSalesInstallstionId" parameterType="java.lang.Integer" resultMap="VoResultMap">
+  		select 
+  			a.AFTER_SALES_GOODS_ID, a.AFTER_SALES_ID, a.ORDER_DETAIL_ID, a.GOODS_ID, t.NUM, a.PRICE, a.DELIVERY_DIRECT, 
+    		a.ARRIVAL_NUM, a.ARRIVAL_TIME, a.ARRIVAL_USER_ID, a.ARRIVAL_STATUS,a.GOODS_TYPE,
+    		b.SKU, b.GOODS_NAME, b.BRAND_NAME, b.MODEL, b.UNIT_NAME, b.PRICE as SALEORDER_PRICE, b.NUM as SALREORDER_NUM, 
+    		b.DELIVERY_NUM, b.DELIVERY_DIRECT as SALREORDER_DELIVERY_DIRECT,
+    		c.MATERIAL_CODE,c.REGISTRATION_NUMBER, c.PURCHASE_REMIND, c.PACKING_LIST,c.TOS, d.TITLE as MANAGE_CATEGORY_NAME
+  		from T_R_INSTALLSTION_J_GOODS t
+  			left join T_AFTER_SALES_GOODS a on t.AFTER_SALES_GOODS_ID = a.AFTER_SALES_GOODS_ID
+	  		left join T_SALEORDER_GOODS b on a.ORDER_DETAIL_ID = b.SALEORDER_GOODS_ID
+	  		left join T_GOODS c on b.GOODS_ID = c.GOODS_ID
+	  		left join T_SYS_OPTION_DEFINITION d on c.MANAGE_CATEGORY = d.SYS_OPTION_DEFINITION_ID
+  		where a.GOODS_TYPE = 0 
+  				and t.AFTER_SALES_INSTALLSTION_ID = #{afterSalesInstallstionId,jdbcType=INTEGER}
+		    
+  </select>
+  
+  <select id="getThhGoodsList" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultMap="BaseResultMap">
+  		select 
+  			<include refid="Base_Column_List" />
+  		from T_AFTER_SALES_GOODS
+  		where GOODS_TYPE = 1
+  		    <if test="afterSalesId != null and afterSalesId != 0" >
+		        and AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		    </if>
+  </select>
+  
+  <select id="getSpecialGoods" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultMap="VoResultMap">
+  		select 
+  			a.AFTER_SALES_GOODS_ID, a.AFTER_SALES_ID, a.ORDER_DETAIL_ID, a.GOODS_ID, a.NUM, a.PRICE, a.DELIVERY_DIRECT, 
+    		a.ARRIVAL_NUM, a.ARRIVAL_TIME, a.ARRIVAL_USER_ID, a.ARRIVAL_STATUS, a.GOODS_TYPE,
+    		b.GOODS_NAME, b.SKU
+  		from T_AFTER_SALES_GOODS a
+  		left join T_GOODS b on a.GOODS_ID = b.GOODS_ID
+  		where a.GOODS_TYPE = 1
+  		    <if test="afterSalesId != null and afterSalesId != 0" >
+		        and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		    </if>
+  </select>
+
+  <delete id="delAfterSalesGoodsByParam" parameterType="java.lang.Integer" >
+    delete from T_AFTER_SALES_GOODS
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </delete>
+  
+	<!-- 获取售后（销售and采购）退换货产品入库信息 -->
+	<select id="getAfterReturnGoodsStorageList" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+		SELECT B.AFTER_SALES_GOODS_ID,
+		       B.AFTER_SALES_ID,
+		       B.ORDER_DETAIL_ID,
+		       B.GOODS_TYPE,
+		       B.GOODS_ID,
+		       B.NUM,
+		       B.PRICE,
+		       B.DELIVERY_DIRECT,
+		       B.ARRIVAL_NUM,
+		       B.ARRIVAL_TIME,
+		       B.ARRIVAL_USER_ID,
+		       B.ARRIVAL_STATUS,
+		       C.GOODS_NAME,
+		       C.SKU,
+		       C.MATERIAL_CODE,
+		       C.MODEL,
+		       D.BRAND_NAME,
+		       A.NUM AS INCNT,
+		       E.UNIT_NAME,
+		       A.BARCODE_ID,
+		       F.BARCODE,
+		       A.BARCODE_FACTORY,
+		       A.CHECK_STATUS_TIME,
+		       A.CHECK_STATUS_USER,
+		       A.CREATOR,
+		       A.ADD_TIME
+		FROM T_WAREHOUSE_GOODS_OPERATE_LOG A
+		     INNER JOIN T_AFTER_SALES_GOODS B
+		        ON A.RELATED_ID = B.AFTER_SALES_GOODS_ID
+		     INNER JOIN T_GOODS C ON B.GOODS_ID = C.GOODS_ID
+		     LEFT JOIN T_BRAND D ON C.BRAND_ID = D.BRAND_ID
+		     LEFT JOIN T_UNIT E ON C.UNIT_ID = E.UNIT_ID
+		     LEFT JOIN T_BARCODE F ON A.BARCODE_ID = F.BARCODE_ID AND F.TYPE = 2
+		WHERE   B.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+			<if test="orderDetailId != null">
+				AND B.AFTER_SALES_GOODS_ID = #{orderDetailId,jdbcType=INTEGER}
+			</if>
+			<if test="companyId != null">
+				AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+			</if>
+		   AND A.OPERATE_TYPE = #{operateType,jdbcType=INTEGER}
+		   AND A.IS_ENABLE = 1
+	</select>
+	<!-- 商品所在仓库 -->
+	<select id="warehouseList" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" resultMap="VoResultMap">
+		SELECT	
+		    DISTINCT		
+			e.WAREHOUSE_NAME AS STORAGEADDRESS	
+		FROM
+			T_AFTER_SALES_GOODS A		
+		LEFT JOIN T_WAREHOUSE_GOODS_STATUS D ON A.GOODS_ID = D.GOODS_ID
+		LEFT JOIN T_WAREHOUSE e ON D.WAREHOUSE_ID = e.WAREHOUSE_ID
+		AND e.IS_ENABLE =1 and e.IS_TEMP =0
+		where A.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	</select>
+	
+	 <update id="updateAfterSalesServiceMoney" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+	    update T_AFTER_SALES_GOODS
+	    set PRICE = #{price,jdbcType=DECIMAL},
+	        SKU_REFUND_AMOUNT = #{skuRefundAmount,jdbcType=DECIMAL}
+	    where GOODS_TYPE = 1 and AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+	 </update>
+	 <!-- 获取已经被快递关联的出库商品数 -->
+	 <select id="getKdNum" resultType="java.lang.Integer" parameterType="com.vedeng.aftersales.model.AfterSalesGoods">
+		SELECT SUM(a.NUM) CNT FROM T_EXPRESS_DETAIL a INNER  JOIN T_AFTER_SALES_GOODS b
+		ON a.RELATED_ID = b.AFTER_SALES_GOODS_ID INNER  JOIN T_EXPRESS c ON a.EXPRESS_ID = c.EXPRESS_ID AND c.IS_ENABLE=1
+		WHERE b.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER} AND b.GOODS_TYPE =0
+		AND b.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		AND a.BUSINESS_TYPE = 582
+	 </select>
+	 
+	 <select id="getAfterGoodsList" resultType="com.vedeng.aftersales.model.AfterSalesGoods">
+	 	SELECT A.RELATED_ID AS afterSalesGoodsId, A.GOODS_ID, A.NUM
+		FROM T_WAREHOUSE_GOODS_OPERATE_LOG A
+		WHERE A.COMPANY_ID = #{companyId,jdbcType=INTEGER} 
+			AND A.IS_ENABLE = 1
+			AND A.OPERATE_TYPE = #{operateType,jdbcType=INTEGER}  
+			<if test="afterGoodsIdList != null and afterGoodsIdList.size() > 0">
+			AND A.RELATED_ID IN
+			<foreach collection="afterGoodsIdList" item="afterGoodsId" separator="," open="(" close=")">
+				#{afterGoodsId,jdbcType=INTEGER}  
+			</foreach>
+			</if>
+	 </select>
+	 
+	 <select id="getSaleGoodsWarehouseList" resultType="com.vedeng.aftersales.model.AfterSalesGoods">
+	 	SELECT C.RELATED_ID AS orderDetailId, SUM(ABS(C.NUM)) AS NUM
+		FROM T_SALEORDER_GOODS B
+		     INNER JOIN T_WAREHOUSE_GOODS_OPERATE_LOG C
+		        ON B.SALEORDER_GOODS_ID = C.RELATED_ID
+		WHERE C.COMPANY_ID = #{companyId,jdbcType=INTEGER}  AND C.OPERATE_TYPE = #{operateType,jdbcType=INTEGER} 
+			AND C.RELATED_ID IN 
+			<foreach collection="afterGoodsIdList" item="afterGoodsDetailId" separator="," open="(" close=")">
+				#{afterGoodsDetailId,jdbcType=INTEGER}  
+			</foreach>
+		GROUP BY C.RELATED_ID
+	 </select>
+	 
+	 <select id="getBuyorderAftersaleReturnGoods" resultType="java.lang.Integer" >
+	 	select 
+	    	COALESCE(SUM(a.NUM),0) 
+	    from T_AFTER_SALES_GOODS a
+	    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 546 and b.SUBJECT_TYPE = 536
+	        and a.ORDER_DETAIL_ID = #{buyorderGoodsId,jdbcType=INTEGER}  
+	 </select>
+	  <select id="getBuyorderAftersaleReturnGoodsByList" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo" >
+	 	select 
+	    	COALESCE(SUM(a.NUM),0) NUM,a.ORDER_DETAIL_ID
+	    from T_AFTER_SALES_GOODS a
+	    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 546 and b.SUBJECT_TYPE = 536
+	     <if test="bgvList!=null and bgvList.size()>0">
+	     	AND a.ORDER_DETAIL_ID IN 
+	     	<foreach collection="bgvList" index="index" item="bgv" open="(" close=")" separator=",">
+	     		#{bgv.buyorderGoodsId,jdbcType=INTEGER}  
+	     	</foreach>
+	     </if>
+	     GROUP BY a.ORDER_DETAIL_ID
+	 </select>
+	 <select id="batchSaleorderAftersaleReturnGoods" resultType="com.vedeng.order.model.vo.SaleorderGoodsVo" parameterType="com.vedeng.order.model.vo.SaleorderGoodsVo">
+	 	select 
+	    	COALESCE(SUM(a.NUM),0) as saleAfterNum ,a.ORDER_DETAIL_ID as saleorderGoodsId
+	    from T_AFTER_SALES_GOODS a
+	    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 539 and b.SUBJECT_TYPE = 535
+	        and a.ORDER_DETAIL_ID in
+	        <foreach item="sg" index="index" collection="saleorderGoodsList" open="(" separator="," close=")">  
+			  #{sg.saleorderGoodsId}  
+			</foreach> 
+			 GROUP BY a.ORDER_DETAIL_ID
+	 </select>
+	 
+	 <select id="getSaleorderAftersaleReturnGoods" resultType="java.lang.Integer" >
+	 	select 
+	    	COALESCE(SUM(a.NUM),0) 
+	    from T_AFTER_SALES_GOODS a
+	    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS = 2 AND b.TYPE = 539 and b.SUBJECT_TYPE = 535
+	        and a.ORDER_DETAIL_ID = #{saleorderGoodsId,jdbcType=INTEGER}  
+	 </select>
+	 
+	 <select id="getBuyorderAftersaleReturnGoodsBySaleorderGoodsId" resultType="java.lang.Integer" >
+		SELECT 
+	  		COALESCE(SUM(a.NUM),0) 
+	  	FROM T_AFTER_SALES_GOODS a
+			LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+			LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+			LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+			LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+		WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2
+			AND c.SALEORDER_GOODS_ID = #{saleorderGoodsId}  
+	 </select>
+	 
+	 <select id="batchBuyorderAftersaleReturnGoodsBySaleorderGoodsId" resultType="com.vedeng.order.model.vo.SaleorderGoodsVo" parameterType="com.vedeng.order.model.vo.SaleorderGoodsVo">
+		SELECT 
+	  		COALESCE(SUM(a.NUM),0) as buyAfterNum ,c.SALEORDER_GOODS_ID as saleorderGoodsId
+	  	FROM T_AFTER_SALES_GOODS a
+			LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+			LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+			LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+			LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+		WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2
+			AND c.SALEORDER_GOODS_ID in 
+				<foreach item="sg" index="index" collection="saleorderGoodsList" open="(" separator="," close=")">  
+					#{sg.saleorderGoodsId}  
+				</foreach>
+	  	group by c.SALEORDER_GOODS_ID
+	 </select>
+	 
+	 <select id="getReturnGoodsList"  resultType="com.vedeng.order.model.vo.SaleorderGoodsVo">
+  		select 
+  			ORDER_DETAIL_ID as saleorderGoodsId
+  		from T_AFTER_SALES_GOODS
+  		where GOODS_ID not in (select COMMENTS from T_SYS_OPTION_DEFINITION where PARENT_ID = 693) 
+  				and AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  	</select>
+  	<!-- 售后订单下未出库的商品 -->
+  	<select id="getAfterSalesGoodsNoOutList" resultType="com.vedeng.aftersales.model.AfterSalesGoods">
+	 	SELECT
+			a.*
+		FROM
+			T_AFTER_SALES_GOODS a
+		WHERE
+			1 = 1
+		AND a.GOODS_ID NOT IN (
+			SELECT
+				COMMENTS
+			FROM
+				T_SYS_OPTION_DEFINITION
+			WHERE
+				PARENT_ID = 693
+		)
+		AND a.DELIVERY_STATUS != 2
+		AND a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+	 </select>
+	 <!-- 批量更新售后订单下的产品状态 -->
+	 <update id="updateByPrimaryKeySelectiveBatch" parameterType="java.util.List" >
+	   UPDATE T_AFTER_SALES_GOODS
+	        SET DELIVERY_NUM = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.deliveryNum,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_STATUS = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.deliveryStatus,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_TIME = CASE AFTER_SALES_GOODS_ID
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.deliveryTime,jdbcType=BIGINT} 
+				</foreach> 
+	        END
+	    WHERE AFTER_SALES_GOODS_ID IN 
+	    	<foreach collection="list" item="AfterSalesGoods" separator="," open="(" close=")">
+						#{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER}
+			</foreach>
+   </update>
+   <!-- 批量更新产品入库状态 -->
+   <update id="updateByPrimaryKeySelectiveInBatch" parameterType="java.util.List" >
+	   UPDATE T_AFTER_SALES_GOODS
+	        SET ARRIVAL_NUM = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.arrivalNum,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        ARRIVAL_STATUS = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.arrivalStatus,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        ARRIVAL_TIME = CASE AFTER_SALES_GOODS_ID
+	        	<foreach collection="list" item="AfterSalesGoods" index="index" separator="" >
+	        	  WHEN #{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{AfterSalesGoods.arrivalTime,jdbcType=BIGINT} 
+				</foreach> 
+	        END
+	    WHERE AFTER_SALES_GOODS_ID IN 
+	    	<foreach collection="list" item="AfterSalesGoods" separator="," open="(" close=")">
+						#{AfterSalesGoods.afterSalesGoodsId,jdbcType=INTEGER}
+			</foreach>
+   </update>
+  	
+  	<select id="getBuyorderAfterSalesNumByBgvList" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo" resultType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo">
+	  	SELECT 
+	  		COALESCE(SUM(a.NUM),0) as afterSalesNum , b.BUYORDER_GOODS_ID as buyorderGoodsId
+	  	FROM T_AFTER_SALES_GOODS a
+			LEFT JOIN T_BUYORDER_GOODS b ON a.ORDER_DETAIL_ID = b.BUYORDER_GOODS_ID
+			LEFT JOIN T_AFTER_SALES d ON a.AFTER_SALES_ID = d.AFTER_SALES_ID
+			LEFT JOIN T_BUYORDER e ON e.BUYORDER_ID = b.BUYORDER_ID
+		WHERE d.SUBJECT_TYPE = 536 AND d.TYPE = 546 AND d.ATFER_SALES_STATUS = 2 AND e.STATUS between 0 and 2
+			AND b.BUYORDER_GOODS_ID in
+			<foreach item="bg" index="index" collection="bgvList" open="(" separator="," close=")">  
+			  #{bg.buyorderGoodsId}  
+			</foreach>
+			group by b.BUYORDER_GOODS_ID
+
+  </select>
+    <select id="getAfterSalesListNumByParam" parameterType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo" resultType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+  	select a.ORDER_DETAIL_ID as BUYORDER_GOODS_ID,
+    	COALESCE(SUM(NUM),0) as afterSaleUpLimitNum
+    from T_AFTER_SALES_GOODS a
+    left join T_AFTER_SALES b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.GOODS_TYPE = 0 and b.ATFER_SALES_STATUS != 3
+    <if test="afterSalesIdList != null" >
+        and a.AFTER_SALES_ID in
+        <foreach item="afterSalesId" index="index" collection="afterSalesIdList" open="(" separator="," close=")">  
+		  #{afterSalesId}  
+		</foreach>
+    </if>
+    <if test="orderDetailIdList != null" >
+        and a.ORDER_DETAIL_ID in
+        <foreach item="orderDetailIds" index="index" collection="orderDetailIdList" open="(" separator="," close=")">  
+		  #{orderDetailIds}  
+		</foreach>
+    </if>
+    <if test="type != null" >
+        and b.TYPE = #{type,jdbcType=INTEGER}
+    </if>
+    group by a.ORDER_DETAIL_ID
+  </select>
+  
+    	<!-- 根据id的list查询售后商品 -->
+  <select id="getAfterSalesGoodsInfoByList" resultMap="VoResultMap" parameterType="java.util.List" >
+	    select 
+	    b.*,
+	    a.type,
+	    f.GOODS_NAME,
+		g.BRAND_NAME,
+		f.MODEL,
+		f.SKU,
+		f.MATERIAL_CODE,
+		h.UNIT_NAME
+	    from T_AFTER_SALES_GOODS b
+	    LEFT JOIN T_AFTER_SALES a ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	    INNER JOIN T_GOODS f ON b.GOODS_ID = f.GOODS_ID
+		INNER JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+		INNER JOIN T_UNIT h ON f.UNIT_ID = h.UNIT_ID
+	    where 1=1
+	    	<if test="list != null">
+			AND	b.AFTER_SALES_GOODS_ID IN
+				<foreach collection="list" item="afg" separator="," open="(" close=")">
+					#{afg,jdbcType=INTEGER}
+				</foreach>
+			</if>
+			<if test="list = null">
+			AND 1=2
+			</if>
+  </select>
+  <update id="batchUpdateArrivalByList" parameterType="java.util.List" >
+   UPDATE T_AFTER_SALES_GOODS
+        SET ARRIVAL_NUM = CASE AFTER_SALES_GOODS_ID 
+        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.arrivalNum,jdbcType=INTEGER} 
+			</foreach>
+        END,
+        ARRIVAL_STATUS = CASE AFTER_SALES_GOODS_ID 
+        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.arrivalStatus,jdbcType=INTEGER} 
+			</foreach>
+        END,
+        ARRIVAL_TIME = CASE AFTER_SALES_GOODS_ID
+        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.arrivalTime,jdbcType=BIGINT} 
+			</foreach> 
+        END,
+        ARRIVAL_USER_ID = CASE AFTER_SALES_GOODS_ID
+        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.arrivalUserId,jdbcType=INTEGER} 
+			</foreach>
+        END
+    WHERE AFTER_SALES_GOODS_ID IN 
+    	<foreach collection="list" item="afterSaleGoods" separator="," open="(" close=")">
+					#{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER}
+		</foreach>
+    	
+  </update>
+  
+  <update id="batchUpdateDeliveryByList" parameterType="java.util.List" >
+   UPDATE T_AFTER_SALES_GOODS
+        SET DELIVERY_NUM = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+	        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.deliveryNum,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_STATUS = CASE AFTER_SALES_GOODS_ID 
+	        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+	        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.deliveryStatus,jdbcType=INTEGER} 
+				</foreach>
+	        END,
+	        DELIVERY_TIME = CASE AFTER_SALES_GOODS_ID
+	        	<foreach collection="list" item="afterSaleGoods" index="index" separator="" >
+	        	  WHEN #{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER} THEN #{afterSaleGoods.deliveryTime,jdbcType=BIGINT} 
+				</foreach> 
+	        END
+    WHERE AFTER_SALES_GOODS_ID IN 
+    	<foreach collection="list" item="afterSaleGoods" separator="," open="(" close=")">
+					#{afterSaleGoods.afterSalesGoodsId,jdbcType=INTEGER}
+		</foreach>
+    	
+  </update>
+  
+  <select id="selectByAfterSalesId" resultMap="BaseResultMap" >
+    SELECT 
+    	<include refid="Base_Column_List" />
+    FROM 
+    	T_AFTER_SALES_GOODS
+    WHERE 
+    	AFTER_SALES_ID IN
+    	<foreach collection="afterSalesVoList" item="vo" separator="," open="(" close=")">
+			#{vo.afterSalesId, jdbcType=INTEGER}
+		</foreach>
+		<if test="null != parendId">
+			AND GOODS_ID NOT IN 
+			(
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = #{parendId, jdbcType=INTEGER}
+			)
+		</if>
+  </select>
+  
+  <update id="updateByGoodsIdAndAfterSalesId" parameterType="com.vedeng.aftersales.model.AfterSalesGoods" >
+    UPDATE T_AFTER_SALES_GOODS
+    <set >
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="orderDetailId != null" >
+        ORDER_DETAIL_ID = #{orderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        NUM = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="arrivalNum != null" >
+        ARRIVAL_NUM = #{arrivalNum,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="arrivalUserId != null" >
+        ARRIVAL_USER_ID = #{arrivalUserId,jdbcType=INTEGER},
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="goodsType != null" >
+       GOODS_TYPE = #{goodsType,jdbcType=BIT},
+      </if>
+      <if test="deliveryNum != null" >
+        DELIVERY_NUM = #{deliveryNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="skuRefundAmount != null" >
+        SKU_REFUND_AMOUNT = #{skuRefundAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    WHERE 
+    	AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+    	AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </update>
+    <select id="getSaleOrderIdByafterSalesGoodsId" resultType="java.lang.Integer">
+        SELECT
+	B.ORDER_ID
+  FROM
+	T_AFTER_SALES_GOODS A
+	LEFT JOIN T_AFTER_SALES B ON A.AFTER_SALES_ID = B.AFTER_SALES_ID
+  WHERE
+	A.AFTER_SALES_GOODS_ID = #{relatedId,jdbcType=INTEGER}
+    </select>
+    <select id="getAfterSalesGoodsNoOutNumList" resultType="com.vedeng.aftersales.model.AfterSalesGoods">
+        SELECT
+        a.GOODS_ID,
+        SUM(IFNULL(a.NUM,0)) NUM,
+        SUM(IFNULL(a.DELIVERY_NUM,0))DELIVERY_NUM
+    FROM
+        T_AFTER_SALES_GOODS a
+    WHERE
+        1 = 1
+        AND a.GOODS_ID NOT IN ( SELECT COMMENTS FROM T_SYS_OPTION_DEFINITION WHERE PARENT_ID = 693 )
+        AND a.DELIVERY_STATUS != 2
+        AND a.AFTER_SALES_ID =  #{afterSalesId,jdbcType=INTEGER}
+        GROUP BY a.GOODS_ID
+    </select>
+    <update id="updateDataTimeByOrderId">
+	UPDATE T_AFTER_SALES_GOODS
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	AFTER_SALES_ID = #{orderId,jdbcType=INTEGER}
+	</update>
+    <update id="updateDataTimeByDetailId">
+	UPDATE T_AFTER_SALES_GOODS
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	AFTER_SALES_GOODS_ID = #{orderDetailId,jdbcType=INTEGER}
+	</update>
+</mapper>

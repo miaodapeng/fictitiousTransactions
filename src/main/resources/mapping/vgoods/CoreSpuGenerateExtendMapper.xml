@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vedeng.goods.dao.CoreSpuGenerateExtendMapper">
+    <resultMap id="CoreSpuDTOMap" type="com.vedeng.goods.model.dto.CoreSpuBaseDTO">
+        <id column="SPU_ID" jdbcType="INTEGER" property="spuId"/>
+        <result column="SPU_NO" jdbcType="VARCHAR" property="spuNo"/>
+        <result column="SHOW_NAME" jdbcType="VARCHAR" property="spuShowName"/>
+        <result column="SPU_LEVEL" jdbcType="INTEGER" property="spuLevel"/>
+        <result column="SPU_TYPE" jdbcType="INTEGER" property="spuType"/>
+        <result column="BRAND_ID" jdbcType="INTEGER" property="brandId"/>
+        <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId"/>
+        <result column="WIKI_HREF" jdbcType="VARCHAR" property="wikiHref"/>
+        <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime"/>
+        <result column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId"/>
+        <result column="OPERATE_INFO_ID" jdbcType="INTEGER" property="operateInfoId"/>
+
+        <!-- for list-->
+        <result column="REGISTRATION_ICON" jdbcType="VARCHAR" property="registrationIcon"/>
+        <result column="REGISTRATION_NUMBER" jdbcType="VARCHAR" property="registrationNumber"/>
+        <result column="FIRST_ENGAGE_ID" jdbcType="INTEGER" property="firstEngageId"/>
+        <result column="FIRST_ENGAGE_STATUS" jdbcType="INTEGER" property="firstEngageStatus"/>
+        <result column="ASSIGNMENT_ASSISTANT_ID" jdbcType="INTEGER" property="assignmentAssistantId"/>
+        <result column="ASSIGNMENT_MANAGER_ID" jdbcType="INTEGER" property="assignmentManagerId"/>
+
+    </resultMap>
+
+
+    <resultMap id="CoreSkuDTOMap" type="com.vedeng.goods.model.dto.CoreSkuBaseDTO">
+        <id column="SKU_ID" jdbcType="INTEGER" property="skuId"/>
+        <result column="SPU_ID" jdbcType="INTEGER" property="spuId"/>
+        <result column="SKU_NO" jdbcType="VARCHAR" property="skuNo"/>
+        <result column="SKU_NAME" jdbcType="VARCHAR" property="skuName"/>
+        <result column="SHOW_NAME" jdbcType="VARCHAR" property="showName"/>
+        <result column="HAS_BACKUP_MACHINE" jdbcType="INTEGER" property="hasBackupMachine"/>
+        <result column="CHECK_STATUS" jdbcType="INTEGER" property="checkStatus"/>
+        <result column="WIKI_HREF" jdbcType="VARCHAR" property="wikiHref"/>
+        <result column="MOD_TIME" jdbcType="TIMESTAMP" property="modTime"/>
+        <result column="OPERATE_INFO_ID" jdbcType="INTEGER" property="operateInfoId"/>
+        <result column="model" jdbcType="VARCHAR" property="model"/>
+        <result column="spec" jdbcType="VARCHAR" property="spec"/>
+        <result column="Is_Stockup" jdbcType="VARCHAR" property="isStockup"/>
+    </resultMap>
+
+    <resultMap id="SpuSkuIdForListDTOMap" type="com.vedeng.goods.model.dto.SpuSkuIdForListDTO">
+        <id column="SPU_ID" jdbcType="INTEGER" property="spuId"/>
+        <result column="brand_id" jdbcType="INTEGER" property="brandId"/>
+        <result column="spu_Level" jdbcType="INTEGER" property="spuLevel"/>
+        <result column="SKU_IDS" jdbcType="VARCHAR" property="skuIds"/>
+    </resultMap>
+
+
+    <select id="selectSpuListPage" parameterType="Map" resultMap="SpuSkuIdForListDTOMap">
+        SELECT
+        spu.SPU_ID  ,
+        group_concat(sku.SKU_ID ORDER BY sku.MOD_TIME DESC ) SKU_IDS
+        FROM
+        V_CORE_SPU spu
+        LEFT JOIN V_CORE_SKU sku ON spu.SPU_ID = sku.SPU_ID and sku.status=1
+        LEFT JOIN T_FIRST_ENGAGE firEn ON spu.FIRST_ENGAGE_ID = firEn.FIRST_ENGAGE_ID
+        LEFT JOIN T_REGISTRATION_NUMBER regNum ON firEn.REGISTRATION_NUMBER_ID = regNum.REGISTRATION_NUMBER_ID
+        <if test="command.brandName !=null and command.brandName != '' ">
+        left  join T_BRAND brand ON spu.brand_id=brand.brand_id and brand.IS_DELETE=0
+        </if>
+
+        <if test="command.productCompanyName !=null and command.productCompanyName != '' ">
+            left  join T_PRODUCT_COMPANY pc  on regNum.PRODUCT_COMPANY_ID=pc.PRODUCT_COMPANY_ID
+        </if>
+        WHERE
+        spu.status=1
+
+        <!-- add by Tomcat.Hui 2020/3/11 10:50 上午 .Desc: VDERP-2140 erp-新商品流-推送状态筛选项无科研购推送. start -->
+        <if test="command.pushStatus != null and  command.pushStatus == 4">
+            and  sku.PUSH_STATUS = 4
+        </if>
+        <!-- add by Tomcat.Hui 2020/3/11 10:50 上午 .Desc: VDERP-2140 erp-新商品流-推送状态筛选项无科研购推送. end -->
+
+        <if test="command.pushStatus != null and  command.pushStatus == 3">
+           and  sku.PUSH_STATUS = 3
+        </if>
+        <if test="command.pushStatus != null and  command.pushStatus == 2 ">
+            and(sku.PUSH_STATUS = 2 OR sku.PUSH_STATUS = 3)
+        </if>
+         <if test="command.pushStatus != null and  command.pushStatus == 1">
+            and(sku.PUSH_STATUS = 1 OR sku.PUSH_STATUS = 3)
+        </if>
+        <if test="command.pushStatus != null and command.pushStatus == 0 ">
+            and(sku.PUSH_STATUS = 0 OR sku.PUSH_STATUS IS NULL)
+        </if>
+        <if test="command.searchValue != null and command.searchValue != '' ">
+            <choose>
+                <when test="command.searchType == 1">
+                    and(  spu.SHOW_NAME LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.model LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    spu.SPU_ID =  #{command.spuIdSearch, jdbcType=INTEGER}
+                    OR
+                    sku.SHOW_NAME LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.spec LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.SKU_NO LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    or
+                    sku.MATERIAL_CODE LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    or
+                    regNum.REGISTRATION_NUMBER LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    )
+                </when >
+                <when test="command.searchType ==2">
+                    and  (spu.SHOW_NAME LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.model LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.SHOW_NAME LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    OR
+                    sku.spec LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+                    )
+                </when >
+                <when test="command.searchType ==3">
+                    and sku.SKU_NO LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+
+                </when >
+                <when test="command.searchType ==4">
+                    and sku.MATERIAL_CODE LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+
+                </when >
+                <when test="command.searchType ==5">
+                    and  regNum.REGISTRATION_NUMBER LIKE CONCAT(CONCAT('%', #{command.searchValue, jdbcType=VARCHAR}),'%')
+
+                </when >
+
+                <when test="command.searchType ==6">
+                    and  spu.SPU_ID = #{command.spuIdSearch, jdbcType=VARCHAR}
+
+                </when >
+                <otherwise>
+                </otherwise>
+            </choose>
+        </if>
+        <if test="command.categoryId !=null and command.categoryId >= 0 ">
+            and spu.CATEGORY_ID in(
+                select
+                c.BASE_CATEGORY_ID from V_BASE_CATEGORY a,V_BASE_CATEGORY b,V_BASE_CATEGORY c
+                where a.BASE_CATEGORY_ID=b.PARENT_ID
+                and b.BASE_CATEGORY_ID=c.PARENT_ID
+                and (a.BASE_CATEGORY_ID = #{command.categoryId, jdbcType=INTEGER} or b.BASE_CATEGORY_ID = #{command.categoryId, jdbcType=INTEGER}
+                or c.BASE_CATEGORY_ID = #{command.categoryId, jdbcType=INTEGER} )
+            )
+        </if>
+
+        <if test="command.brandName !=null and command.brandName != '' ">
+            and brand.BRAND_NAME  LIKE CONCAT(CONCAT('%', #{command.brandName, jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="command.spuLevel !=null and command.spuLevel >= 0 ">
+            and spu.SPU_LEVEL=#{command.spuLevel, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.spuType !=null and command.spuType >= 0 ">
+            and spu.SPU_TYPE=#{command.spuType, jdbcType=INTEGER}
+        </if>
+        <if test="command.manageCategoryLevel !=null and command.manageCategoryLevel >= 0 ">
+            and regNum.MANAGE_CATEGORY_LEVEL=#{command.manageCategoryLevel, jdbcType=INTEGER}
+        </if>
+        <if test="command.newStandardCategoryId !=null and command.newStandardCategoryId >= 0 ">
+            and firEn.NEW_STANDARD_CATEGORY_ID=#{command.newStandardCategoryId, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.productCompanyName !=null and command.productCompanyName != '' ">
+            and pc.PRODUCT_COMPANY_CHINESE_NAME  LIKE CONCAT(CONCAT('%', #{command.productCompanyName, jdbcType=VARCHAR}),'%')
+        </if>
+        <if test="command.departmentName !=null and command.departmentName != '' ">
+            and exists
+            (
+            select a.spu_id from V_SPU_DEPARTMENT_MAPPING a
+            left join T_DEPARTMENTS_HOSPITAL b
+            on  a.DEPARTMENT_ID=b.DEPARTMENT_ID
+            and a.`STATUS`=1
+            and b.DEPARTMENT_NAME like CONCAT(CONCAT('%', #{command.departmentName, jdbcType=VARCHAR}),'%')
+            where  a.spu_id=spu.SPU_ID
+            AND b.IS_DELETE=0
+            limit 1
+            )
+        </if>
+
+        <if test="command.spuCheckStatus !=null and command.spuCheckStatus >= 0 ">
+            and spu.CHECK_STATUS=#{command.spuCheckStatus, jdbcType=INTEGER}
+        </if>
+        <if test="command.skuCheckStatus !=null and command.skuCheckStatus >= 0 ">
+            and sku.CHECK_STATUS=#{command.skuCheckStatus, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.modTimeStart !=null  ">
+            and spu.MOD_TIME &gt;= #{command.modTimeStart, jdbcType=TIMESTAMP}
+
+        </if>
+
+        <if test="command.modTimeEnd !=null  ">
+            and spu.MOD_TIME &lt;= #{command.modTimeEnd, jdbcType=TIMESTAMP}
+
+        </if>
+
+        <if test="command.operateInfoFlag !=null  and command.operateInfoFlag == 0 ">
+            and (spu.OPERATE_INFO_ID &lt;=0 or  spu.OPERATE_INFO_ID is null)
+        </if>
+        <if test="command.operateInfoFlag !=null  and command.operateInfoFlag gt 0 ">
+            and spu.OPERATE_INFO_ID &gt; 0
+        </if>
+
+        <if test="command.isStockup !=null and command.isStockup == 0 ">
+            and (sku.IS_STOCKUP=0 or sku.IS_STOCKUP is null)
+        </if>
+        <if test="command.isStockup !=null and command.isStockup > 0 ">
+            and sku.IS_STOCKUP=#{command.isStockup, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.spuId !=null and command.spuId >= 0 ">
+            and spu.SPU_ID=#{command.spuId, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.assignmentAssistantId !=null and command.assignmentAssistantId >= 0 ">
+            and spu.ASSIGNMENT_ASSISTANT_ID=#{command.assignmentAssistantId, jdbcType=INTEGER}
+        </if>
+
+        <if test="command.assignmentManagerId !=null and command.assignmentManagerId >= 0 ">
+            and spu.ASSIGNMENT_MANAGER_ID=#{command.assignmentManagerId, jdbcType=INTEGER}
+        </if>
+
+        GROUP BY
+        spu.SPU_ID
+        ORDER BY
+        spu.MOD_TIME DESC
+    </select>
+
+
+    <select id="selectSpuBaseBySpuId" resultMap="CoreSpuDTOMap">
+   	SELECT
+		spu.SHOW_NAME as SPU_SHOW_NAME,
+		spu.SPU_LEVEL,
+		spu.CHECK_STATUS,
+		spu.WIKI_HREF,
+		spu.SPU_ID,
+		spu.SPU_NAME,
+regNum.REGISTRATION_NUMBER,
+		spu.CATEGORY_ID,
+		spu.BRAND_ID,
+		spu.SPU_TYPE,
+		spu.CATEGORY_ID,
+		spu.MOD_TIME,
+		spu.FIRST_ENGAGE_ID,
+spu.OPERATE_INFO_ID,
+		firEn.status as FIRST_ENGAGE_STATUS,ASSIGNMENT_ASSISTANT_ID,ASSIGNMENT_MANAGER_ID
+	FROM  V_CORE_SPU spu
+		LEFT JOIN T_FIRST_ENGAGE firEn ON spu.FIRST_ENGAGE_ID = firEn.FIRST_ENGAGE_ID
+		LEFT JOIN T_REGISTRATION_NUMBER regNum ON firEn.REGISTRATION_NUMBER_ID = regNum.REGISTRATION_NUMBER_ID
+	where spu.SPU_ID=#{spuId,jdbcType=INTEGER} and spu.status=1
+  </select>
+
+    <select id="selectSkuBaseBySkuId" resultMap="CoreSkuDTOMap">
+   	SELECT
+   		SPU_ID,
+		SKU_ID
+		,SKU_NO
+		,SKU_NAME
+		,SHOW_NAME
+		,HAS_BACKUP_MACHINE
+		,CHECK_STATUS
+		,MOD_TIME
+		,WIKI_HREF
+		,OPERATE_INFO_ID
+		,model,spec,
+		Is_Stockup
+	from V_CORE_SKU sku
+	where sku.SKU_ID=#{skuId,jdbcType=INTEGER}  and sku.status=1
+  </select>
+    <select id="selectSkuBaseBySkuIds" resultMap="CoreSkuDTOMap">
+        SELECT
+        SPU_ID,
+        SKU_ID
+        ,SKU_NO
+        ,SKU_NAME
+        ,SHOW_NAME
+        ,HAS_BACKUP_MACHINE
+        ,CHECK_STATUS
+        ,MOD_TIME
+        ,WIKI_HREF
+        ,OPERATE_INFO_ID
+        ,model,spec,Is_Stockup
+        from V_CORE_SKU sku
+        where sku.SKU_ID
+        in
+        <foreach collection="skuIds" item="skuId" index="index"
+                 open="(" close=")" separator=",">
+            #{skuId,jdbcType=INTEGER}
+        </foreach>
+        and sku.status=1
+        order by MOD_TIME desc
+    </select>
+
+    <resultMap id="AttrMap" type="com.vedeng.goods.model.vo.BaseAttributeVo">
+        <id column="SPU_ATTR_ID" jdbcType="INTEGER" property="spuAttrId"/>
+        <result column="BASE_ATTRIBUTE_ID" jdbcType="INTEGER" property="baseAttributeId"/>
+        <result column="BASE_ATTRIBUTE_NAME" jdbcType="VARCHAR" property="baseAttributeName"/>
+    </resultMap>
+    <select id="selectAllAttributeBySpuId" resultMap="AttrMap">
+				SELECT
+			b.SPU_ATTR_ID,
+			a.BASE_ATTRIBUTE_ID,
+			a.BASE_ATTRIBUTE_NAME
+		FROM
+			V_SPU_ATTR_MAPPING b left join V_BASE_ATTRIBUTE a
+		on 	a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID
+			WHERE b.SPU_ID=#{spuId,jdbcType=INTEGER}
+			and a.IS_DELETED = 0
+			AND b.`STATUS` =1
+	</select>
+    <select id="selectAllAttributeByCategoryId" resultMap="AttrMap">
+				SELECT
+           DISTINCT b.BASE_ATTRIBUTE_ID,
+            b.BASE_ATTRIBUTE_NAME
+        FROM
+            V_CATEGORY_ATTR_VALUE_MAPPING a
+        JOIN V_BASE_ATTRIBUTE b ON a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID AND b.IS_DELETED = 0
+        WHERE
+            a.IS_DELETED = 0
+            and a.BASE_CATEGORY_ID = #{categoryId, jdbcType=INTEGER}
+        ORDER BY
+            b.MOD_TIME DESC,
+            b.BASE_ATTRIBUTE_ID DESC
+	</select>
+    <resultMap id="AttrValueMap" type="com.vedeng.goods.model.vo.BaseAttributeValueVo">
+
+        <id column="BASE_ATTRIBUTE_VALUE_ID" jdbcType="INTEGER" property="baseAttributeValueId"/>
+        <result column="BASE_ATTRIBUTE_ID" jdbcType="INTEGER" property="baseAttributeId"/>
+
+        <result column="ATTR_VALUE" jdbcType="VARCHAR" property="attrValue"/>
+        <result column="UNIT_NAME" jdbcType="VARCHAR" property="unitName"/>
+
+    </resultMap>
+    <select id="selectAllAttributeValueByAttrId" resultMap="AttrValueMap">
+		select C.UNIT_NAME,B.ATTR_VALUE ,B.BASE_ATTRIBUTE_VALUE_ID
+		from
+		V_CATEGORY_ATTR_VALUE_MAPPING A left join V_BASE_ATTRIBUTE_VALUE B on A.BASE_ATTRIBUTE_ID=B.BASE_ATTRIBUTE_ID
+		 and  A.BASE_ATTRIBUTE_VALUE_ID=B.BASE_ATTRIBUTE_VALUE_ID
+		left join T_UNIT C on B.UNIT_ID=C.UNIT_ID
+		WHERE A.BASE_CATEGORY_ID=#{baseCategoryId,jdbcType=INTEGER}
+		and   A.BASE_ATTRIBUTE_ID=#{baseAttributeId,jdbcType=INTEGER}
+		and   A.IS_DELETED=0
+		AND   B.IS_DELETED=0
+		ORDER BY B.SORT DESC
+	</select>
+    <!--	<resultMap id="departmentMap" type="com.vedeng.department.model.DepartmentsHospitalGenerate">-->
+
+    <!--		<id column="departmentId" jdbcType="INTEGER" property="baseAttributeValueId" />-->
+    <!--		<result column="departmentName" jdbcType="INTEGER" property="baseAttributeId" />-->
+    <!--	</resultMap>-->
+
+    <!--	<select id="selectAllCheckDepartmentBySpuId" resultMap="departmentMap">-->
+
+
+    <!--	</select>-->
+
+
+    <update id="submitToCheck">
+		update V_CORE_SPU set check_status='1',MOD_TIME=now() where spu_id=#{spuId,jdbcType=INTEGER}
+	</update>
+
+
+    <select id="searchFirstEngageListPage" resultType="map">
+        select F.FIRST_ENGAGE_ID firstEngageId,A.REGISTRATION_NUMBER registrationNumber,P.PRODUCT_COMPANY_CHINESE_NAME
+        productCompanyChineseName,
+        IF(BB.BRAND_NATURE=1,BB.BRAND_NAME,BB.BRAND_NAME_EN) brandName
+        from
+        T_FIRST_ENGAGE F LEFT JOIN T_REGISTRATION_NUMBER A ON F.REGISTRATION_NUMBER_ID=A.REGISTRATION_NUMBER_ID
+        LEFT JOIN T_PRODUCT_COMPANY P ON A.PRODUCT_COMPANY_ID=P.PRODUCT_COMPANY_ID
+        LEFT JOIN V_BRAND_MANUFACTOR_MAPPING MM ON MM.PRODUCT_COMPANY_ID=P.PRODUCT_COMPANY_ID
+        LEFT JOIN T_BRAND BB ON BB.BRAND_ID=MM.BRAND_ID
+
+        WHERE F.IS_DELETED=0
+        <if test="searchValue != null and searchValue != '' ">
+            AND (
+            A.REGISTRATION_NUMBER LIKE CONCAT(CONCAT('%', #{searchValue, jdbcType=VARCHAR}),'%')
+            OR P.PRODUCT_COMPANY_CHINESE_NAME LIKE CONCAT(CONCAT('%', #{searchValue, jdbcType=VARCHAR}),'%')
+            OR BB.BRAND_NAME LIKE CONCAT(CONCAT('%', #{searchValue, jdbcType=VARCHAR}),'%')
+            )
+        </if>
+    </select>
+
+    <select id="countSkuBySpuIdAndSkuInfo" resultType="int">
+        select count(1) from V_CORE_SKU WHERE SPU_ID=#{spuId,jdbcType=INTEGER}
+        <if test="spec != null and spec != '' ">
+            and spec=#{spec,jdbcType=VARCHAR}
+        </if>
+        <if test="model != null and model != '' ">
+            and model=#{model,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+
+    <insert id="insertSpu" parameterType="com.vedeng.goods.model.CoreSpuGenerate">
+		insert into V_CORE_SPU (SPU_ID, CATEGORY_ID, BRAND_ID, SPU_NO,
+		SPU_NAME, SHOW_NAME, SPU_LEVEL,
+		`STATUS`, SPU_TYPE, FIRST_ENGAGE_ID,
+		REGISTRATION_ICON, WIKI_HREF, OPERATE_INFO_FLAG,
+		CHECK_STATUS, OPERATE_INFO_ID, HOSPITAL_TAGS,
+		ADD_TIME, CREATOR, MOD_TIME,
+		UPDATER, CHECK_TIME, CHECKER,
+		DELETE_REASON, LAST_CHECK_REASON, ASSIGNMENT_MANAGER_ID,
+		ASSIGNMENT_ASSISTANT_ID)
+		values (#{spuId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{spuNo,jdbcType=VARCHAR},
+		#{spuName,jdbcType=VARCHAR}, #{showName,jdbcType=VARCHAR}, #{spuLevel,jdbcType=TINYINT},
+		#{status,jdbcType=TINYINT}, #{spuType,jdbcType=INTEGER}, #{firstEngageId,jdbcType=INTEGER},
+		#{registrationIcon,jdbcType=VARCHAR}, #{wikiHref,jdbcType=VARCHAR}, #{operateInfoFlag,jdbcType=TINYINT},
+		#{checkStatus,jdbcType=TINYINT}, #{operateInfoId,jdbcType=INTEGER}, #{hospitalTags,jdbcType=VARCHAR},
+		#{addTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=TIMESTAMP},
+		#{updater,jdbcType=INTEGER}, #{checkTime,jdbcType=TIMESTAMP}, #{checker,jdbcType=INTEGER},
+		#{deleteReason,jdbcType=VARCHAR}, #{lastCheckReason,jdbcType=VARCHAR}, #{assignmentManagerId,jdbcType=INTEGER},
+		#{assignmentAssistantId,jdbcType=INTEGER})
+	</insert>
+    <insert id="insertSku" parameterType="com.vedeng.goods.model.CoreSkuGenerate">
+		insert into V_CORE_SKU (SKU_ID,SPU_ID, CHECK_STATUS, MODEL,
+		SPEC, SKU_NO, SKU_NAME,SHOW_NAME,
+		MATERIAL_CODE, SUPPLY_MODEL, IS_STOCKUP,
+		WIKI_HREF, TECHNICAL_PARAMETER, PERFORMANCE_PARAMETER,
+		SPEC_PARAMETER, BASE_UNIT_ID, MIN_ORDER,
+		GOODS_LENGTH, GOODS_WIDTH, GOODS_HEIGHT,
+		PACKAGE_LENGTH, PACKAGE_WIDTH, PACKAGE_HEIGHT,
+		NET_WEIGHT, GROSS_WEIGHT, UNIT_ID,
+		CHANGE_NUM, PACKING_LIST, AFTER_SALE_CONTENT,
+		QA_YEARS, STORAGE_CONDITION_ONE, STORAGE_CONDITION_TWO,
+		EFFECTIVE_DAY_UNIT, EFFECTIVE_DAYS, QA_RULE,
+		QA_OUT_PRICE, QA_RESPONSE_TIME, HAS_BACKUP_MACHINE,
+		SUPPLIER_EXTEND_GUARANTEE_PRICE, CORE_PARTS_PRICE_FID,
+		RETURN_GOODS_CONDITIONS, FREIGHT_INTRODUCTIONS,
+		EXCHANGE_GOODS_CONDITIONS, EXCHANGE_GOODS_METHOD,
+		GOODS_COMMENTS, `STATUS`, ADD_TIME,
+		CREATOR, MOD_TIME, UPDATER,
+		CHECK_TIME, CHECKER, OPERATE_INFO_ID,
+		DELETE_REASON, LAST_CHECK_REASON, TAX_CATEGORY_NO
+		)
+		values (#{skuId,jdbcType=INTEGER},#{spuId,jdbcType=INTEGER}, #{checkStatus,jdbcType=TINYINT}, #{model,jdbcType=VARCHAR},
+		#{spec,jdbcType=VARCHAR}, #{skuNo,jdbcType=VARCHAR}, #{skuName,jdbcType=VARCHAR},#{showName,jdbcType=VARCHAR},
+		#{materialCode,jdbcType=VARCHAR}, #{supplyModel,jdbcType=VARCHAR}, #{isStockup,jdbcType=VARCHAR},
+		#{wikiHref,jdbcType=VARCHAR}, #{technicalParameter,jdbcType=VARCHAR}, #{performanceParameter,jdbcType=VARCHAR},
+		#{specParameter,jdbcType=VARCHAR}, #{baseUnitId,jdbcType=INTEGER}, #{minOrder,jdbcType=DECIMAL},
+		#{goodsLength,jdbcType=DECIMAL}, #{goodsWidth,jdbcType=DECIMAL}, #{goodsHeight,jdbcType=DECIMAL},
+		#{packageLength,jdbcType=DECIMAL}, #{packageWidth,jdbcType=DECIMAL}, #{packageHeight,jdbcType=DECIMAL},
+		#{netWeight,jdbcType=DECIMAL}, #{grossWeight,jdbcType=DECIMAL}, #{unitId,jdbcType=INTEGER},
+		#{changeNum,jdbcType=INTEGER}, #{packingList,jdbcType=VARCHAR}, #{afterSaleContent,jdbcType=TINYINT},
+		#{qaYears,jdbcType=VARCHAR}, #{storageConditionOne,jdbcType=TINYINT}, #{storageConditionTwo,jdbcType=TINYINT},
+		#{effectiveDayUnit,jdbcType=TINYINT}, #{effectiveDays,jdbcType=INTEGER}, #{qaRule,jdbcType=VARCHAR},
+		#{qaOutPrice,jdbcType=DECIMAL}, #{qaResponseTime,jdbcType=DECIMAL}, #{hasBackupMachine,jdbcType=VARCHAR},
+		#{supplierExtendGuaranteePrice,jdbcType=DECIMAL}, #{corePartsPriceFid,jdbcType=INTEGER},
+		#{returnGoodsConditions,jdbcType=TINYINT}, #{freightIntroductions,jdbcType=VARCHAR},
+		#{exchangeGoodsConditions,jdbcType=VARCHAR}, #{exchangeGoodsMethod,jdbcType=VARCHAR},
+		#{goodsComments,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{addTime,jdbcType=TIMESTAMP},
+		#{creator,jdbcType=INTEGER}, #{modTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER},
+		#{checkTime,jdbcType=TIMESTAMP}, #{checker,jdbcType=INTEGER}, #{operateInfoId,jdbcType=INTEGER},
+		#{deleteReason,jdbcType=VARCHAR}, #{lastCheckReason,jdbcType=VARCHAR}, #{taxCategoryNo,jdbcType=VARCHAR}
+		)
+	</insert>
+    <insert id="insertGoods" parameterType="com.vedeng.goods.model.GoodsGenerateWithBLOBs">
+
+        insert into T_GOODS (GOODS_ID,COMPANY_ID, PARENT_ID, CATEGORY_ID,
+        BRAND_ID, IS_ON_SALE, IS_DISCARD,
+        SKU, GOODS_NAME, ALIAS_NAME,
+        MODEL, MATERIAL_CODE, BASE_UNIT_ID,
+        CHANGE_NUM, UNIT_ID, GROSS_WEIGHT,
+        NET_WEIGHT, GOODS_LENGTH, GOODS_WIDTH,
+        GOODS_HEIGHT, PACKAGE_LENGTH, PACKAGE_WIDTH,
+        PACKAGE_HEIGHT, GOODS_TYPE, GOODS_LEVEL,
+        MANAGE_CATEGORY, MANAGE_CATEGORY_LEVEL, PURCHASE_REMIND,
+        LICENSE_NUMBER, FIRST_ENGAGE_ID, RECORD_NUMBER,
+        REGISTRATION_NUMBER, BEGINTIME, ENDTIME,
+        AUTHORIZATION_CERTIFICATE_URL, OTHER_QUALIFICATION_URL,
+        COLOR_PAGE_URL, TECHNICAL_PARAMETER_URL, INSTRUCTIONS_URL,
+        BIDDING_DATA_URL, PACKING_LIST, TOS,
+        TAX_CATEGORY_NO, MANUFACTURER, PRODUCTION_LICENSE,
+        DISCARD_REASON, DISCARD_TIME, SUPPLY_MODEL,
+        STANDARD_CATEGORY_ID, STANDARD_CATEGORY_LEVEL,
+        SPEC, PRODUCT_ADDRESS, STORAGE_REQUIREMENTS,
+        `SOURCE`, IS_RECOMMED, REGISTER_NAME,
+        HREF, JX_MARKET_PRICE, JX_SALE_PRICE,
+        ADD_TIME, CREATOR, MOD_TIME,
+        UPDATER, TO_SKU_FLAG, TECHNICAL_PARAMETER,
+        PERFORMANCE_PARAMETER, SPEC_PARAMETER
+        )
+        values (#{goodsId,jdbcType=INTEGER},#{companyId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER},
+        #{brandId,jdbcType=INTEGER}, #{isOnSale,jdbcType=TINYINT}, #{isDiscard,jdbcType=TINYINT},
+        #{sku,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{aliasName,jdbcType=VARCHAR},
+        #{model,jdbcType=VARCHAR}, #{materialCode,jdbcType=VARCHAR}, #{baseUnitId,jdbcType=INTEGER},
+        #{changeNum,jdbcType=INTEGER}, #{unitId,jdbcType=INTEGER}, #{grossWeight,jdbcType=DECIMAL},
+        #{netWeight,jdbcType=DECIMAL}, #{goodsLength,jdbcType=DECIMAL}, #{goodsWidth,jdbcType=DECIMAL},
+        #{goodsHeight,jdbcType=DECIMAL}, #{packageLength,jdbcType=DECIMAL}, #{packageWidth,jdbcType=DECIMAL},
+        #{packageHeight,jdbcType=DECIMAL}, #{goodsType,jdbcType=INTEGER}, #{goodsLevel,jdbcType=INTEGER},
+        #{manageCategory,jdbcType=INTEGER}, #{manageCategoryLevel,jdbcType=INTEGER}, #{purchaseRemind,jdbcType=VARCHAR},
+        #{licenseNumber,jdbcType=VARCHAR}, #{firstEngageId,jdbcType=INTEGER}, #{recordNumber,jdbcType=VARCHAR},
+        #{registrationNumber,jdbcType=VARCHAR}, #{begintime,jdbcType=BIGINT}, #{endtime,jdbcType=BIGINT},
+        #{authorizationCertificateUrl,jdbcType=VARCHAR}, #{otherQualificationUrl,jdbcType=VARCHAR},
+        #{colorPageUrl,jdbcType=VARCHAR}, #{technicalParameterUrl,jdbcType=VARCHAR}, #{instructionsUrl,jdbcType=VARCHAR},
+        #{biddingDataUrl,jdbcType=VARCHAR}, #{packingList,jdbcType=VARCHAR}, #{tos,jdbcType=VARCHAR},
+        #{taxCategoryNo,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, #{productionLicense,jdbcType=VARCHAR},
+        #{discardReason,jdbcType=VARCHAR}, #{discardTime,jdbcType=BIGINT}, #{supplyModel,jdbcType=VARCHAR},
+        #{standardCategoryId,jdbcType=INTEGER}, #{standardCategoryLevel,jdbcType=INTEGER},
+        #{spec,jdbcType=VARCHAR}, #{productAddress,jdbcType=VARCHAR}, #{storageRequirements,jdbcType=TINYINT},
+        #{source,jdbcType=TINYINT}, #{isRecommed,jdbcType=TINYINT}, #{registerName,jdbcType=VARCHAR},
+        #{href,jdbcType=VARCHAR}, #{jxMarketPrice,jdbcType=DECIMAL}, #{jxSalePrice,jdbcType=DECIMAL},
+        #{addTime,jdbcType=BIGINT}, #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=BIGINT},
+        #{updater,jdbcType=INTEGER}, #{toSkuFlag,jdbcType=INTEGER}, #{technicalParameter,jdbcType=LONGVARCHAR},
+        #{performanceParameter,jdbcType=LONGVARCHAR}, #{specParameter,jdbcType=LONGVARCHAR}
+        )
+    </insert>
+
+    <select id="searchSkuWithDepartment" resultType="map">
+        SELECT
+            DISTINCT sku.SKU_ID,
+            sku.SHOW_NAME AS SKU_NAME,
+            unit.UNIT_NAME AS SKU_NUIT_NAME,
+            spu.HOSPITAL_TAGS AS PURPOSE,
+            IF(sku.STATUS = 1, 1, 0 ) AS STATUS,
+            sku.CHECK_STATUS,
+            group_concat(hot.DEPARTMENT_ID) DEPARTMENT_IDS,
+            group_concat(hot.DEPARTMENT_NAME) DEPARTMENT_NAMES
+        FROM
+            V_CORE_SPU spu
+        LEFT JOIN V_CORE_SKU sku ON spu.SPU_ID = sku.SPU_ID
+        LEFT JOIN V_SPU_DEPARTMENT_MAPPING dept ON spu.SPU_ID = dept.SPU_ID
+        AND dept.`STATUS` = 1
+        LEFT JOIN T_DEPARTMENTS_HOSPITAL hot ON hot.DEPARTMENT_ID = dept.DEPARTMENT_ID
+        LEFT JOIN T_UNIT unit ON sku.BASE_UNIT_ID = unit.UNIT_ID
+        WHERE
+            spu.STATUS = 1
+        AND sku.STATUS = 1
+        AND sku.CHECK_STATUS = 3
+        <if test="skuName!=null and skuName!=''">
+            AND (
+                sku.SHOW_NAME LIKE CONCAT('%',#{skuName, jdbcType=VARCHAR},'%')
+                    OR sku.SKU_NO LIKE CONCAT('%',#{skuName, jdbcType=VARCHAR},'%')
+            )
+        </if>
+        GROUP BY
+          sku.SKU_ID
+     </select>
+
+
+
+
+
+    <select id="selectCateId" resultType="int">
+        select V3.BASE_CATEGORY_ID from V_BASE_CATEGORY V3
+    LEFT JOIN V_BASE_CATEGORY V2 ON V3.PARENT_ID=V2.BASE_CATEGORY_ID
+    LEFT JOIN V_BASE_CATEGORY V1 ON V2.PARENT_ID=V1.BASE_CATEGORY_ID
+    WHERE V3.BASE_CATEGORY_NAME=#{name3, jdbcType=VARCHAR}
+    AND V1.BASE_CATEGORY_NAME=#{name1, jdbcType=VARCHAR}
+    AND V2.BASE_CATEGORY_NAME=#{name2, jdbcType=VARCHAR}
+    	and V1.BASE_CATEGORY_ID>9999
+    </select>
+    <select id="selectOldCateId" resultType="int">
+        		select V3.CATEGORY_ID ,V3.CATEGORY_ID from T_CATEGORY V3
+				LEFT JOIN T_CATEGORY V2 ON V3.PARENT_ID=V2.CATEGORY_ID
+				LEFT JOIN T_CATEGORY V1 ON V2.PARENT_ID=V1.CATEGORY_ID
+				WHERE V3.CATEGORY_NAME=#{name3, jdbcType=VARCHAR}
+				AND V1.CATEGORY_NAME=#{name1, jdbcType=VARCHAR}
+				AND V2.CATEGORY_NAME=#{name2, jdbcType=VARCHAR}
+				and V1.CATEGORY_ID &lt; 9999
+    </select>
+
+    <resultMap id="AttrValueMap2" type="com.vedeng.goods.model.vo.BaseAttributeValueVo">
+        <result column="ATTR_VALUE" jdbcType="VARCHAR" property="attrValue"/>
+        <result column="CATEGORY_ID" jdbcType="VARCHAR" property="baseCategoryId"/>
+        <result column="CATEGORY_ATTRIBUTE_NAME" jdbcType="VARCHAR" property="baseAttributeName"/>
+    </resultMap>
+
+    <select id="selectOldCateIdAttr" resultMap="AttrValueMap2">
+        	SELECT  a.CATEGORY_ID,a.CATEGORY_ATTRIBUTE_NAME, b.ATTR_VALUE
+    FROM T_CATEGORY_ATTRIBUTE a
+    JOIN T_CATEGORY_ATTRIBUTE_VALUE b ON a.CATEGORY_ATTRIBUTE_ID = b.CATEGORY_ATTRIBUTE_ID
+    JOIN T_GOODS_ATTRIBUTE c ON b.CATEGORY_ATTRIBUTE_VALUE_ID = c.CATEGORY_ATTR_VALUE_ID
+    where goods_id=#{goodsId,jdbcType=INTEGER}
+    </select>
+
+
+    <insert id="insertSpuSearch" parameterType="com.vedeng.goods.model.CoreSpuSearchGenerate">
+        insert into V_CORE_SPU_SEARCH (spu_Id,CATEGORY_ID, BRAND_ID, SPU_NO,
+        SPU_NAME, SHOW_NAME, SPU_LEVEL,
+        `STATUS`, SPU_TYPE, FIRST_ENGAGE_ID,
+        REGISTRATION_ICON, WIKI_HREF, OPERATE_INFO_FLAG,
+        CHECK_STATUS, OPERATE_INFO_ID, HOSPITAL_TAGS,
+        ADD_TIME, CREATOR, MOD_TIME,
+        UPDATER, CHECK_TIME, CHECKER,
+        DELETE_REASON, LAST_CHECK_REASON, ASSIGNMENT_MANAGER_ID,
+        ASSIGNMENT_ASSISTANT_ID)
+        values (#{spuId,jdbcType=INTEGER},#{categoryId,jdbcType=INTEGER}, #{brandId,jdbcType=INTEGER}, #{spuNo,jdbcType=VARCHAR},
+        #{spuName,jdbcType=VARCHAR}, #{showName,jdbcType=VARCHAR}, #{spuLevel,jdbcType=TINYINT},
+        #{status,jdbcType=TINYINT}, #{spuType,jdbcType=INTEGER}, #{firstEngageId,jdbcType=INTEGER},
+        #{registrationIcon,jdbcType=VARCHAR}, #{wikiHref,jdbcType=VARCHAR}, #{operateInfoFlag,jdbcType=TINYINT},
+        #{checkStatus,jdbcType=TINYINT}, #{operateInfoId,jdbcType=INTEGER}, #{hospitalTags,jdbcType=VARCHAR},
+        #{addTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=TIMESTAMP},
+        #{updater,jdbcType=INTEGER}, #{checkTime,jdbcType=TIMESTAMP}, #{checker,jdbcType=INTEGER},
+        #{deleteReason,jdbcType=VARCHAR}, #{lastCheckReason,jdbcType=VARCHAR}, #{assignmentManagerId,jdbcType=INTEGER},
+        #{assignmentAssistantId,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSkuSearch" parameterType="com.vedeng.goods.model.CoreSkuSearchGenerate">
+        insert into V_CORE_SKU_SEARCH (SKU_ID,SPU_ID, CHECK_STATUS, MODEL,
+        SPEC, SKU_NO, SKU_NAME,
+        SHOW_NAME, MATERIAL_CODE, SUPPLY_MODEL,
+        IS_STOCKUP, WIKI_HREF, TECHNICAL_PARAMETER,
+        PERFORMANCE_PARAMETER, SPEC_PARAMETER, BASE_UNIT_ID,
+        MIN_ORDER, GOODS_LENGTH, GOODS_WIDTH,
+        GOODS_HEIGHT, PACKAGE_LENGTH, PACKAGE_WIDTH,
+        PACKAGE_HEIGHT, NET_WEIGHT, GROSS_WEIGHT,
+        UNIT_ID, CHANGE_NUM, PACKING_LIST,
+        AFTER_SALE_CONTENT, QA_YEARS, STORAGE_CONDITION_ONE,
+        STORAGE_CONDITION_TWO, EFFECTIVE_DAY_UNIT,
+        EFFECTIVE_DAYS, QA_RULE, QA_OUT_PRICE,
+        QA_RESPONSE_TIME, HAS_BACKUP_MACHINE, SUPPLIER_EXTEND_GUARANTEE_PRICE,
+        CORE_PARTS_PRICE_FID, RETURN_GOODS_CONDITIONS,
+        FREIGHT_INTRODUCTIONS, EXCHANGE_GOODS_CONDITIONS,
+        EXCHANGE_GOODS_METHOD, GOODS_COMMENTS, `STATUS`,
+        ADD_TIME, CREATOR, MOD_TIME,
+        UPDATER, CHECK_TIME, CHECKER,
+        OPERATE_INFO_ID, DELETE_REASON, LAST_CHECK_REASON,
+        TAX_CATEGORY_NO, JX_MARKET_PRICE, JX_SALE_PRICE
+        )
+        values (#{skuId,jdbcType=INTEGER},#{spuId,jdbcType=INTEGER}, #{checkStatus,jdbcType=TINYINT}, #{model,jdbcType=VARCHAR},
+        #{spec,jdbcType=VARCHAR}, #{skuNo,jdbcType=VARCHAR}, #{skuName,jdbcType=VARCHAR},
+        #{showName,jdbcType=VARCHAR}, #{materialCode,jdbcType=VARCHAR}, #{supplyModel,jdbcType=VARCHAR},
+        #{isStockup,jdbcType=VARCHAR}, #{wikiHref,jdbcType=VARCHAR}, #{technicalParameter,jdbcType=VARCHAR},
+        #{performanceParameter,jdbcType=VARCHAR}, #{specParameter,jdbcType=VARCHAR}, #{baseUnitId,jdbcType=INTEGER},
+        #{minOrder,jdbcType=DECIMAL}, #{goodsLength,jdbcType=DECIMAL}, #{goodsWidth,jdbcType=DECIMAL},
+        #{goodsHeight,jdbcType=DECIMAL}, #{packageLength,jdbcType=DECIMAL}, #{packageWidth,jdbcType=DECIMAL},
+        #{packageHeight,jdbcType=DECIMAL}, #{netWeight,jdbcType=DECIMAL}, #{grossWeight,jdbcType=DECIMAL},
+        #{unitId,jdbcType=INTEGER}, #{changeNum,jdbcType=DECIMAL}, #{packingList,jdbcType=VARCHAR},
+        #{afterSaleContent,jdbcType=VARCHAR}, #{qaYears,jdbcType=VARCHAR}, #{storageConditionOne,jdbcType=TINYINT},
+        #{storageConditionTwo,jdbcType=VARCHAR}, #{effectiveDayUnit,jdbcType=TINYINT},
+        #{effectiveDays,jdbcType=VARCHAR}, #{qaRule,jdbcType=VARCHAR}, #{qaOutPrice,jdbcType=DECIMAL},
+        #{qaResponseTime,jdbcType=DECIMAL}, #{hasBackupMachine,jdbcType=VARCHAR}, #{supplierExtendGuaranteePrice,jdbcType=DECIMAL},
+        #{corePartsPriceFid,jdbcType=INTEGER}, #{returnGoodsConditions,jdbcType=TINYINT},
+        #{freightIntroductions,jdbcType=VARCHAR}, #{exchangeGoodsConditions,jdbcType=VARCHAR},
+        #{exchangeGoodsMethod,jdbcType=VARCHAR}, #{goodsComments,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT},
+        #{addTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=TIMESTAMP},
+        #{updater,jdbcType=INTEGER}, #{checkTime,jdbcType=TIMESTAMP}, #{checker,jdbcType=INTEGER},
+        #{operateInfoId,jdbcType=INTEGER}, #{deleteReason,jdbcType=VARCHAR}, #{lastCheckReason,jdbcType=VARCHAR},
+        #{taxCategoryNo,jdbcType=VARCHAR}, #{jxMarketPrice,jdbcType=DECIMAL}, #{jxSalePrice,jdbcType=DECIMAL}
+        )
+    </insert>
+
+
+
+</mapper>

@@ -1,0 +1,113 @@
+.pager-wrap {
+  position: relative;
+}
+.pager-wrap * {
+  box-sizing: border-box;
+}
+.pager-wrap .page-total {
+  color: #999;
+  position: absolute;
+  left: 20px;
+  line-height: 30px;
+}
+.pager-wrap .page-num {
+  font-size: 0;
+}
+.pager-wrap .page-num a {
+  display: inline-block;
+  border: 1px solid #ced2d9;
+  padding: 0 10px;
+  text-align: center;
+  border-radius: 3px;
+  margin-right: 3px;
+  background: #f5f7fa;
+  color: #333;
+  font-size: 12px;
+  min-width: 30px;
+  line-height: 28px;
+}
+.pager-wrap .page-num a:hover {
+  background: #e6ebf2;
+}
+.pager-wrap .page-num a:last-child {
+  margin-right: 0;
+}
+.pager-wrap .page-num a.page-disabled {
+  color: #999;
+  cursor: not-allowed;
+  border-color: #e6ebf2;
+}
+.pager-wrap .page-num a.page-disabled:hover {
+  background: #f5f7fa;
+}
+.pager-wrap .page-num a.page-prev,
+.pager-wrap .page-num a.page-next {
+  width: auto;
+  padding: 0;
+}
+.pager-wrap .page-num a.page-prev i,
+.pager-wrap .page-num a.page-next i {
+  font-size: 16px;
+  vertical-align: -2px;
+}
+.pager-wrap .page-num a.page-prev {
+  padding-right: 10px;
+  padding-left: 3px;
+  margin-right: 10px;
+}
+.pager-wrap .page-num a.page-prev i {
+  margin-right: 2px;
+}
+.pager-wrap .page-num a.page-next {
+  padding-left: 10px;
+  padding-right: 3px;
+  margin-left: 7px;
+}
+.pager-wrap .page-num a.page-next i {
+  margin-left: 2px;
+}
+.pager-wrap .page-num a.page-current {
+  background: #2E8AE6;
+  color: #fff;
+  font-weight: 700;
+  border-color: #2E8AE6;
+}
+.pager-wrap .page-num .page-total-txt {
+  display: inline-block;
+  margin-left: 5px;
+  color: #666;
+  font-size: 14px;
+}
+.pager-wrap .page-num .page-jump {
+  display: inline-block;
+  margin-left: 15px;
+  font-size: 14px;
+  vertical-align: top;
+}
+.pager-wrap .page-num .page-jump .page-jump-txt {
+  color: #666;
+}
+.pager-wrap .page-num .page-jump .page-input {
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #ced2d9;
+  border-radius: 3px;
+  color: #333;
+  padding: 0 10px;
+  width: 58px;
+}
+.pager-wrap .page-num .page-jump .page-input:hover {
+  border-color: #b6babf;
+}
+.pager-wrap .page-num .page-jump .page-input:focus {
+  border-color: #0091f2;
+}
+.pager-wrap .page-num .page-jump .page-jump-btn {
+  vertical-align: top;
+  margin-left: 7px;
+}
+.pager-wrap .page-num .omit {
+  font-size: 14px;
+  vertical-align: 3px;
+  margin: 0 10px 0 7px;
+}

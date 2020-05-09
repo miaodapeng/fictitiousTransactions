@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.ordergoods.dao.ROrdergoodsLaunchGoodsJCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.ordergoods.model.ROrdergoodsLaunchGoodsJCategory" >
+    <id column="R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID" property="rOrdergoodsLaunchGoodsJCategoryId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_STORE_ID" property="ordergoodsStoreId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_CATEGORY_IDS" property="ordergoodsCategoryIds" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID,ORDERGOODS_STORE_ID, GOODS_ID, ORDERGOODS_CATEGORY_IDS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY
+    where R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID = #{rOrdergoodsLaunchGoodsJCategoryId,jdbcType=INTEGER}
+  </select>
+  <insert id="insert" parameterType="com.vedeng.ordergoods.model.ROrdergoodsLaunchGoodsJCategory" >
+    insert into T_R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rOrdergoodsLaunchGoodsJCategoryId != null" >
+        R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID,
+      </if>
+      <if test="ordergoodsStoreId != null" >
+        ORDERGOODS_STORE_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="ordergoodsCategoryIds != null" >
+        ORDERGOODS_CATEGORY_IDS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rOrdergoodsLaunchGoodsJCategoryId != null" >
+        #{rOrdergoodsLaunchGoodsJCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsStoreId != null" >
+        #{ordergoodsStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsCategoryIds != null" >
+        #{ordergoodsCategoryIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.vedeng.ordergoods.model.ROrdergoodsLaunchGoodsJCategory" >
+    update T_R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY
+    <set >
+      <if test="ordergoodsCategoryIds != null" >
+        ORDERGOODS_CATEGORY_IDS = #{ordergoodsCategoryIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID = #{rOrdergoodsLaunchGoodsJCategoryId,jdbcType=INTEGER}
+  </update>
+  <select id="getGoodsCategoriesListPage" parameterType="Map" resultType="com.vedeng.ordergoods.model.vo.ROrdergoodsLaunchGoodsJCategoryVo">
+  	select
+  		R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID,ORDERGOODS_STORE_ID, GOODS_ID, ORDERGOODS_CATEGORY_IDS
+  	from
+  		T_R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY
+  	where
+  		1=1
+  		<if test="rOrdergoodsLaunchGoodsJCategoryVo.ordergoodsStoreId != null">
+  			and ORDERGOODS_STORE_ID = #{rOrdergoodsLaunchGoodsJCategoryVo.ordergoodsStoreId}
+  		</if>
+  		<if test="rOrdergoodsLaunchGoodsJCategoryVo.goodsIds != null and rOrdergoodsLaunchGoodsJCategoryVo.goodsIds.size > 0">
+    		and GOODS_ID in
+			<foreach collection="rOrdergoodsLaunchGoodsJCategoryVo.goodsIds" item="goodsId" open="(" close=")" separator=",">
+				#{goodsId,jdbcType=INTEGER}
+			</foreach>
+    	</if>
+    	<if test="rOrdergoodsLaunchGoodsJCategoryVo.categoryId != null and rOrdergoodsLaunchGoodsJCategoryVo.categoryId > 0">
+    		and FIND_IN_SET(#{rOrdergoodsLaunchGoodsJCategoryVo.categoryId},ORDERGOODS_CATEGORY_IDS)
+    	</if>
+  </select>
+  <select id="getSotreGoods" parameterType="com.vedeng.ordergoods.model.vo.ROrdergoodsLaunchGoodsJCategoryVo" resultType="com.vedeng.ordergoods.model.vo.ROrdergoodsLaunchGoodsJCategoryVo">
+  	select
+  		R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID,ORDERGOODS_STORE_ID, GOODS_ID, ORDERGOODS_CATEGORY_IDS
+  	from
+  		T_R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY
+  	where
+  		1=1
+  		<if test="ordergoodsStoreId != null">
+  			and ORDERGOODS_STORE_ID = #{ordergoodsStoreId,jdbcType=INTEGER}
+  		</if>
+  		<if test="goodsId != null ">
+    		and GOODS_ID =#{goodsId,jdbcType=INTEGER}
+    	</if>
+    	<if test="rOrdergoodsLaunchGoodsJCategoryId != null ">
+    		and R_ORDERGOODS_LAUNCH_GOODS_J_CATEGORY_ID =#{rOrdergoodsLaunchGoodsJCategoryId,jdbcType=INTEGER}
+    	</if>
+  </select>
+</mapper>

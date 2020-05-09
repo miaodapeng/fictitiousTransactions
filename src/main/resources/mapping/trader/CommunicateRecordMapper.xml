@@ -1,0 +1,1297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.CommunicateRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.trader.model.CommunicateRecord" >
+    <id column="COMMUNICATE_RECORD_ID" property="communicateRecordId" jdbcType="INTEGER" />
+    <result column="COMMUNICATE_TYPE" property="communicateType" jdbcType="INTEGER" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_TYPE" property="traderType" jdbcType="BIT" />
+    <result column="BEGINTIME" property="begintime" jdbcType="BIGINT" />
+    <result column="ENDTIME" property="endtime" jdbcType="BIGINT" />
+    <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+    <result column="COMMUNICATE_MODE" property="communicateMode" jdbcType="INTEGER" />
+    <result column="COMMUNICATE_GOAL" property="communicateGoal" jdbcType="INTEGER" />
+    <result column="NEXT_CONTACT_DATE" property="nextContactDate" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="COID" property="coid" jdbcType="VARCHAR" />
+    <result column="COID_TYPE" property="coidType" jdbcType="INTEGER" />
+    <result column="COID_LENGTH" property="coidLength" jdbcType="INTEGER" />
+    <result column="COID_DOMAIN" property="coidDomain" jdbcType="VARCHAR" />
+    <result column="COID_URI" property="coidUri" jdbcType="VARCHAR" />
+    <result column="NEXT_CONTACT_CONTENT" property="nextContactContent" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="IS_DONE" property="isDone" jdbcType="BIT" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+	<result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="SYNC_STATUS" property="syncStatus" jdbcType="BIT" />
+    <result column="COMMUNICATE_COUNT" property="communicateCount" jdbcType="INTEGER" />
+    <result column="LAST_COMMUNICATE_TIME" property="lastCommunicateTime" jdbcType="BIGINT" />
+    
+    <result column="CREATOR_NAME" property="creatorName" jdbcType="VARCHAR" />
+    <result column="NUMBER" property="number" jdbcType="VARCHAR" />
+    
+    <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
+    <result column="CONTACT_MOB" property="contactMob" jdbcType="VARCHAR" />
+    
+    <result column="AFTER_SALES_TRADER_ID" property="afterSalesTraderId" jdbcType="INTEGER"/>
+    <result column="RELATE_COMMUNICATE_RECORD_ID" property="relateCommunicateRecordId" jdbcType="INTEGER"/>
+    <result column="CONTACT_CONTENT" property="contactContent" jdbcType="VARCHAR"/>
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    COMMUNICATE_RECORD_ID, COMMUNICATE_TYPE, COMPANY_ID, RELATED_ID, TRADER_ID, TRADER_TYPE, BEGINTIME, ENDTIME, TRADER_CONTACT_ID, 
+    COMMUNICATE_MODE, COMMUNICATE_GOAL, NEXT_CONTACT_DATE, PHONE, COID, COID_TYPE, COID_LENGTH, CONTACT,CONTACT_MOB,
+    COID_DOMAIN, COID_URI, NEXT_CONTACT_CONTENT, COMMENTS, IS_DONE, ADD_TIME, CREATOR, MOD_TIME, UPDATER, SYNC_STATUS, AFTER_SALES_TRADER_ID,
+    CONTACT_CONTENT
+  </sql>
+  <insert id="insert" parameterType="com.vedeng.trader.model.CommunicateRecord" >
+    insert into T_COMMUNICATE_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="communicateRecordId != null" >
+        COMMUNICATE_RECORD_ID,
+      </if>
+      <if test="communicateType != null" >
+        COMMUNICATE_TYPE,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE,
+      </if>
+      <if test="begintime != null" >
+        BEGINTIME,
+      </if>
+      <if test="endtime != null" >
+        ENDTIME,
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID,
+      </if>
+      <if test="communicateMode != null" >
+        COMMUNICATE_MODE,
+      </if>
+      <if test="communicateGoal != null" >
+        COMMUNICATE_GOAL,
+      </if>
+      <if test="nextContactDate != null" >
+        NEXT_CONTACT_DATE,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="coid != null" >
+        COID,
+      </if>
+      <if test="coidType != null" >
+        COID_TYPE,
+      </if>
+      <if test="coidLength != null" >
+        COID_LENGTH,
+      </if>
+      <if test="coidDomain != null" >
+        COID_DOMAIN,
+      </if>
+      <if test="coidUri != null" >
+        COID_URI,
+      </if>
+      <if test="nextContactContent != null" >
+        NEXT_CONTACT_CONTENT,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="isDone != null" >
+        IS_DONE,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="syncStatus != null" >
+        SYNC_STATUS,
+      </if>
+      <!-- 2018-08-09 新增售后对象ID、关联沟通ID、沟通内容字段-->
+      <if test="afterSalesTraderId != null">
+      	AFTER_SALES_TRADER_ID,
+      </if>
+      <if test="relateCommunicateRecordId != null">
+      	RELATE_COMMUNICATE_RECORD_ID,
+      </if>
+      <if test="contactContent != null">
+      	CONTACT_CONTENT,
+      </if>
+      <if test="contact != null" >
+        CONTACT,
+      </if>
+      <if test="contactMob != null" >
+        CONTACT_MOB,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="communicateRecordId != null" >
+        #{communicateRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="communicateType != null" >
+        #{communicateType,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="relatedId != null" >
+        #{relatedId,jdbcType=INTEGER},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        #{traderType,jdbcType=BIT},
+      </if>
+      <if test="begintime != null" >
+        #{begintime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="traderContactId != null" >
+        #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="communicateMode != null" >
+        #{communicateMode,jdbcType=INTEGER},
+      </if>
+      <if test="communicateGoal != null" >
+        #{communicateGoal,jdbcType=INTEGER},
+      </if>
+      <if test="nextContactDate != null" >
+        #{nextContactDate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="coid != null" >
+        #{coid,jdbcType=VARCHAR},
+      </if>
+      <if test="coidType != null" >
+        #{coidType,jdbcType=INTEGER},
+      </if>
+      <if test="coidLength != null" >
+        #{coidLength,jdbcType=INTEGER},
+      </if>
+      <if test="coidDomain != null" >
+        #{coidDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="coidUri != null" >
+        #{coidUri,jdbcType=VARCHAR},
+      </if>
+      <if test="nextContactContent != null" >
+        #{nextContactContent,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null" >
+        #{isDone,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="syncStatus != null" >
+        #{syncStatus,jdbcType=BIT},
+      </if>
+      <!-- 2018-08-09 新增售后对象ID、关联沟通ID、沟通内容字段-->
+      <if test="afterSalesTraderId != null">
+      	#{afterSalesTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="relateCommunicateRecordId != null">
+      	#{relateCommunicateRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="contactContent != null">
+      	#{contactContent,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactMob != null" >
+        #{contactMob,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="communicateRecordId">
+		SELECT LAST_INSERT_ID() AS communicateRecordId
+    </selectKey>
+  </insert>
+  <update id="update" parameterType="com.vedeng.trader.model.CommunicateRecord" >
+    update T_COMMUNICATE_RECORD
+    <set >
+      <if test="communicateType != null" >
+        COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID = #{relatedId,jdbcType=INTEGER},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE = #{traderType,jdbcType=BIT},
+      </if>
+      <if test="begintime != null" >
+        BEGINTIME = #{begintime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="communicateMode != null" >
+        COMMUNICATE_MODE = #{communicateMode,jdbcType=INTEGER},
+      </if>
+      <if test="communicateGoal != null" >
+        COMMUNICATE_GOAL = #{communicateGoal,jdbcType=INTEGER},
+      </if>
+      <if test="nextContactDate != null" >
+        NEXT_CONTACT_DATE = #{nextContactDate,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="coid != null" >
+        COID = #{coid,jdbcType=VARCHAR},
+      </if>
+      <if test="coidType != null" >
+        COID_TYPE = #{coidType,jdbcType=INTEGER},
+      </if>
+      <if test="coidLength != null" >
+        COID_LENGTH = #{coidLength,jdbcType=INTEGER},
+      </if>
+      <if test="coidDomain != null" >
+        COID_DOMAIN = #{coidDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="coidUri != null" >
+        COID_URI = #{coidUri,jdbcType=VARCHAR},
+      </if>
+      <if test="nextContactContent != null" >
+        NEXT_CONTACT_CONTENT = #{nextContactContent,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null" >
+        IS_DONE = #{isDone,jdbcType=BIT},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+        <if test="isComment != null" >
+            IS_COMMENT = #{isComment,jdbcType=INTEGER},
+        </if>
+      <if test="syncStatus != null" >
+        SYNC_STATUS = #{syncStatus,jdbcType=BIT},
+      </if>
+       <!-- 2018-08-09 新增售后对象ID、关联沟通ID、沟通内容字段-->
+      <if test="afterSalesTraderId != null">
+      	AFTER_SALES_TRADER_ID = #{afterSalesTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="relateCommunicateRecordId != null">
+      	RELATE_COMMUNICATE_RECORD_ID = #{relateCommunicateRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="contactContent != null">
+      	CONTACT_CONTENT = #{contactContent,jdbcType=VARCHAR},
+      </if>      
+    </set>
+    where COMMUNICATE_RECORD_ID = #{communicateRecordId,jdbcType=INTEGER}
+  </update>
+  <!-- 以下分页查询沟通记录 -->
+  <resultMap type="com.vedeng.trader.model.CommunicateRecord" id="getCommunicateRecordListPageResult" extends="BaseResultMap">
+  	<association property="user" javaType="com.vedeng.authorization.model.User">
+  		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  <select id="getCommunicateRecordListPage" parameterType="Map" resultMap="getCommunicateRecordListPageResult">
+  	select 
+  	a.*,b.USERNAME
+  	from 
+  	T_COMMUNICATE_RECORD a
+  	left join 
+  	T_USER b on a.CREATOR = b.USER_ID
+  	
+  	where
+  		1=1
+
+
+  		and	a.COMPANY_ID = 1
+
+  		<if test="communicateRecord.traderId != null">
+  		and	a.TRADER_ID = #{communicateRecord.traderId,jdbcType=INTEGER}
+  		</if>
+  		<if test="communicateRecord.traderType != null">
+		and a.TRADER_TYPE = #{communicateRecord.traderType,jdbcType=INTEGER}
+  		</if>
+  		<!-- 以下是商机、报价、订单 的沟通记录查询 -->
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId != null and communicateRecord.saleorderId != null "><!-- 订单沟通记录 -->
+  			
+  			and	(
+  			(a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER})
+  				or (a.COMMUNICATE_TYPE = 245 and a.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}) 
+  				or (a.COMMUNICATE_TYPE = 246 and a.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER}) 
+  			)
+  		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId == null and communicateRecord.quoteorderId == null and communicateRecord.saleorderId != null "><!-- 新增订单沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 246 and a.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER}
+  		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId != null and communicateRecord.saleorderId == null "><!-- 报价沟通记录 -->
+  			 
+  			and (
+  			(a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER})
+  				or (a.COMMUNICATE_TYPE = 245 and a.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}) 
+  			)	
+		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId == null and communicateRecord.saleorderId == null "><!-- 商机沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER}
+  		</if>
+  		<!-- 商机、报价、订单 的沟通记录查询 -->
+  		
+  		<!-- 以下是采购订单 的沟通记录查询 -->
+  		<if test="communicateRecord.buyorderId !=null"><!-- 采购沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 247 and a.RELATED_ID = #{communicateRecord.buyorderId,jdbcType=INTEGER}
+  		</if>
+  		<!-- 采购订单 的沟通记录查询 -->
+  	order by
+  		a.COMMUNICATE_RECORD_ID desc
+  </select>
+  
+  <!-- 以下不分页查询沟通记录 -->
+  <resultMap type="com.vedeng.trader.model.CommunicateRecord" id="getCommunicateRecordListResult" extends="BaseResultMap">
+  	<association property="user" javaType="com.vedeng.authorization.model.User">
+  		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+  	</association>
+  </resultMap>
+  <select id="getCommunicateRecordList" parameterType="Map" resultMap="getCommunicateRecordListResult">
+  	select 
+  	a.*,b.USERNAME
+  	from 
+  	T_COMMUNICATE_RECORD a
+  	left join 
+  	T_USER b on a.CREATOR = b.USER_ID
+  	
+  	where
+  		1=1
+
+
+  		and	a.COMPANY_ID =1
+
+  		<if test="communicateRecord.traderId != null">
+  		and	a.TRADER_ID = #{communicateRecord.traderId,jdbcType=INTEGER}
+  		</if>
+  		<if test="communicateRecord.traderType != null">
+		and a.TRADER_TYPE = #{communicateRecord.traderType,jdbcType=INTEGER}
+  		</if>
+  		<!-- 以下是商机、报价、订单 的沟通记录查询 -->
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId != null and communicateRecord.saleorderId != null "><!-- 订单沟通记录 -->
+  			
+  			and	(
+  			(a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER})
+  				or (a.COMMUNICATE_TYPE = 245 and a.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}) 
+  				or (a.COMMUNICATE_TYPE = 246 and a.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER}) 
+  			)
+  		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId == null and communicateRecord.quoteorderId == null and communicateRecord.saleorderId != null "><!-- 新增订单沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 246 and a.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER}
+  		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId == null and communicateRecord.quoteorderId != null and communicateRecord.saleorderId != null "><!-- 老数据新增订单沟通记录 -->
+  			and (
+  			(a.COMMUNICATE_TYPE = 245 and a.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER})
+  			 or
+  			(a.COMMUNICATE_TYPE = 246 and a.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER})
+  			)
+  		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId != null and communicateRecord.saleorderId == null "><!-- 报价沟通记录 -->
+  			 
+  			and (
+  			(a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER})
+  				or (a.COMMUNICATE_TYPE = 245 and a.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}) 
+  			)	
+		</if>
+  		
+  		<if test="communicateRecord.bussinessChanceId !=null and communicateRecord.quoteorderId == null and communicateRecord.saleorderId == null "><!-- 商机沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 244 and a.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER}
+  		</if>
+  		<!-- 商机、报价、订单 的沟通记录查询 -->
+  		
+  		<!-- 以下是采购订单 的沟通记录查询 -->
+  		<if test="communicateRecord.buyorderId !=null"><!-- 采购沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 247 and a.RELATED_ID = #{communicateRecord.buyorderId,jdbcType=INTEGER}
+  		</if>
+  		<!-- 采购订单 的沟通记录查询 -->
+  		<!-- 以下是售后订单 的沟通记录查询 -->
+  		<if test="communicateRecord.afterSalesId !=null"><!-- 售后沟通记录 -->
+  			and a.COMMUNICATE_TYPE = 248 and a.RELATED_ID = #{communicateRecord.afterSalesId,jdbcType=INTEGER}
+  		</if>
+  		<!-- 售后订单 的沟通记录查询 -->
+  	order by
+  		a.COMMUNICATE_RECORD_ID desc
+  </select>
+  
+  <select id="getCommunicate" parameterType="com.vedeng.trader.model.CommunicateRecord" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from 
+  	T_COMMUNICATE_RECORD
+  	where
+  	COMMUNICATE_RECORD_ID = #{communicateRecordId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getLastCommunicate" parameterType="com.vedeng.trader.model.CommunicateRecord" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from 
+  	T_COMMUNICATE_RECORD
+  	where 1=1
+  		<if test="communicateType != null and communicateType != 0" >
+        	and COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER}
+      	</if>
+      	<if test="relatedId != null" >
+        	and RELATED_ID = #{relatedId,jdbcType=INTEGER}
+      	</if>
+      	<if test="companyId != null" >
+        	and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+      	</if>
+      	<if test="traderType != null" >
+        	and TRADER_TYPE = #{traderType,jdbcType=BIT}
+      	</if>
+  	order by ADD_TIME DESC limit 1
+  </select>
+  
+  <select id="getLastCommunicateList" parameterType="com.vedeng.trader.model.CommunicateRecord" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from 
+  	T_COMMUNICATE_RECORD
+  	where 1=1
+  		<if test="communicateType != null and communicateType != 0" >
+        	and COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER}
+      	</if>
+      	<if test="relatedId != null" >
+        	and RELATED_ID in 
+        	<foreach collection="quoteorderVolist" index="index" item="quoteorder" open="(" close=")" separator=",">
+				#{quoteorder.quoteorderId,jdbcType=INTEGER}
+			</foreach>
+      	</if>
+
+        	and COMPANY_ID = 1
+
+      	<if test="traderType != null" >
+        	and TRADER_TYPE = #{traderType,jdbcType=BIT}
+      	</if>
+  	order by ADD_TIME DESC limit 1
+  </select>
+  <select id="getLastCommunicateListById" resultMap="BaseResultMap">
+  		SELECT COMMUNICATE_RECORD_ID,RELATED_ID,COMPANY_ID,MAX(BEGINTIME) ADD_TIME,COMMUNICATE_TYPE,NEXT_CONTACT_DATE
+  		FROM T_COMMUNICATE_RECORD
+  		WHERE 1=1 
+  		<if test="list!=null and list.size()>0">
+  			AND RELATED_ID in
+  			<foreach collection="list" index="index" item="relatedId" open="(" separator="," close=")">
+  				#{relatedId,jdbcType=INTEGER}
+  			</foreach>
+  		</if>
+  		<if test="communicateType != null and communicateType != 0">
+  			AND COMMUNICATE_TYPE=#{communicateType,jdbcType=INTEGER}
+  		</if>
+  		GROUP BY RELATED_ID
+  </select>
+  <update id="updateCommunicateDone" parameterType="com.vedeng.trader.model.CommunicateRecord">
+  	update
+  		T_COMMUNICATE_RECORD a
+  	set
+      	<if test="modTime != null" >
+        	a.MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        	a.UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+  		a.IS_DONE = 1
+  	where
+  		a.IS_DONE = 0
+  		and a.NEXT_CONTACT_DATE <![CDATA[<=]]> date(NOW()) 
+  		<if test="communicateType != null and communicateType != 0" >
+        	and a.COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER}
+      	</if>
+      	<if test="relatedId != null" >
+        	and a.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+      	</if>
+  </update>
+
+	<select id="getCommunicateRecord" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM T_COMMUNICATE_RECORD A
+		WHERE A.RELATED_ID IN
+			<foreach collection="keyList" index="index" item="value" open="(" close=")" separator=",">
+				#{value,jdbcType=INTEGER}
+			</foreach>
+			AND A.COMMUNICATE_TYPE IN (#{communicateType,jdbcType=VARCHAR})
+	</select>
+
+	<select id="getCommunicateRecordCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_COMMUNICATE_RECORD A
+		WHERE
+			<if test="communicateRecord.bussinessChanceId != null and communicateRecord.bussinessChanceId != ''">
+				(A.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER}
+						AND A.COMMUNICATE_TYPE IN (#{bussinessType,jdbcType=VARCHAR})
+					)
+			</if>
+			<if test="communicateRecord.bussinessChanceId != null and communicateRecord.bussinessChanceId != '' and communicateRecord.quoteorderId!=null and communicateRecord.quoteorderId!=''">
+				OR
+			</if>
+			<if test="communicateRecord.quoteorderId!=null and communicateRecord.quoteorderId!=''">
+				(A.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}
+						AND A.COMMUNICATE_TYPE IN (#{quoteType,jdbcType=VARCHAR})
+					)
+			</if>
+	</select>
+
+	<select id="getCommunicateRecordByDate" resultType="java.lang.Integer">
+		SELECT
+			A.RELATED_ID
+		FROM T_COMMUNICATE_RECORD A
+		WHERE 1 = 1
+			<if test="beginDate!=null and beginDate!=''">
+				AND A.BEGINTIME <![CDATA[>=]]> #{beginDate,jdbcType=VARCHAR}
+			</if>
+			<if test="endDate!=null and endDate!=''">
+				AND A.ENDTIME <![CDATA[<=]]> #{endDate,jdbcType=VARCHAR}
+			</if>
+			AND A.COMMUNICATE_TYPE IN (#{communicateType,jdbcType=VARCHAR})
+	</select>
+
+	<select id="getQuoteCommunicateListPage" parameterType="java.util.Map" resultType="com.vedeng.trader.model.CommunicateRecord">
+		SELECT A.*,B.USERNAME AS contactName,C.USERNAME AS creatorName
+		FROM T_COMMUNICATE_RECORD A
+		     LEFT JOIN T_USER B ON A.TRADER_CONTACT_ID = B.USER_ID
+		     LEFT JOIN T_USER C ON A.CREATOR = C.USER_ID
+		WHERE A.RELATED_ID IN (#{relatedIds,jdbcType=VARCHAR})
+			AND A.COMMUNICATE_TYPE IN (#{communicateTypes,jdbcType=VARCHAR})
+	</select>
+
+	<!-- 客户/供应商沟通记录总数查询 -->
+	<select id="getCustomerCommunicateCount" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.CommunicateRecord">
+		select count(*) as COMMUNICATE_COUNT,max(a.BEGINTIME) as LAST_COMMUNICATE_TIME
+		FROM T_COMMUNICATE_RECORD a
+		where
+		<if test="traderCustomerIds != null"><!-- 客户集合沟通记录 -->
+  			( a.COMMUNICATE_TYPE = 242
+  			and
+		    a.RELATED_ID in
+		    <foreach item="traderCustomerId" index="index" collection="traderCustomerIds" open="(" separator="," close=")">
+			  #{traderCustomerId}
+			</foreach>
+			)
+			<if test="enquiryOrderIds != null"><!-- 商机订单集合沟通记录 -->
+	  			or
+	  				(a.COMMUNICATE_TYPE = 244
+	  			and
+			    a.RELATED_ID in
+			    <foreach item="enquiryOrderId" index="index" collection="enquiryOrderIds" open="(" separator="," close=")">
+				  #{enquiryOrderId}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="quoteOrderIds != null"><!-- 报价订单集合沟通记录 -->
+	  			or
+	  				(a.COMMUNICATE_TYPE = 245
+	  			and
+			    a.RELATED_ID in
+			    <foreach item="quoteOrderId" index="index" collection="quoteOrderIds" open="(" separator="," close=")">
+				  #{quoteOrderId}
+				</foreach>
+				)
+	  		</if>
+	  		<if test="saleOrderIds != null"><!-- 销售订单集合沟通记录 -->
+	  			or
+	  				(a.COMMUNICATE_TYPE = 246
+	  			and
+			    a.RELATED_ID in
+			    <foreach item="saleOrderId" index="index" collection="saleOrderIds" open="(" separator="," close=")">
+				  #{saleOrderId}
+				</foreach>
+				)
+	  		</if>
+		</if>
+  		<if test="traderSupplierIds != null"><!-- 供应商集合沟通记录 -->
+  			(a.COMMUNICATE_TYPE = 243
+  			and
+		    a.RELATED_ID in
+		    <foreach item="traderSupplierId" index="index" collection="traderSupplierIds" open="(" separator="," close=")">
+			  #{traderSupplierId}
+			</foreach>
+			)
+			<if test="buyOrderIds != null"><!-- 采购订单集合沟通记录 -->
+	  			or
+	  				(a.COMMUNICATE_TYPE = 247
+	  			and
+			    a.RELATED_ID in
+			    <foreach item="buyOrderId" index="index" collection="buyOrderIds" open="(" separator="," close=")">
+				  #{buyOrderId}
+				</foreach>
+				)
+	  		</if>
+  		</if>
+
+
+  		<if test="serviceOrderIds != null"><!-- 售后订单集合沟通记录 -->
+  			or
+  				(a.COMMUNICATE_TYPE = 248
+  			and
+		    a.RELATED_ID in
+		    <foreach item="serviceOrderId" index="index" collection="serviceOrderIds" open="(" separator="," close=")">
+			  #{serviceOrderId}
+			</foreach>
+			)
+  		</if>
+	</select>
+	<select id="getCommunicateByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+	  	from
+	  	T_COMMUNICATE_RECORD
+	  	where
+	  	PHONE = #{phone,jdbcType=VARCHAR}
+	  	order by
+	  	ADD_TIME desc limit 1
+	</select>
+	<select id="getCustomerCommunicateByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+	  	from
+	  	T_COMMUNICATE_RECORD
+	  	where
+	  	PHONE = #{phone,jdbcType=VARCHAR}
+	  	and
+	  	COMMUNICATE_TYPE in (242,244,245,246,248)
+	  	order by
+	  	ADD_TIME desc limit 1
+	</select>
+	<select id="getSupplierCommunicateByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+	  	from
+	  	T_COMMUNICATE_RECORD
+	  	where
+	  	PHONE = #{phone,jdbcType=VARCHAR}
+	  	and
+	  	COMMUNICATE_TYPE in (243,247,248)
+	  	order by
+	  	ADD_TIME desc limit 1
+	</select>
+
+	<select id="getCommunicateByCoidAndUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+	  	from
+	  	T_COMMUNICATE_RECORD
+	  	where
+	  	COID = #{coid,jdbcType=VARCHAR}
+	  	and
+	  	CREATOR = #{userId,jdbcType=INTEGER}
+	  	order by
+	  	ADD_TIME desc limit 1
+	</select>
+
+	<update id="updateByCoidAUserId" parameterType="com.vedeng.trader.model.CommunicateRecord" >
+    update T_COMMUNICATE_RECORD
+    <set >
+      <if test="communicateType != null" >
+        COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER},
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID = #{relatedId,jdbcType=INTEGER},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE = #{traderType,jdbcType=BIT},
+      </if>
+      <if test="begintime != null" >
+        BEGINTIME = #{begintime,jdbcType=BIGINT},
+      </if>
+      <if test="endtime != null" >
+        ENDTIME = #{endtime,jdbcType=BIGINT},
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="communicateMode != null" >
+        COMMUNICATE_MODE = #{communicateMode,jdbcType=INTEGER},
+      </if>
+      <if test="communicateGoal != null" >
+        COMMUNICATE_GOAL = #{communicateGoal,jdbcType=INTEGER},
+      </if>
+      <if test="nextContactDate != null" >
+        NEXT_CONTACT_DATE = #{nextContactDate,jdbcType=VARCHAR},
+      </if>
+      <if test="coidLength != null" >
+        COID_LENGTH = #{coidLength,jdbcType=INTEGER},
+      </if>
+      <if test="coidDomain != null" >
+        COID_DOMAIN = #{coidDomain,jdbcType=VARCHAR},
+      </if>
+      <if test="coidUri != null" >
+        COID_URI = #{coidUri,jdbcType=VARCHAR},
+      </if>
+      <if test="nextContactContent != null" >
+        NEXT_CONTACT_CONTENT = #{nextContactContent,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="isDone != null" >
+        IS_DONE = #{isDone,jdbcType=BIT},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="syncStatus != null" >
+        SYNC_STATUS = #{syncStatus,jdbcType=BIT},
+      </if>
+    </set>
+    where COID = #{coid,jdbcType=INTEGER} and CREATOR = #{creator,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCommunicateTraderByPhone" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.CommunicateRecord">
+  	select
+  	COMMUNICATE_RECORD_ID,ADD_TIME,CREATOR
+  	from
+  	T_COMMUNICATE_RECORD
+  	where
+  	PHONE = #{phone,jdbcType=VARCHAR}
+  	<if test="traderType == 1">
+  	and
+  	COMMUNICATE_TYPE in (242,244,245,246,248)
+  	</if>
+  	<if test="traderType == 2">
+  	and
+  	COMMUNICATE_TYPE in (243,247,248)
+  	</if>
+  	order by ADD_TIME desc limit 3
+  </select>
+  
+  <select id="getTraderIdListByList" resultType="java.lang.Integer" parameterType="Map">
+  	select
+  	TRADER_ID
+  	from
+  	T_COMMUNICATE_RECORD
+  	where COMPANY_ID = 1 and TRADER_TYPE = #{traderType,jdbcType=BIT} and
+  	COMMUNICATE_RECORD_ID in
+  	<foreach item="comId" index="index" collection="comIdList" open="(" separator="," close=")">  
+		#{comId}  
+	</foreach> 
+  </select>
+  
+  <select id="getTraderCommunicateCount" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.CommunicateRecord">
+		select count(COMMUNICATE_RECORD_ID) as COMMUNICATE_COUNT,max(a.BEGINTIME) as LAST_COMMUNICATE_TIME
+		FROM T_COMMUNICATE_RECORD a
+		where 
+			a.TRADER_ID = #{traderId,jdbcType=INTEGER}
+		and
+			a.TRADER_TYPE = #{traderType,jdbcType=INTEGER}
+			and a.COMPANY_ID = 1
+	</select>
+	
+	<select id="getTraderCommunicateCountList" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.CommunicateRecord">
+		select count(COMMUNICATE_RECORD_ID) as COMMUNICATE_COUNT,max(a.BEGINTIME) as LAST_COMMUNICATE_TIME, a.TRADER_ID
+		FROM T_COMMUNICATE_RECORD a
+		where a.TRADER_TYPE = #{traderType,jdbcType=INTEGER}
+			and a.COMPANY_ID = 1
+			and a.TRADER_ID in
+			<foreach collection="traderCustomerVos" item="traderCustomerVo" index="index" open="(" close=")" separator=",">
+	           #{traderCustomerVo.traderId}
+	        </foreach>
+	        group by a.TRADER_ID
+	</select>
+	
+	<select id="queryCallRecordListPage" resultMap="BaseResultMap" parameterType="Map" >
+		select 
+			a.COMMUNICATE_RECORD_ID,a.ADD_TIME,a.COID_TYPE,a.PHONE,a.TRADER_ID,a.TRADER_TYPE,a.CREATOR,a.COID_LENGTH,a.COID_URI,a.COID,a.SYNC_STATUS,
+			b.USERNAME as CREATOR_NAME
+		from 
+			T_COMMUNICATE_RECORD a
+			left join
+			T_USER b on a.CREATOR=b.USER_ID
+		where
+			a.COID is not null and a.COID !=''
+        and a.company_id=1
+			<if test="communicateRecord.communicateRecordId != null and communicateRecord.communicateRecordId > 0">
+				and a.COMMUNICATE_RECORD_ID = #{communicateRecord.communicateRecordId}
+			</if>
+			<if test="communicateRecord.phone != null and communicateRecord.phone != ''">
+				and a.PHONE like CONCAT('%',#{communicateRecord.phone},'%' ) 	
+			</if>
+			<if test="communicateRecord.traderIds != null">
+                <if test="communicateRecord.traderIds.size() == 0">
+                    and a.TRADER_ID = -1
+                </if>
+                <if test="communicateRecord.traderIds.size() > 0">
+                    and a.TRADER_ID in
+                    <foreach collection="communicateRecord.traderIds" item="traderId" index="index"
+                             open="(" close=")" separator=",">
+                        #{traderId}
+                    </foreach>
+                </if>
+			</if>
+			<if test="communicateRecord.creator != null and communicateRecord.creator > 0">
+				and a.CREATOR = #{communicateRecord.creator}
+			</if>
+			<if test="communicateRecord.coidType != null and communicateRecord.coidType > 0">
+				and a.COID_TYPE = #{communicateRecord.coidType}
+			</if>
+			<if test="communicateRecord.result != null and communicateRecord.result > 0">
+				<if test="communicateRecord.result == 1">
+					and a.COID_LENGTH > 0
+				</if>
+				<if test="communicateRecord.result == 2">
+					and (a.COID_LENGTH=0 or a.COID_LENGTH is null or a.COID_LENGTH ='')
+				</if>
+			</if>
+			
+			<if test="communicateRecord.begintime != null and communicateRecord.begintime > 0">
+				and a.ADD_TIME <![CDATA[>=]]> #{communicateRecord.begintime} 
+			</if>
+			<if test="communicateRecord.endtime != null and communicateRecord.endtime > 0">
+				and a.ADD_TIME <![CDATA[<=]]> #{communicateRecord.endtime} 
+			</if>
+            <if test="communicateRecord.beginValue != null and communicateRecord.beginValue > 0">
+                and a.COID_LENGTH <![CDATA[>=]]> #{communicateRecord.beginValue}
+            </if>
+            <if test="communicateRecord.endValue != null and communicateRecord.endValue > 0">
+                and a.COID_LENGTH <![CDATA[<=]]> #{communicateRecord.endValue}
+            </if>
+        <if test="communicateRecord.isComment != null and communicateRecord.isComment != -1">
+            and a.IS_COMMENT =  #{communicateRecord.isComment}
+        </if>
+			<if test="communicateRecord.userIds != null">
+				AND a.CREATOR in 
+				<foreach collection="communicateRecord.userIds" item="userId" index="index" open="(" close=")" separator=",">
+		           #{userId}
+		       </foreach>
+			</if>
+			order by a.COMMUNICATE_RECORD_ID desc
+	</select>
+	
+	<select id="getRecordUser" resultType="com.vedeng.authorization.model.User">
+		select 
+			b.USER_ID,b.USERNAME
+		from 
+			T_COMMUNICATE_RECORD a
+		left join
+			T_USER b on a.CREATOR=b.USER_ID
+		where 
+			a.COID is not null
+			and
+			b.USER_ID > 0
+		group by b.USER_ID
+		order by b.USERNAME asc
+			
+	</select>
+	
+	<!-- 获取订单沟通次数（包含商机，报价，销售订单） -->
+	<select id="getSaleorderCommunicateRecordCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_COMMUNICATE_RECORD A
+		WHERE 
+			<if test="communicateRecord.saleorderId != null and communicateRecord.saleorderId != ''">
+				(A.RELATED_ID = #{communicateRecord.saleorderId,jdbcType=INTEGER}
+						AND A.COMMUNICATE_TYPE = 246)
+			</if>
+			<if test="communicateRecord.quoteorderId!=null and communicateRecord.quoteorderId!=''">
+				OR 
+				(A.RELATED_ID = #{communicateRecord.quoteorderId,jdbcType=INTEGER}
+						AND A.COMMUNICATE_TYPE = 245)
+			</if>
+			<if test="communicateRecord.bussinessChanceId != null and communicateRecord.bussinessChanceId != ''">
+				OR 
+				(A.RELATED_ID = #{communicateRecord.bussinessChanceId,jdbcType=INTEGER}
+						AND A.COMMUNICATE_TYPE = 244)
+			</if>
+			
+	</select>
+	
+	<select id="getNoTraderCommunicateRecord" resultMap="BaseResultMap">
+		select
+			COMMUNICATE_RECORD_ID,COMMUNICATE_TYPE,PHONE,COID
+		from
+			T_COMMUNICATE_RECORD
+		where
+			COID is not null
+		and
+			PHONE is not null
+		and
+			TRADER_ID = 0
+		and 
+			ADD_TIME <![CDATA[>=]]> #{addTime} 
+	</select>
+	
+	<select id="getUnSyncCommunicateRecord" resultMap="BaseResultMap">
+		select
+			a.COMMUNICATE_RECORD_ID,a.COID,b.NUMBER
+		from
+			T_COMMUNICATE_RECORD a
+		left join
+			T_USER b on a.CREATOR = b.USER_ID
+		where
+			COID is not null
+		and
+			a.SYNC_STATUS = 0
+		and 
+			a.ADD_TIME <![CDATA[>=]]> #{beginTime} 
+		and 
+			a.ADD_TIME <![CDATA[<=]]> #{endTime} 
+	</select>
+	
+	<select id="getCommunicateRecordByTime" resultMap="BaseResultMap">
+		select
+			a.COMMUNICATE_RECORD_ID,a.COID
+		from
+			T_COMMUNICATE_RECORD a
+		where
+			COID is not null
+		and 
+			a.ADD_TIME <![CDATA[>=]]> #{beginTime} 
+		and 
+			a.ADD_TIME <![CDATA[<=]]> #{endTime} 
+	</select>
+	
+	<select id="getHomePageSum" parameterType="com.vedeng.trader.model.CommunicateRecord" resultType="java.lang.Integer">
+		SELECT 
+			COALESCE(COUNT(DISTINCT RELATED_ID),0)
+		FROM T_COMMUNICATE_RECORD A
+		WHERE A.NEXT_CONTACT_DATE = DATE(NOW())
+		<if test="communicateType != null" >
+         	AND A.COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER}
+      	</if>
+		<if test="companyId != null" >
+	        AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	    </if>
+		<if test="traderType != null" >
+	        AND A.TRADER_TYPE = #{traderType,jdbcType=BIT}
+	    </if>
+	    <if test="isDone != null" >
+	        AND A.IS_DONE = #{isDone,jdbcType=BIT}
+	    </if>
+	    <if test="traderIds != null">
+			AND A.TRADER_ID in 
+			<foreach collection="traderIds" item="traderId" index="index" open="(" close=")" separator=",">
+	           #{traderId}
+	       </foreach>
+		</if>
+	</select>
+	
+	<select id="getTodayCommunicateTrdaerIdList" parameterType="com.vedeng.trader.model.CommunicateRecord" resultType="java.lang.Integer">
+		SELECT 
+			A.RELATED_ID
+		FROM T_COMMUNICATE_RECORD A
+		WHERE A.NEXT_CONTACT_DATE <![CDATA[<=]]> DATE(NOW())
+		<if test="communicateType != null" >
+         	AND A.COMMUNICATE_TYPE = #{communicateType,jdbcType=INTEGER}
+      	</if>
+		<if test="companyId != null" >
+	        AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	    </if>
+		<if test="traderType != null" >
+	        AND A.TRADER_TYPE = #{traderType,jdbcType=BIT}
+	    </if>
+	    <if test="isDone != null" >
+	        AND A.IS_DONE = #{isDone,jdbcType=BIT}
+	    </if>
+	    <if test="traderIds != null">
+			AND A.TRADER_ID in 
+			<foreach collection="traderIds" item="traderId" index="index" open="(" close=")" separator=",">
+	           #{traderId}
+	       </foreach>
+		</if>
+		GROUP BY A.RELATED_ID
+	</select>
+
+
+    <select id="getCommunicateNumList" parameterType="java.util.List" resultType="com.vedeng.trader.model.CommunicateRecord">
+		SELECT COUNT(*) AS communicateCount,A.RELATED_ID
+		FROM T_COMMUNICATE_RECORD A
+		WHERE 
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList != null and businessIdList.size > 0)">
+				 (A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList == null or businessIdList.size == 0)">
+				 (A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+			</if>
+			<if test="(saleIdList != null and saleIdList.size > 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+				OR 
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			<if test="(saleIdList != null or saleIdList.size > 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList == null and businessIdList.size == 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="saleIdList" item="saleorderId" open="(" close=")" separator=",">
+						#{saleorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  246)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList != null and quoteIdList.size > 0) and (businessIdList == null or businessIdList.size == 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="quoteIdList" item="quoteorderId" open="(" close=")" separator=",">
+						#{quoteorderId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  245)
+			</if>
+			<if test="(saleIdList == null or saleIdList.size == 0) and (quoteIdList == null or quoteIdList.size == 0) and (businessIdList != null and businessIdList.size > 0)">
+				(A.RELATED_ID IN 
+					<foreach collection="businessIdList" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+				AND A.COMMUNICATE_TYPE =  244)
+			</if>
+			GROUP BY A.RELATED_ID
+	</select>
+	
+	<select id="getUnSyncCommunicateRecordListPage" parameterType="Map" resultType="com.vedeng.trader.model.CommunicateRecord">
+		select
+			a.COMMUNICATE_RECORD_ID,a.COID,b.NUMBER
+		from
+			T_COMMUNICATE_RECORD a
+		left join
+			T_USER b on a.CREATOR = b.USER_ID
+		where
+			COID is not null
+		and
+			a.SYNC_STATUS = 0
+		<if test="searchModel.startDateLong != null and searchModel.startDateLong != ''">
+			AND a.ADD_TIME  <![CDATA[ >= ]]> #{searchModel.startDateLong,jdbcType=BIGINT}
+		</if>
+		<if test="searchModel.endDateLong != null and searchModel.endDateLong != ''">
+			AND a.ADD_TIME <![CDATA[ <= ]]> #{searchModel.endDateLong,jdbcType=BIGINT}
+		</if>
+	</select>
+	
+	<!-- 查询15天内某个售后的沟通记录 -->
+	<select id="selectCallRecordListPage" resultMap="BaseResultMap" parameterType="Map">
+		select 
+			a.COMMUNICATE_RECORD_ID,a.ADD_TIME,a.COID_TYPE,a.PHONE,a.TRADER_ID,a.TRADER_TYPE,a.CREATOR,a.COID_LENGTH,a.COID_URI,a.COID,a.SYNC_STATUS,
+			b.USERNAME as CREATOR_NAME
+		from 
+			T_COMMUNICATE_RECORD a
+			left join
+			T_USER b on a.CREATOR=b.USER_ID
+		where
+			a.COID is not null and a.COID !=''
+            and a.company_id=1
+			<if test="communicateRecord.communicateRecordId != null and communicateRecord.communicateRecordId > 0">
+				and a.COMMUNICATE_RECORD_ID = #{communicateRecord.communicateRecordId}
+			</if>
+			<if test="communicateRecord.phone != null and communicateRecord.phone != ''">
+				and a.PHONE like CONCAT('%',#{communicateRecord.phone},'%' ) 	
+			</if>
+			<if test="communicateRecord.traderIds != null">
+				and a.TRADER_ID in 
+				<foreach collection="communicateRecord.traderIds" item="traderId" index="index"
+		           open="(" close=")" separator=",">
+		           #{traderId}
+		       </foreach>
+			</if>
+			<if test="communicateRecord.creator != null and communicateRecord.creator > 0">
+				and a.CREATOR = #{communicateRecord.creator}
+			</if>
+			<if test="communicateRecord.coidType != null and communicateRecord.coidType > 0">
+				and a.COID_TYPE = #{communicateRecord.coidType}
+			</if>
+			<if test="communicateRecord.result != null and communicateRecord.result > 0">
+				<if test="communicateRecord.result == 1">
+					and a.COID_LENGTH > 0
+				</if>
+				<if test="communicateRecord.result == 2">
+					and (a.COID_LENGTH=0 or a.COID_LENGTH is null or a.COID_LENGTH ='')
+				</if>
+			</if>
+			
+			<if test="communicateRecord.begintime != null and communicateRecord.begintime > 0">
+				and a.ADD_TIME <![CDATA[>=]]> #{communicateRecord.begintime} 
+			</if>
+			<if test="communicateRecord.endtime != null and communicateRecord.endtime > 0">
+				and a.ADD_TIME <![CDATA[<=]]> #{communicateRecord.endtime} 
+			</if>
+			<if test="communicateRecord.userIds != null">
+				AND a.CREATOR in 
+				<foreach collection="communicateRecord.userIds" item="userId" index="index" open="(" close=")" separator=",">
+		           #{userId}
+		       </foreach>
+			</if>
+			order by a.COMMUNICATE_RECORD_ID desc
+	</select>
+	
+	<!-- 获取COIDURI -->
+	<select id="getRecordCoidURIByCommunicateRecordId" parameterType="Integer" resultType="String">
+		select COID_URI 
+		from T_COMMUNICATE_RECORD
+		where
+		COMMUNICATE_RECORD_ID = #{communicateRecordId}
+	</select>
+	<!-- 查询商机最新的沟通内容 -->
+	<select id="getCommunicateList" parameterType="com.vedeng.trader.model.CommunicateRecord" resultType="com.vedeng.trader.model.CommunicateRecord">
+		SELECT
+			A.*
+		FROM
+			(
+				SELECT
+					a.RELATED_ID,
+					a.CONTACT_CONTENT,
+					a.ADD_TIME
+				FROM
+					T_COMMUNICATE_RECORD a
+				WHERE
+					a.RELATED_ID IN 
+                    <foreach collection="bussinessChanceIds" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+					) A
+				INNER JOIN (
+					SELECT
+						MAX(ADD_TIME) ADD_TIME,
+						RELATED_ID
+					FROM
+						T_COMMUNICATE_RECORD
+					WHERE
+						RELATED_ID IN 
+                    <foreach collection="bussinessChanceIds" item="businessChangeId" open="(" close=")" separator=",">
+						#{businessChangeId,jdbcType=INTEGER}
+					</foreach>
+					AND CONTACT_CONTENT IS NOT NULL AND CONTACT_CONTENT  <![CDATA[<>]]> ''
+					GROUP BY
+						RELATED_ID
+				) T ON A.ADD_TIME = T.ADD_TIME
+				AND A.RELATED_ID = T.RELATED_ID
+			</select>
+
+    <select id="getCountOfCommunicate" resultType="java.lang.Integer">
+        SELECT
+            COUNT( COMMUNICATE_RECORD_ID )
+        FROM
+            T_COMMUNICATE_RECORD
+        WHERE
+            ADD_TIME >= 1546272000000
+            AND IS_LFASR = 0
+    </select>
+
+    <select id="getLfasrCommunicateList" parameterType="java.lang.Integer" resultType="com.vedeng.trader.model.CommunicateRecord">
+        SELECT
+          <include refid="Base_Column_List" />
+        FROM
+            T_COMMUNICATE_RECORD
+        WHERE
+            ADD_TIME >= 1546272000000
+        AND
+            IS_LFASR = 0
+        ORDER BY COMMUNICATE_RECORD_ID
+        LIMIT #{page,jdbcType=INTEGER},100
+    </select>
+
+    <update id="updateLfasrStatus" parameterType="list" >
+        UPDATE T_COMMUNICATE_RECORD
+        SET
+        IS_LFASR = 1
+        WHERE COMMUNICATE_RECORD_ID IN
+        <foreach collection="list" item="cr" separator="," open="(" close=")">
+          #{cr.communicateRecordId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+</mapper>

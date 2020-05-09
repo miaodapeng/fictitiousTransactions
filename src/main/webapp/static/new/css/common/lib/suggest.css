@@ -1,0 +1,54 @@
+.suggest-list-wrap {
+    position: absolute;
+    background: #fff;
+    padding: 10px 0;
+    box-shadow: 2px 2px 3px rgba(0, 33, 66, 0.1);
+    overflow: unset;
+    z-index: 11;
+    border: 1px solid #ced2d9;
+    width: 100%;
+    display: none;
+    max-height: 275px;
+    overflow-y: auto;
+}
+
+.suggest-wrap {
+    position: relative;
+}
+
+.suggest-list-wrap .suggest-item {
+    padding: 5px 10px;
+    color: #666;
+    display: block;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.suggest-list-wrap .suggest-item strong {
+    color: #f60;
+    font-size: 12px;
+}
+
+.suggest-list-wrap .suggest-item.disabled {
+    color: #c2c2c2;
+    cursor: default;
+}
+
+.suggest-list-wrap .suggest-item.disabled strong {
+    color: #c2c2c2;
+    cursor: default;
+    font-weight: normal;
+}
+
+.suggest-list-wrap .suggest-item.disabled:hover {
+    color: #c2c2c2;
+    background: #fff;
+}
+
+.suggest-list-wrap .suggest-item:hover {
+    color: #666;
+    background: #e6ecf2;
+}

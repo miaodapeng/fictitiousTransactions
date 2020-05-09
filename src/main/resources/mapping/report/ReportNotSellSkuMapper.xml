@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.report.dao.ReportNotSellSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.newtask.model.ReportNotSellSku" >
+    <!--          -->
+    <id column="NOTSELL_SKU_ID" property="notsellSkuId" jdbcType="VARCHAR" />
+    <result column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="SELLORDER_NO" property="sellorderNo" jdbcType="VARCHAR" />
+    <result column="NOT_SELL_NUM" property="notSellNum" jdbcType="INTEGER" />
+    <result column="TOTAL_NOT_SELL_NUM_THIRTY_DAYS" property="totalNotSellNumThirtyDays" jdbcType="INTEGER" />
+    <result column="TOTAL_NOT_SELL_NUM_NINETY_DAYS" property="totalNotSellNumNinetyDays" jdbcType="INTEGER" />
+    <result column="SELLORDER_ADD_TIME" property="sellorderAddTime" jdbcType="VARCHAR" />
+    <result column="ASSOCIATION_FILED" property="associationFiled" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    NOTSELL_SKU_ID, SKU_NO, ORG_ID, SELLORDER_NO,  NOT_SELL_NUM, TOTAL_NOT_SELL_NUM_THIRTY_DAYS,
+    TOTAL_NOT_SELL_NUM_NINETY_DAYS, SELLORDER_ADD_TIME, ASSOCIATION_FILED, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_NOTSELL_SKU
+    where NOTSELL_SKU_ID = #{notsellSkuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--          -->
+    delete from T_REPORT_NOTSELL_SKU
+    where NOTSELL_SKU_ID = #{notsellSkuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.newtask.model.ReportNotSellSku" >
+    <!--          -->
+    insert into T_REPORT_NOTSELL_SKU (NOTSELL_SKU_ID, SKU_NO, ORG_ID, 
+      NOT_SELL_NUM, TOTAL_NOT_SELL_NUM_THIRTY_DAYS, TOTAL_NOT_SELL_NUM_NINETY_DAYS,
+      SELLORDER_ADD_TIME, ASSOCIATION_FILED, ADD_TIME, MOD_TIME
+      )
+    values (#{notsellSkuId,jdbcType=VARCHAR}, #{skuNo,jdbcType=VARCHAR}, #{orgId,jdbcType=INTEGER}, 
+        #{notSellNum,jdbcType=INTEGER},
+        #{totalNotSellNumThirtyDays,jdbcType=INTEGER}, #{totalNotSellNumNinetyDays,jdbcType=INTEGER},
+        #{sellorderAddTime,jdbcType=VARCHAR}, #{associationFiled,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR},
+        #{modTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtask.model.ReportNotSellSku" >
+    <!--          -->
+    insert into T_REPORT_NOTSELL_SKU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="notsellSkuId != null" >
+        NOTSELL_SKU_ID,
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="notSellNum != null" >
+        NOT_SELL_NUM,
+      </if>
+      <if test="totalNotSellNumThirtyDays != null" >
+        TOTAL_NOT_SELL_NUM_THIRTY_DAYS,
+      </if>
+      <if test="totalNotSellNumNinetyDays != null" >
+        TOTAL_NOT_SELL_NUM_NINETY_DAYS,
+      </if>
+      <if test="sellorderAddTime != null" >
+        SELLORDER_ADD_TIME,
+      </if>
+      <if test="associationFiled != null" >
+        ASSOCIATION_FILED,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="notsellSkuId != null" >
+        #{notsellSkuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuNo != null" >
+        #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="notSellNum != null" >
+        #{notSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalNotSellNumThirtyDays != null" >
+        #{totalNotSellNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalNotSellNumNinetyDays != null" >
+        #{totalNotSellNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="sellorderAddTime != null" >
+        #{sellorderAddTime,jdbcType=VARCHAR},
+      </if>
+      <if test="associationFiled != null" >
+        #{associationFiled,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtask.model.ReportNotSellSku" >
+    <!--          -->
+    update T_REPORT_NOTSELL_SKU
+    <set >
+      <if test="skuNo != null" >
+        SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="notSellNum != null" >
+        NOT_SELL_NUM = #{notSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="totalNotSellNumThirtyDays != null" >
+        TOTAL_NOT_SELL_NUM_THIRTY_DAYS = #{totalNotSellNumThirtyDays,jdbcType=INTEGER},
+      </if>
+      <if test="totalNotSellNumNinetyDays != null" >
+        TOTAL_NOT_SELL_NUM_NINETY_DAYS = #{totalNotSellNumNinetyDays,jdbcType=INTEGER},
+      </if>
+      <if test="sellorderAddTime != null" >
+        SELLORDER_ADD_TIME = #{sellorderAddTime,jdbcType=VARCHAR},
+      </if>
+      <if test="associationFiled != null" >
+        ASSOCIATION_FILED = #{associationFiled,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where NOTSELL_SKU_ID = #{notsellSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtask.model.ReportNotSellSku" >
+    <!--          -->
+    update T_REPORT_NOTSELL_SKU
+    set SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      NOT_SELL_NUM = #{notSellNum,jdbcType=INTEGER},
+      TOTAL_NOT_SELL_NUM_THIRTY_DAYS = #{totalNotSellNumThirtyDays,jdbcType=INTEGER},
+      TOTAL_NOT_SELL_NUM_NINETY_DAYS = #{totalNotSellNumNinetyDays,jdbcType=INTEGER},
+      SELLORDER_ADD_TIME = #{sellorderAddTime,jdbcType=VARCHAR},
+      ASSOCIATION_FILED = #{associationFiled,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=VARCHAR}
+    where NOTSELL_SKU_ID = #{notsellSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="trunCateNotSellSku">
+    TRUNCATE TABLE T_REPORT_NOTSELL_SKU
+  </update>
+  <select id="getNotSellSkuTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+      COUNT(1)
+    FROM
+    (
+      SELECT
+        CONCAT('V',b.GOODS_ID) AS SKU_NO,
+        e.ORG_ID,
+        from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d') AS SELLORDER_ADD_TIME,
+        SUM(b.NUM) AS NOT_SELL_NUM
+      FROM
+      T_SALEORDER a
+      LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+      LEFT JOIN T_R_TRADER_J_USER c ON a.TRADER_ID = c.TRADER_ID
+      LEFT JOIN T_R_USER_POSIT d ON c.USER_ID = d.USER_ID
+      LEFT JOIN T_POSITION e ON d.POSITION_ID = e.POSITION_ID
+      WHERE a.`STATUS` != #{orderStatus,jdbcType=INTEGER}
+      AND a.PAYMENT_STATUS != #{payStatus,jdbcType=INTEGER}
+      <if test="traderIdList != null and traderIdList.size() > 0">
+        AND a.TRADER_ID IN
+        <foreach collection="traderIdList" separator="," open="(" close=")" item="traderId" index="index">
+          #{traderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      GROUP BY b.GOODS_ID,e.ORG_ID,from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d')
+    ) m
+  </select>
+  <select id="getNotSellSkuList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+      *
+    FROM
+    (
+      SELECT
+        CONCAT('V',b.GOODS_ID) AS SKU_NO,
+        e.ORG_ID,
+        from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d') AS SELLORDER_ADD_TIME,
+        SUM(b.NUM) AS NOT_SELL_NUM
+      FROM
+        T_SALEORDER a
+      LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+      LEFT JOIN T_R_TRADER_J_USER c ON a.TRADER_ID = c.TRADER_ID
+      LEFT JOIN T_R_USER_POSIT d ON c.USER_ID = d.USER_ID
+      LEFT JOIN T_POSITION e ON d.POSITION_ID = e.POSITION_ID
+      WHERE a.`STATUS` != #{orderStatus,jdbcType=INTEGER}
+      AND a.PAYMENT_STATUS != #{payStatus,jdbcType=INTEGER}
+      <if test="traderIdList != null and traderIdList.size() > 0">
+        AND a.TRADER_ID IN
+        <foreach collection="traderIdList" separator="," open="(" close=")" item="traderId" index="index">
+          #{traderId,jdbcType=INTEGER}
+        </foreach>
+      </if>
+      GROUP BY b.GOODS_ID,e.ORG_ID,from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d')
+    ) m
+    ORDER BY m.SELLORDER_ADD_TIME
+    LIMIT #{begin,jdbcType=INTEGER},#{end,jdbcType=INTEGER}
+  </select>
+  <select id="getPurchaseSkuList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+      CONCAT('V',c.GOODS_ID) AS SKU_NO,
+      f.ORG_ID,
+      from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d') AS SELLORDER_ADD_TIME,
+      SUM(c.NUM) AS NOT_SELL_NUM
+    FROM
+      T_SALEORDER a
+    LEFT JOIN T_AFTER_SALES b ON a.SALEORDER_NO = b.ORDER_NO
+    LEFT JOIN T_AFTER_SALES_GOODS c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+    LEFT JOIN T_R_TRADER_J_USER d ON a.TRADER_ID = d.TRADER_ID
+    LEFT JOIN T_R_USER_POSIT e ON d.USER_ID = e.USER_ID
+    LEFT JOIN T_POSITION f ON e.POSITION_ID = f.POSITION_ID
+    WHERE b.ATFER_SALES_STATUS = 2 AND b.TYPE = 539
+    <if test="list != null and list.size() > 0">
+      AND a.SALEORDER_NO IN
+      <foreach collection="list" index="index" item="reportNotSellSku" open="(" close=")" separator=",">
+        #{reportNotSellSku.sellorderNo,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+    GROUP BY c.GOODS_ID,f.ORG_ID,from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d')
+  </select>
+  <update id="updateNotSellNum" parameterType="java.util.List">
+    <foreach collection="list" index="index" item="reportNotSellSku" separator=";">
+      UPDATE
+        T_REPORT_NOTSELL_SKU
+      SET
+        NOT_SELL_NUM = NOT_SELL_NUM + #{reportNotSellSku.notSellNum,jdbcType=INTEGER}
+      WHERE SKU_NO= #{reportNotSellSku.skuNo,jdbcType=VARCHAR}
+      AND ORG_ID = #{reportNotSellSku.orgId,jdbcType=INTEGER}
+      AND SELLORDER_ADD_TIME = #{reportNotSellSku.sellorderAddTime,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into T_REPORT_NOTSELL_SKU (NOTSELL_SKU_ID, SKU_NO, ORG_ID,
+      NOT_SELL_NUM, SELLORDER_ADD_TIME, ASSOCIATION_FILED, ADD_TIME, MOD_TIME
+      )
+    values
+    <foreach collection="list" separator="," item="reportNotSellSku" index="index">
+      (#{reportNotSellSku.notsellSkuId,jdbcType=VARCHAR}, #{reportNotSellSku.skuNo,jdbcType=VARCHAR}, #{reportNotSellSku.orgId,jdbcType=INTEGER},
+      #{reportNotSellSku.notSellNum,jdbcType=INTEGER}, #{reportNotSellSku.sellorderAddTime,jdbcType=VARCHAR}, #{reportNotSellSku.associationFiled,jdbcType=VARCHAR}, #{reportNotSellSku.addTime,jdbcType=VARCHAR},
+      #{reportNotSellSku.modTime,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <select id="getLendOutSkuCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+      COUNT(1)
+    FROM
+    (
+      SELECT
+        CONCAT('V', a.GOODS_ID) AS SKU_NO,
+        d.ORG_ID,
+        SUM(a.LEND_OUT_NUM - a.RETURN_NUM) AS NOT_SELL_NUM,
+        from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d') AS SELLORDER_ADD_TIME
+      FROM
+        T_LEND_OUT a
+      LEFT JOIN T_R_TRADER_J_USER b ON a.TRADER_ID = b.TRADER_ID
+      LEFT JOIN T_R_USER_POSIT c ON b.USER_ID = c.USER_ID
+      LEFt JOIN T_POSITION d ON c.POSITION_ID = d.POSITION_ID
+      WHERE a.LEND_OUT_STATUS != #{lendOutStatus,jdbcType=INTEGER}
+      AND LEND_OUT_TYPE = #{lendOutType,jdbcType=INTEGER}
+      GROUP BY a.GOODS_ID, d.ORG_ID, from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d')
+    ) m
+  </select>
+  <select id="getLendOutSkuList" parameterType="java.util.Map" resultType="com.newtask.model.ReportNotSellSku">
+    SELECT
+      *
+    FROM
+    (
+      SELECT
+        CONCAT('V', a.GOODS_ID) AS SKU_NO,
+        d.ORG_ID,
+        SUM(a.LEND_OUT_NUM - a.RETURN_NUM) AS NOT_SELL_NUM,
+        from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d') AS SELLORDER_ADD_TIME
+      FROM
+        T_LEND_OUT a
+      LEFT JOIN T_R_TRADER_J_USER b ON a.TRADER_ID = b.TRADER_ID
+      LEFT JOIN T_R_USER_POSIT c ON b.USER_ID = c.USER_ID
+      LEFt JOIN T_POSITION d ON c.POSITION_ID = d.POSITION_ID
+      WHERE a.LEND_OUT_STATUS != #{lendOutStatus,jdbcType=INTEGER}
+      AND LEND_OUT_TYPE = #{lendOutType,jdbcType=INTEGER}
+      GROUP BY a.GOODS_ID, d.ORG_ID, from_unixtime(a.ADD_TIME/1000, '%Y-%m-%d')
+    ) m
+    ORDER BY m.SELLORDER_ADD_TIME
+    LIMIT #{begin,jdbcType=INTEGER}, #{end,jdbcType=INTEGER}
+  </select>
+  <select id="getInSellLendOutSkuList" parameterType="java.util.List" resultType="com.newtask.model.ReportNotSellSku">
+    SELECT
+    a.SKU_NO,
+    a.ORG_ID,
+    a.SELLORDER_ADD_TIME
+    FROM
+    T_REPORT_NOTSELL_SKU a
+    WHERE a.ASSOCIATION_FILED IN
+    <foreach collection="list" index="index" item="reportNotSellSku" open="(" close=")" separator=",">
+      #{reportNotSellSku.associationFiled, jdbcType=VARCHAR}
+    </foreach>
+  </select>
+</mapper>

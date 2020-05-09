@@ -1,0 +1,148 @@
+.bx {
+  width: 1600px;
+  margin: 0 auto;
+}
+
+.content {
+  box-sizing: border-box;
+  color: #333;
+  min-width: 1600px;
+}
+
+.tab_hd {
+  background-color: #eee;
+}
+
+.tab_hd > ul {
+  display: flex;
+  align-content: center;
+}
+
+.tab_hd > ul .active {
+  background-color: skyblue;
+}
+
+.tab_hd > ul > li a {
+  display: block;
+  padding: 10px 20px;
+  background-color: #ccc;
+  margin-right: 5px;
+}
+
+.roleBox {
+  height: 100px;
+}
+
+.roleBox .role {
+  margin-top: 20px;
+  display: flex;
+}
+
+.roleBox .role i {
+  font-style: normal;
+  margin-left: 10px;
+}
+
+.roleBox .Jurisdiction {
+  display: flex;
+  margin-top: 25px;
+}
+
+.roleBox .Jurisdiction > div {
+  margin-left: 10px;
+}
+
+.roleBox .Jurisdiction > div input {
+  position: relative;
+  top: 1px;
+}
+
+.roleBox .Jurisdiction > div label {
+  margin-left: 3px;
+  margin-right: 20px;
+}
+
+.roleBox .Jurisdiction button {
+  border: none;
+  padding: 0 8px;
+  height: 26px;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  cursor: pointer;
+  margin: 0 15px;
+}
+
+.roleBox .Jurisdiction .btn1 {
+  font-size: 14px;
+  background: #49a949;
+}
+
+.applicationBox {
+  margin-bottom: 30px;
+}
+
+.applicationBox > .application_hd {
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+  background-color: #ccc;
+  border: 1px solid #bbb;
+  border-bottom: none;
+}
+
+.applicationBox > .application_hd > h3 {
+  font-weight: normal;
+}
+
+.applicationBox > .application_hd > a {
+  color: blue;
+}
+
+.applicationBox .applicationMain {
+  padding: 20px  15px;
+  border: 1px solid #ccc;
+}
+
+.applicationBox .applicationMain .applicationCloum {
+  margin-bottom: 20px;
+}
+
+.applicationBox .applicationMain .applicationCloum h3 {
+  font-weight: normal;
+}
+
+.applicationBox .applicationMain .applicationCloum .mainbox {
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 15px 10px;
+}
+
+.applicationBox .applicationMain .applicationCloum .cloumMain {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.applicationBox .applicationMain .applicationCloum .cloumMain p {
+  font-size: 14px;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+
+.applicationBox .applicationMain .applicationCloum .cloumMain ul {
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.applicationBox .applicationMain .applicationCloum .cloumMain ul li {
+  width: 150px;
+  word-break: break-all;
+  float: left;
+  padding-bottom: 5px;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

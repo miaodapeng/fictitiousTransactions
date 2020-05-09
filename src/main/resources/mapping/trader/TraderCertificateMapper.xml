@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.TraderCertificateMapper" >
+    <resultMap id="BaseResultMap" type="com.vedeng.trader.model.TraderCertificate" >
+        <id column="TRADER_CERTIFICATE_ID" property="traderCertificateId" jdbcType="INTEGER" />
+        <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+        <result column="SYS_OPTION_DEFINITION_ID" property="sysOptionDefinitionId" jdbcType="INTEGER" />
+        <result column="BEGINTIME" property="begintime" jdbcType="BIGINT" />
+        <result column="ENDTIME" property="endtime" jdbcType="BIGINT" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="SN" property="sn" jdbcType="VARCHAR" />
+        <result column="DOMAIN" property="domain" jdbcType="VARCHAR" />
+        <result column="URI" property="uri" jdbcType="VARCHAR" />
+        <result column="IS_MEDICAL" property="isMedical" jdbcType="BIT" />
+        <result column="EXTRA" property="extra" jdbcType="VARCHAR" />
+        <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+        <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+        <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+        <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+        <result column="AUTH_POST" property="authPost" jdbcType="VARCHAR" />
+        <result column="AUTH_USERNAME" property="authUserName" jdbcType="VARCHAR" />
+        <result column="AUTH_CONTACTINFO" property="authContactInfo" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!--<resultMap type="com.vedeng.model.trader.vo.TraderCertificateVo" id="VoResultMap" extends="BaseResultMap">-->
+        <!--<result column="THREE_IN_ONE" property="threeInOne" jdbcType="BIT" />-->
+        <!--<result column="MEDICAL_QUALIFICATION" property="medicalQualification" jdbcType="BIT" />-->
+    <!--</resultMap>-->
+    <insert id="insertSelective" parameterType="com.vedeng.trader.model.TraderCertificate" >
+        insert into T_TRADER_CERTIFICATE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="traderCertificateId != null" >
+                TRADER_CERTIFICATE_ID,
+            </if>
+            <if test="traderId != null" >
+                TRADER_ID,
+            </if>
+            <if test="sysOptionDefinitionId != null" >
+                SYS_OPTION_DEFINITION_ID,
+            </if>
+            <if test="begintime != null" >
+                BEGINTIME,
+            </if>
+            <if test="endtime != null" >
+                ENDTIME,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="sn != null" >
+                SN,
+            </if>
+            <if test="domain != null" >
+                DOMAIN,
+            </if>
+            <if test="uri != null" >
+                URI,
+            </if>
+            <if test="isMedical != null" >
+                IS_MEDICAL,
+            </if>
+            <if test="extra != null" >
+                EXTRA,
+            </if>
+            <if test="addTime != null" >
+                ADD_TIME,
+            </if>
+            <if test="creator != null" >
+                CREATOR,
+            </if>
+            <if test="modTime != null" >
+                MOD_TIME,
+            </if>
+            <if test="updater != null" >
+                UPDATER,
+            </if>
+            <if test="ossResourceId != null">
+                OSS_RESOURCE_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="traderCertificateId != null" >
+                #{traderCertificateId,jdbcType=INTEGER},
+            </if>
+            <if test="traderId != null" >
+                #{traderId,jdbcType=INTEGER},
+            </if>
+            <if test="sysOptionDefinitionId != null" >
+                #{sysOptionDefinitionId,jdbcType=INTEGER},
+            </if>
+            <if test="begintime != null" >
+                #{begintime,jdbcType=BIGINT},
+            </if>
+            <if test="endtime != null" >
+                #{endtime,jdbcType=BIGINT},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sn != null" >
+                #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="domain != null" >
+                #{domain,jdbcType=VARCHAR},
+            </if>
+            <if test="uri != null" >
+                #{uri,jdbcType=VARCHAR},
+            </if>
+            <if test="isMedical != null" >
+                #{isMedical,jdbcType=BIT},
+            </if>
+            <if test="extra != null" >
+                #{extra,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null" >
+                #{addTime,jdbcType=BIGINT},
+            </if>
+            <if test="creator != null" >
+                #{creator,jdbcType=INTEGER},
+            </if>
+            <if test="modTime != null" >
+                #{modTime,jdbcType=BIGINT},
+            </if>
+            <if test="updater != null" >
+                #{updater,jdbcType=INTEGER},
+            </if>
+            <if test="ossResourceId != null">
+                #{ossResourceId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <sql id="Base_Column_List" >
+    TRADER_CERTIFICATE_ID, TRADER_ID, SYS_OPTION_DEFINITION_ID, BEGINTIME, ENDTIME,NAME, SN,
+    DOMAIN, URI, IS_MEDICAL, EXTRA
+    </sql>
+
+    <update id="updateTraderCertificate">
+        UPDATE T_TRADER_CERTIFICATE
+        SET URI = #{certificate.uri},
+        DOMAIN = #{certificate.domain},
+        OSS_RESOURCE_ID = #{certificate.ossResourceId},
+        EXTRA = '1'
+        WHERE TRADER_CERTIFICATE_ID = #{certificate.traderCertificateId}
+    </update>
+
+    <select id="getTraderCertificatesByTraderId" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.TraderCustomer">
+        select
+        <include refid="Base_Column_List" />
+        from T_TRADER_CERTIFICATE
+        where TRADER_ID = #{traderId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getCertificateListByTraderId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from T_TRADER_CERTIFICATE
+        where 1=1
+        and TRADER_ID = #{traderId,jdbcType=INTEGER}
+    </select>
+    <select id="getTraderCertificates" resultType="com.vedeng.trader.model.TraderCertificate">
+        SELECT * FROM T_TRADER_CERTIFICATE where TRADER_CERTIFICATE_ID &gt; #{start} AND DOMAIN = 'file1.vedeng.com' limit #{limit}
+    </select>
+    <select id="getTraderCertificateById" resultType="com.vedeng.trader.model.TraderCertificate">
+        SELECT * FROM T_TRADER_CERTIFICATE WHERE TRADER_CERTIFICATE_ID = #{id}
+    </select>
+
+    <delete id="delTraderCertificateAndByTypeId" >
+        DELETE
+        FROM T_TRADER_CERTIFICATE
+        WHERE
+        TRADER_ID = #{traderId,jdbcType=INTEGER}
+        AND SYS_OPTION_DEFINITION_ID =#{typeId, jdbcType=INTEGER}
+    </delete>
+</mapper>

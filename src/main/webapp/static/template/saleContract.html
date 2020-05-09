@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8" />
+        <title>打印销售合同PDF</title>
+        <style type="text/css">
+            *{ margin: 0; padding: 0; } 
+			body { margin: 0; height: 100%; font-size: 12px; font-family:SimSun; } 
+			#print-contract{ max-width: 800px; margin: 0 auto; } 
+			span { display: inline-block; } 
+			ul,li { list-style: none outside none; } 
+			#print-contract b{ color: #000; } 
+			.contract-head{ overflow: hidden; padding: 0px 20px 4px 20px; border-bottom:1px solid #004ea2; color: #000;} 
+			.contract-head img{ float: left; width: 36%; } 
+			.contract-head .contract-number{font-size: 0.75em; float: right; font-weight: 600; } 
+			.contract-head-title{text-align: center; font-size: 1.25em; font-weight: bold; margin: 4px 0;} 
+			.contract-print-title2{ font-size: 0.75em; font-weight: bold; margin-bottom: 3px; } 
+			.contract-print-table table{ border: 1px solid ; border-collapse: collapse; border-spacing: 0; width: 100%; margin: 0 auto 2px auto; table-layout:fixed; color: #333; font-size: 0.75em; } 
+			.contract-print-table table td{border-right: 1px solid; margin: 0; padding: 1px 10px; /*display: table-cell;*/ vertical-align: top; } 
+			.contract-print-table .print-product-table td{ vertical-align: middle; padding: 0px 2px; text-align: center; } 
+			.contract-print-table .print-product-table1 td{ padding: 6px 2px; } 
+			.contract-print-table .print-product-table .tdsmall td{ padding: 0px 2px; } 
+			.font-bold td{ font-weight: bold; color: #000;} 
+			.contract-print-table table tr{ border-bottom: 1px solid; } 
+			.contract-print-table table tr:last-child{ border-bottom: none; } 
+			.contract-print-table table td:last-child{ border-right:none; } 
+			.jiayi td { font-weight: bold; color: #000; } 
+			.contract-tips{ font-size: 0.75em; margin-bottom:2px; } 
+			.pl10{ padding-left: 10px; } 
+			.contract-details{ line-height: 12px; margin: -5px 0 0 0; font-size: 0.75em; } 
+			.contract-print-sign { margin: -20px auto 0px auto; /*width: 590px;*/ font-weight: bold; font-size: 0.75em; page-break-inside: avoid; } 
+			.contract-print-sign ul:after, .contract-print-sign ul li:after{ display: inline-block; content: ''; clear: both; } 
+			.total-count-num{ padding-right: 10px; } 
+			.contract-print-sign ul{ overflow: visible; } 
+			.contract-print-sign li{ float: left; } 
+			.contract-print-sign li ul li{ text-align: center; }
+            .contract-print-sign li:first-child{ } 
+			.contract-print-sign li ul li:first-child{margin-right: 40px; } 
+			.contract-print-sign li ul li div:first-child{ margin-top: 40px; border-bottom: 2px solid; width: 100px; } 
+			.overflow-hidden{ overflow: hidden; }
+        </style>
+    </head>
+    <body>
+        <div id="print-contract">
+            <div class="">
+                <div class="contract-head">
+                    <img src="http://erp.ivedeng.com/static/images/logo1.jpg" class="" />
+                    <div class="contract-number">
+                        <div>合同号码: {hetonghaoma}</div>
+                        <div>制单日期: {zhidanriqi}</div>
+                    </div>
+                </div>
+                <div class="contract-head-title">销售合同</div>
+                <div class="contract-print-table">
+                    <table>
+                        <tbody>
+                            <tr class="jiayi">
+                                <td>
+                                    <span>甲方：</span>
+                                    <span>{jiafang}</span>
+                                </td>
+                                <td>
+                                    <span>乙方：</span>
+                                    <span>南京贝登医疗股份有限公司</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div>采购人员：{caigourenyuan}</div>
+                                    <div>
+                                        <span>联系方式：</span>
+                                        <span>{lianxifangshi}</span>
+                                    </div>
+                                    <div>
+                                        <span>开票信息：</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="overflow-hidden">
+                                        <span style="width:70px;float:left;">注册地址/电话：</span>
+                                        <span style="float:left;display:inline-block;max-width:-moz-calc(100% - 70px);max-width:-webkit-calc(100% - 70px);max-width:calc(100% - 70px);">
+                                            {zhucexinxi}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span>开户行：</span>
+                                        <span>{kaihuhang}</span>
+                                    </div>
+                                    <div>
+                                        <span>税号：</span>
+                                        <span>{shuihao}</span>
+                                    </div>
+                                    <div>
+                                        <span>账号：</span>
+                                        <span>{zhanghao}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>销售人员：</span>
+                                        <span>{xiaoshourenyuan}</span>
+                                    </div>
+                                    <div>
+                                        <span>联系方式：</span>
+                                        <span>{lianxifangshi}</span>
+                                    </div>
+                                    <div>
+                                        <span>付款信息：</span>
+                                        <span></span>
+                                    </div>
+                                    <div>
+                                        <span>开户行：</span>
+                                        <span>中国建设银行江苏南京中山南路支行</span>
+                                    </div>
+                                    <div>
+                                        <span>账号：</span>
+                                        <span>32001881236052503686</span>
+                                    </div>
+                                    <div>
+                                        <span>税号：</span>
+                                        <span>91320100589439066H</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="contract-print-title2 pl10">
+						发票及货物接收信息
+                    </div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <span>收票单位：</span>
+                                        <span>{shoupiaodanwei}</span>
+                                    </div>
+                                    <div>
+                                        <span>收票人：</span>
+                                        <span>{shoupiaoren}</span>
+                                    </div>
+									<div>
+										<span>地址：</span>
+										<span>{shoupiaodizhi}</span>
+									</div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <span>收货单位：</span>
+                                        <span>{shouhuodanwei}</span>
+                                    </div>
+                                    <div>
+                                        <span>收货人：</span>
+                                        <span>{shouhuoren}</span>
+                                    </div>
+									<div>
+										<span>地址：</span>
+										<span>{shouhuodizhi}</span>
+									</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="contract-tips">就甲方向乙方采购产品事宜，经友好协商，签订本合同，以资遵守。</div>
+                    <div class="contract-print-title2">一、产品信息：</div>
+                    <table class="print-product-table">
+                        <tbody>
+                            <tr class="font-bold tdsmall">
+                                <td style="width:4%;border-bottom:1px solid #000;">序号</td>
+                                <td style="width:6%;border-bottom:1px solid #000;">订货号</td>
+                                <td style="width:26%;border-bottom:1px solid #000;">产品名称</td>
+                                <td style="border-bottom:1px solid #000;">品牌</td>
+                                <td style="border-bottom:1px solid #000;">型号</td>
+                                <td style="width:4%;border-bottom:1px solid #000;">数量</td>
+                                <td style="width:4%;border-bottom:1px solid #000;">单位</td>
+                                <td style="width:10%;border-bottom:1px solid #000;">单价(元）</td>
+                                <td style="width:10%;border-bottom:1px solid #000;">金额(元）</td>
+                                <td style="width:6%;border-bottom:1px solid #000;">
+									货期<br />
+                                    <span style="font-size:0.75rem;">
+                                        (工作日)
+                                    </span>
+                                </td>
+                                <td style="border-bottom:1px solid #000;">备注</td>
+                            </tr>
+                            <tr id='saleGoodsList'>
+                                <td class="" style="width: 4%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 6%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 26%; text-align:left;border-bottom:1px solid #000;">--</td>
+                                <td style="border-bottom:1px solid #000;">--</td>
+                                <td style="border-bottom:1px solid #000;">--</td>
+                                <td style="width: 4%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 4%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 10%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 10%;border-bottom:1px solid #000;">--</td>
+                                <td style="width: 6%;border-bottom:1px solid #000;">--</td>
+                                <td style="border-bottom:1px solid #000;">--</td>
+                            </tr>
+                            <tr id='saleOrderAmount'>
+                                <td>合计</td>
+                                <td colspan="8" style="overflow: hidden;">
+                                    <div class="total-count" style="float:left;">（大写）{hejijinedaxie}</div>
+                                    <div class="total-count-num " style="float:right;">{hejijine}</div>
+                                </td>
+                                <td colspan="2"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="contract-print-title2">
+						 二、付款方式&amp;发票类型：
+                    </div>
+                    <div class="contract-details">
+                        1、 {fukuanfangshi}
+                        <br />
+                        2、 甲方应将货款支付至乙方指定银行账户，勿将货款以现金形式支付给乙方任何人员，否则乙方有权视甲方未支付该款项。
+                        <br />
+                        3、 发票类型： {fapiaoleixing}
+                    </div>
+                    <div class="contract-print-title2">
+						三、产品交付及安调、培训说明：
+                    </div>
+                    <div class="contract-details">
+                        1、 关于运费：{yunfei}
+                        <br />
+                        2、 安调、培训：{antiao}
+                        <br />
+                        3、 货期自乙方收到甲方预付款后开始计算。国家法定周末和节假日不计算在货期内。如果因为甲方未及时付款导致货期变动的，双方需重新约定交货期。
+                        <br />
+                        4、 货品达到甲方指定收货地点后，甲方承担收货义务之指定人员、公司员工或者关联方员工需对物流公司配送的货品当场开箱验收，验收范围包括但不限于：货品外部包装是否破损或存有瑕疵；货物的种类、型号、颜色、数量等外部形态是否与订单相符。甲方指定收货人在送货单上签字确认之后，将视为甲方接受所配送货品，乙方将只在产品质量性能方面承担责任。除指定收货人以外，甲方公司员工、关联方员工对货品的签收亦视为具有承认效果的物品接受。甲方的签收人员有义务根据乙方的要求将上述已签收送货单或扫描回传或原件寄回给乙方。甲方如发现货品外包装破损或者存有瑕疵，应当场向物流公司提出并尽快以书面形式通知乙方，如货物的种类、型号、颜色、数量等外部形态与订单不符，甲方需在三（3）个工作日内以书面形式通知乙方。逾期乙方将不再承担免费调换义务。甲方拒签收货物所带来的损失由甲方自己承担。
+                    </div>
+                    <div class="contract-print-title2">
+						 四、 质量保证：
+                    </div>
+                    <div class="contract-details">
+                        1、 乙方保证供应的产品符合国家标准或相关行业标准，且为全新、原装产品。
+                        <br />
+                        2、 乙方按照产品说明书内的质保条件及质保期对产品提供质保承诺。质保时间自甲方收到货物时开始计算。
+                        <br />
+                        3、 在质量保证期内出现的非甲方人为因素损坏的产品质量问题，乙方按照国家或行业标准提供质保服务，提供维修或更换服务。如非质保期内或甲方人为因素导致的货品的损坏，在可修复前提下，乙方提供有偿维修服务。
+                    </div>
+                    <div class="contract-print-title2">
+						五、退换货：
+                    </div>
+                    <div class="contract-details">
+                        1、 甲方在收到货物十（10）个工作日内，1）由于产品质量原因导致无法使用，且经乙方确认不具有可修复性和可更换性，甲方可以要求退货。2）定制类产品出现以上质量问题，乙方仅提供尽可能的维修服务，不接受退货要求。
+                        <br />
+                        2、 如甲方订购的货品属于一次性使用产品、易耗品、或产品技术性能决定无法更换的，乙方不承担换货义务。
+                        <br />
+                        3、 甲方因经验不足、决策不周等单方面因素导致的选型、购买数量等失误，要求退还货物的，乙方不予接受。
+                        <br />
+                    </div>
+                    <div class="contract-print-title2">
+						六、合同生效：
+                    </div>
+                    <div class="contract-details">
+						合同自双方签字盖章时生效，若在合同生效后14天内，甲方未付款或未执行任何实质性合同内容，合同将自动失效。
+                    </div>
+                    <div class="contract-print-title2">
+						七、合同执行
+                    </div>
+                    <div class="contract-details">
+                        1、 交货期以甲乙双方约定为准，交付时间以乙方交付货物给物流配送方时间为准。如果乙方或物流配送方遭遇不可抗拒的理由，如地震、战争、台风、游行等不可抗力（由相关政府部门出具证明文件），或物流配送方遗失货品（由物流配送方出具相关证明文件），则不属于迟交范畴。如果遇到厂家停产、海关政策调整等不可预测第三方因素导致乙方不能按时供货，乙方应当在十（10）个工作日内书面通知甲方，经双方协商一致，可以变更或终止合同。除以上不可抗拒的因素，乙方延迟交货给甲方造成损失的，从延迟交付的第十（10）个工作日起，承担延迟交付的责任，每工作日赔付金额为甲方已付合同金额的0.3%，赔付上限为甲方已付合同总金额的3%。
+                        <br />
+                        2、 本合同中产品，甲方承诺只销售、安装于____{diliquyu}_____（地理区域）_____ {kehuleixing} _____（客户类型）。如有违反本条规定，则本合同中的产品不在售后保修范围之内，且甲方公司在贝登信用评级下调，直接影响双方接下来的合作。
+						注：信用等级高度关联贝登公司产品交易、金融授信等合作项目。
+                    </div>
+                    <div class="contract-print-title2">
+						八、 合同撤销：
+                    </div>
+                    <div class="contract-details">
+						合同生效后，除因产品停产、不可抗力原因外，甲方撤销合同的，甲方需向乙方支付合同总金额的百分之三（3%）作为违约赔偿金，同时甲方应当承担乙方为履行本合同已发生的成本及费用（包括但不限于产品采购成本等）。
+                    </div>
+                    <div class="contract-print-title2">
+						九、 合同争议处理：
+                    </div>
+                    <div class="contract-details">
+						对于合同争议，双方需本着友好精神协商解决，协商不成，可将争议提请乙方所在地人民法院诉讼。
+                    </div>
+                    <div class="contract-print-title2">
+						十、合同效力：
+                    </div>
+                    <div class="contract-details">
+						本合同双方盖章或签字生效，传真件、扫描件与原件具有同等法律效力。
+                    </div>
+                    {fujiatiaokuan}
+                    <div class="contract-print-sign">
+                        <ul>
+                            <li style="margin-left: 50px;padding:32px 45px 0px 45px;">
+                                <div class="sign-name">
+									甲方：{jiafang}
+                                </div>
+                                <div class="sign-place">
+                                    <ul>
+                                        <li>
+                                            <div></div>
+                                            <div>授权人签字</div>
+                                        </li>
+                                        <li>
+                                            <div></div>
+                                            <div>日期</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li style="float: right; margin-right: 50px;overflow:visible;position: relative; padding:32px 0 28px 0;">
+                                <div class="sign-name">乙方：南京贝登医疗股份有限公司</div>
+                                <div class="sign-place">
+                                    <ul>
+                                        <li>
+                                            <div style="margin-top:29px;">
+                                                {shouquanren}
+                                            </div>
+                                            <div>授权人签字</div>
+                                        </li>
+                                        <li>
+                                            <div style="margin-top:29px;">
+                                                {zhidanriqi}
+                                            </div>
+                                            <div>日期</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

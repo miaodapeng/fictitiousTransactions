@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vedeng.trader.dao.WebAccountCertificateMapper">
+  <resultMap id="BaseResultMap" type="com.vedeng.trader.model.WebAccountCertificate">
+    <id column="WEB_ACCOUNT_CERTIFICATE_ID" jdbcType="INTEGER" property="webAccountCertificateId" />
+    <result column="WEB_ACCOUNT_ID" jdbcType="INTEGER" property="webAccountId" />
+    <result column="TYPE" jdbcType="BIT" property="type" />
+    <result column="DOMAIN" jdbcType="VARCHAR" property="domain" />
+    <result column="URI" jdbcType="VARCHAR" property="uri" />
+    <result column="OSS_ID" jdbcType="VARCHAR" property="ossId" />
+    <result column="ADD_TIME" jdbcType="BIGINT" property="addTime" />
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />
+    <result column="STATUS" jdbcType="BIT" property="status" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    WEB_ACCOUNT_CERTIFICATE_ID, WEB_ACCOUNT_ID, `TYPE`, `DOMAIN`, URI, OSS_ID, ADD_TIME, 
+    UPDATE_TIME, `STATUS`
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_WEB_ACCOUNT_CERTIFICATE
+    where WEB_ACCOUNT_CERTIFICATE_ID = #{webAccountCertificateId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteCertificateByWebAccountId">
+    delete from T_WEB_ACCOUNT_CERTIFICATE
+    where WEB_ACCOUNT_ID = #{webAccountId,jdbcType=INTEGER}
+  </delete>
+  <select id="getCertificateList" parameterType="com.vedeng.trader.model.WebAccountCertificate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_WEB_ACCOUNT_CERTIFICATE
+    where 1=1
+    <if test="webAccountId!=null">
+      and WEB_ACCOUNT_ID=#{webAccountId}
+    </if>
+    <if test="type!=null">
+      and `TYPE` = #{type}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.RegionCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.RegionCode" >
+    <id column="REGION_CODE_ID" property="regionCodeId" jdbcType="INTEGER" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PROVINCE_NAME" property="provinceName" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="ZONE_NAME" property="zoneName" jdbcType="VARCHAR" />
+    <result column="STREET_NAME" property="streetName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REGION_CODE_ID, CODE, PROVINCE_NAME, CITY_NAME, ZONE_NAME, STREET_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_REGION_CODE
+    where REGION_CODE_ID = #{regionCodeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_REGION_CODE
+    where REGION_CODE_ID = #{regionCodeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.RegionCode" >
+    insert into T_REGION_CODE (REGION_CODE_ID, CODE, PROVINCE_NAME, 
+      CITY_NAME, ZONE_NAME, STREET_NAME
+      )
+    values (#{regionCodeId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{provinceName,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{zoneName,jdbcType=VARCHAR}, #{streetName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.RegionCode" >
+    insert into T_REGION_CODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regionCodeId != null" >
+        REGION_CODE_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="zoneName != null" >
+        ZONE_NAME,
+      </if>
+      <if test="streetName != null" >
+        STREET_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regionCodeId != null" >
+        #{regionCodeId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="zoneName != null" >
+        #{zoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="streetName != null" >
+        #{streetName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.RegionCode" >
+    update T_REGION_CODE
+    <set >
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null" >
+        PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="zoneName != null" >
+        ZONE_NAME = #{zoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="streetName != null" >
+        STREET_NAME = #{streetName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where REGION_CODE_ID = #{regionCodeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.RegionCode" >
+    update T_REGION_CODE
+    set CODE = #{code,jdbcType=VARCHAR},
+      PROVINCE_NAME = #{provinceName,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      ZONE_NAME = #{zoneName,jdbcType=VARCHAR},
+      STREET_NAME = #{streetName,jdbcType=VARCHAR}
+    where REGION_CODE_ID = #{regionCodeId,jdbcType=INTEGER}
+  </update>
+  <!-- 根据省市查询编码 -->
+   <select id="selectRegionCodeInfo" resultMap="BaseResultMap" parameterType="com.vedeng.system.model.RegionCode" >
+    SELECT
+		*
+	FROM
+		T_REGION_CODE
+	WHERE
+		PROVINCE_NAME LIKE CONCAT('%',#{provinceName},'%' ) 
+		AND CITY_NAME LIKE CONCAT('%',#{cityName},'%' ) 
+		LIMIT 1
+  </select>
+</mapper>

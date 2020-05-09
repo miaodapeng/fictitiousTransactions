@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="batchBarcode" language="groovy" printOrder="Horizontal" pageWidth="2250" pageHeight="615" orientation="Landscape" columnWidth="2250" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" isTitleNewPage="true" whenResourceMissingType="Empty" isIgnorePagination="true" uuid="a0d85773-bf30-4acd-a5bf-8309f6787e74">
+	<property name="ireport.zoom" value="0.9090909090909265"/>
+	<property name="ireport.x" value="844"/>
+	<property name="ireport.y" value="0"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="style_detail_left" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontName="宋体" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<style name="style_detail_center" hAlign="Center" vAlign="Middle" fontName="SansSerif" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<style name="style_title_name" hAlign="Center" vAlign="Middle" fontName="宋体" fontSize="13" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<style name="style_title_value" hAlign="Left" vAlign="Middle" isBlankWhenNull="true" fontName="宋体" fontSize="13" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<style name="style_detail_right" hAlign="Right" vAlign="Middle" fontName="宋体" fontSize="11" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<style name="style_title_center" backcolor="#00FF00" hAlign="Center" vAlign="Middle" fontName="SansSerif" fontSize="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+	<field name="sku" class="java.lang.String"/>
+	<field name="goodsName" class="java.lang.String"/>
+	<field name="brandName" class="java.lang.String"/>
+	<field name="model" class="java.lang.String"/>
+	<field name="materialCode" class="java.lang.String"/>
+	<field name="unitName" class="java.lang.String"/>
+	<field name="barcode" class="java.lang.String"/>
+	<field name="batchNumber" class="java.lang.String"/>
+	<field name="expirationDateStr" class="java.lang.String"/>
+	<field name="warehouseName" class="java.lang.String"/>
+	<field name="storageRoomName" class="java.lang.String"/>
+	<field name="storageAreaName" class="java.lang.String"/>
+	<field name="storageRackName" class="java.lang.String"/>
+	<field name="storageLocationName" class="java.lang.String"/>
+	<field name="comments" class="java.lang.String"/>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement key="frame" style="style_detail_center" mode="Opaque" x="0" y="0" width="2250" height="25" backcolor="#99CCFF" uuid="9b51a743-dc57-43aa-9065-3e3010633bd8"/>
+				<box>
+					<pen lineWidth="0.3" lineStyle="Dotted"/>
+					<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" mode="Transparent" x="0" y="0" width="150" height="25" forecolor="#FF0000" backcolor="#0099FF" uuid="0c067fa4-bdc9-439e-9cca-b4be4c5cf6b1"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[*SKU]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="150" y="0" width="150" height="25" backcolor="#0099FF" uuid="87c27b41-80d3-43c1-8d7c-9a0db3c563d7"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[产品名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="300" y="0" width="150" height="25" backcolor="#0099FF" uuid="0ed497f0-8aba-4615-ac5a-8bc2f75806bc"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[品牌]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="450" y="0" width="150" height="25" backcolor="#0099FF" uuid="e2a6bbbb-0e1f-422a-942f-99f2f232f4b1"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[型号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="600" y="0" width="150" height="25" backcolor="#0099FF" uuid="b5f0b8ec-2b75-4506-8aca-aa727b2712ef"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[物料编码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="750" y="0" width="150" height="25" backcolor="#0099FF" uuid="ba083c6b-fef9-4de1-8179-8141cc38900f"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[单位]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="900" y="0" width="150" height="25" backcolor="#0099FF" uuid="4c5625c9-b944-46a2-b5b8-b31721a49503"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[贝登条码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1050" y="0" width="150" height="25" forecolor="#FF0000" backcolor="#0099FF" uuid="c51d7168-d4ae-4377-ba65-c4bace55efb5"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[*批次号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1200" y="0" width="150" height="25" forecolor="#FF0000" backcolor="#0099FF" uuid="ee42f11a-0df1-40a4-805e-d1fe293d315b"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[*效期（YYYY/MM/DD）]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1350" y="0" width="150" height="25" forecolor="#FF0000" backcolor="#0099FF" uuid="1e7522b8-130b-4543-a8d4-80e4297d796d"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[*仓库]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1500" y="0" width="150" height="25" backcolor="#0099FF" uuid="2216470d-68bf-4553-af4c-c67d3bdab871"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[库房]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1650" y="0" width="150" height="25" backcolor="#0099FF" uuid="d2496118-5e33-4a7e-a8fd-82308d0d8276"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[货区]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1800" y="0" width="150" height="25" backcolor="#0099FF" uuid="f0aa3266-e0af-4e62-85b9-7d764d427970"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[货架]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="1950" y="0" width="150" height="25" backcolor="#0099FF" uuid="c946fe90-cac3-4e35-93c0-b9f3d7d3ce95"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[库位]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="style_detail_center" x="2100" y="0" width="150" height="25" backcolor="#0099FF" uuid="e5c48ac5-a9cd-4467-8e85-ea0e0bc34250"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="宋体" size="12"/>
+					</textElement>
+					<text><![CDATA[库位备注]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement key="frame" mode="Opaque" x="0" y="0" width="2250" height="20" backcolor="#FFFFFF" uuid="91d6476c-ac79-41de-91f0-e993c1d9a334"/>
+				<box>
+					<pen lineWidth="0.3" lineStyle="Dotted"/>
+					<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+				</box>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="0" y="0" width="150" height="20" uuid="4a7a8d90-f169-4f56-b924-5cc1fcad251a"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{sku}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="150" y="0" width="150" height="20" uuid="b84aa0d0-04fe-481a-8ae2-9e87d754a8b3"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{goodsName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="300" y="0" width="150" height="20" uuid="2c780098-284b-4c2f-8766-fa42be49b3fa"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{brandName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="450" y="0" width="150" height="20" uuid="9f231d21-1f83-4cb6-8e1c-43e1a26651bd"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{model}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="600" y="0" width="150" height="20" uuid="f9854777-193a-42b7-93e6-0e421aa569c5"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{materialCode}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="750" y="0" width="150" height="20" uuid="9245b597-7736-43e7-a17e-90b486eb4870"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{unitName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="900" y="0" width="150" height="20" uuid="364ab560-f4a6-450f-a6ee-40290d9614e0"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{barcode}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1050" y="0" width="150" height="20" uuid="d30363d8-7579-468d-a1e8-876c23a19574"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{batchNumber}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1200" y="0" width="150" height="20" uuid="9a05b3ef-7519-4374-8501-9f4c222a1555"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{expirationDateStr}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1350" y="0" width="150" height="20" uuid="806c7637-2e50-4889-8fcb-460f4b150064"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{warehouseName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1500" y="0" width="150" height="20" uuid="4ef1618a-59f9-4ee8-9097-03383118f03f"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{storageRoomName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1650" y="0" width="150" height="20" uuid="2bbb457d-59aa-4434-b1d2-0431edc1add6"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{storageAreaName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1800" y="0" width="150" height="20" uuid="59711316-fe2e-41a7-99f1-a0836b3e5ae3"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{storageRackName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="1950" y="0" width="150" height="20" uuid="238a06c4-669e-4657-8027-32ed53195145"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{storageLocationName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField" style="style_detail_left" stretchType="RelativeToTallestObject" x="2100" y="0" width="150" height="20" uuid="d5fda947-22f0-4237-8be2-b6c17c334235"/>
+					<box>
+						<pen lineWidth="0.3" lineStyle="Dotted"/>
+						<topPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<leftPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<bottomPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+						<rightPen lineWidth="0.3" lineStyle="Dotted" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="宋体" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{comments}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

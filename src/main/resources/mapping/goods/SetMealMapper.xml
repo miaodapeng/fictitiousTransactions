@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.SetMealMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    <id column="SET_MEAL_ID" property="setMealId" jdbcType="INTEGER" />
+    <result column="SET_MEAL_NAME" property="setMealName" jdbcType="VARCHAR" />
+    <result column="SET_MEAL_TYPE" property="setMealType" jdbcType="BIT" />
+    <result column="SET_MEAL_DESCRIPT" property="setMealDescript" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="DELETED_REASON" property="deletedReason" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    SET_MEAL_ID, SET_MEAL_NAME, SET_MEAL_TYPE, SET_MEAL_DESCRIPT, IS_DELETED, DELETED_REASON,
+    CREATOR, UPDATER, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select
+    <include refid="Base_Column_List" />
+    from V_SET_MEAL
+    where SET_MEAL_ID = #{setMealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from V_SET_MEAL
+    where SET_MEAL_ID = #{setMealId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    insert into V_SET_MEAL (SET_MEAL_ID, SET_MEAL_NAME, SET_MEAL_TYPE,
+    SET_MEAL_DESCRIPT, IS_DELETED, DELETED_REASON,
+    CREATOR, UPDATER, ADD_TIME,
+    MOD_TIME)
+    values (#{setMealId,jdbcType=INTEGER}, #{setMealName,jdbcType=VARCHAR}, #{setMealType,jdbcType=BIT},
+    #{setMealDescript,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{deletedReason,jdbcType=VARCHAR},
+    #{creator,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP},
+    #{modTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    <selectKey keyProperty="setMealId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into V_SET_MEAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="setMealId != null" >
+        SET_MEAL_ID,
+      </if>
+      <if test="setMealName != null" >
+        SET_MEAL_NAME,
+      </if>
+      <if test="setMealType != null" >
+        SET_MEAL_TYPE,
+      </if>
+      <if test="setMealDescript != null" >
+        SET_MEAL_DESCRIPT,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="deletedReason != null" >
+        DELETED_REASON,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="setMealId != null" >
+        #{setMealId,jdbcType=INTEGER},
+      </if>
+      <if test="setMealName != null" >
+        #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="setMealType != null" >
+        #{setMealType,jdbcType=BIT},
+      </if>
+      <if test="setMealDescript != null" >
+        #{setMealDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="deletedReason != null" >
+        #{deletedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    update V_SET_MEAL
+    <set >
+      <if test="setMealName != null" >
+        SET_MEAL_NAME = #{setMealName,jdbcType=VARCHAR},
+      </if>
+      <if test="setMealType != null" >
+        SET_MEAL_TYPE = #{setMealType,jdbcType=BIT},
+      </if>
+      <if test="setMealDescript != null" >
+        SET_MEAL_DESCRIPT = #{setMealDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="deletedReason != null" >
+        DELETED_REASON = #{deletedReason,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where SET_MEAL_ID = #{setMealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    update V_SET_MEAL
+    set SET_MEAL_NAME = #{setMealName,jdbcType=VARCHAR},
+    SET_MEAL_TYPE = #{setMealType,jdbcType=BIT},
+    SET_MEAL_DESCRIPT = #{setMealDescript,jdbcType=VARCHAR},
+    IS_DELETED = #{isDeleted,jdbcType=BIT},
+    DELETED_REASON = #{deletedReason,jdbcType=VARCHAR},
+    CREATOR = #{creator,jdbcType=INTEGER},
+    UPDATER = #{updater,jdbcType=INTEGER},
+    ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+    MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+    where SET_MEAL_ID = #{setMealId,jdbcType=INTEGER}
+  </update>
+</mapper>

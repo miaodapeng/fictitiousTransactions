@@ -1,0 +1,48 @@
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/dialog.css');
+@import url('../../../pages/modules/detail.css');
+
+.cate-list {
+    border: 1px solid #EDF0F2;
+    margin: 0 -1px -1px -1px;
+
+    .cate-th {
+        display: flex;
+        border-bottom: 1px solid #EDF0F2;
+        padding: 10px 20px;
+
+        .cate-item {
+            color: #999;
+        }
+    }
+
+    .cate-cnt {}
+
+    .cate-tr {
+        display: flex;
+        border-bottom: 1px solid #EDF0F2;
+        padding: 10px 0;
+        margin: 0 20px;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .cate-item {
+        padding-right: 20px;
+
+        &:first-child {
+            width: 170px;
+        }
+
+        &:nth-child(2) {
+            flex: 1;
+        }
+    }
+}
+
+.pager {
+    text-align: center;
+    padding-top: 20px;
+}

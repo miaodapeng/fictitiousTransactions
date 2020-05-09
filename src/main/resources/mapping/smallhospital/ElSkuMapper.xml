@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElSkuMapper">
+  <resultMap id="BaseResultMap" type="com.smallhospital.model.ElSku">
+    <id column="EL_SKU_ID" jdbcType="INTEGER" property="elSkuId" />
+    <result column="SKU_ID" jdbcType="INTEGER" property="skuId" />
+    <result column="ADD_TIME" jdbcType="BIGINT" property="addTime" />
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="UPDATOR" jdbcType="INTEGER" property="updator" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    EL_SKU_ID, SKU_ID, ADD_TIME, UPDATE_TIME, CREATOR, UPDATOR
+  </sql>
+
+  <insert id="batchAddSkus" parameterType="java.util.List">
+    INSERT INTO T_EL_SKU (SKU_ID, ADD_TIME, UPDATE_TIME,CREATOR, UPDATOR)
+    VALUES
+    <foreach collection="list" item="sku" separator=",">
+      (
+        #{sku.skuId},
+        #{sku.addTime},
+        #{sku.updateTime},
+        #{sku.creator},
+        #{sku.updator}
+      )
+    </foreach>
+  </insert>
+
+  <select id="findElSkulistPage" parameterType="Map" resultType="com.smallhospital.dto.ELSkuBasicInfo">
+      SELECT sku.SKU_ID AS productId,
+       sku.SKU_NO AS productCode,
+       brand.BRAND_NAME AS brand,
+       sku.MODEL AS spec,
+       unit.UNIT_NAME AS unit,
+       sku.SKU_NAME AS productName,
+       sku.SHOW_NAME AS genericName
+    FROM (
+      SELECT SKU_ID FROM T_EL_SKU
+      WHERE SKU_ID
+        NOT IN(
+        SELECT b.SKU_ID FROM T_EL_CONTRACT a INNER JOIN T_EL_CONTRACT_SKU b ON a.EL_CONTRACT_ID = b.CONTRACT_ID AND a.EFFCTIVE_STATUS = 1 AND a.TRADER_ID = #{skuDto.hospitalId}
+      )
+    ) elSku
+    LEFT JOIN V_CORE_SKU_SEARCH sku ON sku.SKU_ID = elSku.SKU_ID
+    LEFT JOIN V_CORE_SPU spu ON sku.SPU_ID = spu.SPU_ID
+    LEFT JOIN T_BRAND brand ON spu.BRAND_ID = brand.BRAND_ID
+    LEFT JOIN T_UNIT unit ON sku.BASE_UNIT_ID = unit.UNIT_ID
+    <where>
+      <if test="skuDto.brand != null and skuDto.brand != ''">
+        brand.BRAND_NAME like CONCAT('%',#{skuDto.brand},'%' )
+      </if>
+      <if test="skuDto.spec != null and skuDto.spec != ''">
+        sku.MODEL like CONCAT('%',#{skuDto.spec},'%' )
+      </if>
+      <if test="skuDto.unit != null and skuDto.unit != ''">
+        unit.UNIT_NAME = #{skuDto.unit}
+      </if>
+      <if test="skuDto.productName != null and skuDto.productName != ''">
+        sku.SKU_NAME like CONCAT('%',#{skuDto.productName},'%' )
+      </if>
+      <if test="skuDto.baseCategoryId != null and skuDto.baseCategoryId != ''">
+        spu.CATEGORY_ID IN
+        <foreach collection="categoryIds" item="item" index="index" open="(" close=")" separator=",">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </select>
+
+  <select id="findDetailSkuInfo" parameterType="java.lang.Integer" resultType="com.smallhospital.dto.ELSkuDetailInfo">
+    SELECT
+      sku.SKU_ID AS productId,
+      sku.SKU_NO AS productCode,
+      brand.BRAND_NAME AS brand,
+      spu.CATEGORY_ID AS categoryId,
+      sku.SPEC AS spec,
+      sku.MODEL AS model,
+      unit.UNIT_NAME AS unit,
+      sku.SKU_NAME AS productName,
+      sku.SHOW_NAME AS genericName,
+      register.REGISTRATION_NUMBER_ID as registrationNumberId,
+      register.REGISTRATION_NUMBER AS approvalNumber,
+      register.PRODUCT_CHINESE_NAME AS registrationCertificateProductName,
+      register.ISSUING_DATE as issuingDate,
+      register.EFFECTIVE_DATE as effectiveDate,
+      company.PRODUCT_COMPANY_ADDRESS productionAddress,
+      sku.EFFECTIVE_DAYS AS validityDate,
+      company.PRODUCT_COMPANY_CHINESE_NAME AS companyName,
+      company.PRODUCT_COMPANY_LICENCE AS enterpriseLicenseRecordNumber,
+      company.PRODUCT_COMPANY_ID AS manufacturerId
+    FROM (
+      SELECT *
+      FROM V_CORE_SKU_SEARCH
+      WHERE sku_id = #{skuId,jdbcType=INTEGER}
+
+    ) sku
+    LEFT JOIN V_CORE_SPU spu ON sku.SPU_ID = spu.SPU_ID
+    LEFT JOIN T_FIRST_ENGAGE engage ON spu.FIRST_ENGAGE_ID = engage.FIRST_ENGAGE_ID
+    LEFT JOIN T_REGISTRATION_NUMBER register ON engage.REGISTRATION_NUMBER_ID = register.REGISTRATION_NUMBER_ID
+    LEFT JOIN T_PRODUCT_COMPANY company ON company.PRODUCT_COMPANY_ID = register.PRODUCT_COMPANY_ID
+    LEFT JOIN T_BRAND brand ON spu.BRAND_ID = brand.BRAND_ID
+    LEFT JOIN T_UNIT unit ON sku.BASE_UNIT_ID = unit.UNIT_ID
+  </select>
+
+  <select id="findValidSku" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    SELECT
+        COUNT(*)
+    FROM (
+        SELECT
+            sku_id,
+            SPU_ID
+        FROM V_CORE_SKU_SEARCH
+        WHERE sku_id = #{skuId,jdbcType=INTEGER} AND check_status  = 3
+    ) sku
+    LEFT JOIN V_CORE_SPU spu ON sku.SPU_ID = spu.SPU_ID
+    LEFT JOIN V_BASE_CATEGORY ca ON spu.CATEGORY_ID = ca.BASE_CATEGORY_ID
+    WHERE ca.IS_DELETED = 0
+  </select>
+
+  <select id="intentionCategoryIds" resultType="Integer">
+    SELECT
+      DISTINCT(c.CATEGORY_ID)
+    FROM T_EL_SKU a
+    LEFT JOIN V_CORE_SKU_SEARCH b ON a.SKU_ID = b.SKU_ID
+    LEFT JOIN V_CORE_SPU c ON b.SPU_ID = c.SPU_ID
+    WHERE c.CATEGORY_ID > 0
+    ORDER BY c.CATEGORY_ID ASC
+  </select>
+
+
+  <select id="findAllSkuIds" resultType="Integer">
+    select
+    a.SKU_ID
+    FROM T_EL_SKU a
+  </select>
+
+  <select id="querylistPage" parameterType="Map" resultType="com.smallhospital.model.vo.ELSkuVO">
+    select
+    a.EL_SKU_ID,a.SKU_ID,b.SKU_NO,b.SKU_NAME,a.ADD_TIME
+    FROM T_EL_SKU a
+    LEFT JOIN V_CORE_SKU_SEARCH b ON a.SKU_ID = b.SKU_ID
+    <where>
+      <if test="sku.skuName != null and sku.skuName != ''">
+        and b.SKU_NAME like CONCAT('%',#{sku.skuName},'%' )
+      </if>
+    </where>
+    ORDER BY EL_SKU_ID DESC
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_EL_SKU
+    where EL_SKU_ID = #{elSkuId,jdbcType=INTEGER}
+  </select>
+    <select id="getCategoryInfo" resultType="com.smallhospital.dto.ElBaseCategoryDTO">
+      select
+	    BASE_CATEGORY_ID as baseCategoryId,
+        PARENT_ID as parentId,
+        BASE_CATEGORY_NAME as baseCategoryName,
+        BASE_CATEGORY_LEVEL as baseCategoryLevel
+      from V_BASE_CATEGORY
+      WHERE IS_DELETED = 0
+    </select>
+
+  <select id="findChildCategoryId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      select
+	    BASE_CATEGORY_ID
+      from V_BASE_CATEGORY
+      WHERE IS_DELETED = 0 and PARENT_ID = #{categoryId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getWarehouseOutInfoByGoods" resultType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+      SELECT
+        c.*, d.CONTRACT_ID as companyId
+      FROM
+        (
+          SELECT
+            a.GOODS_ID as goodsId, a.BATCH_NUMBER as batchNumber, a.EXPIRATION_DATE as expirationDate, a.RELATED_ID as relatedId
+          FROM
+            T_WAREHOUSE_GOODS_OPERATE_LOG a
+          WHERE
+            a.OPERATE_TYPE = 2
+          AND
+            a.RELATED_ID IN
+          <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+          </foreach>
+        ) as c
+      JOIN
+        T_EL_CONTRACT_SKU d
+      ON
+        c.goodsId = d.SKU_ID
+    </select>
+  <select id="getExpressDetailByLogisticsNo" resultType="com.vedeng.logistics.model.ExpressDetail">
+    SELECT
+      *
+    FROM
+      T_EXPRESS a
+    JOIN
+      T_EXPRESS_DETAIL b
+    ON a.EXPRESS_ID = b.EXPRESS_ID
+    WHERE
+      a.LOGISTICS_NO = #{logisticsNo,jdbcType=VARCHAR}
+  </select>
+    <select id="getSkuByProductCompanyId" resultType="java.lang.Integer">
+       SELECT
+        COUNT(*)
+       FROM
+        T_EL_SKU a
+       JOIN
+        V_CORE_SKU_SEARCH b
+       ON
+        a.SKU_ID = b.SKU_ID
+       JOIN
+        V_CORE_SPU c
+       ON
+        b.SPU_ID = c.SPU_ID
+       JOIN
+        T_FIRST_ENGAGE d
+       ON
+        c.FIRST_ENGAGE_ID = d.FIRST_ENGAGE_ID
+       JOIN
+        T_REGISTRATION_NUMBER e
+       ON
+        d.REGISTRATION_NUMBER_ID = e.REGISTRATION_NUMBER_ID
+       WHERE
+        e.PRODUCT_COMPANY_ID = #{productCompanyId,jdbcType=INTEGER}
+    </select>
+  <select id="getSaleOrderByGoodsId" resultType="com.vedeng.order.model.Saleorder">
+    SELECT
+      a.*
+    FROM
+      T_SALEORDER a
+    JOIN
+      T_SALEORDER_GOODS b
+    ON
+      a.SALEORDER_ID = b.SALEORDER_ID
+    WHERE
+      b.SALEORDER_GOODS_ID = #{saleOrderGoodsId,jdbcType=INTEGER}
+  </select>
+  <select id="getServerIdByTraderId" resultType="java.lang.Integer">
+    SELECT
+      a.USER_ID
+    FROM
+      T_USER a
+    JOIN
+      T_R_TRADER_J_USER b
+    ON
+      a.USER_ID = b.USER_ID
+    WHERE
+      b.TRADER_ID = #{traderId,jdbcType=INTEGER}
+  </select>
+  <select id="getSaleOrderIdByGoodsIdList" resultType="integer">
+    SELECT
+    DISTINCT a.SALEORDER_ID
+    FROM
+      T_SALEORDER a
+    JOIN
+      T_SALEORDER_GOODS b
+    ON
+      a.SALEORDER_ID = b.SALEORDER_ID
+    WHERE
+      b.SALEORDER_GOODS_ID IN
+      <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+        #{item}
+      </foreach>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_EL_SKU
+    where EL_SKU_ID = #{elSkuId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" keyColumn="EL_SKU_ID" keyProperty="elSkuId" parameterType="com.smallhospital.model.ElSku" useGeneratedKeys="true">
+    insert into T_EL_SKU (SKU_ID, ADD_TIME, UPDATE_TIME, 
+      CREATOR, UPDATOR)
+    values (#{skuId,jdbcType=INTEGER}, #{addTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},
+      #{creator,jdbcType=INTEGER}, #{updator,jdbcType=INTEGER})
+  </insert>
+
+  <insert id="insertSelective" keyColumn="EL_SKU_ID" keyProperty="elSkuId" parameterType="com.smallhospital.model.ElSku" useGeneratedKeys="true">
+    insert into T_EL_SKU
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="skuId != null">
+        SKU_ID,
+      </if>
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="updator != null">
+        UPDATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="skuId != null">
+        #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.smallhospital.model.ElSku">
+    update T_EL_SKU
+    <set>
+      <if test="skuId != null">
+        SKU_ID = #{skuId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        UPDATOR = #{updator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EL_SKU_ID = #{elSkuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.smallhospital.model.ElSku">
+    update T_EL_SKU
+    set SKU_ID = #{skuId,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ADD_NAME = #{addName,jdbcType=VARCHAR},
+      UPDATE_NAME = #{updateName,jdbcType=VARCHAR}
+    where EL_SKU_ID = #{elSkuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateSaleorderGoodsLock">
+    UPDATE
+      T_SALEORDER_GOODS
+    SET
+      LOCKED_STATUS = 0
+    WHERE
+      SALEORDER_GOODS_ID IN
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </update>
+
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.UserBelongCompanyMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.authorization.model.UserBelongCompany">
+		<id column="USER_BELONG_COMPANY_ID" property="userBelongCompanyId" jdbcType="INTEGER" />
+		<result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 新增公司信息，返回主键-->
+	<insert id="insertBelongCompany" useGeneratedKeys="true" keyProperty="userBelongCompanyId" parameterType="com.vedeng.authorization.model.UserBelongCompany">
+		insert into T_USER_BELONG_COMPANY (USER_BELONG_COMPANY_ID,COMPANY_NAME) value (null,#{companyName,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="getBelongCompany" resultMap="BaseResultMap">
+		select USER_BELONG_COMPANY_ID,COMPANY_NAME
+		from T_USER_BELONG_COMPANY
+		where COMPANY_NAME like #{companyName,jdbcType=VARCHAR}
+	</select>
+
+	<select id="getBelongCompanyById" resultMap="BaseResultMap">
+		select USER_BELONG_COMPANY_ID,COMPANY_NAME
+		from T_USER_BELONG_COMPANY
+		where USER_BELONG_COMPANY_ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<select id="queryAll" resultMap="BaseResultMap">
+		select USER_BELONG_COMPANY_ID,COMPANY_NAME from T_USER_BELONG_COMPANY
+	</select>
+
+</mapper>

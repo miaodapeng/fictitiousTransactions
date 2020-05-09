@@ -1,0 +1,825 @@
+.layer-content {
+    font-size: 14px;
+    width: 820px;
+    /*margin: auto;*/
+    /*border: 1px solid #EEE;*/
+    line-height: 1.5;
+    color: #555;
+    text-align: left;
+}
+.call-layer-content{
+    width: 100%;
+}
+.layer-content .li-text {
+    vertical-align: middle;
+    margin-top: 3px;
+}
+
+.layer-content input[type=text],
+.layer-content select {
+    padding: 2px 6px;
+    line-height: 1.5;
+}
+
+.layer-content select {
+    padding: 0;
+}
+
+.layer-content select {
+    width: auto;
+}
+
+.layer-content textarea {
+    height: 80px;
+    width: 400px;
+    line-height: 1.5;
+    padding: 5px;
+    font-size: 14px;
+}
+
+.layer-content input[type=radio] {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.layer-content input[type=radio] {
+    padding: 0;
+    border: none;
+    height: 20px;
+}
+
+.layer-content input[class*="input-xxs"] {
+    width: 30px;
+}
+
+.layer-content input[class*="input-xs"] {
+    width: 50px;
+}
+
+.layer-content input[class*="input-s"] {
+    width: 70px;
+}
+
+.layer-content input[class*="input-m"] {
+    width: 100px;
+}
+
+.layer-content input[class*="input-l"] {
+    width: 150px;
+}
+
+.layer-content input[class*="input-xl"] {
+    width: 200px;
+}
+
+.layer-content input[class*="input-xxl"] {
+    width: 300px;
+}
+
+.pos1 {
+    float: left;
+}
+
+.pos2 {
+    float: right;
+}
+
+.table {
+    width: 100%;
+    padding: 6px;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.table tbody {
+    padding: 10px 0;
+}
+
+.table td {
+    border: none;
+}
+
+.layer-content .content-box {
+    padding: 0 0 10px 10px;
+}
+
+.layer-content .clear {
+    clear: both;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+.layer-content ul {}
+
+.layer-content ul li {
+    text-align: left;
+}
+
+.layer-content .title-bar {
+    background-color: #09f;
+    width: 100%;
+}
+
+.layer-content .title-bar li {
+    float: left;
+    margin-right: 10px;
+}
+
+.layer-content .title-bar .layer-logo {
+    float: left;
+    height: 45px;
+    width: 180px;
+    background-image: url("../images/inner-logo.png");
+    background-repeat: no-repeat;
+    background-position: center 2px;
+}
+
+.layer-content .title-bar .button-bar {
+    float: right;
+    width: 100%;
+}
+
+.layer-content .title-bar .button-bar2 {
+    width: 620px;
+    margin-top: 2px;
+}
+
+.layer-content .button-bar .button {
+    padding: 3px 16px 1px;
+    display: inline-block;
+    _zoom: 1;
+    *display: inline;
+    _display: inline;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    line-height: 1.5;
+}
+
+.layer-content .button-bar .button,
+.layer-content .button-bar .button a {
+    color: white;
+}
+
+.layer-content .button-bar .button1 {
+    background-color: #97c757;
+}
+
+.layer-content .button-bar .button2 {
+    background-color: #47b5ff;
+}
+
+.layer-content .button-bar .button3 {
+    background-color: #fe6c6d;
+}
+
+.layer-content .button-bar .button4 {
+    background-color: #ff6e6e;
+}
+
+.layer-content .button-bar .button6 {
+    background-color: #EEE;
+    color: #666;
+}
+
+.layer-content .button-bar .button7 {
+    background-color: #e9f6fe;
+    color: #09f;
+}
+
+.layer-content .button-bar .button-between1 {
+    margin-left: 10px;
+}
+
+.layer-content .button-bar .button1-pos {
+    float: left;
+    margin: 10px 0;
+}
+
+.layer-content .button-bar .button2-pos {
+    float: right;
+    color: white;
+    margin: 10px 0;
+}
+
+.layer-content .menu-bar {
+    float: left;
+    width: 180px;
+}
+
+.layer-content .menu-bar td {
+    padding: 0;
+}
+
+.layer-content .menu-bar .menu-item {
+    width: 100%;
+    margin: 10px;
+    border: 1px solid #E6E6E6;
+    padding: 5px 0;
+    background-color: white;
+}
+
+.layer-content .menu-bar .menu-item .title {
+    border-bottom: 1px solid #E6E6E6;
+    line-height: 2;
+    font-weight: bold;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.layer-content .menu-bar ul.quee,
+.layer-content .menu-bar div.quee {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 165px;
+}
+
+.layer-content .menu-bar ul li {
+    padding: 3px 10px;
+}
+
+.layer-content .menu-bar ul.list li:hover {
+    background-color: #eaf7ff;
+    color: #09f;
+}
+
+.layer-content .menu-bar ul li icon {
+    display: inline-block;
+    padding: 3px;
+    line-height: normal;
+    min-width: 10px;
+    text-align: center;
+    vertical-align: text-bottom;
+    margin-right: 4px;
+    font-size: 10px;
+    border-radius: 5px;
+}
+
+.layer-content .menu-bar ul li .icon1 {
+    background-color: #09F;
+    color: white;
+}
+
+.layer-content .menu-bar ul li .icon2 {
+    background-color: #EEE;
+}
+
+.layer-content .menu-bar .column {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.layer-content .menu-content .table tr:hover {
+    background-color: #eaf7ff;
+    color: #09f;
+}
+
+
+.layer-content .menu-bar .user {
+    padding-left: 5px;
+    width: 45px;
+}
+
+.layer-content .menu-bar .team {
+    width: 85px;
+}
+
+.layer-content .menu-bar .callicon {
+    margin-right: 0;
+    padding-right: 5px;
+}
+
+.layer-content .menu-bar .callicon img {
+    vertical-align: middle;
+}
+
+.layer-content .content-colum {
+    float: right;
+    width: 620px;
+    height: 480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.layer-content .content-colum2 {
+    width: 100%;
+    float: none;
+}
+
+.layer-content .content-colum .current-info {
+    border: 1px solid #E6E6E6;
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #fefbea;
+    padding: 5px;
+}
+
+.layer-content .button-bar .current-info .callin,
+.layer-content .content-colum .current-info .callin {
+    vertical-align: top;
+    padding-left: 10px;
+}
+
+.layer-content .button-bar .current-info .callnum,
+.layer-content .content-colum .current-info .callnum {
+    font-size: 18px;
+    color: white;
+    ma
+}
+
+.layer-content .content-colum .current-info .callnum {
+    color: #666;
+}
+
+.layer-content .button-bar .current-info ul li,
+.layer-content .content-colum .current-info ul li {
+    float: left;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.layer-content .button-bar .current-info ul.area,
+.layer-content .content-colum .current-info ul.area {
+    line-height: 38px;
+    margin-right: 10px;
+    color: white;
+}
+
+.layer-content .content-colum .current-info ul.area {
+    color: #666;
+}
+
+.layer-content .content-colum .content-item {
+    margin: 10px 10px 0 0;
+    background-color: white;
+}
+
+.layer-content .content-colum .content-item .title-main {
+    border: 1px solid #E6E6E6;
+    border-bottom: none;
+    background-color: #f6f6f6;
+    padding: 5px 10px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 2;
+}
+
+.layer-content .content-colum .content-item .title {
+    border: 1px solid #E6E6E6;
+    border-bottom: none;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+.layer-content .content-colum .content-item .title-inner {
+    border-top: none;
+}
+
+.layer-content .content-colum .content-item .td-title {
+    border-top: 1px #e6e6e6 solid;
+    border-bottom: 1px #e6e6e6 solid;
+}
+
+.layer-content .content-colum .table-td-border1 td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #E6E6E6;
+    line-height: 1.5;
+}
+.layer-content  .call-add-linker .table tr td:nth-child(even){
+    text-align: left;
+}
+.layer-content .content-colum .table-td-border1 .table-header,
+.layer-content .content-colum .table-td-border1 .date-column {
+    white-space: nowrap;
+}
+
+.layer-content .content-colum .table-td-border1 td.value {
+    color: #09F;
+}
+
+.layer-content .content-colum .table-td-border2 {
+    border: 1px solid #E6E6E6;
+    padding: 10px;
+}
+
+.layer-content .content-colum .table-td-border2 td {
+    border: none;
+    text-align: left;
+}
+
+.layer-content .content-colum .table-td-border2 td.td-name {
+    width: 100px;
+    text-align: right;
+}
+
+.layer-content .content-colum .table-td-border2 ul li {
+    float: left;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.layer-content.call-panel {
+    border: #DDD 1pt solid;
+    font-size: 12px;
+    background-color: white;
+    behavior: url(/PIE.htc);
+    box-sizing: content-box;
+    border-radius: 3px;
+}
+
+.layer-content.call-panel {
+    width: 1100px;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.call-panel .call-queue {
+    border-right: 1px #DDD solid;
+    width: 199px;
+    float: left;
+}
+
+.call-panel .panel-content {
+    width: 900px;
+    float: right;
+}
+
+.call-panel .title-bar {
+    background-color: white;
+}
+
+.call-panel input[type=text],
+.call-panel select {
+    padding: 1px 6px;
+    height: 24px;
+    line-height: 1;
+}
+
+.call-panel select {
+    margin-top: 2.5px;
+    padding: 0;
+    height: inherit;
+    line-height: normal;
+}
+
+.call-panel .button-bar .button {
+    padding: 3px 12px;
+}
+
+.call-panel .button-bar .button.icon {
+    padding-left: 28px;
+    background-repeat: no-repeat;
+    background-position: 5px;
+}
+
+.call-panel .button-bar .only-text {
+    padding-top: 4px;
+}
+
+.call-panel .button-bar .button1-pos {
+    margin: 6px 0 0 8px;
+}
+
+.call-panel .button-bar .button2-pos {
+    color: white;
+    margin: 6px 0;
+}
+
+.call-panel .button-bar .button.icon1 {
+    background-image: url(../images/panel-call.png);
+}
+
+.call-panel .button-bar .button.icon2 {
+    background-image: url(../images/panel-consultation.png);
+}
+
+.call-panel .button-bar .button.icon3 {
+    background-image: url(../images/panel-end.png);
+}
+
+.call-panel .button-bar .button.icon4 {
+    background-image: url(../images/panel-headset.png);
+}
+
+.call-panel .button-bar .button.icon5 {
+    background-image: url(../images/panel-keep.png);
+}
+
+.call-panel .button-bar .button.icon6 {
+    background-image: url(../images/panel-transfer.png);
+}
+
+.call-panel .button-bar .button.icon7 {
+    background-image: url(../images/panel-complete.png);
+}
+
+.call-panel .button-bar .button.icon8 {
+    background-image: url(../images/panel-cancel.png);
+}
+
+.call-panel .button-bar .button.icon6-1 {
+    background-image: url(../images/panel-transfer-disabled.png);
+}
+
+.call-panel .panel-message {
+    border-top: 1px #ddd dotted;
+    padding: 5px 15px 5px 8px;
+    background-color: #f0f0f0;
+    margin-top: 5px;
+    height: 20px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+}
+
+.call-panel .value {
+    color: #09f;
+}
+
+.call-panel .value2 {
+    color: #ff6600;
+}
+
+.call-panel .table {
+    font-size: 12px;
+}
+
+.call-panel .call-queue .call-queue-list-title {
+    text-align: center;
+    float: left;
+    width: 20px;
+    height: 56px;
+    line-height: 1;
+    padding-top: 10px;
+    background-color: #f3f3f3;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.call-panel .call-queue .call-queue-list {
+    float: right;
+    width: 179px;
+    overflow: auto;
+    overflow-x: hidden;
+    display: block;
+    height: 63px;
+    padding-top: 3px;
+}
+
+.call-panel .call-queue .call-queue-list li {
+    padding: 1px 10px;
+}
+
+.call-panel .call-queue .call-queue-list li:nth-child(2n) {
+    background-color: #e9f6fe;
+}
+
+.call-panel .call-queue .call-queue-list li:hover {
+    background-color: #09f;
+    color: white;
+    cursor: default;
+}
+
+.agent-list {
+    width: 601px;
+    background-color: white;
+}
+
+.agent-list .title-bar {
+    box-sizing: content-box;
+    background-color: #f6f6f6;
+    padding: 6px 15px;
+    width: auto;
+    border-bottom: 1px #DDD solid;
+}
+
+.agent-list .title-bar .title-text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.agent-list .menu-bar {
+    width: 85px;
+    background-color: #e9f6fe;
+    height: 404px;
+}
+
+.agent-list .menu-bar .menu-item {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+}
+
+.agent-list .menu-bar .menu-item li {
+    padding-left: 3px;
+    text-align: center;
+    line-height: 1.8;
+}
+
+.agent-list .menu-bar .menu-item li.selected {
+    border-left: 3px #09f solid;
+    background-color: #c7e9fe;
+    color: #09F;
+    padding-left: 0;
+    background-image: url(../images/menu-selected.png);
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.agent-list .menu-bar .menu-item li:hover {
+    cursor: pointer;
+}
+
+.agent-list .agent-content-box {
+    float: right;
+}
+
+.agent-list .agent-content-box .content-list {
+    width: 495px;
+    height: 325px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.agent-list .agent-content-box .table-td-border1 td {
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #E6E6E6;
+    line-height: 1.5;
+}
+
+.agent-list .agent-content-box .table-td-border1 .table-header td {
+    font-weight: bold;
+}
+
+.agent-list .agent-content-box .table-td-border1 .table-header,
+.agent-list .agent-content-box .table-td-border1 .date-column {
+    white-space: nowrap;
+}
+
+.agent-list .agent-content-box .table-td-border1 td.value {
+    color: #09F;
+}
+
+.agent-list .agent-content-box .table-td-border1 tbody tr:hover {
+    background-color: #e9f6fe;
+    color: #09f;
+    cursor: pointer;
+}
+
+.agent-list .agent-content-box .table-td-border1 tbody tr.selected {
+    background-color: #3384ef;
+    color: white;
+}
+
+.agent-list .agent-content-box .table-td-border2 {
+    border: 1px solid #E6E6E6;
+    padding: 10px;
+}
+
+.agent-list .agent-content-box .table-td-border2 td {
+    border: none;
+    text-align: left;
+}
+
+.agent-list .agent-content-box .table-td-border2 td.td-name {
+    width: 100px;
+    text-align: right;
+}
+
+.agent-list .agent-content-box .table-td-border2 ul li {
+    float: left;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.agent-list .content-bottom {
+    margin: 8px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.agent-list .button-bar .search-content {
+    height: 18px;
+    border-right: none;
+}
+
+.agent-list .button-bar .search-button {
+    height: 20px;
+    position: absolute;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.agent-list .button-bar .float-pix {
+    margin-left: 70px;
+}
+
+.agent-list .button-bar .float-pix-text {
+    margin-top: 2px;
+}
+
+.agent-list .value2 {
+    color: #f60;
+}
+/*弹层标题*/
+.callcenter-title{
+    height: 41px;
+    line-height: 41px;
+    color: #fff;
+    overflow: hidden;
+    padding:0 10px 0 20px;
+    background: #3384ef;
+    font-size: 14px;
+}
+.callcenter-title .left-title{
+    float: left;
+    overflow: hidden;
+
+}
+.callcenter-title .right-title{
+    float: right;
+}
+.left-title span,.left-title i{
+    float: left;
+}
+.right-title span{
+    background: #5fa3fd;
+    padding:0px 8px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.right-title span:hover{
+    background: #589df7;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 4px;
+    margin-right: 10px;
+    
+}
+.phone-number{
+    font-size: 18px;
+    margin:1px  7px 0 0;
+}
+/*坐席列表*/
+.seatllist {
+    overflow: hidden;
+    margin: 0 27px 0 10px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+.seatllist .seatllist-search input,.seatllist .seatllist-search span{
+    float: left;
+}
+.seatllist .seatllist-search input{
+    padding: 0;
+    height: 26px;
+    width: 120px;
+}
+.seatllist .seatllist-search span{
+    padding: 2px  10px 0 10px;
+    cursor: pointer;
+}
+.seatllist-search{
+    width: 170px;
+    float: left;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #3384ef;
+    color: #fff;
+}
+.seatllist  .countdown{
+    float: left;
+    margin:0 35px 0 20px ;
+    padding-top: 1px;
+}
+.seatllist  .countdown .time{
+    color: #f60;
+}
+ .inputfloat input, .inputfloat label, .inputfloat span, .inputfloat select, .inputfloat i ,.inputfloat ul ,.inputfloat li {
+    float: left;
+    margin-right: 10px;
+}
+ .inputfloat input[type='radio']{
+    margin-top:0;
+ }
+.inputfloat ul ,.inputfloat{
+    overflow: hidden;
+}
+.inputfloat ul li{
+    margin:0 20px 0 0;
+}
+.layer-content .table thead tr ,.layer-content .table tbody tr,.table tbody tr:nth-of-type(even),.layer-content .table thead tr:hover ,.layer-content .table tbody tr:hover,.layer-content .table thead tr:hover ,.layer-content .table tbody tr:hover{
+    background: #fff;
+}
+.layer-content .table tbody tr:nth-of-type(2n){
+    background: #fff;
+}

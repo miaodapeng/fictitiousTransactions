@@ -1,0 +1,90 @@
+.tab {
+    height: 35px;
+    border-bottom: 1px solid #dae0e6;
+    font-size: 0;
+}
+
+.tab .tab-item {
+    display: inline-block;
+    height: 34px;
+    background: #f5f7fa;
+    border: 1px solid #dae0e6;
+    border-bottom: 0;
+    font-size: 14px;
+    line-height: 34px;
+    padding: 0 15px;
+    margin-right: -1px;
+    cursor: pointer;
+    color: #999;
+}
+
+.tab .tab-item:hover {
+    color: #666;
+    background: #fff;
+}
+
+.tab .tab-item.current {
+    background: #fff;
+    line-height: 32px;
+    color: #333;
+    border-top: 2px solid #82b53f;
+}
+
+.tab-nav {
+    height: 41px;
+    border-bottom: 2px solid #dae0e6;
+    font-size: 0;
+}
+
+.tab-nav .tab-item {
+    display: inline-block;
+    height: 35px;
+    font-size: 14px;
+    line-height: 40px;
+    padding: 2px 15px 3px;
+    cursor: pointer;
+    color: #666;
+}
+
+.tab-nav .tab-item a {
+    color: #666;
+}
+
+.tab-nav .tab-item a:hover {
+    text-decoration: none;
+}
+
+.tab-nav .tab-item .nums {
+    display: inline-block;
+    font-weight: normal;
+    vertical-align: top;
+}
+
+.tab-nav .tab-item:hover {
+    height: 36px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #2E8AE6;
+    color: #2E8AE6;
+    text-decoration: none;
+}
+
+.tab-nav .tab-item:hover a {
+    color: #2E8AE6;
+}
+
+.tab-nav .tab-item.current {
+    height: 36px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #2E8AE6;
+    color: #2E8AE6;
+    font-weight: bold;
+}
+
+.tab-nav .tab-item.current a {
+    color: #2E8AE6;
+}
+
+.tab-nav .tab-right {
+    float: right;
+    font-size: 12px;
+}

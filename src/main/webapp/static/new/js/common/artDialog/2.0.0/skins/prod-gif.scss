@@ -1,0 +1,58 @@
+.prod-gif {
+    .dlg-dialog {
+        border-radius: 0;        
+    }
+    .dlg-title {
+        height: 0;
+        border-bottom: 0;
+    }
+    .dlg-close {
+        cursor: pointer;
+        background: #737373;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        right: -50px;
+        top: 0;
+        color: #fff;
+        border-radius: 0;
+        &:hover {
+            background: #4d4d4d;
+        }
+        &:before {
+            content: '\e00c';
+            font-family: 'Mic-icon';
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: inherit;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+            text-decoration: none !important;
+            font-size: 28px;
+        }
+    }
+    .icon-pause, .icon-play {
+        font-size: 50px;
+        color: #919599;
+    }
+
+    .picRoundTool {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    .picGifDialog {
+        img {
+            max-width: 600px;
+            max-height: 600px;
+            display: none;
+            &:first-child {
+                display: inline;
+            }
+        }
+    }
+}

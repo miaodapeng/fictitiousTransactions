@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.vedeng.logistics.dao.WarehouseGoodsOperateLogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		<id column="WAREHOUSE_GOODS_OPERATE_LOG_ID"
+			property="warehouseGoodsOperateLogId" jdbcType="INTEGER" />
+		<result column="WAREHOUSE_PICKING_DETAIL_ID"
+			property="warehousePickingDetailId" jdbcType="INTEGER" />
+		<result column="BARCODE_ID" property="barcodeId"
+			jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId"
+			jdbcType="INTEGER" />
+		<result column="OPERATE_TYPE" property="operateType"
+			jdbcType="BIT" />
+		<result column="RELATED_ID" property="relatedId"
+			jdbcType="INTEGER" />
+		<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+		<result column="BARCODE_FACTORY" property="barcodeFactory"
+			jdbcType="VARCHAR" />
+		<result column="NUM" property="num" jdbcType="INTEGER" />
+		<!-- <result column="IS_EXPRESS" property="isExpress" jdbcType="INTEGER" 
+			/> -->
+		<result column="WAREHOUSE_ID" property="warehouseId"
+			jdbcType="INTEGER" />
+		<result column="STORAGE_ROOM_ID" property="storageRoomId"
+			jdbcType="INTEGER" />
+		<result column="STORAGE_AREA_ID" property="storageAreaId"
+			jdbcType="INTEGER" />
+		<result column="STORAGE_LOCATION_ID"
+			property="storageLocationId" jdbcType="INTEGER" />
+		<result column="STORAGE_RACK_ID" property="storageRackId"
+			jdbcType="INTEGER" />
+		<result column="BATCH_NUMBER" property="batchNumber"
+			jdbcType="VARCHAR" />
+		<result column="STORE_TOTAL_NUM" property="storeTotalNum"
+			jdbcType="VARCHAR" />
+		<result column="EXPIRATION_DATE" property="expirationDate"
+			jdbcType="BIGINT" />
+		<result column="CHECK_STATUS" property="checkStatus"
+			jdbcType="BIT" />
+		<result column="CHECK_STATUS_USER" property="checkStatusUser"
+			jdbcType="INTEGER" />
+		<result column="CHECK_STATUS_TIME" property="checkStatusTime"
+			jdbcType="BIGINT" />
+		<result column="RECHECK_STATUS" property="recheckStatus"
+			jdbcType="BIT" />
+		<result column="RECHECK_STATUS_USER"
+			property="recheckStatusUser" jdbcType="INTEGER" />
+		<result column="RECHECK_STATUS_TIME"
+			property="recheckStatusTime" jdbcType="BIGINT" />
+		<result column="COMMENTS" property="comments"
+			jdbcType="VARCHAR" />
+		<result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+		<result column="CREATOR" property="creator" jdbcType="INTEGER" />
+		<result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+		<result column="UPDATER" property="updater" jdbcType="INTEGER" />
+		<result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+		<result column="YWTYPE" property="ywType" jdbcType="INTEGER" />
+		<result column="SKU" property="sku" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="com.vedeng.logistics.model.vo.WarehouseGoodsOperateLogVo"
+		id="VoResultMap" extends="BaseResultMap">
+		<result column="GOODS_NAME" property="goodsName"
+			jdbcType="VARCHAR" />
+		<result column="TRADER_NAME" property="traderName"
+			jdbcType="VARCHAR" />
+		<result column="BRAND_NAME" property="brandName"
+			jdbcType="VARCHAR" />
+		<result column="MODEL" property="model" jdbcType="VARCHAR" />
+		<result column="MATERIAL_CODE" property="materialCode"
+			jdbcType="VARCHAR" />
+		<result column="UNIT_NAME" property="unitName"
+			jdbcType="VARCHAR" />
+		<result column="OUT_TIME" property="outTime" jdbcType="VARCHAR" />
+		<result column="OPERATOR" property="operator"
+			jdbcType="VARCHAR" />
+		<result column="CHECKUSERNAME" property="checkUserName"
+			jdbcType="VARCHAR" />
+		<result column="RECHECHECKUSERNAME" property="recheckUserName"
+			jdbcType="VARCHAR" />
+		<result column="SKU" property="sku" jdbcType="VARCHAR" />
+		<result column="STORAGEADDRESS" property="warehouseArea"
+			jdbcType="VARCHAR" />
+		<result column="BUYORDER_NO" property="buyorderNo"
+			jdbcType="VARCHAR" />
+		<result column="BUYORDER_ID" property="buyorderId"
+			jdbcType="INTEGER" />
+		<result column="SALEORDER_NO" property="saleorderNo"
+			jdbcType="VARCHAR" />
+		<result column="SALEORDER_ID" property="saleorderId"
+			jdbcType="INTEGER" />
+		<result column="AFTER_SALES_ID" property="afterSalesId"
+			jdbcType="INTEGER" />
+		<result column="AFTER_SALES_NO" property="afterSalesNo"
+			jdbcType="VARCHAR" />
+		<result column="CNT" property="cnt" jdbcType="INTEGER" /><!--可捡商品数（ 
+			按入库日期、批次号、效期截止日期、关联采购单四个维度来区分的商品数 ） -->
+		<result column="STORE_NUM" property="storeNum"
+			jdbcType="INTEGER" />
+		<result column="ZKCNT" property="zkCnt" jdbcType="INTEGER" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="BUYTRADERNAME" property="buytraderName"
+			jdbcType="VARCHAR" />
+		<result column="SALETRADERNAME" property="saletraderName"
+			jdbcType="VARCHAR" />
+		<result column="BARCODE" property="barcode" jdbcType="VARCHAR" />
+		<result column="XSPRICE" property="xsprice" jdbcType="DECIMAL" />
+		<result column="PURCHASING_PRICE" property="cgprice"
+			jdbcType="DECIMAL" />
+		<result column="ROWNUM" property="rowNum" jdbcType="VARCHAR" />
+		<result column="ADD_TIMES" property="addtimes"
+			jdbcType="VARCHAR" />
+		<result column="NUMS" property="nums" jdbcType="INTEGER" />
+		<result column="PICKD_ID" property="pickdId" jdbcType="INTEGER" />
+		<result column="FLAG" property="flag" jdbcType="VARCHAR" />
+		<result column="EXPIRATION_DATE_STR"
+			property="expiration_date_str" jdbcType="VARCHAR" />
+		<result column="ADD_TIME_STR" property="add_time_str"
+			jdbcType="VARCHAR" />
+		<result column="PICKCNT" property="pCtn" jdbcType="INTEGER" /><!--已捡商品数（ 
+			按入库日期、批次号、效期截止日期、关联采购单四个维度来区分） -->
+		<!-- 生产厂家 -->
+		<result column="MANUFACTURER" property="manufacturer"
+			jdbcType="VARCHAR" />
+		<!-- 生产许可证号 -->
+		<result column="PRODUCTION_LICENSE"
+			property="productionLicenseNumber" jdbcType="VARCHAR" />
+		<!-- 注册证号 -->
+		<result column="REGISTRATION_NUMBER"
+			property="registrationNumber" jdbcType="VARCHAR" />
+			<!-- 商品备案编号 -->
+		<result column="RECORD_NUMBER" property="recordNumber"
+			jdbcType="VARCHAR" />
+		<!-- 储运温度 -->
+		<result column="TEMPERATURE" property="temperaTure"
+			jdbcType="VARCHAR" />
+		<!-- 字典表,判断储运条件 -->
+		<result column="CONDITION_ONE" property="conditionOne"
+			jdbcType="VARCHAR" />
+		<result column="CATEGORY_ID" property="categoryId"
+			jdbcType="INTEGER" />
+		<result column="IS_PROBLEM" property="isProblem"
+			jdbcType="INTEGER" />
+		<result column="PROBLEM_REMARK" property="problemRemark"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap
+		type="com.vedeng.logistics.model.vo.WarehouseGoodsOperateLogVo"
+		id="VoLogResultMap" extends="BaseResultMap">
+		<result column="GOODS_NAME" property="goodsName"
+			jdbcType="VARCHAR" />
+		<result column="BRAND_NAME" property="brandName"
+			jdbcType="VARCHAR" />
+		<result column="MODEL" property="model" jdbcType="VARCHAR" />
+		<result column="MATERIAL_CODE" property="materialCode"
+			jdbcType="VARCHAR" />
+		<result column="UNIT_NAME" property="unitName"
+			jdbcType="VARCHAR" />
+		<result column="SKU" property="sku" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		WAREHOUSE_GOODS_OPERATE_LOG_ID, BARCODE_ID, COMPANY_ID, OPERATE_TYPE, RELATED_ID,
+		GOODS_ID, BARCODE_FACTORY, NUM, WAREHOUSE_ID, STORAGE_ROOM_ID, STORAGE_AREA_ID,
+		STORAGE_LOCATION_ID,
+		STORAGE_RACK_ID, BATCH_NUMBER, EXPIRATION_DATE, CHECK_STATUS, CHECK_STATUS_USER,
+		CHECK_STATUS_TIME, RECHECK_STATUS, RECHECK_STATUS_USER,
+		RECHECK_STATUS_TIME, COMMENTS,
+		ADD_TIME, CREATOR, MOD_TIME, UPDATER,IS_ENABLE
+	</sql>
+
+
+	<!-- 采购入库的采购信息 -->
+	<select id="getWOLByC" resultMap="VoResultMap"
+		parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		SELECT
+		b.PRICE,
+		c.BUYORDER_NO,
+		c.BUYORDER_ID,
+		c.TRADER_NAME
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_BUYORDER_GOODS b ON a.RELATED_ID = b.BUYORDER_GOODS_ID
+		AND b.IS_DELETE = 0
+		INNER JOIN T_BUYORDER c ON b.BUYORDER_ID =
+		c.BUYORDER_ID
+		WHERE a.OPERATE_TYPE =1
+		AND
+		a.WAREHOUSE_GOODS_OPERATE_LOG_ID =
+		#{warehouseGoodsOperateLogId,jdbcType=INTEGER}
+		AND a.IS_ENABLE =1
+	</select>
+	<!-- 销售业务入库的采购信息 -->
+	<select id="getWOLByS" resultMap="VoResultMap"
+		parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		SELECT
+		<!-- TT.BUYORDER_ID, TT.BUYORDER_NO, -->
+		TT.PRICE,
+		TT.TRADER_NAME,
+		T.AFTER_SALES_ID BUYORDER_ID,
+		T.AFTER_SALES_NO BUYORDER_NO
+		FROM
+		(
+		SELECT
+		a.*, c.SALEORDER_GOODS_ID,d.AFTER_SALES_ID,d.AFTER_SALES_NO
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_AFTER_SALES_GOODS b ON a.RELATED_ID = b.AFTER_SALES_GOODS_ID
+		AND b.GOODS_TYPE = 0
+		LEFT JOIN T_AFTER_SALES d ON b.AFTER_SALES_ID = d.AFTER_SALES_ID
+		INNER JOIN T_SALEORDER_GOODS c ON b.ORDER_DETAIL_ID = c.SALEORDER_GOODS_ID
+		AND c.IS_DELETE = 0
+		WHERE
+		a.OPERATE_TYPE IN (3, 5)
+		AND a.IS_ENABLE = 1
+		AND a.WAREHOUSE_GOODS_OPERATE_LOG_ID =
+		#{warehouseGoodsOperateLogId,jdbcType=INTEGER}
+		) T
+		LEFT JOIN (
+		SELECT
+		a.RELATED_ID,
+		a.ADD_TIME,
+		e.BUYORDER_ID,
+		e.BUYORDER_NO,
+		d.PRICE,
+		e.TRADER_NAME
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_WAREHOUSE_PICKING_DETAIL b ON a.WAREHOUSE_PICKING_DETAIL_ID =
+		b.WAREHOUSE_PICKING_DETAIL_ID
+		AND b.IS_ENABLE = 1
+		LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG c ON
+		b.WAREHOUSE_GOODS_OPERATE_LOG_ID = c.WAREHOUSE_GOODS_OPERATE_LOG_ID
+		AND c.IS_ENABLE = 1
+		AND c.OPERATE_TYPE = 1
+		LEFT JOIN T_BUYORDER_GOODS d ON c.RELATED_ID = d.BUYORDER_GOODS_ID
+		AND d.IS_DELETE = 0
+		LEFT JOIN T_BUYORDER e ON d.BUYORDER_ID = e.BUYORDER_ID
+		WHERE
+		1 = 1
+		AND a.OPERATE_TYPE = 2
+		AND a.IS_ENABLE = 1
+		) TT ON T.SALEORDER_GOODS_ID = TT.RELATED_ID
+		ORDER BY
+		TT.ADD_TIME DESC
+		LIMIT 1
+	</select>
+	<!-- 采购售后采购信息 -->
+	<select id="getWOLByCH" resultMap="VoResultMap"
+		parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		SELECT
+		c.PRICE,
+		e.AFTER_SALES_ID BUYORDER_ID,
+		e.AFTER_SALES_NO BUYORDER_NO,
+		d.TRADER_NAME
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_AFTER_SALES_GOODS b ON a.RELATED_ID =
+		b.AFTER_SALES_GOODS_ID
+		AND b.GOODS_TYPE = 0
+		LEFT JOIN T_BUYORDER_GOODS c
+		ON b.ORDER_DETAIL_ID = c.BUYORDER_GOODS_ID
+		LEFT JOIN T_AFTER_SALES e ON
+		b.AFTER_SALES_ID = e.AFTER_SALES_ID
+		AND c.IS_DELETE = 0
+		LEFT JOIN
+		T_BUYORDER d ON c.BUYORDER_ID = d.BUYORDER_ID
+		WHERE
+		a.OPERATE_TYPE = 8
+		AND a.IS_ENABLE = 1
+		AND a.WAREHOUSE_GOODS_OPERATE_LOG_ID =
+		#{warehouseGoodsOperateLogId,jdbcType=INTEGER}
+	</select>
+	<!-- 采购售后采购信息 -->
+	<select id="getLendoutByL" resultMap="VoResultMap"
+		parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		SELECT
+		  b.`LEND_OUT_NO` AS BUYORDER_NO,
+		  b.`LEND_OUT_ID` AS BUYORDER_ID,
+		  b.`TRADER_NAME`
+		FROM
+		  T_WAREHOUSE_GOODS_OPERATE_LOG a
+		  LEFT JOIN T_LEND_OUT b
+		  ON a.RELATED_ID = b.`LEND_OUT_ID`
+		  AND b.`IS_ENABLE` = 0
+		WHERE
+		a.OPERATE_TYPE = 9
+		AND a.IS_ENABLE = 1
+		AND a.WAREHOUSE_GOODS_OPERATE_LOG_ID =
+		#{warehouseGoodsOperateLogId,jdbcType=INTEGER}
+	</select>
+	<select id="getAftersalesGoodsSum"
+		resultType="java.lang.Integer"
+		parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		SELECT
+		SUM(ABS(NUM))
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG
+		WHERE
+		IS_ENABLE = 1
+		<if test="operateType != null">
+			AND OPERATE_TYPE = #{operateType,jdbcType=BIT}
+		</if>
+		<if test="relatedId != null">
+			AND RELATED_ID = #{relatedId,jdbcType=INTEGER}
+		</if>
+	</select>
+	<update id="updateWarehouse">
+		<foreach collection="wg" item="item" index="index" open=""
+			close="" separator=";">
+			update T_WAREHOUSE_GOODS_OPERATE_LOG
+			<set>
+				<if test="item.isProblem!=null">
+					IS_PROBLEM= #{item.isProblem},
+				</if>
+				<if test="item.problemRemark!=null">
+					PROBLEM_REMARK=#{item.problemRemark}
+				</if>
+			</set>
+			where
+			WAREHOUSE_GOODS_OPERATE_LOG_ID=#{item.warehouseGoodsOperateLogId}
+		</foreach>
+	</update>
+	<select id="getWarehouseGoodsId" resultMap="VoResultMap"
+		parameterType="com.vedeng.logistics.model.vo.WarehouseGoodsOperateLogVo">
+		select GOODS_ID from T_WAREHOUSE_GOODS_OPERATE_LOG
+		where
+		IS_PROBLEM=#{isProblem}
+	</select>
+	
+	<!-- 当前订单下商品出库清单 -->
+	<select id="getWarehouseLendOutList" resultMap="VoResultMap"
+		parameterType="com.vedeng.order.model.Saleorder">
+		select
+		<if test="bussinessType == 10">
+			f.GOODS_NAME,
+			g.BRAND_NAME,
+			f.MODEL,
+			h.UNIT_NAME,
+		</if>
+		d.BARCODE,
+		c.MATERIAL_CODE,
+		c.SKU,
+		a.NUM ,
+		a.ADD_TIME,
+		a.WAREHOUSE_GOODS_OPERATE_LOG_ID,
+		a.IS_ENABLE,
+		a.CREATOR,
+		a.GOODS_ID,
+		a.BARCODE_FACTORY,
+		a.BATCH_NUMBER
+		from T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN
+		<if test="bussinessType == 10">
+			T_LEND_OUT b 
+            ON b.`LEND_OUT_ID` =    a.RELATED_ID   
+			LEFT JOIN T_GOODS f ON b.GOODS_ID =
+			f.GOODS_ID
+			LEFT JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+			LEFT JOIN
+			T_UNIT h ON f.UNIT_ID = h.UNIT_ID
+		</if>
+		LEFT JOIN T_GOODS c on b.GOODS_ID = c.GOODS_ID
+		LEFT JOIN T_BARCODE d ON
+		a.BARCODE_ID = d.BARCODE_ID
+		AND d.IS_ENABLE = 1
+		where 1=1
+		<if test="bussinessType == 10">
+			and b.`LEND_OUT_ID` = #{bussinessId,jdbcType=INTEGER}
+		</if>
+		and a.OPERATE_TYPE =#{bussinessType,jdbcType=INTEGER}
+		and a.IS_ENABLE=1
+		<if test="outGoodsTime != null and outGoodsTime != ''">
+			AND a.ADD_TIME in (${outGoodsTime})
+		</if>
+		ORDER BY a.WAREHOUSE_GOODS_OPERATE_LOG_ID DESC
+	</select>
+	 <select id="getfirstRegistrationInfo" parameterType="java.util.List" resultMap="VoResultMap">
+		SELECT
+		a.`WAREHOUSE_GOODS_OPERATE_LOG_ID`,b.`GOODS_ID`,
+		IFNULL(m.`PRODUCT_COMPANY_CHINESE_NAME`,'') as MANUFACTURER, 
+		IFNULL(m.`PRODUCT_COMPANY_LICENCE`,'') as PRODUCT_COMPANY_LICENCE, 
+		IFNULL(fir.`TEMPERATURE`,'') as TEMPERATURE,
+		IFNULL(fir.CONDITION_ONE,'') as CONDITION_ONE,
+		IFNULL(re.`REGISTRATION_NUMBER`,'')  as REGISTRATION_NUMBER
+		FROM
+		`T_WAREHOUSE_GOODS_OPERATE_LOG` a
+		LEFT JOIN T_GOODS b
+		ON a.GOODS_ID = b.GOODS_ID
+		LEFT JOIN `V_CORE_SKU` c
+		ON b.`SKU` = c.`SKU_NO`
+		LEFT JOIN `V_CORE_SPU` d
+		ON c.`SPU_ID` = d.`SPU_ID`
+		LEFT JOIN `T_FIRST_ENGAGE` fir
+		ON d.`FIRST_ENGAGE_ID` = fir.`FIRST_ENGAGE_ID`
+		LEFT JOIN T_REGISTRATION_NUMBER re
+		ON fir.`REGISTRATION_NUMBER_ID` = re.`REGISTRATION_NUMBER_ID`
+		LEFT JOIN T_PRODUCT_COMPANY m
+		ON re.`PRODUCT_COMPANY_ID` = m.`PRODUCT_COMPANY_ID`
+		WHERE a.`WAREHOUSE_GOODS_OPERATE_LOG_ID` IN 
+		<foreach item="wo" index="index" collection="list" open="("
+			separator="," close=")">
+			#{wo.warehouseGoodsOperateLogId,jdbcType=INTEGER}
+		</foreach>
+   </select>
+	<select id="getWarehouseInfoById" resultMap="BaseResultMap">
+		SELECT
+	A.NUM,
+	B.SKU,
+	A.OPERATE_TYPE,
+	A.RELATED_ID,A.IS_ENABLE
+	FROM
+	T_WAREHOUSE_GOODS_OPERATE_LOG A
+	LEFT JOIN T_GOODS B ON A.GOODS_ID = B.GOODS_ID
+	WHERE
+	A.WAREHOUSE_GOODS_OPERATE_LOG_ID=#{warehouseGoodsOperateLogId,jdbcType=INTEGER}
+	</select>
+	<select id="getBarcodeIsEnable" resultMap="BaseResultMap" parameterType="com.vedeng.logistics.model.WarehouseGoodsOperateLog">
+		 SELECT
+	a.WAREHOUSE_GOODS_OPERATE_LOG_ID,a.NUM,a.BARCODE_ID
+	FROM
+	T_WAREHOUSE_GOODS_OPERATE_LOG a
+	WHERE
+	a.IS_ENABLE = 1
+	AND a.BARCODE_ID= #{barcodeId,jdbcType=INTEGER}
+	<if test="operatorfalg == 2">
+	AND a.OPERATE_TYPE IN ( 2, 4, 6, 7, 10 )
+	</if>
+	<if test="operatorfalg == 1">
+	AND a.OPERATE_TYPE IN ( 1, 3, 5, 8, 9 )
+	</if>
+	</select>
+	<select id="getWarehouseIdByExpressDetail" parameterType="com.vedeng.logistics.model.ExpressDetail" resultType="java.lang.Integer">
+		SELECT
+			C.WAREHOUSE_GOODS_OPERATE_LOG_ID
+		FROM
+			T_WAREHOUSE_GOODS_OPERATE_LOG C
+		WHERE
+		 C.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+		 AND C.OPERATE_TYPE=2
+		 AND C.IS_ENABLE=1
+		AND	C.WAREHOUSE_GOODS_OPERATE_LOG_ID NOT IN (
+			SELECT
+				B.WAREHOUSE_GOODS_OPERATE_LOG_ID
+			FROM
+				T_EXPRESS_DETAIL A
+				JOIN T_EXPRESS D ON A.EXPRESS_ID=D.EXPRESS_ID
+				JOIN V_E_W_EXPRESS_WAREHOUSE B ON A.EXPRESS_DETAIL_ID = B.EXPRESS_DETAIL_ID
+			WHERE
+				A.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+				AND A.BUSINESS_TYPE=496
+				AND D.IS_ENABLE=1
+			)
+			LIMIT #{num,jdbcType=INTEGER}
+
+	</select>
+	<insert id="insertExpressWarehouse">
+		INSERT INTO
+		V_E_W_EXPRESS_WAREHOUSE  (EXPRESS_DETAIL_ID ,WAREHOUSE_GOODS_OPERATE_LOG_ID)
+		VALUES
+		(#{expressDetailId,jdbcType=INTEGER},#{warehouseLogId,jdbcType=INTEGER})
+	</insert>
+	<update id="updateExpressWarehouse">
+		UPDATE V_E_W_EXPRESS_WAREHOUSE SET IS_ENABLE=1 WHERE WAREHOUSE_GOODS_OPERATE_LOG_ID =#{warehouseLogId}
+	</update>
+	<select id="getExpressWlogIds" resultType="integer">
+	SELECT
+		B.WAREHOUSE_GOODS_OPERATE_LOG_ID
+	FROM
+		T_EXPRESS_DETAIL A
+		LEFT JOIN V_E_W_EXPRESS_WAREHOUSE B ON A.EXPRESS_DETAIL_ID = B.EXPRESS_DETAIL_ID
+	WHERE
+		B.IS_ENABLE = 0
+		AND A.EXPRESS_ID=#{expressId,jdbcType=INTEGER};
+	</select>
+
+	<select id="getLastOutTime" resultType="long">
+		SELECT
+		MAX(a.ADD_TIME)
+		FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG a
+		WHERE
+		a.WAREHOUSE_GOODS_OPERATE_LOG_ID IN
+		<foreach item="wId" index="index" collection="idList" open="("
+				 separator="," close=")">
+			#{wId}
+		</foreach>
+	</select>
+	<select id="getWarehouseLogIdBy" resultType="integer">
+	  SELECT
+	C.WAREHOUSE_GOODS_OPERATE_LOG_ID
+		FROM
+	T_SALEORDER A
+	LEFT JOIN T_SALEORDER_GOODS B ON A.SALEORDER_ID = B.SALEORDER_ID AND B.IS_DELETE=0
+	LEFT JOIN T_WAREHOUSE_GOODS_OPERATE_LOG C ON B.SALEORDER_GOODS_ID = C.RELATED_ID
+	AND C.OPERATE_TYPE = 2  AND C.IS_ENABLE= 1
+	WHERE A.SALEORDER_ID=#{saleorderId,jdbcType=INTEGER};
+	</select>
+
+	<select id="getWarehouseoutRecordCounts" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM T_WAREHOUSE_GOODS_OPERATE_LOG a
+		LEFT JOIN T_SALEORDER_GOODS b ON b.SALEORDER_GOODS_ID = a.RELATED_ID AND b.IS_DELETE =0
+		WHERE a.OPERATE_TYPE =2 AND b.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER} AND a.IS_ENABLE=1
+	</select>
+
+	<select id="getSameBatchGoodsInfo" parameterType="com.vedeng.logistics.model.vo.WarehouseGoodsOperateLogVo" resultMap="VoLogResultMap">
+    SELECT
+ 	WAREHOUSE_GOODS_OPERATE_LOG_ID,
+ 	GOODS_ID,
+ 	T.NUM
+FROM (
+ SELECT
+	e.GOODS_ID,
+	e.WAREHOUSE_GOODS_OPERATE_LOG_ID,
+	(
+		IFNULL( SUM( e.NUM ), 0 ) - IFNULL( ABS( aa.outnum ), 0 )
+	) NUM
+FROM
+	T_WAREHOUSE_GOODS_OPERATE_LOG e
+	LEFT JOIN (
+	SELECT
+		SUM( b.NUM ) AS outnum,
+		b.BARCODE_ID ,
+		WAREHOUSE_GOODS_OPERATE_LOG_ID
+	FROM
+		T_WAREHOUSE_GOODS_OPERATE_LOG b
+	WHERE
+		b.OPERATE_TYPE IN ( 2, 4, 6, 7, 10 )
+		AND b.IS_ENABLE = 1
+		AND b.GOODS_ID =#{goodsId}
+		AND b.BATCH_NUMBER=#{batchNumber}
+		AND b.EXPIRATION_DATE=#{expirationDate}
+		AND b.`COMPANY_ID`=1
+		and b.BARCODE_ID!=0
+
+	GROUP BY
+		b.WAREHOUSE_GOODS_OPERATE_LOG_ID
+	) AS aa ON e.BARCODE_ID = aa.BARCODE_ID
+WHERE
+	1 = 1
+	AND e.OPERATE_TYPE IN ( 1, 3, 5, 8, 9 )
+	AND e.IS_ENABLE = 1
+    AND e.GOODS_ID=#{goodsId}
+    <if test="batchNumber!=null">
+            AND e.BATCH_NUMBER=#{batchNumber}
+    </if>
+     <if test="expirationDate!=null">
+            AND e.EXPIRATION_DATE=#{expirationDate}
+     </if>
+	AND e.COMPANY_ID = 1
+	AND e.BARCODE_ID!=0
+
+GROUP BY
+      e.WAREHOUSE_GOODS_OPERATE_LOG_ID
+	 ) T
+WHERE
+	T.NUM > 0
+	</select>
+	<select id="getStorageInfo" resultMap="BaseResultMap" parameterType="integer">
+SELECT
+	g.WAREHOUSE_NAME,
+	IFNULL( h.STORAGE_ROOM_NAME, '' ) STORAGE_ROOM_NAME,
+	IFNULL( i.STORAGE_AREA_NAME, '' ) STORAGE_AREA_NAME,
+	IFNULL( j.STORAGE_RACK_NAME, '' ) STORAGE_RACK_NAME,
+	IFNULL( k.STORAGE_LOCATION_NAME, '' )STORAGE_LOCATION_NAME
+FROM
+	T_WAREHOUSE_GOODS_OPERATE_LOG a
+	LEFT JOIN T_WAREHOUSE g ON a.WAREHOUSE_ID = g.WAREHOUSE_ID
+	LEFT JOIN T_STORAGE_ROOM h ON a.STORAGE_ROOM_ID = h.STORAGE_ROOM_ID
+	LEFT JOIN T_STORAGE_AREA i ON a.STORAGE_AREA_ID = i.STORAGE_AREA_ID
+	LEFT JOIN T_STORAGE_RACK j ON a.STORAGE_RACK_ID = j.STORAGE_RACK_ID
+	LEFT JOIN T_STORAGE_LOCATION k ON a.STORAGE_LOCATION_ID = k.STORAGE_LOCATION_ID
+	WHERE a.WAREHOUSE_GOODS_OPERATE_LOG_ID=#{warehouseGoodsOperateLogId,jdbcType=INTEGER};
+	</select>
+</mapper>

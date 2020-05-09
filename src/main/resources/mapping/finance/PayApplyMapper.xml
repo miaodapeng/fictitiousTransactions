@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.finance.dao.PayApplyMapper" >
+    <resultMap id="BaseResultMap" type="com.vedeng.finance.model.PayApply" >
+        <id column="PAY_APPLY_ID" property="payApplyId" jdbcType="INTEGER" />
+        <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+        <result column="PAY_TYPE" property="payType" jdbcType="INTEGER" />
+        <result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+        <result column="TRADER_SUBJECT" property="traderSubject" jdbcType="BIT" />
+        <result column="TRADER_MODE" property="traderMode" jdbcType="INTEGER" />
+        <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+        <result column="TRADER_ID" property="traderId" jdbcType="VARCHAR" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="CURRENCY_UNIT_ID" property="currencyUnitId" jdbcType="INTEGER" />
+        <result column="BANK" property="bank" jdbcType="VARCHAR" />
+        <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+        <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+        <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+        <result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+        <result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+        <result column="VALID_COMMENTS" property="validComments" jdbcType="VARCHAR" />
+        <result column="IS_BILL" property="isBill" jdbcType="BIT" />
+        <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+        <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+        <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+        <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+        <result column="USERNAME" property="creatorName" jdbcType="VARCHAR" />
+        <result column="PAY_STATUS" property="payStatus" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    PAY_APPLY_ID, COMPANY_ID, PAY_TYPE, RELATED_ID, TRADER_SUBJECT, TRADER_MODE, TRADER_NAME, AMOUNT,
+    CURRENCY_UNIT_ID, BANK, BANK_ACCOUNT, BANK_CODE, COMMENTS, VALID_STATUS, VALID_TIME, VALID_COMMENTS, IS_BILL,
+    ADD_TIME, CREATOR, MOD_TIME, UPDATER,PAY_STATUS
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from T_PAY_APPLY
+        where PAY_APPLY_ID = #{payApplyId,jdbcType=INTEGER}
+    </select>
+
+    <sql id="PayApply_Buyorder_Where_Str" >
+        <if test="payApply.companyId!=null and payApply.companyId!=0">
+            and a.COMPANY_ID = #{payApply.companyId}
+        </if>
+        <if test="payApply.buyorderNo!=null and payApply.buyorderNo!=''">
+            and b.BUYORDER_NO like CONCAT('%',#{payApply.buyorderNo,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="payApply.buyorderTraderName!=null and payApply.buyorderTraderName!=''">
+            and b.TRADER_NAME like CONCAT('%',#{payApply.buyorderTraderName,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="payApply.traderName!=null and payApply.traderName!=''">
+            and a.TRADER_NAME like CONCAT('%',#{payApply.traderName,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="payApply.traderSubject!=null and payApply.traderSubject!=-1">
+            and a.TRADER_SUBJECT = #{payApply.traderSubject,jdbcType=BIT}
+        </if>
+        <if test="payApply.traderMode!=null and payApply.traderMode!=-1">
+            and a.TRADER_MODE = #{payApply.traderMode,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.is_528 !=null and payApply.is_528 == 0">
+            and a.TRADER_MODE <![CDATA[ != ]]> 528
+        </if>
+        <if test="payApply.is_528 !=null and payApply.is_528 == 1">
+            and a.TRADER_MODE = 528
+        </if>
+        <if test="payApply.validStatus!=null and payApply.validStatus!=-1">
+            and e.STATUS = #{payApply.validStatus,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.isBill!=null and payApply.isBill!=-1">
+            and a.IS_BILL = #{payApply.isBill,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.searchBegintime!=null and payApply.searchBegintime!=0">
+            and a.ADD_TIME &gt;= #{payApply.searchBegintime,jdbcType=BIGINT}
+        </if>
+        <if test="payApply.searchEndtime!=null and payApply.searchEndtime!=0">
+            and a.ADD_TIME &lt;= #{payApply.searchEndtime,jdbcType=BIGINT}
+        </if>
+        <if test="payApply.searchBeginAmount!=null and payApply.searchBeginAmount!=0">
+            and a.AMOUNT &gt;= #{payApply.searchBeginAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="payApply.searchEndAmount!=null and payApply.searchEndAmount!=0">
+            and a.AMOUNT &lt;= #{payApply.searchEndAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="payApply.search != null">
+            AND a.TRADER_MODE = 521 AND (b.BUYORDER_NO like CONCAT('%',#{payApply.search,jdbcType=VARCHAR},'%' ) OR a.TRADER_NAME like CONCAT('%',#{payApply.search,jdbcType=VARCHAR},'%' ))
+        </if>
+        <if test="payApply.validUserName!=null and payApply.validUserName!=''">
+            AND FIND_IN_SET(#{payApply.validUserName,jdbcType=VARCHAR},e.VERIFY_USERNAME)
+        </if>
+        <!-- add by Tomcat.Hui 2019/9/11 13:05 .Desc: VDERP-1215 付款申请增加批量操作功能. start -->
+        <if test="payApply.comments!=null and payApply.comments!=''">
+            <choose>
+                <when test="payApply.comments == 1">
+                    AND length(a.COMMENTS) > 0
+                </when>
+                <when test="payApply.comments == 0">
+                    AND (length(a.COMMENTS) = 0 OR a.COMMENTS is null)
+                </when>
+            </choose>
+        </if>
+        <!-- add by Tomcat.Hui 2019/9/11 13:05 .Desc: . end -->
+
+    </sql>
+
+    <sql id="PayApply_After_Sales_Where_Str" >
+        <if test="payApply.companyId!=null and payApply.companyId!=0">
+            and a.COMPANY_ID = #{payApply.companyId}
+        </if>
+        <if test="payApply.buyorderNo!=null and payApply.buyorderNo!=''">
+            and b.AFTER_SALES_NO like CONCAT('%',#{payApply.buyorderNo,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="payApply.buyorderTraderName!=null and payApply.buyorderTraderName!=''">
+            and 1 = 2
+        </if>
+        <if test="payApply.traderName!=null and payApply.traderName!=''">
+            and a.TRADER_NAME like CONCAT('%',#{payApply.traderName,jdbcType=VARCHAR},'%' )
+        </if>
+        <if test="payApply.traderSubject!=null and payApply.traderSubject!=-1">
+            and a.TRADER_SUBJECT = #{payApply.traderSubject,jdbcType=BIT}
+        </if>
+        <if test="payApply.traderMode!=null and payApply.traderMode!=-1">
+            and a.TRADER_MODE = #{payApply.traderMode,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.is_528 !=null and payApply.is_528 == 0">
+            and a.TRADER_MODE <![CDATA[ != ]]> 528
+        </if>
+        <if test="payApply.is_528 !=null and payApply.is_528 == 1">
+            and a.TRADER_MODE = 528
+        </if>
+        <if test="payApply.validStatus!=null and payApply.validStatus!=-1">
+            and e.STATUS = #{payApply.validStatus,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.isBill!=null and payApply.isBill!=-1">
+            and a.IS_BILL = #{payApply.isBill,jdbcType=INTEGER}
+        </if>
+        <if test="payApply.searchBegintime!=null and payApply.searchBegintime!=0">
+            and a.ADD_TIME &gt;= #{payApply.searchBegintime,jdbcType=BIGINT}
+        </if>
+        <if test="payApply.searchEndtime!=null and payApply.searchEndtime!=0">
+            and a.ADD_TIME &lt;= #{payApply.searchEndtime,jdbcType=BIGINT}
+        </if>
+        <if test="payApply.searchBeginAmount!=null and payApply.searchBeginAmount!=0">
+            and a.AMOUNT &gt;= #{payApply.searchBeginAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="payApply.searchEndAmount!=null and payApply.searchEndAmount!=0">
+            and a.AMOUNT &lt;= #{payApply.searchEndAmount,jdbcType=DECIMAL}
+        </if>
+        <if test="payApply.search != null">
+            AND a.TRADER_MODE = 521 AND (b.AFTER_SALES_NO like CONCAT('%',#{payApply.search,jdbcType=VARCHAR},'%' ) OR a.TRADER_NAME like CONCAT('%',#{payApply.search,jdbcType=VARCHAR},'%' ))
+        </if>
+        <if test="payApply.validUserName!=null and payApply.validUserName!=''">
+            AND FIND_IN_SET(#{payApply.validUserName,jdbcType=VARCHAR},e.VERIFY_USERNAME)
+        </if>
+        <!-- add by Tomcat.Hui 2019/9/11 13:05 .Desc: VDERP-1215 付款申请增加批量操作功能. start -->
+        <if test="payApply.comments!=null and payApply.comments!=''">
+            <choose>
+                <when test="payApply.comments == 1">
+                    AND length(a.COMMENTS) > 0
+                </when>
+                <when test="payApply.comments == 0">
+                    AND ( length(a.COMMENTS) = 0 OR a.COMMENTS is null)
+                </when>
+            </choose>
+        </if>
+        <!-- add by Tomcat.Hui 2019/9/11 13:05 .Desc: . end -->
+    </sql>
+
+
+    <select id="getPayApplyMaxRecord" resultMap="BaseResultMap">
+       SELECT * FROM  T_PAY_APPLY
+       WHERE RELATED_ID=#{relatedId}
+       AND  PAY_TYPE=#{payType}
+       AND ADD_TIME=(SELECT MAX(ADD_TIME) ss FROM T_PAY_APPLY WHERE
+           RELATED_ID=#{relatedId})
+    </select>
+
+    <select id="getPayApplyRecord" resultMap="BaseResultMap">
+        SELECT PAY_STATUS FROM  T_PAY_APPLY
+       where PAY_APPLY_ID=#{payApplyId}
+       AND  PAY_TYPE=#{payType}
+    </select>
+
+    <update id="updatePayStutas" parameterType="com.vedeng.finance.model.PayApply">
+        UPDATE
+        T_PAY_APPLY
+        <set>
+            <if test="payStatus!=null">
+                PAY_STATUS=#{payStatus}
+            </if>
+        </set>
+        WHERE
+            PAY_APPLY_ID=#{payApplyId}
+    </update>
+
+
+    <!-- 付款申请总额 -->
+    <select id="getPayApplyTotalAmount" parameterType="Map" resultType="java.math.BigDecimal">
+        SELECT sum(m.AMOUNT) from (
+        select
+        a.*, b.BUYORDER_NO, '' as AFTER_SALES_NO, b.TRADER_NAME as BUYORDER_TRADER_NAME, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_BUYORDER b on a.RELATED_ID = b.BUYORDER_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY'
+        <where>
+            a.PAY_TYPE = 517
+            <include refid="PayApply_Buyorder_Where_Str" />
+        </where>
+
+        UNION ALL
+
+        select
+        a.*, '' as BUYORDER_NO, b.AFTER_SALES_NO, '' as BUYORDER_TRADER_NAME, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_AFTER_SALES b on a.RELATED_ID = b.AFTER_SALES_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY'
+        <where>
+            a.PAY_TYPE = 518
+            <include refid="PayApply_After_Sales_Where_Str" />
+        </where>
+        ) m
+    </select>
+
+    <!-- 付款申请付款总额 -->
+    <select id="getPayApplyPayTotalAmount" parameterType="Map" resultType="java.math.BigDecimal">
+        SELECT sum(m.AMOUNT) from (
+        select
+        a.*, b.BUYORDER_NO, '' as AFTER_SALES_NO, b.TRADER_NAME as BUYORDER_TRADER_NAME, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_BUYORDER b on a.RELATED_ID = b.BUYORDER_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY'
+        <where>
+            a.PAY_TYPE = 517
+            <include refid="PayApply_Buyorder_Where_Str" />
+        </where>
+
+        UNION ALL
+
+        select
+        a.*, '' as BUYORDER_NO, b.AFTER_SALES_NO, '' as BUYORDER_TRADER_NAME, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_AFTER_SALES b on a.RELATED_ID = b.AFTER_SALES_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY'
+        <where>
+            a.PAY_TYPE = 518
+            <include refid="PayApply_After_Sales_Where_Str" />
+        </where>
+        ) m
+        where m.VALID_STATUS = 1
+    </select>
+
+
+    <!-- 付款申请列表（分页） -->
+    <select id="getPayApplyListPage" resultMap="BaseResultMap" parameterType="Map" >
+        SELECT * from (
+        select
+        U.USERNAME,a.*, b.BUYORDER_NO, '' as AFTER_SALES_NO, b.TRADER_NAME as BUYORDER_TRADER_NAME,b.TRADER_ID as TRADER_ID, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_BUYORDER b on a.RELATED_ID = b.BUYORDER_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY' AND e.VERIFIES_TYPE = 644
+        LEFT JOIN T_USER U ON U.USER_ID=a.Creator
+        <where>
+            a.PAY_TYPE = 517
+            <include refid="PayApply_Buyorder_Where_Str" />
+        </where>
+
+        UNION ALL
+
+        select
+        U.USERNAME,a.*, '' as BUYORDER_NO, b.AFTER_SALES_NO, '' as BUYORDER_TRADER_NAME,'' as TRADER_ID, e.VERIFIES_TYPE, e.VERIFY_USERNAME, IFNULL(e.STATUS, -1) AS VERIFY_STATUS
+        from T_PAY_APPLY a
+        join T_AFTER_SALES b on a.RELATED_ID = b.AFTER_SALES_ID
+        LEFT JOIN T_VERIFIES_INFO e ON a.PAY_APPLY_ID = e.RELATE_TABLE_KEY AND e.RELATE_TABLE = 'T_PAY_APPLY' AND e.VERIFIES_TYPE = 644
+        LEFT JOIN T_USER U ON U.USER_ID=a.Creator
+        <where>
+            a.PAY_TYPE = 518
+            <include refid="PayApply_After_Sales_Where_Str" />
+        </where>
+        ) m
+        order by m.VALID_STATUS ASC, m.ADD_TIME ASC
+    </select>
+
+
+    <select id="getMatchInfo" resultType="com.vedeng.finance.model.BankBill">
+        SELECT * FROM T_BANK_BILL bb
+        <where>
+            1=1
+            <if test="accName1 != null and accName1 != ''">
+                <!-- 对方账户名称 -->
+                AND bb.ACC_NAME1 = #{accName1,jdbcType=VARCHAR}
+            </if>
+            <if test="amt != null and amt != ''">
+                <!-- 发生额 -->
+                AND bb.AMT = #{amt,jdbcType=DECIMAL}
+            </if>
+            <if test="searchBeginTime!=null">
+                AND TRANDATE >= #{searchBeginTime,jdbcType=VARCHAR}
+            </if>
+            <if test="searchEndTime!=null">
+                and TRANDATE <![CDATA[ <= ]]> #{searchEndTime,jdbcType=VARCHAR}
+            </if>
+            AND bb.FLAG1 = 0 AND bb.MATCHED_AMOUNT != bb.AMT
+        </where>
+    </select>
+
+
+</mapper>

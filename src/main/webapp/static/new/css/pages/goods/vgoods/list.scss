@@ -1,0 +1,337 @@
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/input.css');
+@import url('../../../common/lib/pikaday.css');
+@import url('../../../common/lib/form.css');
+@import url('../../../common/lib/table.css');
+@import url('../../../common/lib/select.css');
+@import url('../../../common/lib/pager.css');
+@import url('../../../common/lib/dialog.css');
+@import url('../../../common/lib/tip.css');
+@import url('../../../common/lib/tab.css');
+@import url('../../../common/lib/lvSelect.css');
+@import url('../../../common/lib/suggest.css');
+@import url('../../../common/lib/tag.css');
+@import url('../../../pages/modules/list.css');
+
+.list-table {
+    .input-checkbox {
+        .input-wrap {
+            margin: 0;
+        }
+    }
+
+    .list-pager-wrap {
+        text-align: right;
+        padding: 10px 0;
+        margin-bottom: -20px;
+        padding-right: 20px;
+    }
+
+    .list-pager {
+        display: flex;
+        float: right;
+
+        .pager-txt {
+            color: #999;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+
+        .pager-btn {
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            border: 1px solid #ced2d9;
+            background-color: #f5f7fa;
+            position: relative;
+            z-index: 2;
+            color: #333;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #e6ecf2;
+            }
+
+            &.pager-l {
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                margin-right: -1px;
+            }
+
+            &.pager-r {
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+
+            &.disabled {
+                z-index: 1;
+                border-color: #EDF0F2;
+                color: #999;
+                cursor: not-allowed;
+
+                &:hover {
+                    background-color: #f5f7fa;
+                }
+            }
+        }
+    }
+}
+
+.table-th {
+    display: flex;
+    border-bottom: 1px solid #EDF0F2;
+    color: #999;
+
+    .th {
+        &:nth-child(1) {
+            padding-left: 20px;
+        }
+    }
+}
+
+.table-tr {
+    margin-bottom: 20px;
+    border-top: 1px solid #EDF0F2;
+    margin-top: -1px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .tr-list {
+        display: flex;
+        margin-bottom: -1px;
+        border-bottom: 1px solid #EDF0F2;
+    }
+
+    .tr-item {
+        &:nth-child(1) {
+            padding-left: 20px;
+        }
+    }
+
+    .tr-lv1 {
+        >.tr-list {
+            background: #E5F2FF;
+        }
+    }
+
+    .tr-lv2 {
+        .tr-item {
+
+            &:nth-child(1) {
+                padding-left: 30px;
+            }
+
+            &:nth-child(2) {
+                padding-left: 10px;
+            }
+        }
+    }
+
+    .tr-item {
+        .item-label {
+            color: #999;
+        }
+
+        .status-red {
+            color: #E64545;
+        }
+
+        .status-green {
+            color: #13BF13;
+        }
+
+        .status-yellow {
+            color: #FF9500;
+        }
+    }
+
+    &.no-data {
+        padding: 60px 0;
+        text-align: center;
+
+        &:hover {
+            background: #fff !important;
+        }
+
+        .icon-caution1 {
+            color: #2E8AE6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.tr-item,
+.th {
+    box-sizing: border-box;
+    padding: 15px 20px 15px 0;
+    word-break: break-all;
+
+    &:nth-child(1) {
+        width: 4.6%;
+    }
+
+    &:nth-child(2) {
+        flex: 1;
+    }
+
+    &:nth-child(3) {
+        width: 11.1%;
+    }
+
+    &:nth-child(4) {
+        width: 12.9%;
+    }
+
+    &:nth-child(5) {
+        width: 14.9%;
+    }
+
+    &:nth-child(6) {
+        width: 7.5%;
+    }
+
+    &:nth-child(7) {
+        width: 8%;
+    }
+
+    &:nth-child(8) {
+        width: 9.4%;
+    }
+
+    &:nth-child(9) {
+        width: 6.4%;
+    }
+
+    &:nth-child(10) {
+        width: 10.7%;
+        text-align: right;
+    }
+}
+
+.edit-sku-wrap {
+    .dlg-loading {
+        height: 80px;
+        line-height: 80px;
+        text-align: center;
+
+        img {
+            margin-top: 20px;
+        }
+    }
+
+    .form-label-txt {
+        padding-top: 6px;
+    }
+}
+
+.stock-form {
+    margin-top: 20px;
+}
+
+.del-wrap {
+    padding-left: 42px;
+    position: relative;
+
+    .del-tip {
+        padding-top: 7px;
+
+        .icon-caution2 {
+            color: #FF9500;
+            font-size: 32px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin-top: -7px;
+        }
+    }
+
+    .del-cnt {
+        margin-top: 10px;
+
+        .input-textarea {
+            width: 100%;
+            height: 100px;
+        }
+    }
+}
+
+.fields-suggest {
+    position: relative;
+
+    .suggest-list-wrap {
+        top: 30px;
+    }
+}
+
+.select-lv-wrap {
+    width: 100%;
+
+    .select-lv {
+        width: calc(100% - 28px);
+        max-width: none;
+    }
+}
+
+.search-item {
+    .select-title {
+        white-space: normal;
+    }
+
+    .select-selected {
+        white-space: normal;
+
+        span {
+            display: inline-block;
+            max-height: 18px;
+            overflow: hidden;
+        }
+    }
+}
+
+.item-lv-right {
+    .select-lv {
+        .select-list {
+            right: -1px;
+            left: auto;
+            flex-direction: row-reverse;
+        }
+    }
+}
+
+.item-icon-wrap {
+    padding-right: 41px;
+    position: relative;
+
+    .tip-wrap {
+        position: absolute;
+        right: 20px;
+        top: 12px;
+
+        .icon-info2 {
+            color: #2E8AE6;
+            cursor: pointer;
+            vertical-align: -1px;
+        }
+
+        .tip {
+            top: -7px;
+            left: 24px;
+            display: none;
+            cursor: text;
+        }
+
+        .tip-con {
+            white-space: nowrap;
+        }
+
+        &:hover {
+            .tip {
+                display: block;
+            }
+        }
+    }
+}

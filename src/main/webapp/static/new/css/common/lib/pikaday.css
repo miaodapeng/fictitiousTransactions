@@ -1,0 +1,240 @@
+/*
+ * aid brush 颜色最浅 笔刷越大颜色越深
+ * [mini, tiny, small, medium, large, big, huge, massive]
+ */
+/*
+ * extend color
+ * Roman Numbers
+ * i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10
+ */
+.calendar {
+    padding: 15px;
+    width: 245px;
+    border: 1px solid #CED3D9;
+    background-color: #FFF;
+    box-shadow: 2px 2px 1px 0 rgba(0, 33, 66, 0.1);
+    border-radius: 2px;
+    font-size: 12px;
+    z-index: 10;
+}
+
+.calendar.is-hidden {
+    display: none;
+}
+
+.calendar .calendar-header {
+    position: relative;
+    font-size: 12px;
+}
+
+.calendar .calendar-header .title {
+    display: block;
+    margin: 0;
+    color: #2E8AE6;
+    line-height: 25px;
+    text-align: center;
+    text-decoration: none;
+    cursor: default;
+}
+
+.calendar .calendar-header .title .month {
+    margin-right: 10px;
+}
+
+.calendar .calendar-header .title .month,
+.calendar .calendar-header .title .year {
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar .calendar-header .title .month select,
+.calendar .calendar-header .title .year select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.calendar .calendar-header .pre,
+.calendar .calendar-header .next {
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    opacity: .5;
+    filter: alpha(opacity=50);
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+.calendar .calendar-header .pre:hover,
+.calendar .calendar-header .next:hover {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.calendar .calendar-header .next {
+    left: inherit;
+    right: 0;
+    text-align: right;
+}
+
+.calendar.split-cols2 {
+    width: 510px !important;
+    font-size: 0;
+}
+
+.calendar.split-cols3 {
+    width: 775px !important;
+    font-size: 0;
+}
+
+.calendar .calendar-split {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding-left: 20px;
+}
+
+.calendar .calendar-split .pre,
+.calendar .calendar-split .next {
+    display: none;
+}
+
+.calendar .calendar-split:first-child {
+    padding-left: 0;
+}
+
+.calendar .calendar-split:first-child .pre {
+    display: block;
+}
+
+.calendar .calendar-split:last-of-type .next {
+    display: block;
+}
+
+.calendar .calendar-split .show {
+    display: block;
+}
+
+.calendar .calendar-weeks,
+.calendar .calendar-days {
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+}
+
+.calendar .calendar-weeks li,
+.calendar .calendar-days li {
+    float: left;
+    display: block;
+    width: 35px;
+    height: 25px;
+    list-style-type: none;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 25px;
+}
+
+.calendar .calendar-weeks:after,
+.calendar .calendar-days:after,
+.calendar .calendar-content:after {
+    *zoom: 1;
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.calendar .calendar-weeks {
+    margin-top: 10px;
+}
+
+.calendar .calendar-weeks li {
+    cursor: default;
+}
+
+.calendar .calendar-days {
+    margin-top: 5px;
+    width: 245px;
+    clear: both;
+}
+
+.calendar .calendar-days li {
+    background-color: #F5F7FA;
+    color: #666;
+    cursor: pointer;
+}
+
+.calendar .calendar-days li:hover {
+    background-color: #E6ECF2;
+    color: #666;
+}
+
+.calendar .calendar-days li.selected {
+    background-color: #2E8AE6 !important;
+    color: #FFF !important;
+}
+
+.calendar .calendar-days li.active {
+    background-color: #d7edfc;
+}
+
+.calendar .calendar-days li.disabled {
+    color: #B2B2B2;
+    background-color: #F5F7FA;
+    cursor: default;
+}
+
+.calendar .calendar-days li.disabled:hover {
+    background-color: #F5F7FA;
+}
+
+.calendar .calendar-days li.empty {
+    background-color: #FFF;
+    cursor: default;
+}
+
+.calendar .calendar-days li.empty:hover {
+    background-color: #FFF;
+}
+
+.calendar .calendar-current {
+    margin-top: 10px;
+    color: #2E8AE6;
+    text-align: center;
+    line-height: 25px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.calendar .calendar-current .date {
+    margin-left: 5px;
+}
+
+.calendar .calendar-footer {
+    margin: 20px 0 0 0;
+    padding: 0;
+    font-size: 0;
+}
+
+.calendar .calendar-footer .calendar-area {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 0 5px;
+    margin-right: 5px;
+    border: 1px solid #CED3D9;
+    border-radius: 2px;
+    color: #999;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.calendar .calendar-footer .calendar-area:last-child {
+    margin-right: 0;
+}

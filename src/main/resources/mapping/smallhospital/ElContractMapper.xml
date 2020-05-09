@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElContractMapper">
+
+  <resultMap id="BaseResultMap" type="com.smallhospital.model.ElContract">
+    <id column="EL_CONTRACT_ID" jdbcType="INTEGER" property="elContractId" />
+    <result column="CONTRACT_NUMBER" jdbcType="VARCHAR" property="contractNumber" />
+    <result column="TRADER_ID" jdbcType="INTEGER" property="traderId" />
+    <result column="SIGN_DATE" jdbcType="BIGINT" property="signDate" />
+    <result column="CONTRACT_VALIDITY_DATE_START" jdbcType="BIGINT" property="contractValidityDateStart" />
+    <result column="CONTRACT_VALIDITY_DATE_END" jdbcType="BIGINT" property="contractValidityDateEnd" />
+    <result column="CONTRACT_PIC" jdbcType="VARCHAR" property="contractPic" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+
+    <result column="ADD_TIME" jdbcType="BIGINT" property="addTime" />
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="UPDATOR" jdbcType="INTEGER" property="updator" />
+    <result column="OWNER" jdbcType="INTEGER" property="owner" />
+    <result column="STATUS" jdbcType="INTEGER" property="status" />
+    <result column="EFFCTIVE_STATUS" jdbcType="INTEGER" property="effctiveStatus" />
+
+    <result column="PRODUCT_SYN_STATUS" jdbcType="INTEGER" property="productSynStatus" />
+    <result column="CONTRACT_SYN_STATUS" jdbcType="INTEGER" property="contractSynStatus" />
+
+    <result column="CONFIRM_STATUS" jdbcType="INTEGER" property="confirmStatus" />
+
+    <result column="AUDIT_STATUS" jdbcType="INTEGER" property="auditStatus" />
+    <result column="AUDITER" jdbcType="INTEGER" property="auditer" />
+    <result column="AUDIT_TIME" jdbcType="INTEGER" property="auditTime" />
+    <result column="AUDIT_DESC" jdbcType="INTEGER" property="auditDesc" />
+
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    EL_CONTRACT_ID, CONTRACT_NUMBER, TRADER_ID, SIGN_DATE, CONTRACT_VALIDITY_DATE_START, 
+    CONTRACT_VALIDITY_DATE_END, CONTRACT_PIC, REMARK, ADD_TIME, UPDATE_TIME, CREATOR, UPDATOR ,OWNER,STATUS,EFFCTIVE_STATUS,PRODUCT_SYN_STATUS,CONTRACT_SYN_STATUS,CONFIRM_STATUS,
+    AUDIT_STATUS,AUDITER,AUDIT_TIME,AUDIT_DESC
+  </sql>
+
+  <select id="querylistPage" parameterType="Map" resultType="com.smallhospital.model.vo.ELContractVO">
+    select
+    a.EL_CONTRACT_ID,a.CONTRACT_NUMBER,a.TRADER_ID,a.ADD_TIME,a.OWNER,a.SIGN_DATE,a.CONTRACT_VALIDITY_DATE_START,
+    a.CONTRACT_VALIDITY_DATE_END,a.STATUS,b.TRADER_NAME,a.PRODUCT_SYN_STATUS,a.CONTRACT_SYN_STATUS,a.CONFIRM_STATUS,
+    a.EFFCTIVE_STATUS,a.AUDIT_STATUS,a.AUDITER,a.AUDIT_TIME,a.AUDIT_DESC
+    from T_EL_CONTRACT a
+    left join T_TRADER b on a.TRADER_ID = b.TRADER_ID
+    <where>
+      <if test="contract.contractNumber != null and contract.contractNumber != ''">
+        a.CONTRACT_NUMBER = #{contract.contractNumber}
+      </if>
+      <if test="contract.owner != null">
+        and (a.OWNER = #{contract.owner} or a.OWNER = 0)
+      </if>
+      <if test="contract.status != null">
+        and a.STATUS = #{contract.status}
+      </if>
+      <if test="contract.auditStatus != null">
+         and a.AUDIT_STATUS = #{contract.auditStatus}
+      </if>
+    </where>
+    order by EL_CONTRACT_ID DESC
+  </select>
+
+  <select id="findOtherValidSkus" parameterType="com.smallhospital.model.vo.ELContractVO" resultType="java.lang.Integer">
+    SELECT
+        b.SKU_ID
+        FROM T_EL_CONTRACT a
+        LEFT JOIN T_EL_CONTRACT_SKU b ON a.EL_CONTRACT_ID = b.CONTRACT_ID
+    <where>
+        a.EFFCTIVE_STATUS = 1
+      <if test="traderId != null">
+        and a.TRADER_ID = #{traderId,jdbcType=INTEGER}
+      </if>
+      <if test="elContractId != null">
+        and a.EL_CONTRACT_ID != #{elContractId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.smallhospital.model.vo.ELContractVO">
+    select 
+    <include refid="Base_Column_List" />
+    from T_EL_CONTRACT
+    where EL_CONTRACT_ID = #{elContractId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findByTradeId" parameterType="java.lang.Integer" resultType="com.smallhospital.model.vo.ELContractVO">
+    select
+    <include refid="Base_Column_List" />
+    from T_EL_CONTRACT
+    where EFFCTIVE_STATUS = 1 and TRADER_ID = #{traderId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findContractIdsByCusAndSkuIds" resultType="java.lang.Integer">
+    select
+      DISTINCT (contract.EL_CONTRACT_ID)
+    from T_EL_CONTRACT contract
+    left join T_EL_CONTRACT_SKU sku
+    on contract.EL_CONTRACT_ID = sku.CONTRACT_ID
+    where
+      TRADER_ID = #{traderId,jdbcType=INTEGER}
+      and sku.SKU_ID in
+      <foreach collection="skuIds" index="index" item="skuId" separator="," open="(" close=")">
+        #{skuId}
+      </foreach>
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_EL_CONTRACT
+    where EL_CONTRACT_ID = #{elContractId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" keyColumn="EL_CONTRACT_ID" keyProperty="elContractId" parameterType="com.smallhospital.model.ElContract" useGeneratedKeys="true">
+    insert into T_EL_CONTRACT (CONTRACT_NUMBER, TRADER_ID, SIGN_DATE, 
+      CONTRACT_VALIDITY_DATE_START, CONTRACT_VALIDITY_DATE_END, 
+      CONTRACT_PIC, REMARK,
+      ADD_TIME, UPDATE_TIME,CREATOR, UPDATOR,OWNER,STATUS
+      )
+    values (#{contractNumber,jdbcType=VARCHAR}, #{traderId,jdbcType=INTEGER}, #{signDate,jdbcType=BIGINT},
+      #{contractValidityDateStart,jdbcType=BIGINT}, #{contractValidityDateEnd,jdbcType=BIGINT},
+      #{contractPic,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{addTime,jdbcType=BIGINT}, #{updateTime,jdbcType=BIGINT},#{creator,jdbcType=INTEGER}, #{updator,jdbcType=INTEGER},#{owner,jdbcType=INTEGER},#{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="EL_CONTRACT_ID" keyProperty="elContractId" parameterType="com.smallhospital.model.ElContract" useGeneratedKeys="true">
+    insert into T_EL_CONTRACT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="contractNumber != null">
+        CONTRACT_NUMBER,
+      </if>
+      <if test="traderId != null">
+        TRADER_ID,
+      </if>
+      <if test="signDate != null">
+        SIGN_DATE,
+      </if>
+      <if test="contractValidityDateStart != null">
+        CONTRACT_VALIDITY_DATE_START,
+      </if>
+      <if test="contractValidityDateEnd != null">
+        CONTRACT_VALIDITY_DATE_END,
+      </if>
+      <if test="contractPic != null">
+        CONTRACT_PIC,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="updator != null">
+        UPDATOR,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="effctiveStatus != null">
+        EFFCTIVE_STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contractNumber != null">
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null">
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null">
+        #{signDate,jdbcType=BIGINT},
+      </if>
+      <if test="contractValidityDateStart != null">
+        #{contractValidityDateStart,jdbcType=BIGINT},
+      </if>
+      <if test="contractValidityDateEnd != null">
+        #{contractValidityDateEnd,jdbcType=BIGINT},
+      </if>
+      <if test="contractPic != null">
+        #{contractPic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        #{updator,jdbcType=INTEGER},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="effctiveStatus != null">
+        #{effctiveStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.smallhospital.model.vo.ELContractVO">
+    update T_EL_CONTRACT
+    <set>
+      <if test="contractNumber != null">
+        CONTRACT_NUMBER = #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null">
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="signDate != null">
+        SIGN_DATE = #{signDate,jdbcType=BIGINT},
+      </if>
+      <if test="contractValidityDateStart != null">
+        CONTRACT_VALIDITY_DATE_START = #{contractValidityDateStart,jdbcType=BIGINT},
+      </if>
+      <if test="contractValidityDateEnd != null">
+        CONTRACT_VALIDITY_DATE_END = #{contractValidityDateEnd,jdbcType=BIGINT},
+      </if>
+      <if test="contractPic != null">
+        CONTRACT_PIC = #{contractPic,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="owner != null">
+        OWNER = #{owner,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null">
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updator != null">
+        UPDATOR = #{updator,jdbcType=INTEGER},
+      </if>
+      <if test="effctiveStatus != null">
+        EFFCTIVE_STATUS = #{effctiveStatus,jdbcType=INTEGER},
+      </if>
+      <if test="productSynStatus != null">
+        PRODUCT_SYN_STATUS = #{productSynStatus,jdbcType=INTEGER},
+      </if>
+      <if test="contractSynStatus != null">
+        CONTRACT_SYN_STATUS = #{contractSynStatus,jdbcType=INTEGER},
+      </if>
+      <if test="confirmStatus != null">
+        CONFIRM_STATUS = #{confirmStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditStatus != null">
+          AUDIT_STATUS = #{auditStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditer != null">
+          AUDITER = #{auditer,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null">
+          AUDIT_TIME = #{auditTime,jdbcType=INTEGER},
+      </if>
+      <if test="auditDesc != null">
+          AUDIT_DESC = #{auditDesc,jdbcType=INTEGER},
+      </if>
+    </set>
+    where EL_CONTRACT_ID = #{elContractId,jdbcType=INTEGER}
+  </update>
+</mapper>

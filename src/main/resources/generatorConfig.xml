@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="context1">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="suppressAllComments" value="true"/>
+        <property name="suppressDate" value="true"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.2.54:3306/QA_NEW_ERP_VEDENG_COM?tinyInt1isBit=false&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"
+                        userId="qauser"
+                        password="qa@#$%6789" />
+        <javaModelGenerator targetPackage="com.vedeng.goods.model"  targetProject="src/main/java" />
+        <sqlMapGenerator targetPackage="/mapping/vgoods" targetProject="src/main/resources" />
+        <javaClientGenerator targetPackage="com.vedeng.goods.dao" targetProject="src/main/java" type="XMLMAPPER" />
+
+        <table tableName="V_CORE_SPU" domainObjectName="CoreSpuGenerate">
+            <generatedKey column="SPU_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="SPU_LEVEL" javaType="java.lang.Integer"/>
+            <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="CHECK_STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="OPERATE_INFO_FLAG" javaType="java.lang.Integer"/>
+        </table>
+
+        <table tableName="V_CORE_SPU_SEARCH" domainObjectName="CoreSpuSearchGenerate">
+            <generatedKey column="SPU_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="SPU_LEVEL" javaType="java.lang.Integer"/>
+            <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="CHECK_STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="OPERATE_INFO_FLAG" javaType="java.lang.Integer"/>
+        </table>
+
+
+        <table tableName="V_CORE_SKU" domainObjectName="CoreSkuGenerate">
+            <generatedKey column="SKU_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="CHECK_STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="SKU_TYPE" javaType="java.lang.Integer"/>
+
+            <columnOverride column="STORAGE_CONDITION_ONE" javaType="java.lang.Integer"/>
+
+            <columnOverride column="EFFECTIVE_DAY_UNIT" javaType="java.lang.Integer"/>
+            <columnOverride column="RETURN_GOODS_CONDITIONS" javaType="java.lang.Integer"/>
+
+        </table>
+        <table tableName="V_CORE_SKU_SEARCH" domainObjectName="CoreSkuSearchGenerate">
+            <generatedKey column="SKU_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="CHECK_STATUS" javaType="java.lang.Integer"/>
+            <columnOverride column="SKU_TYPE" javaType="java.lang.Integer"/>
+
+            <columnOverride column="STORAGE_CONDITION_ONE" javaType="java.lang.Integer"/>
+
+            <columnOverride column="EFFECTIVE_DAY_UNIT" javaType="java.lang.Integer"/>
+            <columnOverride column="RETURN_GOODS_CONDITIONS" javaType="java.lang.Integer"/>
+
+        </table>
+        <!--加了其他sql，不能覆盖了
+               <table tableName="V_CORE_OPERATE_INFO" domainObjectName="CoreOperateInfoGenerate">
+                   <generatedKey column="OPERATE_INFO_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="OPERATE_INFO_TYPE" javaType="java.lang.Integer"/>
+
+               </table>
+
+               <table tableName="T_GOODS_ATTACHMENT" domainObjectName="GoodsAttachmentGenerate">
+                   <generatedKey column="GOODS_ATTACHMENT_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="IS_DEFAULT" javaType="java.lang.Integer"/>
+                   <columnOverride column="Status" javaType="java.lang.Integer"/>
+               </table>-->
+
+               <table tableName="V_SPU_DEPARTMENT_MAPPING" domainObjectName="SpuDepartmentMappingGenerate">
+                   <generatedKey column="SPU_DEPARTMENT_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="Status" javaType="java.lang.Integer"/>
+               </table>
+               <table tableName="T_GOODS" domainObjectName="GoodsGenerate">
+                   <generatedKey column="GOODS_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="IS_DISCARD" javaType="java.lang.Integer"/>
+                   <columnOverride column="Storage_Requirements" javaType="java.lang.Integer"/>
+
+               </table>
+
+               <table tableName="V_SPU_ATTR_MAPPING" domainObjectName="SpuAttrMappingGenerate">
+                   <generatedKey column="SPU_ATTR_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+               </table>
+               <table tableName="V_SKU_ATTR_MAPPING" domainObjectName="SkuAttrMappingGenerate">
+                   <generatedKey column="SKU_ATTR_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+               </table>
+               <table tableName="T_VERIFIES_INFO" domainObjectName="VerifiesInfoGenerate">
+                   <generatedKey column="VERIFIES_INFO_ID" sqlStatement="MySql" identity="true"/>
+                   <columnOverride column="STATUS" javaType="java.lang.Integer"/>
+               </table>
+               <!--加了分页，不要覆盖了
+               table tableName="V_LOG_CHECK" domainObjectName="LogCheckGenerate">
+                   <generatedKey column="LOG_ID" sqlStatement="MySql" identity="true"/>
+               </table-->
+
+        <table tableName="T_BRAND" domainObjectName="BrandGenerate">
+            <generatedKey column="BRAND_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="BRAND_NATURE" javaType="java.lang.Integer"/>
+            <columnOverride column="SOURCE" javaType="java.lang.Integer"/>
+            <columnOverride column="IS_DELETE" javaType="java.lang.Integer"/>
+        </table>
+
+        <table tableName="T_GOODS_EXTEND" domainObjectName="GoodsExtendGenerate">
+            <generatedKey column="GOODS_EXTEND_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="HAVE_STANDBY_MACHINE" javaType="java.lang.Integer"/>
+            <columnOverride column="IS_REFUND" javaType="java.lang.Integer"/>
+            <columnOverride column="IS_HVAE_FREIGHT" javaType="java.lang.Integer"/>
+            <columnOverride column="IS_HVAE_FREIGHT" javaType="java.lang.Integer"/>
+        </table>
+        <table tableName="T_GOODS_SYS_OPTION_ATTRIBUTE" domainObjectName="GoodsGysOptionAttributegenerate">
+            <generatedKey column="GOODS_SYS_OPTION_ATTRIBUTE_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="T_FIRST_ENGAGE" domainObjectName="FirstEngageGenerate">
+            <generatedKey column="FIRST_ENGAGE_ID" sqlStatement="MySql" identity="true"/>
+        </table>
+
+
+        <table tableName="V_CATEGORY_ATTR_VALUE_MAPPING" domainObjectName="CategoryAttrValueMappingGenerate">
+            <generatedKey column="CATEGORY_ATTR_VALUE_MAPPING_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="IS_DELETED" javaType="java.lang.Integer"/>
+        </table>
+
+
+        <table tableName="V_BASE_ATTRIBUTE" domainObjectName="BaseAttributeGenerate">
+            <generatedKey column="BASE_ATTRIBUTE_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="IS_UNIT" javaType="java.lang.Integer"/>
+            <columnOverride column="IS_DELETED" javaType="java.lang.Integer"/>
+        </table>
+        <table tableName="V_BASE_ATTRIBUTE_VALUE" domainObjectName="BaseAttributeValueGenerate">
+            <generatedKey column="BASE_ATTRIBUTE_ID" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="IS_DELETED" javaType="java.lang.Integer"/>
+        </table>
+
+
+
+
+    </context>
+</generatorConfiguration>

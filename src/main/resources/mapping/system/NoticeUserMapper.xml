@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.NoticeUserMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.NoticeUser" >
+    <id column="NOTICE_USER_ID" property="noticeUserId" jdbcType="INTEGER" />
+    <result column="NOTICE_ID" property="noticeId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    NOTICE_USER_ID, NOTICE_ID, USER_ID, ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_NOTICE_USER
+    where NOTICE_USER_ID = #{noticeUserId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_NOTICE_USER
+    where NOTICE_USER_ID = #{noticeUserId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.NoticeUser" >
+    insert into T_NOTICE_USER (NOTICE_USER_ID, NOTICE_ID, USER_ID, 
+      ADD_TIME)
+    values (#{noticeUserId,jdbcType=INTEGER}, #{noticeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.NoticeUser" >
+    insert into T_NOTICE_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="noticeUserId != null" >
+        NOTICE_USER_ID,
+      </if>
+      <if test="noticeId != null" >
+        NOTICE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="noticeUserId != null" >
+        #{noticeUserId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.NoticeUser" >
+    update T_NOTICE_USER
+    <set >
+      <if test="noticeId != null" >
+        NOTICE_ID = #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where NOTICE_USER_ID = #{noticeUserId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.NoticeUser" >
+    update T_NOTICE_USER
+    set NOTICE_ID = #{noticeId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=BIGINT}
+    where NOTICE_USER_ID = #{noticeUserId,jdbcType=INTEGER}
+  </update>
+  <select id="getNoticeUserCount" resultType="java.lang.Integer">
+  	 SELECT COUNT(1) FROM T_NOTICE_USER WHERE 1=1
+	  	 <if test="notice!=null">
+	  	 	AND NOTICE_ID=#{notice.noticeId,jdbcType=INTEGER}
+	  	 </if> 
+	  	 <if test="user!=null">
+	  	 	AND USER_ID=#{user.userId,jdbcType=INTEGER}
+	  	 </if>
+  </select>
+</mapper>

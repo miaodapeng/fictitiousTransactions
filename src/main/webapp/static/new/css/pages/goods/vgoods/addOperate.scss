@@ -1,0 +1,46 @@
+@import url('../../../common/lib/form.css');
+@import url('../../../common/lib/input.css');
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/upload.css');
+@import url('../../../common/lib/tip.css');
+@import url('../../../common/lib/tab.css');
+@import url('../../../pages/modules/form.css');
+
+.form-fields-txt {
+    padding-top: 6px;
+}
+
+.keyword-item {
+    margin-bottom: 10px;
+
+    .icon-recycle {
+        vertical-align: -8px;
+        cursor: pointer;
+        margin-left: 10px;
+        display: none;
+
+        &:hover {
+            color: #f60;
+        }
+    }
+}
+
+.add-wrap {
+    line-height: 18px;
+
+    .icon-add {
+        vertical-align: -2px;
+    }
+
+    .feedback-block {
+        .error {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.rich-txt-btn {
+    margin-top: 10px;
+    display: inline-block;
+}

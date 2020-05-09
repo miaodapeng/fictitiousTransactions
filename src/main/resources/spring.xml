@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:apollo="http://www.ctrip.com/schema/apollo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd">
+
+	<apollo:config/>
+	<!-- 自动扫描 -->
+	<context:component-scan base-package="com.**.service,com.rabbitmq" />
+	<import resource="classpath:spring-mybatis.xml" />
+	<!-- 引入 activiti 流程模块配置文件 -->
+	<import resource="classpath:activiti.cfg.xml" />
+
+	<!-- 注解shiro扫描器 -->
+	<context:component-scan base-package="com.vedeng.common.shiro" />
+	<import resource="classpath:shiro/spring-shiro.xml" />
+	
+	<!-- 报表数据库  -->
+	<import resource="classpath:spring-db-report.xml" />
+	<bean id="redisUtils" class="com.vedeng.common.redis.RedisUtils" />
+	<!-- 接口soap  -->
+	<import resource="classpath:spring-soap.xml" />
+	<!-- 短信发送 -->
+	<bean id="smsUtil" class="com.vedeng.common.util.SmsUtil">
+		<property name="account" value="${sms_account}" />
+		<property name="password" value="${sms_password}" />
+		<property name="veryCode" value="${sms_veryCode}" />
+		<property name="http_url" value="${sms_http_url}" />
+	</bean>
+	<!--  -->
+	<bean id="messageUtil" class="com.vedeng.common.util.MessageUtil">
+		<property name="websocketUrl" value="${websocket_url}" />
+	</bean>
+	<bean class="com.vedeng.common.util.LogbackAutoConfig">
+		<!-- 日志控制台打印append名称，默认：consoleLog -->
+		<property name="consoleAppenderName" value="stdout"></property>
+		<!-- 或者使用构造注入
+        <constructor-arg index="0" value="stdout"></constructor-arg>
+        -->
+	</bean>
+
+	<import resource="classpath:spring-newtask.xml" />
+	<import resource="spring-rabbit-context.xml" />
+	<import resource="spring-rabbit-hcorderconsumer.xml"/>
+</beans>

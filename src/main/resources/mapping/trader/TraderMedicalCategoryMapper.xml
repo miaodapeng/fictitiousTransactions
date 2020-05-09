@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.TraderMedicalCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.trader.model.TraderMedicalCategory" >
+    <id column="TRADER_MEDICAL_CATEGORY_ID" property="traderMedicalCategoryId" jdbcType="INTEGER" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_TYPE" property="traderType" jdbcType="BIT" />
+    <result column="MEDICAL_CATEGORY_ID" property="medicalCategoryId" jdbcType="INTEGER" />
+    <result column="MEDICAL_CATEGORY_LEVEL" property="medicalCategoryLevel" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="VoResultMap" type="com.vedeng.trader.model.vo.TraderMedicalCategoryVo" extends="BaseResultMap">
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    TRADER_MEDICAL_CATEGORY_ID, TRADER_ID, TRADER_TYPE, MEDICAL_CATEGORY_ID, MEDICAL_CATEGORY_LEVEL
+  </sql>
+
+  <select id="getMedicalCategoryList" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.TraderMedicalCategory" >
+    select
+    tcmc.TRADER_MEDICAL_CATEGORY_ID, tcmc.TRADER_ID, tcmc.TRADER_TYPE, tcmc.MEDICAL_CATEGORY_ID, tcmc.MEDICAL_CATEGORY_LEVEL
+    from T_TRADER_MEDICAL_CATEGORY tcmc
+    where 1=1
+    <if test="traderId != null" >
+      and tcmc.TRADER_ID = #{traderId,jdbcType=INTEGER}
+    </if>
+    <if test="traderType != null" >
+      and tcmc.TRADER_TYPE = #{traderType,jdbcType=BIT}
+    </if>
+    <if test="medicalCategoryLevel != null" >
+      and tcmc.MEDICAL_CATEGORY_LEVEL = #{medicalCategoryLevel,jdbcType=INTEGER}
+    </if>
+  </select>
+    
+  <select id="getTraderMedicalCategoryList" resultMap="VoResultMap" parameterType="com.vedeng.trader.model.TraderMedicalCategory" >
+    select 
+    	tcmc.TRADER_MEDICAL_CATEGORY_ID, tcmc.TRADER_ID, tcmc.TRADER_TYPE, tcmc.MEDICAL_CATEGORY_ID, tcmc.MEDICAL_CATEGORY_LEVEL,sod.TITLE
+	   from T_TRADER_MEDICAL_CATEGORY tcmc
+	   LEFT JOIN T_SYS_OPTION_DEFINITION sod ON tcmc.MEDICAL_CATEGORY_ID = sod.SYS_OPTION_DEFINITION_ID
+	   where 1=1
+    <if test="traderId != null" >
+        and tcmc.TRADER_ID = #{traderId,jdbcType=INTEGER}
+    </if>
+    <if test="traderType != null" >
+        and tcmc.TRADER_TYPE = #{traderType,jdbcType=BIT}
+    </if>
+    <if test="medicalCategoryLevel != null" >
+        and tcmc.MEDICAL_CATEGORY_LEVEL = #{medicalCategoryLevel,jdbcType=INTEGER}
+    </if>
+  </select>
+
+</mapper>

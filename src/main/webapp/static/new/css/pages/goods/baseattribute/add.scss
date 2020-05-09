@@ -1,0 +1,71 @@
+@import url('../../../common/lib/form.css');
+@import url('../../../common/lib/input.css');
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/tip.css');
+@import url('../../../common/lib/select.css');
+@import url('../../../common/lib/suggestSelect.css');
+@import url('../../../pages/modules/form.css');
+
+.attr-item-wrap {
+    line-height: 30px;
+    margin-bottom: 10px;
+
+    &:last-child,
+    &.th-wrap {
+        margin-bottom: 0;
+    }
+
+    .attr-item {
+        box-sizing: border-box;
+        padding-right: 10px;
+
+        &.item-center {
+            .input-text {
+                text-align: center;
+            }
+        }
+    }
+
+    .input-text {
+        width: 100%;
+    }
+
+    .select {
+        width: calc(100% - 26px);
+        min-width: auto;
+    }
+
+    .icon-recycle {
+        cursor: pointer;
+        display: none;
+
+        &:hover {
+            color: #f60;
+        }
+    }
+}
+
+.attr-add {
+    padding-top: 10px;
+
+    .icon-add {
+        vertical-align: -2px;
+    }
+
+    .attr-add-btn {
+        margin-right: 7px;
+    }
+
+    .attr-add-tip {
+        color: #999;
+    }
+}
+
+.select-suggest {
+    width: 100%;
+
+    .select-list {
+        width: 100%;
+        min-width: auto;
+    }
+}

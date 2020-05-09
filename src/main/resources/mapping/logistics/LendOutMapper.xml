@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.LendOutMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.logistics.model.LendOut" >
+    <!--          -->
+    <id column="LEND_OUT_ID" property="lendOutId" jdbcType="INTEGER" />
+    <result column="LEND_OUT_NO" property="lendOutNo" jdbcType="VARCHAR" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_TYPE" property="traderType" jdbcType="BIT" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+    <result column="LEND_OUT_STATUS" property="lendOutStatus" jdbcType="BIT" />
+    <result column="LEND_OUT_TYPE" property="lendOutType" jdbcType="BIT" />
+    <result column="AFTER_SALES_NO" property="afterSalesNo" jdbcType="VARCHAR" />
+    <result column="AFTER_SALES_ID" property="afterSalesId" jdbcType="INTEGER" />
+    <result column="LEND_OUT_NUM" property="lendOutNum" jdbcType="INTEGER" />
+    <result column="DELIVER_NUM" property="deliverNum" jdbcType="INTEGER" />
+    <result column="RETURN_NUM" property="returnNum" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_AREA_ID" property="takeTraderAreaId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_ADDRESS_ID" property="takeTraderAddressId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_CONTACT_ID" property="takeTraderContactId" jdbcType="INTEGER" />
+    <result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+    <result column="RETURN_TIME" property="returnTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+    <result column="LOGISTICS_ID" property="logisticsId" jdbcType="INTEGER" />
+    <result column="FREIGHT_DESCRIPTION" property="freightDescription" jdbcType="INTEGER" />
+    <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    LEND_OUT_ID, LEND_OUT_NO, TRADER_ID, TRADER_TYPE, TRADER_NAME, GOODS_ID, GOODS_NAME, 
+    SKU, LEND_OUT_STATUS, LEND_OUT_TYPE, AFTER_SALES_NO, AFTER_SALES_ID, LEND_OUT_NUM, 
+    DELIVER_NUM, RETURN_NUM, TAKE_TRADER_AREA_ID, TAKE_TRADER_ADDRESS_ID, TAKE_TRADER_CONTACT_ID, 
+    IS_ENABLE, RETURN_TIME, CREATOR, ADD_TIME, MOD_TIME, LOGISTICS_ID, FREIGHT_DESCRIPTION, 
+    LOGISTICS_COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_LEND_OUT
+    where LEND_OUT_ID = #{lendOutId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from T_LEND_OUT
+    where LEND_OUT_ID = #{lendOutId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.logistics.model.LendOut" useGeneratedKeys="true" keyProperty="lendOutId">
+    <!--          -->
+    insert into T_LEND_OUT (LEND_OUT_ID, LEND_OUT_NO, TRADER_ID, 
+      TRADER_TYPE, TRADER_NAME, GOODS_ID, 
+      GOODS_NAME, SKU, LEND_OUT_STATUS, 
+      LEND_OUT_TYPE, AFTER_SALES_NO, AFTER_SALES_ID, 
+      LEND_OUT_NUM, DELIVER_NUM, RETURN_NUM, 
+      TAKE_TRADER_AREA_ID, TAKE_TRADER_ADDRESS_ID, 
+      TAKE_TRADER_CONTACT_ID, IS_ENABLE, RETURN_TIME, 
+      CREATOR, ADD_TIME, MOD_TIME, 
+      LOGISTICS_ID, FREIGHT_DESCRIPTION, LOGISTICS_COMMENTS
+      )
+    values (#{lendOutId,jdbcType=INTEGER}, #{lendOutNo,jdbcType=VARCHAR}, #{traderId,jdbcType=INTEGER}, 
+      #{traderType,jdbcType=BIT}, #{traderName,jdbcType=VARCHAR}, #{goodsId,jdbcType=INTEGER}, 
+      #{goodsName,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, #{lendOutStatus,jdbcType=BIT}, 
+      #{lendOutType,jdbcType=BIT}, #{afterSalesNo,jdbcType=VARCHAR}, #{afterSalesId,jdbcType=INTEGER}, 
+      #{lendOutNum,jdbcType=INTEGER}, #{deliverNum,jdbcType=INTEGER}, #{returnNum,jdbcType=INTEGER}, 
+      #{takeTraderAreaId,jdbcType=INTEGER}, #{takeTraderAddressId,jdbcType=INTEGER}, 
+      #{takeTraderContactId,jdbcType=INTEGER}, #{isEnable,jdbcType=BIT}, #{returnTime,jdbcType=BIGINT}, 
+      #{creator,jdbcType=INTEGER}, #{addTime,jdbcType=BIGINT}, #{modTime,jdbcType=BIGINT}, 
+      #{logisticsId,jdbcType=INTEGER}, #{freightDescription,jdbcType=INTEGER}, #{logisticsComments,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.logistics.model.LendOut" useGeneratedKeys="true" keyProperty="lendOutId">
+    <!--          -->
+    insert into T_LEND_OUT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lendOutId != null" >
+        LEND_OUT_ID,
+      </if>
+      <if test="lendOutNo != null" >
+        LEND_OUT_NO,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE,
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME,
+      </if>
+      <if test="sku != null" >
+        SKU,
+      </if>
+      <if test="lendOutStatus != null" >
+        LEND_OUT_STATUS,
+      </if>
+      <if test="lendOutType != null" >
+        LEND_OUT_TYPE,
+      </if>
+      <if test="afterSalesNo != null" >
+        AFTER_SALES_NO,
+      </if>
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID,
+      </if>
+      <if test="lendOutNum != null" >
+        LEND_OUT_NUM,
+      </if>
+      <if test="deliverNum != null" >
+        DELIVER_NUM,
+      </if>
+      <if test="returnNum != null" >
+        RETURN_NUM,
+      </if>
+      <if test="takeTraderAreaId != null" >
+        TAKE_TRADER_AREA_ID,
+      </if>
+      <if test="takeTraderAddressId != null" >
+        TAKE_TRADER_ADDRESS_ID,
+      </if>
+      <if test="takeTraderContactId != null" >
+        TAKE_TRADER_CONTACT_ID,
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE,
+      </if>
+      <if test="returnTime != null" >
+        RETURN_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="logisticsId != null" >
+        LOGISTICS_ID,
+      </if>
+      <if test="freightDescription != null" >
+        FREIGHT_DESCRIPTION,
+      </if>
+      <if test="logisticsComments != null" >
+        LOGISTICS_COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lendOutId != null" >
+        #{lendOutId,jdbcType=INTEGER},
+      </if>
+      <if test="lendOutNo != null" >
+        #{lendOutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        #{traderType,jdbcType=BIT},
+      </if>
+      <if test="traderName != null" >
+        #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="lendOutStatus != null" >
+        #{lendOutStatus,jdbcType=BIT},
+      </if>
+      <if test="lendOutType != null" >
+        #{lendOutType,jdbcType=BIT},
+      </if>
+      <if test="afterSalesNo != null" >
+        #{afterSalesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesId != null" >
+        #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="lendOutNum != null" >
+        #{lendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliverNum != null" >
+        #{deliverNum,jdbcType=INTEGER},
+      </if>
+      <if test="returnNum != null" >
+        #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAreaId != null" >
+        #{takeTraderAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAddressId != null" >
+        #{takeTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderContactId != null" >
+        #{takeTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsId != null" >
+        #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="freightDescription != null" >
+        #{freightDescription,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsComments != null" >
+        #{logisticsComments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.logistics.model.LendOut" >
+    <!--          -->
+    update T_LEND_OUT
+    <set >
+      <if test="lendOutNo != null" >
+        LEND_OUT_NO = #{lendOutNo,jdbcType=VARCHAR},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE = #{traderType,jdbcType=BIT},
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="sku != null" >
+        SKU = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="lendOutStatus != null" >
+        LEND_OUT_STATUS = #{lendOutStatus,jdbcType=BIT},
+      </if>
+      <if test="lendOutType != null" >
+        LEND_OUT_TYPE = #{lendOutType,jdbcType=BIT},
+      </if>
+      <if test="afterSalesNo != null" >
+        AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="lendOutNum != null" >
+        LEND_OUT_NUM = #{lendOutNum,jdbcType=INTEGER},
+      </if>
+      <if test="deliverNum != null" >
+        DELIVER_NUM = #{deliverNum,jdbcType=INTEGER},
+      </if>
+      <if test="returnNum != null" >
+        RETURN_NUM = #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAreaId != null" >
+        TAKE_TRADER_AREA_ID = #{takeTraderAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAddressId != null" >
+        TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderContactId != null" >
+        TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        IS_ENABLE = #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="returnTime != null" >
+        RETURN_TIME = #{returnTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="logisticsId != null" >
+        LOGISTICS_ID = #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="freightDescription != null" >
+        FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsComments != null" >
+        LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where LEND_OUT_ID = #{lendOutId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.logistics.model.LendOut" >
+    <!--          -->
+    update T_LEND_OUT
+    set LEND_OUT_NO = #{lendOutNo,jdbcType=VARCHAR},
+      TRADER_ID = #{traderId,jdbcType=INTEGER},
+      TRADER_TYPE = #{traderType,jdbcType=BIT},
+      TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      GOODS_NAME = #{goodsName,jdbcType=VARCHAR},
+      SKU = #{sku,jdbcType=VARCHAR},
+      LEND_OUT_STATUS = #{lendOutStatus,jdbcType=BIT},
+      LEND_OUT_TYPE = #{lendOutType,jdbcType=BIT},
+      AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR},
+      AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER},
+      LEND_OUT_NUM = #{lendOutNum,jdbcType=INTEGER},
+      DELIVER_NUM = #{deliverNum,jdbcType=INTEGER},
+      RETURN_NUM = #{returnNum,jdbcType=INTEGER},
+      TAKE_TRADER_AREA_ID = #{takeTraderAreaId,jdbcType=INTEGER},
+      TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER},
+      TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER},
+      IS_ENABLE = #{isEnable,jdbcType=BIT},
+      RETURN_TIME = #{returnTime,jdbcType=BIGINT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=BIGINT},
+      MOD_TIME = #{modTime,jdbcType=BIGINT},
+      LOGISTICS_ID = #{logisticsId,jdbcType=INTEGER},
+      FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+      LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR}
+    where LEND_OUT_ID = #{lendOutId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取已经被快递关联的出库商品数 -->
+	 <select id="getKdNum" resultType="java.lang.Integer" parameterType="com.vedeng.logistics.model.LendOut">
+	SELECT
+	 IFNULL (SUM(a.NUM),0)CNT
+	FROM
+	T_EXPRESS_DETAIL a
+	INNER JOIN T_LEND_OUT b
+	ON a.RELATED_ID = b.`LEND_OUT_ID`
+	INNER JOIN T_EXPRESS c
+	ON a.EXPRESS_ID = c.EXPRESS_ID
+	AND c.IS_ENABLE = 1
+	WHERE b.`LEND_OUT_ID`= #{lendOutId,jdbcType=INTEGER}
+	AND a.BUSINESS_TYPE = #{businessType,jdbcType=INTEGER}
+	 </select>
+	  <select id="getdeliveryNum" resultType="java.lang.Integer" parameterType="com.vedeng.logistics.model.LendOut">
+	SELECT
+	IFNULL(SUM(a.NUM), 0)
+	FROM
+	`T_WAREHOUSE_GOODS_OPERATE_LOG` a
+	WHERE
+	a.`OPERATE_TYPE`= 10
+	AND a.`RELATED_ID` =
+	#{lendOutId,jdbcType=INTEGER}
+	AND a.`IS_ENABLE` = 1
+	 </select>
+	 <!-- 列表页 -->
+	 <select id="getlendoutListPage" resultMap="BaseResultMap" parameterType="Map">
+	 SELECT 
+	<include refid="Base_Column_List" />
+	 FROM `T_LEND_OUT`
+	 <where>
+	  	1=1 
+	  	AND IS_ENABLE=0
+	  	
+	  	<if test="lendout.searchStr != null and lendout.searchStr != ''">
+		AND (LEND_OUT_NO like CONCAT('%',#{lendout.searchStr,jdbcType=VARCHAR},'%' )
+		OR TRADER_NAME like CONCAT('%',#{lendout.searchStr,jdbcType=VARCHAR},'%' )
+		OR GOODS_NAME like CONCAT('%',#{lendout.searchStr,jdbcType=VARCHAR},'%' )
+		OR AFTER_SALES_NO like CONCAT('%',#{lendout.searchStr,jdbcType=VARCHAR},'%' ))
+		</if>
+	 	<if test="lendout.lendOutType != null and lendout.lendOutType != ''">
+	 	AND `LEND_OUT_TYPE`=#{lendout.lendOutType,jdbcType=INTEGER}
+	 	</if>
+	 	<if test="lendout.overdue==1">
+	 	AND `RETURN_TIME`<![CDATA[<]]>#{lendout.overdueTime,jdbcType=BIGINT}
+	 	</if>
+	 	<if test="lendout.overdue==2">
+	 	AND `RETURN_TIME` <![CDATA[>]]>  #{lendout.overdueTime,jdbcType=BIGINT}
+	 	</if>
+	 	<if test="lendout.deliveystatus !=null and lendout.deliveystatus==1">
+	 	AND  `DELIVER_NUM`= 0  
+	 	</if>
+	 	<if test="lendout.deliveystatus !=null and lendout.deliveystatus==2">
+	 	AND  `DELIVER_NUM`<![CDATA[<]]>`LEND_OUT_NUM`  AND  `DELIVER_NUM`!= 0  
+	 	</if>
+	 	<if test="lendout.deliveystatus !=null and lendout.deliveystatus==3">
+	 	AND  `DELIVER_NUM`=`LEND_OUT_NUM`  AND  `DELIVER_NUM`!= 0  
+	 	</if>
+	 	<if test="lendout.lendOutNo != null" >
+       AND LEND_OUT_NO = #{lendout.lendOutNo,jdbcType=VARCHAR}
+      </if>
+      <if test="lendout.traderId != null" >
+       AND TRADER_ID = #{lendout.traderId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.traderType != null" >
+       AND TRADER_TYPE = #{lendout.traderType,jdbcType=BIT}
+      </if>
+      <if test="lendout.traderName != null" >
+       AND TRADER_NAME = #{lendout.traderName,jdbcType=VARCHAR}
+      </if>
+      <if test="lendout.goodsId != null" >
+       AND GOODS_ID = #{lendout.goodsId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.goodsName != null" >
+       AND GOODS_NAME = #{lendout.goodsName,jdbcType=VARCHAR}
+      </if>
+      <if test="lendout.sku != null" >
+       AND SKU = #{lendout.sku,jdbcType=VARCHAR}
+      </if>
+      <if test="lendout.lendOutStatus != null" >
+      AND  LEND_OUT_STATUS = #{lendout.lendOutStatus,jdbcType=BIT}
+      </if>
+      <if test="lendout.lendOutType != null" >
+       AND LEND_OUT_TYPE = #{lendout.lendOutType,jdbcType=BIT}
+      </if>
+      <if test="lendout.afterSalesNo != null" >
+      AND  AFTER_SALES_NO = #{lendout.afterSalesNo,jdbcType=VARCHAR}
+      </if>
+      <if test="lendout.afterSalesId != null" >
+       AND AFTER_SALES_ID = #{lendout.afterSalesId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.lendOutNum != null" >
+      AND  LEND_OUT_NUM = #{lendout.lendOutNum,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.deliverNum != null" >
+      AND  DELIVER_NUM = #{lendout.deliverNum,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.returnNum != null" >
+      AND  RETURN_NUM = #{lendout.returnNum,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.takeTraderAreaId != null" >
+      AND  TAKE_TRADER_AREA_ID = #{lendout.takeTraderAreaId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.takeTraderAddressId != null" >
+      AND  TAKE_TRADER_ADDRESS_ID = #{lendout.takeTraderAddressId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.takeTraderContactId != null" >
+      AND  TAKE_TRADER_CONTACT_ID = #{lendout.takeTraderContactId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.isEnable != null" >
+       AND IS_ENABLE = #{lendout.isEnable,jdbcType=BIT}
+      </if>
+      <if test="lendout.returnTime != null" >
+      AND  RETURN_TIME = #{lendout.returnTime,jdbcType=BIGINT}
+      </if>
+      <if test="lendout.creator != null" >
+       AND CREATOR = #{lendout.creator,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.addTime != null" >
+      AND  ADD_TIME = #{lendout.addTime,jdbcType=BIGINT}
+      </if>
+      <if test="lendout.modTime != null" >
+      AND  MOD_TIME = #{lendout.modTime,jdbcType=BIGINT}
+      </if>
+      <if test="lendout.logisticsId != null" >
+      AND  LOGISTICS_ID = #{lendout.logisticsId,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.freightDescription != null" >
+       AND FREIGHT_DESCRIPTION = #{lendout.freightDescription,jdbcType=INTEGER}
+      </if>
+      <if test="lendout.logisticsComments != null" >
+       AND LOGISTICS_COMMENTS = #{lendout.logisticsComments,jdbcType=VARCHAR}
+      </if>
+	 </where>
+	 <if test="lendout.flag == null">
+		ORDER BY RETURN_TIME ASC 
+	</if>
+	<if test="lendout.flag == 1">
+		ORDER BY ADD_TIME DESC
+	</if>
+	 </select>
+	 <!--获取外借单 -->
+	 <select id="getLendOutInfoList" resultMap="BaseResultMap" parameterType="com.vedeng.logistics.model.LendOut">
+	 SELECT 
+	<include refid="Base_Column_List" />
+	 FROM `T_LEND_OUT`
+	 <where>
+	 	1=1
+	 	<if test="lendOutNo != null" >
+       AND LEND_OUT_NO = #{lendOutNo,jdbcType=VARCHAR}
+      </if>
+      <if test="traderId != null" >
+       AND TRADER_ID = #{traderId,jdbcType=INTEGER}
+      </if>
+      <if test="traderType != null" >
+       AND TRADER_TYPE = #{traderType,jdbcType=BIT}
+      </if>
+      <if test="traderName != null" >
+       AND TRADER_NAME = #{traderName,jdbcType=VARCHAR}
+      </if>
+      <if test="goodsId != null" >
+       AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+      </if>
+      <if test="goodsName != null" >
+       AND GOODS_NAME = #{goodsName,jdbcType=VARCHAR}
+      </if>
+      <if test="sku != null" >
+       AND SKU = #{sku,jdbcType=VARCHAR}
+      </if>
+      <if test="lendOutStatus != null" >
+      AND  LEND_OUT_STATUS = #{lendOutStatus,jdbcType=BIT}
+      </if>
+      <if test="lendOutType != null" >
+       AND LEND_OUT_TYPE = #{lendOutType,jdbcType=BIT}
+      </if>
+      <if test="afterSalesNo != null" >
+      AND  AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR}
+      </if>
+      <if test="afterSalesId != null" >
+       AND AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+      </if>
+      <if test="lendOutNum != null" >
+      AND  LEND_OUT_NUM = #{lendOutNum,jdbcType=INTEGER}
+      </if>
+      <if test="deliverNum != null" >
+      AND  DELIVER_NUM = #{deliverNum,jdbcType=INTEGER}
+      </if>
+      <if test="returnNum != null" >
+      AND  RETURN_NUM = #{returnNum,jdbcType=INTEGER}
+      </if>
+      <if test="takeTraderAreaId != null" >
+      AND  TAKE_TRADER_AREA_ID = #{takeTraderAreaId,jdbcType=INTEGER}
+      </if>
+      <if test="takeTraderAddressId != null" >
+      AND  TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER}
+      </if>
+      <if test="takeTraderContactId != null" >
+      AND  TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER}
+      </if>
+      <if test="isEnable != null" >
+       AND IS_ENABLE = #{isEnable,jdbcType=BIT}
+      </if>
+      <if test="returnTime != null" >
+      AND  RETURN_TIME = #{returnTime,jdbcType=BIGINT}
+      </if>
+      <if test="creator != null" >
+       AND CREATOR = #{creator,jdbcType=INTEGER}
+      </if>
+      <if test="addTime != null" >
+      AND  ADD_TIME = #{addTime,jdbcType=BIGINT}
+      </if>
+      <if test="modTime != null" >
+      AND  MOD_TIME = #{modTime,jdbcType=BIGINT}
+      </if>
+      <if test="logisticsId != null" >
+      AND  LOGISTICS_ID = #{logisticsId,jdbcType=INTEGER}
+      </if>
+      <if test="freightDescription != null" >
+       AND FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER}
+      </if>
+      <if test="logisticsComments != null" >
+       AND LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR}
+      </if>
+	 </where>
+	 </select>
+	 <select id="getLendoutByLendoutIdList" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			T_LEND_OUT 
+		WHERE
+			LEND_OUT_ID in 
+			<foreach collection="list" item="lendoutId" index="index"
+	           open="(" close=")" separator=",">
+	           #{lendoutId}
+	       </foreach>
+	</select>
+	<update id="editDeliverNum" parameterType="com.vedeng.logistics.model.LendOut">
+	 update T_LEND_OUT
+    <set >
+      <if test="deliverNum != null" >
+        DELIVER_NUM =DELIVER_NUM + #{num,jdbcType=INTEGER},
+      </if>
+      <if test="returnNum != null" >
+        RETURN_NUM = #{returnNum,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      
+    </set>
+    where LEND_OUT_ID = #{lendOutId,jdbcType=INTEGER} AND DELIVER_NUM=#{deliverNum,jdbcType=INTEGER} 
+	</update>
+</mapper>
+
+
+
+

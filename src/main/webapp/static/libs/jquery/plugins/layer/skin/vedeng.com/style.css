@@ -1,0 +1,19 @@
+.layui-layer-title {
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #ddd;
+    border-radius: 2px 2px 0 0;
+    color: #333;
+    font-size: 14px;
+    height: 35px;
+    line-height: 35px;
+    overflow: hidden;
+    padding: 0 80px 0 15px;
+}
+
+.layui-layer-setwin {
+    font-size: 0;
+    line-height: initial;
+    position: absolute;
+    right: 6px;
+    top: 10px;
+}

@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.BaseCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.BaseCategory" >
+    <!--          -->
+    <id column="BASE_CATEGORY_ID" property="baseCategoryId" jdbcType="INTEGER" />
+    <result column="BASE_CATEGORY_NAME" property="baseCategoryName" jdbcType="VARCHAR" />
+    <result column="BASE_CATEGORY_NICKNAME" property="baseCategoryNickname" jdbcType="VARCHAR" />
+    <result column="BASE_CATEGORY_LEVEL" property="baseCategoryLevel" jdbcType="BIT" />
+    <result column="BASE_CATEGORY_TYPE" property="baseCategoryType" jdbcType="BIT" />
+    <result column="BASE_CATEGORY_EXAMPLE_PRODUCT" property="baseCategoryExampleProduct" jdbcType="VARCHAR" />
+    <result column="BASE_CATEGORY_DESCRIBE" property="baseCategoryDescribe" jdbcType="VARCHAR" />
+    <result column="BASE_CATEGORY_INTENDED_USE" property="baseCategoryIntendedUse" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="TREENODES" property="treenodes" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.vedeng.goods.model.vo.BaseCategoryVo" extends="BaseResultMap">
+    <result column="CORE_PRODUCT_NUM" property="coreProductNum" jdbcType="INTEGER" />
+    <result column="TEMPORARY_PRODUCT_NUM" property="temporaryProductNum" jdbcType="INTEGER" />
+    <result column="OTHER_PRODUCT_NUM" property="otherProductNum" jdbcType="INTEGER" />
+    <result column="CATEGORY_JOIN_NAME" property="categoryJoinName" jdbcType="VARCHAR" />
+    <result column="ATTRIBUTE_JOIN_NAME" property="attributeJoinName" jdbcType="VARCHAR" />
+    <result column="FIRST_LEVEL_CATEGORY_NAME" property="firstLevelCategoryName" jdbcType="VARCHAR" />
+    <result column="SECOND_LEVEL_CATEGORY_NAME" property="secondLevelCategoryName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    BASE_CATEGORY_ID, BASE_CATEGORY_NAME, BASE_CATEGORY_NICKNAME, BASE_CATEGORY_LEVEL, 
+    BASE_CATEGORY_TYPE, BASE_CATEGORY_EXAMPLE_PRODUCT, BASE_CATEGORY_DESCRIBE, BASE_CATEGORY_INTENDED_USE,
+    IS_DELETED, PARENT_ID, TREENODES, CREATOR, UPDATER, MOD_TIME, ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultVoMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from V_BASE_CATEGORY
+    where BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from V_BASE_CATEGORY
+    where BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.BaseCategory" >
+    <!--          -->
+    insert into V_BASE_CATEGORY (BASE_CATEGORY_ID, BASE_CATEGORY_NAME, 
+      BASE_CATEGORY_NICKNAME, BASE_CATEGORY_LEVEL, BASE_CATEGORY_TYPE,
+      BASE_CATEGORY_EXAMPLE_PRODUCT, BASE_CATEGORY_DESCRIBE,
+      BASE_CATEGORY_INTENDED_USE, IS_DELETED, PARENT_ID, 
+      TREENODES, CREATOR, UPDATER, 
+      MOD_TIME, ADD_TIME)
+    values (#{baseCategoryId,jdbcType=INTEGER}, #{baseCategoryName,jdbcType=VARCHAR}, 
+      #{baseCategoryNickname,jdbcType=VARCHAR}, #{baseCategoryLevel,jdbcType=BIT}, #{baseCategoryType,jdbcType=BIT}, 
+      #{baseCategoryExampleProduct,jdbcType=VARCHAR}, #{baseCategoryDescribe,jdbcType=VARCHAR},
+      #{baseCategoryIntendedUse,jdbcType=VARCHAR}, #{isDeleted,jdbcType=BIT}, #{parentId,jdbcType=INTEGER}, 
+      #{treenodes,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, #{updater,jdbcType=INTEGER}, 
+      #{modTime,jdbcType=TIMESTAMP}, #{addTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.vo.BaseCategoryVo" useGeneratedKeys="true" keyProperty="baseCategoryId">
+    <!--          -->
+    insert into V_BASE_CATEGORY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="baseCategoryId != null" >
+        BASE_CATEGORY_ID,
+      </if>
+      <if test="baseCategoryName != null" >
+        BASE_CATEGORY_NAME,
+      </if>
+      <if test="baseCategoryNickname != null" >
+        BASE_CATEGORY_NICKNAME,
+      </if>
+      <if test="baseCategoryLevel != null" >
+        BASE_CATEGORY_LEVEL,
+      </if>
+      <if test="baseCategoryType != null" >
+        BASE_CATEGORY_TYPE,
+      </if>
+      <if test="baseCategoryExampleProduct != null" >
+        BASE_CATEGORY_EXAMPLE_PRODUCT,
+      </if>
+      <if test="baseCategoryDescribe != null" >
+        BASE_CATEGORY_DESCRIBE,
+      </if>
+      <if test="baseCategoryIntendedUse != null" >
+        BASE_CATEGORY_INTENDED_USE,
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="treenodes != null" >
+        TREENODES,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="baseCategoryId != null" >
+        #{baseCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="baseCategoryName != null" >
+        #{baseCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryNickname != null" >
+        #{baseCategoryNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryLevel != null" >
+        #{baseCategoryLevel,jdbcType=BIT},
+      </if>
+      <if test="baseCategoryType != null" >
+        #{baseCategoryType,jdbcType=BIT},
+      </if>
+      <if test="baseCategoryExampleProduct != null" >
+        #{baseCategoryExampleProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryDescribe != null" >
+        #{baseCategoryDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryIntendedUse != null" >
+        #{baseCategoryIntendedUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="treenodes != null" >
+        #{treenodes,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.BaseCategory" >
+    <!--          -->
+    update V_BASE_CATEGORY
+    <set >
+      <if test="baseCategoryName != null" >
+        BASE_CATEGORY_NAME = #{baseCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryNickname != null" >
+        BASE_CATEGORY_NICKNAME = #{baseCategoryNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryLevel != null" >
+        BASE_CATEGORY_LEVEL = #{baseCategoryLevel,jdbcType=BIT},
+      </if>
+      <if test="baseCategoryType != null" >
+        BASE_CATEGORY_TYPE = #{baseCategoryType,jdbcType=BIT},
+      </if>
+      <if test="baseCategoryExampleProduct != null" >
+        BASE_CATEGORY_EXAMPLE_PRODUCT = #{baseCategoryExampleProduct,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryDescribe != null" >
+        BASE_CATEGORY_DESCRIBE = #{baseCategoryDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="baseCategoryIntendedUse != null" >
+        BASE_CATEGORY_INTENDED_USE = #{baseCategoryIntendedUse,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null" >
+        IS_DELETED = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="treenodes != null" >
+        TREENODES = #{treenodes,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.BaseCategory" >
+    <!--          -->
+    update V_BASE_CATEGORY
+    set BASE_CATEGORY_NAME = #{baseCategoryName,jdbcType=VARCHAR},
+      BASE_CATEGORY_NICKNAME = #{baseCategoryNickname,jdbcType=VARCHAR},
+      BASE_CATEGORY_LEVEL = #{baseCategoryLevel,jdbcType=BIT},
+      BASE_CATEGORY_TYPE = #{baseCategoryType,jdbcType=BIT},
+      BASE_CATEGORY_EXAMPLE_PRODUCT = #{baseCategoryExampleProduct,jdbcType=VARCHAR},
+      BASE_CATEGORY_DESCRIBE = #{baseCategoryDescribe,jdbcType=VARCHAR},
+      BASE_CATEGORY_INTENDED_USE = #{baseCategoryIntendedUse,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      TREENODES = #{treenodes,jdbcType=VARCHAR},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP}
+    where BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+  </update>
+  <select id="getFirstCategoryListPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    SELECT
+        DISTINCT  a.BASE_CATEGORY_ID,
+                  a.BASE_CATEGORY_NAME,
+                  a.BASE_CATEGORY_TYPE,
+                  a.BASE_CATEGORY_LEVEL,
+                  a.PARENT_ID,
+                  a.TREENODES
+    FROM
+        V_BASE_CATEGORY a
+    LEFT JOIN V_BASE_CATEGORY d ON d.PARENT_ID = a.BASE_CATEGORY_ID AND d.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+    LEFT JOIN V_BASE_CATEGORY e ON e.PARENT_ID = d.BASE_CATEGORY_ID AND e.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+    WHERE
+        a.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        AND a.BASE_CATEGORY_LEVEL = #{baseCategoryVo.baseCategoryLevel, jdbcType=INTEGER}
+    <if test="baseCategoryVo.baseCategoryName != null and baseCategoryVo.baseCategoryName != ''">
+          AND (
+            a.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR d.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR e.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+          )
+    </if>
+    <if test="baseCategoryVo.baseCategoryType != null">
+        AND e.BASE_CATEGORY_TYPE = #{baseCategoryVo.baseCategoryType,jdbcType=BIT}
+    </if>
+    ORDER BY
+      a.ADD_TIME DESC
+  </select>
+  <select id="getSecondCategoryList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT
+          DISTINCT d.BASE_CATEGORY_ID,
+          d.BASE_CATEGORY_NAME,
+          d.BASE_CATEGORY_TYPE,
+          d.BASE_CATEGORY_LEVEL,
+          d.PARENT_ID,
+          d.TREENODES
+      FROM
+        V_BASE_CATEGORY a
+      LEFT JOIN V_BASE_CATEGORY d ON d.PARENT_ID = a.BASE_CATEGORY_ID  AND d.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+      LEFT JOIN V_BASE_CATEGORY e ON e.PARENT_ID = d.BASE_CATEGORY_ID AND e.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+      WHERE
+          a.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        AND d.BASE_CATEGORY_LEVEL = #{baseCategoryVo.baseCategoryLevel, jdbcType=INTEGER}
+      <if test="baseCategoryVo.baseCategoryName != null and baseCategoryVo.baseCategoryName != ''">
+        AND (
+            d.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR e.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+        )
+      </if>
+      <if test="baseCategoryVo.baseCategoryType != null">
+        AND e.BASE_CATEGORY_TYPE = #{baseCategoryVo.baseCategoryType,jdbcType=BIT}
+      </if>
+      ORDER BY
+        d.ADD_TIME DESC
+  </select>
+
+    <select id="getSecondCategoryListForNameQuery" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT
+        DISTINCT d.BASE_CATEGORY_ID,
+        d.BASE_CATEGORY_NAME,
+        d.BASE_CATEGORY_TYPE,
+        d.BASE_CATEGORY_LEVEL,
+        d.PARENT_ID,
+        d.TREENODES
+        FROM
+        V_BASE_CATEGORY a
+        LEFT JOIN V_BASE_CATEGORY d ON d.PARENT_ID = a.BASE_CATEGORY_ID  AND d.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        LEFT JOIN V_BASE_CATEGORY e ON e.PARENT_ID = d.BASE_CATEGORY_ID AND e.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        WHERE
+        a.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        AND d.BASE_CATEGORY_LEVEL = #{baseCategoryVo.baseCategoryLevel, jdbcType=INTEGER}
+        <if test="baseCategoryVo.baseCategoryName != null and baseCategoryVo.baseCategoryName != ''">
+            AND (
+            a.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR d.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR e.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            )
+        </if>
+        <if test="baseCategoryVo.baseCategoryType != null">
+            AND e.BASE_CATEGORY_TYPE = #{baseCategoryVo.baseCategoryType,jdbcType=BIT}
+        </if>
+        ORDER BY
+        d.ADD_TIME DESC
+    </select>
+  <select id="getThirdCategoryList" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT
+          x.BASE_CATEGORY_ID,
+          x.BASE_CATEGORY_NAME,
+          x.BASE_CATEGORY_TYPE,
+          x.BASE_CATEGORY_LEVEL,
+          x.PARENT_ID,
+          x.TREENODES,
+          SUM(IF(x.SPU_LEVEL = 1, x.NUM, 0)) AS CORE_PRODUCT_NUM,
+          SUM(IF(x.SPU_LEVEL = 2, x.NUM, 0)) AS TEMPORARY_PRODUCT_NUM,
+          SUM(IF(x.SPU_LEVEL = 3, x.NUM, 0)) AS OTHER_PRODUCT_NUM
+      FROM
+      (
+          SELECT
+              a.BASE_CATEGORY_ID,
+              a.BASE_CATEGORY_NAME,
+              a.BASE_CATEGORY_TYPE,
+              a.BASE_CATEGORY_LEVEL,
+              a.PARENT_ID,
+              a.TREENODES,
+              b.SPU_LEVEL,
+              COUNT(c.SKU_ID) AS NUM
+          FROM
+              V_BASE_CATEGORY a
+          LEFT JOIN V_CORE_SPU b ON a.BASE_CATEGORY_ID = b.CATEGORY_ID AND b.CHECK_STATUS != 4
+                AND b. STATUS = 1 AND b.SPU_LEVEL IS NOT NULL
+          LEFT JOIN V_CORE_SKU c ON b.SPU_ID = c.SPU_ID AND c.SKU_ID IS NOT NULL
+                AND c.CHECK_STATUS != 4
+                AND c. STATUS = 1
+          WHERE
+            a.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+          AND a.BASE_CATEGORY_LEVEL = #{baseCategoryVo.baseCategoryLevel, jdbcType=INTEGER}
+          <if test="baseCategoryVo.baseCategoryName != null and baseCategoryVo.baseCategoryName != ''">
+              AND a.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+          </if>
+          <if test="baseCategoryVo.baseCategoryType != null">
+              AND a.BASE_CATEGORY_TYPE = #{baseCategoryVo.baseCategoryType,jdbcType=BIT}
+          </if>
+          GROUP BY
+              a.BASE_CATEGORY_ID,
+              a.BASE_CATEGORY_NAME,
+              a.BASE_CATEGORY_TYPE,
+              a.BASE_CATEGORY_LEVEL,
+              a.PARENT_ID,
+              a.TREENODES,
+              b.SPU_LEVEL
+          ORDER BY
+            a.ADD_TIME DESC
+      ) x
+      GROUP BY
+          x.BASE_CATEGORY_ID,
+          x.BASE_CATEGORY_NAME,
+          x.BASE_CATEGORY_TYPE,
+          x.BASE_CATEGORY_LEVEL,
+          x.PARENT_ID,
+          x.TREENODES
+  </select>
+
+    <select id="getThirdCategoryListForNameQuery" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+        SELECT
+        x.BASE_CATEGORY_ID,
+        x.BASE_CATEGORY_NAME,
+        x.BASE_CATEGORY_TYPE,
+        x.BASE_CATEGORY_LEVEL,
+        x.PARENT_ID,
+        x.TREENODES,
+        SUM(IF(x.SPU_LEVEL = 1, x.NUM, 0)) AS CORE_PRODUCT_NUM,
+        SUM(IF(x.SPU_LEVEL = 2, x.NUM, 0)) AS TEMPORARY_PRODUCT_NUM,
+        SUM(IF(x.SPU_LEVEL = 0, x.NUM, 0)) AS OTHER_PRODUCT_NUM
+        FROM
+        (
+        SELECT
+        a.BASE_CATEGORY_ID,
+        a.BASE_CATEGORY_NAME,
+        a.BASE_CATEGORY_TYPE,
+        a.BASE_CATEGORY_LEVEL,
+        a.PARENT_ID,
+        a.TREENODES,
+        b.SPU_LEVEL,
+        COUNT(c.SKU_ID) AS NUM
+        FROM
+        V_BASE_CATEGORY a
+        LEFT JOIN V_BASE_CATEGORY d ON a.PARENT_ID = d.BASE_CATEGORY_ID  AND d.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        LEFT JOIN V_BASE_CATEGORY e ON d.PARENT_ID = e.BASE_CATEGORY_ID AND e.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        LEFT JOIN V_CORE_SPU b ON a.BASE_CATEGORY_ID = b.CATEGORY_ID AND b.CHECK_STATUS != 4
+        AND b. STATUS = 1 AND b.SPU_LEVEL IS NOT NULL
+        LEFT JOIN V_CORE_SKU c ON b.SPU_ID = c.SPU_ID AND c.SKU_ID IS NOT NULL
+        AND c.CHECK_STATUS != 4
+        AND c. STATUS = 1
+        WHERE
+        a.IS_DELETED = #{baseCategoryVo.isDeleted, jdbcType=INTEGER}
+        AND a.BASE_CATEGORY_LEVEL = #{baseCategoryVo.baseCategoryLevel, jdbcType=INTEGER}
+        <if test="baseCategoryVo.baseCategoryName != null and baseCategoryVo.baseCategoryName != ''">
+            AND  (
+            a.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR d.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            OR e.BASE_CATEGORY_NAME LIKE CONCAT('%',#{baseCategoryVo.baseCategoryName,jdbcType=VARCHAR},'%')
+            )
+        </if>
+        <if test="baseCategoryVo.baseCategoryType != null">
+            AND a.BASE_CATEGORY_TYPE = #{baseCategoryVo.baseCategoryType,jdbcType=BIT}
+        </if>
+        GROUP BY
+        a.BASE_CATEGORY_ID,
+        a.BASE_CATEGORY_NAME,
+        a.BASE_CATEGORY_TYPE,
+        a.BASE_CATEGORY_LEVEL,
+        a.PARENT_ID,
+        a.TREENODES,
+        b.SPU_LEVEL
+        ORDER BY
+        a.ADD_TIME DESC
+        ) x
+        GROUP BY
+        x.BASE_CATEGORY_ID,
+        x.BASE_CATEGORY_NAME,
+        x.BASE_CATEGORY_TYPE,
+        x.BASE_CATEGORY_LEVEL,
+        x.PARENT_ID,
+        x.TREENODES
+    </select>
+  <select id="getBaseCategoryListPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+    SELECT
+        DISTINCT
+        a.BASE_CATEGORY_ID,
+        CONCAT(
+            d.BASE_CATEGORY_NAME,
+            '-',
+            c.BASE_CATEGORY_NAME,
+            '-',
+            b.BASE_CATEGORY_NAME
+        ) AS CATEGORY_JOIN_NAME
+    FROM
+        V_CATEGORY_ATTR_VALUE_MAPPING a
+    LEFT JOIN V_BASE_CATEGORY b ON a.BASE_CATEGORY_ID = b.BASE_CATEGORY_ID
+    LEFT JOIN V_BASE_CATEGORY c ON b.PARENT_ID = c.BASE_CATEGORY_ID
+    LEFT JOIN V_BASE_CATEGORY d ON c.PARENT_ID = d.BASE_CATEGORY_ID
+    WHERE
+        a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+    AND a.BASE_ATTRIBUTE_ID = #{attrId, jdbcType=INTEGER}
+    ORDER BY
+        a.ADD_TIME DESC
+  </select>
+  <select id="getCategoryListByIds" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT
+          x.BASE_CATEGORY_ID,
+          x.BASE_CATEGORY_NAME,
+          x.BASE_CATEGORY_TYPE,
+          x.BASE_CATEGORY_LEVEL,
+          x.PARENT_ID,
+          x.TREENODES
+      <if test="level == 3">
+          ,
+          SUM(IF(x.SPU_LEVEL = 1, x.NUM, 0)) AS CORE_PRODUCT_NUM,
+          SUM(IF(x.SPU_LEVEL = 2, x.NUM, 0)) AS TEMPORARY_PRODUCT_NUM,
+          SUM(IF(x.SPU_LEVEL = 3, x.NUM, 0)) AS OTHER_PRODUCT_NUM
+      </if>
+      FROM
+      (
+        SELECT
+          a.BASE_CATEGORY_ID,
+          a.BASE_CATEGORY_NAME,
+          a.BASE_CATEGORY_TYPE,
+          a.BASE_CATEGORY_LEVEL,
+          a.PARENT_ID,
+          a.TREENODES
+      <if test="level == 3">
+          ,
+          b.SPU_LEVEL,
+          COUNT(c.SKU_ID) AS NUM
+      </if>
+      FROM
+        V_BASE_CATEGORY a
+      <if test="level == 3">
+          LEFT JOIN V_CORE_SPU b ON a.BASE_CATEGORY_ID = b.CATEGORY_ID AND b.CHECK_STATUS != 4
+              AND b. STATUS = 1 AND b.SPU_LEVEL IS NOT NULL
+          LEFT JOIN V_CORE_SKU c ON b.SPU_ID = c.SPU_ID  AND c.SKU_ID IS NOT NULL
+              AND c.CHECK_STATUS != 4 AND c. STATUS = 1
+      </if>
+      WHERE
+        a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+      AND a.BASE_CATEGORY_LEVEL = #{level, jdbcType=INTEGER}
+      <if test="list != null and list.size() > 0">
+          AND a.PARENT_ID IN
+          <foreach collection="list" item="category" open="(" close=")" index="index" separator=",">
+              #{category.baseCategoryId,jdbcType=INTEGER}
+          </foreach>
+      </if>
+      <if test="level == 3">
+          GROUP BY
+              a.BASE_CATEGORY_ID,
+              a.BASE_CATEGORY_NAME,
+              a.BASE_CATEGORY_TYPE,
+              a.BASE_CATEGORY_LEVEL,
+              a.PARENT_ID,
+              a.TREENODES,
+              b.SPU_LEVEL
+      </if>
+      ) x
+      <if test="level == 3">
+          GROUP BY
+              x.BASE_CATEGORY_ID,
+              x.BASE_CATEGORY_NAME,
+              x.BASE_CATEGORY_TYPE,
+              x.BASE_CATEGORY_LEVEL,
+              x.PARENT_ID,
+              x.TREENODES
+      </if>
+  </select>
+  <select id="getthirdCategoryListById" parameterType="com.vedeng.goods.model.vo.BaseCategoryVo" resultMap="BaseResultVoMap">
+    SELECT
+        x.BASE_CATEGORY_ID,
+        x.BASE_CATEGORY_NAME,
+        x.BASE_CATEGORY_TYPE,
+        x.BASE_CATEGORY_LEVEL,
+        x.PARENT_ID,
+        x.TREENODES,
+        SUM(IF(x.SPU_LEVEL = 1, x.NUM, 0)) AS CORE_PRODUCT_NUM,
+        SUM(IF(x.SPU_LEVEL = 2, x.NUM, 0)) AS TEMPORARY_PRODUCT_NUM,
+        SUM(IF(x.SPU_LEVEL = 3, x.NUM, 0)) AS OTHER_PRODUCT_NUM
+    FROM
+    (
+    SELECT
+        a.BASE_CATEGORY_ID,
+        a.BASE_CATEGORY_NAME,
+        a.BASE_CATEGORY_TYPE,
+        a.BASE_CATEGORY_LEVEL,
+        a.PARENT_ID,
+        a.TREENODES,
+        b.SPU_LEVEL,
+        COUNT(c.SKU_ID) AS NUM
+    FROM
+        V_BASE_CATEGORY a
+    LEFT JOIN V_CORE_SPU b ON a.BASE_CATEGORY_ID = b.CATEGORY_ID AND b.CHECK_STATUS != 4
+        AND b. STATUS = 1
+        AND b.SPU_LEVEL IS NOT NULL
+    LEFT JOIN V_CORE_SKU c ON b.SPU_ID = c.SPU_ID AND c.SKU_ID IS NOT NULL
+        AND c.CHECK_STATUS != 4
+        AND c. STATUS = 1
+    WHERE
+            a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+        AND a.BASE_CATEGORY_LEVEL = #{baseCategoryLevel, jdbcType=INTEGER}
+        AND a.BASE_CATEGORY_ID = #{baseCategoryId,jdbcType=INTEGER}
+    GROUP BY
+        a.BASE_CATEGORY_ID,
+        a.BASE_CATEGORY_NAME,
+        a.BASE_CATEGORY_TYPE,
+        a.BASE_CATEGORY_LEVEL,
+        a.PARENT_ID,
+        a.TREENODES,
+        b.SPU_LEVEL
+    )x
+    GROUP BY
+        x.BASE_CATEGORY_ID,
+        x.BASE_CATEGORY_NAME,
+        x.BASE_CATEGORY_TYPE,
+        x.BASE_CATEGORY_LEVEL,
+        x.PARENT_ID,
+        x.TREENODES
+  </select>
+  <update id="deleteCategory" parameterType="java.util.Map">
+     UPDATE
+      V_BASE_CATEGORY
+     SET IS_DELETED = #{isDeleted,jdbcType=BIT},
+         UPDATER = #{updater,jdbcType=INTEGER},
+         MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+     WHERE
+     <if test="list != null and list.size()>0">
+       BASE_CATEGORY_ID IN
+       <foreach collection="list" item="category" index="index" open="(" close=")" separator=",">
+         #{category.baseCategoryId,jdbcType=INTEGER}
+       </foreach>
+     </if>
+     <if test="list == null or list.size()==0">
+       BASE_CATEGORY_ID = null
+     </if>
+  </update>
+  <select id="getBaseCategoryListPageByAttr" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT DISTINCT
+          CONCAT(
+              d.BASE_CATEGORY_NAME,
+              '-',
+              c.BASE_CATEGORY_NAME,
+              '-',
+              b.BASE_CATEGORY_NAME
+          ) AS CATEGORY_JOIN_NAME
+      FROM
+          V_CATEGORY_ATTR_VALUE_MAPPING a
+      LEFT JOIN V_BASE_CATEGORY b ON a.BASE_CATEGORY_ID = b.BASE_CATEGORY_ID AND b.IS_DELETED = 0
+      LEFT JOIN V_BASE_CATEGORY c ON b.PARENT_ID = c.BASE_CATEGORY_ID AND c.IS_DELETED = 0
+      LEFT JOIN V_BASE_CATEGORY d ON c.PARENT_ID = d.BASE_CATEGORY_ID AND d.IS_DELETED = 0
+      WHERE
+        a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+        AND a.BASE_ATTRIBUTE_ID = #{attrId, jdbcType=INTEGER}
+      ORDER BY
+        a.ADD_TIME DESC
+  </select>
+  <select id="checkRepeatCategory" parameterType="com.vedeng.goods.model.vo.BaseCategoryVo" resultType="java.lang.Integer">
+      SELECT
+        COUNT(1)
+      FROM
+        V_BASE_CATEGORY a
+      WHERE a.BASE_CATEGORY_NAME = #{baseCategoryName,jdbcType=VARCHAR}
+      AND a.IS_DELETED = 0
+      AND a.BASE_CATEGORY_LEVEL = #{baseCategoryLevel,jdbcType=BIT}
+      <if test="baseCategoryLevel == 2 || baseCategoryLevel == 3">
+        AND a.PARENT_ID = #{parentId,jdbcType=INTEGER}
+      </if>
+      <if test="baseCategoryLevel == 3">
+        AND a.BASE_CATEGORY_TYPE = #{baseCategoryType,jdbcType=BIT}
+      </if>
+      <if test="baseCategoryId != null and baseCategoryId != 0">
+        AND a.BASE_CATEGORY_ID != #{baseCategoryId,jdbcType=INTEGER}
+      </if>
+  </select>
+    <select id="getOrganizedCategoryNameById" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT
+            CONCAT(
+                c.BASE_CATEGORY_NAME,
+                '-',
+                b.BASE_CATEGORY_NAME,
+                '-',
+                a.BASE_CATEGORY_NAME
+            ) AS CATEGORY_JOIN_NAME
+        FROM
+            V_BASE_CATEGORY a
+        LEFT JOIN V_BASE_CATEGORY b ON a.PARENT_ID = b.BASE_CATEGORY_ID
+        LEFT JOIN V_BASE_CATEGORY c ON b.PARENT_ID = c.BASE_CATEGORY_ID
+        WHERE
+            a.BASE_CATEGORY_ID = #{thirdCategoryId,jdbcType=INTEGER}
+    </select>
+    <select id="getCategoryIdByKeyWords" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT
+          DISTINCT CATEGORY_ID
+        FROM
+          V_CORE_SPU a
+        LEFT JOIN V_CORE_SKU b ON a.SPU_ID = b.SPU_ID AND b.SKU_ID IS NOT NULL
+          AND b.CHECK_STATUS != 4
+          AND b. STATUS = 1
+        WHERE
+          a.CHECK_STATUS != 4
+          AND a.STATUS = 1
+          AND a.SPU_LEVEL IS NOT NULL
+          AND (
+            a.SPU_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+            OR SKU_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+            )
+          AND a.CATEGORY_ID != 0
+    </select>
+    <select id="getCategoryListByKeyWords" resultType="com.vedeng.goods.model.vo.BaseCategoryVo">
+        SELECT
+            a.BASE_CATEGORY_ID,
+            CONCAT(
+                c.BASE_CATEGORY_NAME,
+                ' > ',
+                b.BASE_CATEGORY_NAME,
+                ' > ',
+                a.BASE_CATEGORY_NAME
+            ) AS CATEGORY_JOIN_NAME,
+            a.BASE_CATEGORY_TYPE
+        FROM
+            V_BASE_CATEGORY a
+        LEFT JOIN V_BASE_CATEGORY b ON a.PARENT_ID = b.BASE_CATEGORY_ID
+        LEFT JOIN V_BASE_CATEGORY c ON b.PARENT_ID = c.BASE_CATEGORY_ID
+        WHERE
+            a.IS_DELETED = 0
+            AND b.IS_DELETED = 0
+            AND c.IS_DELETED = 0
+            AND (a.BASE_CATEGORY_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+            OR b.BASE_CATEGORY_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+            OR c.BASE_CATEGORY_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+            <if test="list != null and list.size() > 0">
+                OR a.BASE_CATEGORY_ID IN
+                <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                    #{id,jdbcType=INTEGER}
+                </foreach>
+            </if>
+            )
+    </select>
+</mapper>

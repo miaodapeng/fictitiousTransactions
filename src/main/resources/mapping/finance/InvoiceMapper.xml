@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.finance.dao.InvoiceMapper">
+    <resultMap id="BaseResultMap" type="com.vedeng.finance.model.Invoice">
+        <id column="INVOICE_ID" property="invoiceId" jdbcType="INTEGER" />
+        <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+        <result column="TYPE" property="type" jdbcType="INTEGER" />
+        <result column="INVOICE_CODE" property="invoiceCode" jdbcType="INTEGER" />
+        <result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+        <result column="INVOICE_NO" property="invoiceNo" jdbcType="VARCHAR" />
+        <result column="INVOICE_PROPERTY" property="invoiceProperty" jdbcType="INTEGER"/>
+        <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+        <result column="INVOICE_HREF" property="invoiceHref" jdbcType="INTEGER" />
+        <result column="RATIO" property="ratio" jdbcType="DECIMAL" />
+        <result column="COLOR_TYPE" property="colorType" jdbcType="BIT" />
+        <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+        <result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+        <result column="VALID_USERID" property="validUserId" jdbcType="INTEGER" />
+        <result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+        <result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+        <result column="VALID_COMMENTS" property="validComments" jdbcType="VARCHAR" />
+        <result column="INVOICE_PRINT_STATUS" property="invoicePrintStatus" jdbcType="BIT" />
+        <result column="INVOICE_CANCEL_STATUS" property="invoiceCancelStatus" jdbcType="BIT" />
+        <result column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+        <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+        <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+        <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+        <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+        <result column="TAG" property="tag" jdbcType="INTEGER" />
+        <result column="IS_AUTH" property="isAuth" jdbcType="INTEGER" />
+        <result column="IS_MONTH_AUTH" property="isMonthAuth" jdbcType="INTEGER" />
+        <result column="AUTH_TIME" property="authTime" jdbcType="BIGINT" />
+    </resultMap>
+    <sql id="Base_Column_List">
+		INVOICE_ID, COMPANY_ID, TYPE, RELATED_ID, INVOICE_NO, INVOICE_TYPE, RATIO, COLOR_TYPE,
+		ABS(AMOUNT) AS AMOUNT,
+		IS_ENABLE, VALID_STATUS, VALID_TIME, VALID_COMMENTS, INVOICE_PRINT_STATUS,
+		INVOICE_CANCEL_STATUS, EXPRESS_ID,
+		ADD_TIME, CREATOR, MOD_TIME, UPDATER,VALID_USERID, TAG, IS_AUTH, IS_MONTH_AUTH, AUTH_TIME
+	</sql>
+
+    <select id="getInvoiceListByInvoiceIdList" parameterType="java.util.List" resultType="com.vedeng.finance.model.Invoice">
+        select
+            a.*,
+            b.LOGISTICS_NO AS logisticsNo,
+            c.`NAME` AS logisticsName,
+            d.TRADER_NAME AS traderName,
+            d.TRADER_CONTACT_ID AS traderContactId,
+            d.TRADER_CONTACT_MOBILE AS traderContactMobile,
+            d.ORDER_TYPE AS orderType
+        from
+        T_INVOICE a
+        LEFT JOIN T_EXPRESS b ON b.EXPRESS_ID = a.EXPRESS_ID
+        LEFT JOIN T_LOGISTICS c ON c.LOGISTICS_ID = b.LOGISTICS_ID
+        LEFT JOIN T_SALEORDER d ON a.RELATED_ID = d.SALEORDER_ID
+        where
+			a.INVOICE_ID IN
+            <foreach collection="invoiceIdList" item="invoiceId" index="index" open="(" close=")" separator=",">
+                #{invoiceId,jdbcType=INTEGER}
+            </foreach>
+    </select>
+    <select id="getInvoiceApllyNum" resultType="java.lang.Integer">
+        SELECT
+	A.INVOICE_APPLY_ID
+    FROM
+	T_INVOICE_APPLY A
+      WHERE
+	A.ADVANCE_VALID_STATUS != 2
+	AND A.VALID_STATUS = 0
+	AND A.TYPE = 505
+	AND A.RELATED_ID =#{saleorderId}
+    </select>
+
+    <select id="getSaleOpenInvoiceAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+		SELECT SUM(A.AMOUNT) AS OPEN_INVOICE_AMOUNT
+		FROM T_INVOICE A
+		WHERE A.TYPE = 505 AND A.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+	</select>
+
+    <!-- 修改销售订单发票状态 -->
+    <update id="updateSaleInvoiceStatus" parameterType="com.vedeng.finance.model.Invoice">
+        <choose>
+            <when test="amountCount != null and amountCount == 0">
+                <!-- 销售金额（有效和作废总和）等于（销售开票金额加售后开票金额减特殊产品开票金额），开票状态：未开票 -->
+                UPDATE T_SALEORDER
+                SET INVOICE_STATUS = 0
+                <if test="modTime != null">
+                    ,MOD_TIME = #{modTime,jdbcType=BIGINT}
+                </if>
+                <if test="updater != null">
+                    ,UPDATER = #{updater,jdbcType=INTEGER}
+                </if>
+                WHERE     SALEORDER_ID = #{relatedId,jdbcType=INTEGER}
+                AND #{amountCount,jdbcType=DECIMAL} = 0;
+            </when>
+            <otherwise>
+                <!-- 销售金额等于（销售开票金额加售后开票金额减特殊产品开票金额），开票状态：已完成 -->
+                UPDATE T_SALEORDER
+                <!-- add by Tomcat.Hui 2019/12/16 13:40 .Desc: VDERP-1686 开票申请是否开完票，改为根据开票金额与开票申请的金额进行比较来判断. start -->
+                SET INVOICE_STATUS = IF((
+                <!-- 耗材订单特殊处理.  -->
+                SELECT  IF(#{orderType,jdbcType=INTEGER} IS NOT NULL AND #{orderType,jdbcType=INTEGER} = 5,SUM(D.MAX_SKU_REFUND_AMOUNT - IFNULL(E.ALL_AFTER_AMOUNT,0)), SUM((D.NUM - IFNULL(E.NUM, 0)) * D.PRICE))
+                FROM T_SALEORDER_GOODS D
+                LEFT JOIN
+                (SELECT SUM(F.NUM) AS NUM, F.ORDER_DETAIL_ID,IFNULL(SUM(F.SKU_REFUND_AMOUNT),0) AS ALL_AFTER_AMOUNT
+                FROM T_AFTER_SALES E
+                INNER JOIN T_AFTER_SALES_GOODS F
+                ON     E.AFTER_SALES_ID = F.AFTER_SALES_ID
+                AND E.SUBJECT_TYPE = 535	<!-- 销售 -->
+                AND E.TYPE = 539	<!-- 销售退货 -->
+                AND E.ATFER_SALES_STATUS = 2 <!-- 售后单完结 -->
+                AND E.ORDER_ID = #{relatedId,jdbcType=INTEGER}
+                AND F.GOODS_TYPE = 0	<!-- 普通产品 -->
+                GROUP BY F.ORDER_DETAIL_ID) E
+                ON D.SALEORDER_GOODS_ID = E.ORDER_DETAIL_ID
+                WHERE D.SALEORDER_ID = #{relatedId,jdbcType=INTEGER} AND D.IS_DELETE = 0 <!-- 有效 -->
+                ) <![CDATA[ <= ]]> #{amountCount,jdbcType=DECIMAL},2,1)
+                <if test="modTime != null">
+                    ,MOD_TIME = #{modTime,jdbcType=BIGINT}
+                </if>
+                <if test="updater != null">
+                    ,UPDATER = #{updater,jdbcType=INTEGER}
+                </if>
+                WHERE  SALEORDER_ID = #{relatedId,jdbcType=INTEGER}
+                <!-- add by Tomcat.Hui 2019/12/16 13:40 .Desc: VDERP-1686 开票申请是否开完票，改为根据开票金额与开票申请的金额进行比较来判断. end -->
+            </otherwise>
+        </choose>
+    </update>
+</mapper>

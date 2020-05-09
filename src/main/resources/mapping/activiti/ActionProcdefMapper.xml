@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.activiti.dao.ActionProcdefMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.activiti.model.ActionProcdef">
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="ACTION_ID" property="actionId" jdbcType="INTEGER" />
+		<result column="PROCDEF_ID" property="procdefId" jdbcType="VARCHAR" />
+		<result column="PRE_BUSINESS_KEY" property="preBusinessKey"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.vedeng.activiti.model.ActionProcdef">
+		insert into T_J_ACTION_ACT_PROCDEF
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="companyId != null">
+				COMPANY_ID,
+			</if>
+			<if test="actionId != null">
+				ACTION_ID,
+			</if>
+			<if test="procdefId != null">
+				PROCDEF_ID,
+			</if>
+			<if test="preBusinessKey != null">
+				PRE_BUSINESS_KEY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="companyId != null">
+				#{companyId,jdbcType=INTEGER},
+			</if>
+			<if test="actionId != null">
+				#{actionId,jdbcType=INTEGER},
+			</if>
+			<if test="procdefId != null">
+				#{procdefId,jdbcType=VARCHAR},
+			</if>
+			<if test="preBusinessKey != null">
+				#{preBusinessKey,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="replace" parameterType="com.vedeng.activiti.model.ActionProcdef">
+		REPLACE INTO
+		T_J_ACTION_ACT_PROCDEF
+		(COMPANY_ID,ACTION_ID,PROCDEF_ID,PRE_BUSINESS_KEY)
+		VALUES
+		(#{companyId,jdbcType=INTEGER},#{actionId,jdbcType=INTEGER},#{procdefId,jdbcType=VARCHAR},#{preBusinessKey,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="getList" resultMap="BaseResultMap">
+		SELECT * FROM
+		T_J_ACTION_ACT_PROCDEF WHERE 1
+		<if test="actionId != null">
+			AND ACTION_ID = #{actionId,jdbcType=INTEGER}
+		</if>
+		<if test="companyId != null">
+			AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="preBusinessKey != null">
+			AND PRE_BUSINESS_KEY =
+			#{preBusinessKey,jdbcType=VARCHAR}
+		</if>
+		<if test="procdefId != null">
+			AND PROCDEF_ID =
+			#{procdefId,jdbcType=VARCHAR}
+		</if>
+	</select>
+
+	<select id="getListPage" resultMap="BaseResultMap" parameterType="Map">
+		SELECT * FROM
+		T_J_ACTION_ACT_PROCDEF WHERE 1
+		<if test="actionId != null">
+			AND ACTION_ID = #{actionId,jdbcType=INTEGER}
+		</if>
+		<if test="companyId != null">
+			AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		</if>
+		<if test="preBusinessKey != null">
+			AND PRE_BUSINESS_KEY =
+			#{preBusinessKey,jdbcType=VARCHAR}
+		</if>
+		<if test="procdefId != null">
+			AND PROCDEF_ID =
+			#{procdefId,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<!-- 根据传参修改某张表 -->
+	<update id="updateInfo">
+		update ${tableName}
+		<set>
+			${key} = #{value},
+		</set>
+		where ${id} = #{idValue}
+	</update>
+
+</mapper>

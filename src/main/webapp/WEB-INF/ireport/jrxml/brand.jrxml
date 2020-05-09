@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="brand" language="groovy" pageWidth="3500" pageHeight="635" orientation="Landscape" columnWidth="3460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="1cde7980-455a-4b0c-8e3e-ad6430cfbba8">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="brandId" class="java.lang.String"/>
+	<field name="brandName" class="java.lang.String"/>
+	<field name="logoUri" class="java.lang.String"/>
+	<field name="brandNature" class="java.lang.String"/>
+	<field name="goodsNum" class="java.lang.String"/>
+	<field name="brandWebsite" class="java.lang.String"/>
+	<field name="modTime" class="java.lang.String"/>
+	<field name="logoObj" class="java.io.InputStream"/>
+	<variable name="brandName_1" class="java.lang.Integer" calculation="DistinctCount">
+		<variableExpression><![CDATA[$F{brandName}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="0" width="743" height="26" forecolor="#000000" backcolor="#0099FF" uuid="82b015ca-130c-4c5b-9106-5efb50c9f27b"/>
+				<box>
+					<pen lineWidth="0.4"/>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="99" height="26" uuid="19dc0ae2-1792-4a38-abd8-8792cad1df09"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[品牌id]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="99" y="0" width="100" height="25" uuid="68f9717c-eeb5-46af-86b7-f275b9020dca"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[品牌名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="199" y="0" width="140" height="25" uuid="5d33b7a2-866b-47e5-ba28-ac2997008fed"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[品牌Logo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="339" y="0" width="94" height="25" uuid="a5a13f89-e6ff-4530-8fe6-2c9b56bd450f"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[商品品牌]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="433" y="0" width="116" height="26" uuid="123eb221-a97c-4558-b763-e8403ccbe19d"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[品牌网址]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="549" y="1" width="71" height="25" uuid="5969f3b9-f61e-4bcd-97fe-715d9f7e9f71"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[商品数量	]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="620" y="1" width="123" height="25" uuid="6b1bcd3f-aee0-4ef6-a70e-e163ae1c4618"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[更新时间]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="55" splitType="Stretch">
+			<frame>
+				<reportElement mode="Transparent" x="0" y="0" width="744" height="55" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="311abdb4-a536-41f8-bd83-ab177f89a8a8"/>
+				<box>
+					<pen lineWidth="0.4"/>
+					<topPen lineWidth="0.4"/>
+					<leftPen lineWidth="0.4"/>
+					<bottomPen lineWidth="0.4"/>
+					<rightPen lineWidth="0.4"/>
+				</box>
+				<textField>
+					<reportElement x="100" y="0" width="100" height="55" uuid="70a56e34-f71a-426b-bd7f-6338e76970ab"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{brandName}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="100" height="55" uuid="0baf270d-fad0-4d49-96dc-38d552f6e8fc"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{brandId}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="340" y="0" width="94" height="55" uuid="68c87f31-a57d-4d7e-959f-dd51f6f04c36"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{brandNature}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="550" y="0" width="71" height="55" uuid="b525d2bc-0ee3-4664-9f3f-47bcfb1f413c"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{goodsNum}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="434" y="0" width="116" height="55" uuid="ef4ad7c6-fb78-4a7a-9f37-c6f0c1f22362"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{brandWebsite}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="621" y="0" width="123" height="55" uuid="2e2e6288-b00b-4bd4-83c8-58cddc62154d"/>
+					<box>
+						<pen lineWidth="0.4"/>
+						<topPen lineWidth="0.4"/>
+						<leftPen lineWidth="0.4"/>
+						<bottomPen lineWidth="0.4"/>
+						<rightPen lineWidth="0.4"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{modTime}]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="200" y="0" width="140" height="55" uuid="7809a284-95e8-4e52-bc8f-33ac67c38a09"/>
+					<imageExpression><![CDATA[$F{logoObj}]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

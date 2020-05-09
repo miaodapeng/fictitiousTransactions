@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.authorization.dao.UserOperationLogMapper">
+	<resultMap id="BaseResultMap"
+		type="com.vedeng.authorization.model.UserOperationLog">
+		<id column="USER_OPERATION_LOG_ID" property="userOperationLogId"
+			jdbcType="INTEGER" />
+		<result column="ACTION_ID" property="actionId" jdbcType="INTEGER" />
+		<result column="ACCESS_TIME" property="accessTime" jdbcType="BIGINT" />
+		<result column="ACCESS_IP" property="accessIp" jdbcType="VARCHAR" />
+		<result column="OPERATION_TYPE" property="operationType"
+			jdbcType="INTEGER" />
+		<result column="USER_ID" property="userId" jdbcType="INTEGER" />
+		<result column="RESULT_STATUS" property="resultStatus"
+			jdbcType="INTEGER" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+		<result column="DESC" property="desc" jdbcType="VARCHAR" />
+		<result column="BEFORE_ENTITY" property="beforeEntity"
+			jdbcType="VARCHAR" />
+		<result column="AFTER_ENTITY" property="afterEntity" jdbcType="VARCHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+		<result column="DIFFER_ENTITY" property="differEntity" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		USER_OPERATION_LOG_ID, ACTION_ID, ACCESS_TIME, ACCESS_IP, OPERATION_TYPE, USER_ID,
+		RESULT_STATUS, USERNAME, `DESC`, BEFORE_ENTITY, AFTER_ENTITY, TYPE, RELATED_ID, DIFFER_ENTITY
+	</sql>
+	
+	
+	
+	<!-- querylistPage -->
+	<resultMap type="com.vedeng.authorization.model.UserOperationLog" id="UserOperationResultMap" extends="BaseResultMap">
+		<result column="ACTION_NAME" property="actionName"/>
+	</resultMap>
+	<!-- 查询用户操作日志信息列表 -->
+	<select id="querylistPage" parameterType="Map" resultMap="UserOperationResultMap">
+		select
+		a.USER_OPERATION_LOG_ID, a.ACTION_ID, a.ACCESS_TIME, a.ACCESS_IP, a.OPERATION_TYPE, a.USER_ID,
+		a.RESULT_STATUS, a.USERNAME, a.`DESC`, a.BEFORE_ENTITY, a.AFTER_ENTITY, b.ACTION_NAME
+		from T_USER_OPERATION_LOG a
+		join T_ACTION b on a.ACTION_ID = b.ACTION_ID 
+		<where>
+			1 = 1
+			<if test="userOperationLog.username!=null and userOperationLog.username!=''">
+				and a.USERNAME like
+				CONCAT('%',#{userOperationLog.username},'%' )
+			</if>
+		</where>
+		order by a.USER_OPERATION_LOG_ID
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="UserOperationResultMap" parameterType="java.lang.Integer">
+		select
+		a.USER_OPERATION_LOG_ID, a.ACTION_ID, a.ACCESS_TIME, a.ACCESS_IP, a.OPERATION_TYPE, a.USER_ID,
+		a.RESULT_STATUS, a.USERNAME, a.`DESC`, a.BEFORE_ENTITY, a.AFTER_ENTITY, b.ACTION_NAME
+		from T_USER_OPERATION_LOG a
+		join T_ACTION b on a.ACTION_ID = b.ACTION_ID 
+		where a.USER_OPERATION_LOG_ID = #{userOperationLogId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from T_USER_OPERATION_LOG
+		where USER_OPERATION_LOG_ID = #{userOperationLogId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.vedeng.authorization.model.UserOperationLog">
+		insert into T_USER_OPERATION_LOG (USER_OPERATION_LOG_ID, ACTION_ID,
+		ACCESS_TIME,
+		ACCESS_IP, OPERATION_TYPE, USER_ID,
+		RESULT_STATUS, USERNAME, DESC,
+		BEFORE_ENTITY, AFTER_ENTITY,
+		TYPE, RELATED_ID, DIFFER_ENTITY)
+		values (#{userOperationLogId,jdbcType=INTEGER},
+		#{actionId,jdbcType=INTEGER}, #{accessTime,jdbcType=BIGINT},
+		#{accessIp,jdbcType=VARCHAR}, #{operationType,jdbcType=INTEGER},
+		#{userId,jdbcType=INTEGER},
+		#{resultStatus,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+		#{beforeEntity,jdbcType=VARCHAR}, #{afterEntity,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER},#{relatedId,jdbcType=INTEGER},#{differEntity,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.vedeng.authorization.model.UserOperationLog">
+		insert into T_USER_OPERATION_LOG
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userOperationLogId != null">
+				USER_OPERATION_LOG_ID,
+			</if>
+			<if test="actionId != null">
+				ACTION_ID,
+			</if>
+			<if test="accessTime != null">
+				ACCESS_TIME,
+			</if>
+			<if test="accessIp != null">
+				ACCESS_IP,
+			</if>
+			<if test="operationType != null">
+				OPERATION_TYPE,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="resultStatus != null">
+				RESULT_STATUS,
+			</if>
+			<if test="username != null">
+				USERNAME,
+			</if>
+			<if test="desc != null">
+				`DESC`,
+			</if>
+			<if test="beforeEntity != null">
+				BEFORE_ENTITY,
+			</if>
+			<if test="afterEntity != null">
+				AFTER_ENTITY,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="relatedId != null">
+				RELATED_ID,
+			</if>
+			<if test="differEntity != null">
+				DIFFER_ENTITY,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userOperationLogId != null">
+				#{userOperationLogId,jdbcType=INTEGER},
+			</if>
+			<if test="actionId != null">
+				#{actionId,jdbcType=INTEGER},
+			</if>
+			<if test="accessTime != null">
+				#{accessTime,jdbcType=BIGINT},
+			</if>
+			<if test="accessIp != null">
+				#{accessIp,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				#{operationType,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="resultStatus != null">
+				#{resultStatus,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="desc != null">
+				#{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="beforeEntity != null">
+				#{beforeEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="afterEntity != null">
+				#{afterEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="relatedId != null">
+				#{relatedId,jdbcType=INTEGER},
+			</if>
+			<if test="differEntity != null">
+				#{differEntity,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vedeng.authorization.model.UserOperationLog">
+		update T_USER_OPERATION_LOG
+		<set>
+			<if test="actionId != null">
+				ACTION_ID = #{actionId,jdbcType=INTEGER},
+			</if>
+			<if test="accessTime != null">
+				ACCESS_TIME = #{accessTime,jdbcType=BIGINT},
+			</if>
+			<if test="accessIp != null">
+				ACCESS_IP = #{accessIp,jdbcType=VARCHAR},
+			</if>
+			<if test="operationType != null">
+				OPERATION_TYPE = #{operationType,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=INTEGER},
+			</if>
+			<if test="resultStatus != null">
+				RESULT_STATUS = #{resultStatus,jdbcType=INTEGER},
+			</if>
+			<if test="username != null">
+				USERNAME = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="desc != null">
+				DESC = #{desc,jdbcType=VARCHAR},
+			</if>
+			<if test="beforeEntity != null">
+				BEFORE_ENTITY = #{beforeEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="afterEntity != null">
+				AFTER_ENTITY = #{afterEntity,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="relatedId != null">
+				RELATED_ID = #{relatedId,jdbcType=INTEGER},
+			</if>
+			<if test="differEntity != null">
+				DIFFER_ENTITY = #{differEntity,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where USER_OPERATION_LOG_ID = #{userOperationLogId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.vedeng.authorization.model.UserOperationLog">
+		update T_USER_OPERATION_LOG
+		set ACTION_ID = #{actionId,jdbcType=INTEGER},
+		ACCESS_TIME = #{accessTime,jdbcType=BIGINT},
+		ACCESS_IP = #{accessIp,jdbcType=VARCHAR},
+		OPERATION_TYPE = #{operationType,jdbcType=INTEGER},
+		USER_ID = #{userId,jdbcType=INTEGER},
+		RESULT_STATUS = #{resultStatus,jdbcType=INTEGER},
+		USERNAME = #{username,jdbcType=VARCHAR},
+		DESC = #{desc,jdbcType=VARCHAR},
+		BEFORE_ENTITY = #{beforeEntity,jdbcType=VARCHAR},
+		AFTER_ENTITY = #{afterEntity,jdbcType=VARCHAR}
+		where USER_OPERATION_LOG_ID = #{userOperationLogId,jdbcType=INTEGER}
+	</update>
+</mapper>

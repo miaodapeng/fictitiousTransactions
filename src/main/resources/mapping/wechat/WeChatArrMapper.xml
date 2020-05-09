@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.wechat.dao.WeChatArrMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.wechat.model.WeChatArr" >
+    <id column="ARR_ID" property="arrId" jdbcType="INTEGER" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="BIT" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+    <result column="TRADER_ADDRESS" property="traderAddress" jdbcType="VARCHAR" />
+    <result column="SALEORDER_ID" property="saleorderId" jdbcType="INTEGER" />
+    <result column="SALEORDER_NO" property="saleorderNo" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="PLATFROM_ID" property="platfromId" jdbcType="INTEGER" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ARR_ID, ORDER_TYPE, TRADER_ID, TRADER_NAME, TRADER_CONTACT_NAME, TRADER_CONTACT_MOBILE,
+    TRADER_ADDRESS, SALEORDER_ID, SALEORDER_NO, COMPANY_ID, ADD_TIME,PLATFROM_ID
+  </sql>
+
+  <insert id="insertBatch"  >
+    INSERT INTO T_WECHAT_ARR
+      (ORDER_TYPE, TRADER_ID, TRADER_NAME, TRADER_CONTACT_NAME, TRADER_CONTACT_MOBILE,
+       TRADER_ADDRESS, SALEORDER_ID, SALEORDER_NO, COMPANY_ID, ADD_TIME,PLATFROM_ID)
+    VALUES
+    <foreach collection="weChatArrList" item="item" index="index" separator=",">
+      (
+        #{item.orderType,jdbcType=BIT},
+        #{item.traderId,jdbcType=INTEGER},
+        #{item.traderName,jdbcType=VARCHAR},
+        #{item.traderContactName,jdbcType=VARCHAR},
+        #{item.traderContactMobile,jdbcType=VARCHAR},
+        #{item.traderAddress,jdbcType=VARCHAR},
+        #{item.saleorderId,jdbcType=INTEGER},
+        #{item.saleorderNo,jdbcType=VARCHAR},
+        #{item.companyId,jdbcType=INTEGER},
+        #{item.addTime,jdbcType=TIMESTAMP},
+        #{item.platfromId,jdbcType=INTEGER}
+      )
+    </foreach>
+  </insert>
+
+  <select id="selectAllList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from T_WECHAT_ARR t
+    where 1=1
+    <if test="platfromId !=null">
+      AND t.PLATFROM_ID=#{platfromId}
+    </if>
+  </select>
+
+  <delete id="deleteByKey" parameterType="java.lang.Integer">
+    delete from T_WECHAT_ARR WHERE ARR_ID = #{arrId,jdbcType=INTEGER}
+  </delete>
+
+  <delete id="deleteAll" >
+    delete from T_WECHAT_ARR
+    where 1=1
+    <if test="platfromId!=null">
+      and PLATFROM_ID=#{platfromId}
+    </if>
+
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.vedeng.wechat.model.WeChatArr" >
+    insert into T_WECHAT_ARR
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="arrId != null" >
+        ARR_ID,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME,
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME,
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE,
+      </if>
+      <if test="traderAddress != null" >
+        TRADER_ADDRESS,
+      </if>
+      <if test="saleorderId != null" >
+        SALEORDER_ID,
+      </if>
+      <if test="saleorderId != null" >
+        SALEORDER_NO,
+      </if>
+      <if test="saleorderId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="arrId != null" >
+        #{arrId,jdbcType=INTEGER},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=BIT},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderName != null" >
+        #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactName != null" >
+        #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderAddress != null" >
+        #{traderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="saleorderId != null" >
+        #{saleorderId,jdbcType=INTEGER},
+      </if>
+      <if test="saleorderNo != null" >
+        #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.wechat.model.WeChatArr" >
+    update T_WECHAT_ARR
+    <set >
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType,jdbcType=BIT},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE = #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderAddress != null" >
+        TRADER_ADDRESS = #{traderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="saleorderId != null" >
+        SALEORDER_ID = #{saleorderId,jdbcType=INTEGER},
+      </if>
+      <if test="saleorderNo != null" >
+        SALEORDER_NO = #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ARR_ID = #{arrId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

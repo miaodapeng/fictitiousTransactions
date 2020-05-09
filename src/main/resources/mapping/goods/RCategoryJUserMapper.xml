@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.RCategoryJUserMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.RCategoryJUser" >
+    <id column="R_CATEGORY_J_USER_ID" property="rCategoryJUserId" jdbcType="INTEGER" />
+    <result column="CATEGORY_ID" property="categoryId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_CATEGORY_J_USER_ID, CATEGORY_ID, USER_ID
+  </sql>
+  <insert id="insert" parameterType="com.vedeng.goods.model.RCategoryJUser" >
+    insert into T_R_CATEGORY_J_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rCategoryJUserId != null" >
+        R_CATEGORY_J_USER_ID,
+      </if>
+      <if test="categoryId != null" >
+        CATEGORY_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rCategoryJUserId != null" >
+        #{rCategoryJUserId,jdbcType=INTEGER},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+    <select id="batchUserCategoryBySaleorderVo" resultType="com.vedeng.authorization.model.User">
+  	select
+		a.USER_ID,b.USERNAME,a.CATEGORY_ID as categoryId
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	where
+		a.CATEGORY_ID in
+		<foreach collection="categoryIds" item="gv" index="index" open="(" close=")" separator=",">
+			#{gv.categoryId,jdbcType=INTEGER}
+		</foreach>
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="batchUserByCategory" resultType="com.vedeng.authorization.model.User">
+  	select
+		a.USER_ID,b.USERNAME,a.CATEGORY_ID as categoryId
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	where
+		a.CATEGORY_ID in
+		<foreach collection="categoryIds" item="gv" index="index" open="(" close=")" separator=",">
+			#{gv.categoryId,jdbcType=INTEGER}
+		</foreach>
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getUserByCategory" resultType="com.vedeng.authorization.model.User">
+  	select
+		a.USER_ID,b.USERNAME
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	where
+		a.CATEGORY_ID = #{categoryId,jdbcType=INTEGER}
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getUserByCategoryNm" resultType="java.lang.String">
+  	select
+		GROUP_CONCAT(b.USERNAME)
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	where
+		a.CATEGORY_ID = #{categoryId,jdbcType=INTEGER}
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByCateCompany">
+  	delete 
+  	from 
+  		T_R_CATEGORY_J_USER
+	where 
+		USER_ID in ( select USER_ID from T_USER where COMPANY_ID = #{companyId,jdbcType=INTEGER}) 
+		and 
+		CATEGORY_ID = #{categoryId,jdbcType=INTEGER} 
+  </delete>
+  
+  <select id="getCategoryIdsByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select
+  		CATEGORY_ID
+  	from 
+  		T_R_CATEGORY_J_USER
+	where 
+		USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCategoryIdsByUserList" resultType="java.lang.Integer" parameterType="com.vedeng.authorization.model.User">
+  	select
+  		CATEGORY_ID
+  	from 
+  		T_R_CATEGORY_J_USER
+	where 
+		USER_ID in
+		<foreach collection="userList" item="user" index="index" open="(" close=")" separator=",">
+			#{user.userId}
+		</foreach>
+  </select>
+  
+  <select id="getUserByCategoryIds" resultType="com.vedeng.authorization.model.User">
+  	select
+		GROUP_CONCAT(b.USERNAME) as owners,a.CATEGORY_ID
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	where
+		a.CATEGORY_ID in
+		<foreach collection="categoryIds" item="categoryId" index="index"
+          open="(" close=")" separator=",">
+          #{categoryId}
+    	</foreach>
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  		group by a.CATEGORY_ID
+  </select>
+  <select id="getUserParentByCategoryIds" resultType="com.vedeng.authorization.model.User">
+  	select
+		GROUP_CONCAT(c.USERNAME) as owners,a.CATEGORY_ID
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	left join
+		T_USER c
+	on
+		b.PARENT_ID = c.USER_ID
+	where
+		a.CATEGORY_ID in
+		<foreach collection="categoryIds" item="categoryId" index="index"
+          open="(" close=")" separator=",">
+          #{categoryId}
+    	</foreach>
+		and
+		b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  		group by a.CATEGORY_ID
+  </select>
+  
+  <select id="getTypeUserByCategoryIds" resultType="com.vedeng.authorization.model.User">
+  	select
+		GROUP_CONCAT(b.USERNAME) as owners,
+		a.CATEGORY_ID,
+       	b.USER_ID,
+       	b.USERNAME
+	from
+		T_R_CATEGORY_J_USER a
+	left join
+		T_USER b
+	on
+		a.USER_ID = b.USER_ID
+	LEFT JOIN
+		T_R_USER_POSIT c
+	ON	
+		c.USER_ID = b.USER_ID
+	left JOIN
+		T_POSITION d
+	ON
+		c.POSITION_ID = d.POSITION_ID
+	where
+		a.CATEGORY_ID in
+		<foreach collection="categoryIds" item="categoryId" index="index"
+          open="(" close=")" separator=",">
+          #{categoryId}
+    		</foreach>
+		and d.TYPE = 311
+		and b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  		group by a.CATEGORY_ID
+  </select>
+	<select id="getUserIdByCategoryIdList" resultType="java.lang.Integer">
+		SELECT DISTINCT B.USER_ID
+		FROM T_R_CATEGORY_J_USER A LEFT JOIN T_USER B ON A.USER_ID = B.USER_ID
+		WHERE
+		A.CATEGORY_ID IN
+			<foreach collection="categoryIdList" item="categoryId" index="index" open="(" close=")" separator=",">
+				#{categoryId,jdbcType=INTEGER}
+			</foreach>
+		AND B.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		GROUP BY A.CATEGORY_ID
+	</select>
+	<select id="getGoodsCategoryUserList" resultType="com.vedeng.authorization.model.User">
+		SELECT B.COMPANY_ID,
+		       B.USER_ID,
+		       B.USERNAME,
+		       A.CATEGORY_ID
+		FROM T_R_CATEGORY_J_USER A LEFT JOIN T_USER B ON A.USER_ID = B.USER_ID
+		WHERE     A.CATEGORY_ID IN 
+				<foreach collection="categoryIdList" item="categoryId" index="index" open="(" close=")" separator=",">
+					#{categoryId,jdbcType=INTEGER}
+				</foreach>
+		      AND B.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		GROUP BY A.CATEGORY_ID
+	</select>
+</mapper>

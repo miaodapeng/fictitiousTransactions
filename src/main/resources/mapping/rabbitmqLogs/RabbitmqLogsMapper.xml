@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.rabbitmqlogs.dao.RabbitmqLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    <id column="RABBITMQ_LOGS_ID" property="rabbitmqLogsId" jdbcType="INTEGER" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="ERROR_MESSAGE" property="errorMessage" jdbcType="VARCHAR" />
+    <result column="NUMBER_RETRIES" property="numberRetries" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" extends="BaseResultMap" >
+    <!--          -->
+    <result column="ORDER_INFORMATION" property="orderInformation" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    RABBITMQ_LOGS_ID, ORDER_NO, ERROR_MESSAGE, NUMBER_RETRIES, ADD_TIME, UPDATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    <!--          -->
+    ORDER_INFORMATION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T_RABBITMQ_LOGS
+    where ORDER_NO = #{orderNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from T_RABBITMQ_LOGS
+    where RABBITMQ_LOGS_ID = #{rabbitmqLogsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    insert into T_RABBITMQ_LOGS (RABBITMQ_LOGS_ID, ORDER_NO, ERROR_MESSAGE, 
+      NUMBER_RETRIES, ADD_TIME, UPDATE_TIME, 
+      ORDER_INFORMATION)
+    values (#{rabbitmqLogsId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{errorMessage,jdbcType=VARCHAR}, 
+      #{numberRetries,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{orderInformation,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    insert into T_RABBITMQ_LOGS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rabbitmqLogsId != null" >
+        RABBITMQ_LOGS_ID,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="errorMessage != null" >
+        ERROR_MESSAGE,
+      </if>
+      <if test="numberRetries != null" >
+        NUMBER_RETRIES,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="orderInformation != null" >
+        ORDER_INFORMATION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rabbitmqLogsId != null" >
+        #{rabbitmqLogsId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null" >
+        #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="numberRetries != null" >
+        #{numberRetries,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderInformation != null" >
+        #{orderInformation,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    update T_RABBITMQ_LOGS
+    <set >
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="errorMessage != null" >
+        ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="numberRetries != null" >
+        NUMBER_RETRIES = #{numberRetries,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderInformation != null" >
+        ORDER_INFORMATION = #{orderInformation,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ORDER_NO = #{orderNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    update T_RABBITMQ_LOGS
+    set ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      NUMBER_RETRIES = #{numberRetries,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      ORDER_INFORMATION = #{orderInformation,jdbcType=LONGVARCHAR}
+    where RABBITMQ_LOGS_ID = #{rabbitmqLogsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.rabbitmqlogs.model.RabbitmqLogs" >
+    <!--          -->
+    update T_RABBITMQ_LOGS
+    set ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      ERROR_MESSAGE = #{errorMessage,jdbcType=VARCHAR},
+      NUMBER_RETRIES = #{numberRetries,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where RABBITMQ_LOGS_ID = #{rabbitmqLogsId,jdbcType=INTEGER}
+  </update>
+</mapper>

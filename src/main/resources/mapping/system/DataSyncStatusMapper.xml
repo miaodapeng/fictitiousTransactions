@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.DataSyncStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.DataSyncStatus" >
+    <id column="DATA_SYNC_STATUS_ID" property="dataSyncStatusId" jdbcType="INTEGER" />
+    <result column="GOAL_TYPE" property="goalType" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="SOURCE_TABLE" property="sourceTable" jdbcType="VARCHAR" />
+    <result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DATA_SYNC_STATUS_ID, GOAL_TYPE, STATUS, SOURCE_TABLE, RELATED_ID, ADD_TIME
+  </sql>
+  <insert id="insert" parameterType="com.vedeng.system.model.DataSyncStatus" >
+    insert into T_DATA_SYNC_STATUS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goalType != null" >
+        GOAL_TYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="sourceTable != null" >
+        SOURCE_TABLE,
+      </if>
+      <if test="relatedId != null" >
+        RELATED_ID,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goalType != null" >
+        #{goalType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="sourceTable != null" >
+        #{sourceTable,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedId != null" >
+        #{relatedId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

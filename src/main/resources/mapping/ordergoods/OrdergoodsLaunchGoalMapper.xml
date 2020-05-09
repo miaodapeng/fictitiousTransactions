@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.ordergoods.dao.OrdergoodsLaunchGoalMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.ordergoods.model.OrdergoodsLaunchGoal" >
+    <id column="ORDERGOODS_LAUNCH_GOAL_ID" property="ordergoodsLaunchGoalId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_LAUNCH_ID" property="ordergoodsLaunchId" jdbcType="INTEGER" />
+    <result column="START_TIME" property="startTime" jdbcType="BIGINT" />
+    <result column="END_TIME" property="endTime" jdbcType="BIGINT" />
+    <result column="GOAL_AMOUNT" property="goalAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORDERGOODS_LAUNCH_GOAL_ID, ORDERGOODS_LAUNCH_ID, START_TIME, END_TIME, GOAL_AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ORDERGOODS_LAUNCH_GOAL
+    where ORDERGOODS_LAUNCH_GOAL_ID = #{ordergoodsLaunchGoalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByOrdergoodsLaunchId" parameterType="java.lang.Integer" >
+    delete from T_ORDERGOODS_LAUNCH_GOAL
+    where ORDERGOODS_LAUNCH_ID = #{ordergoodsLaunchId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.ordergoods.model.OrdergoodsLaunchGoal" >
+    insert into T_ORDERGOODS_LAUNCH_GOAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordergoodsLaunchId != null" >
+        ORDERGOODS_LAUNCH_ID,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="goalAmount != null" >
+        GOAL_AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordergoodsLaunchGoalId != null" >
+        #{ordergoodsLaunchGoalId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsLaunchId != null" >
+        #{ordergoodsLaunchId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="goalAmount != null" >
+        #{goalAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="getOrdergoodsLaunchGoal" resultMap="BaseResultMap" parameterType="com.vedeng.ordergoods.model.OrdergoodsLaunchGoal">
+  	select
+  		ORDERGOODS_LAUNCH_GOAL_ID, ORDERGOODS_LAUNCH_ID, START_TIME, END_TIME, GOAL_AMOUNT
+  	from
+  		T_ORDERGOODS_LAUNCH_GOAL
+	where
+  		ORDERGOODS_LAUNCH_ID = #{ordergoodsLaunchId,jdbcType=INTEGER}	
+  		order by START_TIME
+  </select>
+</mapper>

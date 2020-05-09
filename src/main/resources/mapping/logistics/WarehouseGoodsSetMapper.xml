@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.WarehouseGoodsSetMapper" >
+ <resultMap id="BaseResultMap" type="com.vedeng.logistics.model.WarehouseGoodsSet">
+		<id column="WAREHOUSE_GOODS_SET_ID" property="warehouseGoodsSetId" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+		<result column="WAREHOUSE_ID" property="wareHouseId" jdbcType="INTEGER"/>
+		<result column="STORAGE_ROOM_ID" property="storageroomId" jdbcType="INTEGER" />
+		<result column="STORAGE_AREA_ID" property="storageAreaId" jdbcType="INTEGER" />
+		<result column="STORAGE_RACK_ID" property="storageRackId" jdbcType="INTEGER" />
+		<result column="STORAGE_LOCATION_ID" property="storageLocationId" jdbcType="INTEGER" />
+		<result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+		<result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+		<result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+		<result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+		<result column="UPDATER" property="updater" jdbcType="VARCHAR" />
+		
+		<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" /><!-- 商品名称 -->
+		<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" /><!-- 品牌 -->
+		<result column="MODEL" property="model" jdbcType="VARCHAR" /><!-- 型号 -->
+		<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" /><!-- 物料编码 -->
+		<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" /><!-- 单位 -->
+		<result column="WAREHOUSE_NAME" property="wareHouseName" jdbcType="VARCHAR" /><!-- 仓库 -->
+		<result column="STORAGE_ROOM_NAME" property="storageroomName" jdbcType="VARCHAR" /><!-- 库房 -->
+		<result column="STORAGE_AREA_NAME" property="storageAreaName" jdbcType="VARCHAR" /><!-- 货区 -->
+		<result column="STORAGE_RACK_NAME" property="storageRackName" jdbcType="VARCHAR" /><!-- 货架 -->
+		<result column="STORAGE_LOCATION_NAME" property="storageLocationName" jdbcType="VARCHAR" /><!-- 库位 -->
+		<result column="NUM" property="num" jdbcType="INTEGER" /><!-- 库存商品数量 -->
+		<result column="IS_DISCARD" property="isDiscard" jdbcType="BIT" /><!-- 产品状态 -->
+		<result column="SKU" property="sku" jdbcType="VARCHAR" /><!-- 订货号 -->
+	</resultMap>
+	
+    <!-- 查询字段 -->
+	<sql id="Base_Column_List">
+		WAREHOUSE_GOODS_SET_ID,COMPANY_ID,WAREHOUSE_ID,STORAGE_ROOM_ID,STORAGE_AREA_ID,STORAGE_LOCATION_ID,
+		STORAGE_RACK_ID,COMMENTS,ADD_TIME,CREATOR,MOD_TIME,UPDATER,GOODS_NAME,BRAND_NAME,MODEL,IS_DISCARD,SKU
+		MATERIAL_CODE,UNIT_NAME,WAREHOUSE_NAME,STORAGE_ROOM_NAME,STORAGE_AREA_NAME,STORAGE_RACK_NAME,STORAGE_LOCATION_NAME
+	</sql>
+		
+	<!-- 查询商品库位列表 -->
+	<select id="getWarehouseGoodsSetListPage" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultMap="BaseResultMap">
+	  	SELECT
+	  	DISTINCT
+		a.GOODS_NAME,
+		c.BRAND_NAME,
+		a.MODEL,
+		a.SKU,
+		a.MATERIAL_CODE,
+		d.UNIT_NAME,
+		e.WAREHOUSE_NAME,
+		e.WAREHOUSE_ID,
+		f.STORAGE_ROOM_NAME,
+		f.STORAGE_ROOM_ID,
+		g.STORAGE_AREA_NAME,
+		g.STORAGE_AREA_ID,
+		h.STORAGE_RACK_NAME,
+		h.STORAGE_RACK_ID,
+		i.STORAGE_LOCATION_NAME,
+		i.STORAGE_LOCATION_ID,
+        b.WAREHOUSE_GOODS_SET_ID,
+		b.COMMENTS,
+		b.GOODS_ID,
+		a.IS_DISCARD,
+		k.NUM
+		FROM
+		T_WAREHOUSE_GOODS_SET b
+		LEFT JOIN T_GOODS a ON a.GOODS_ID = b.GOODS_ID
+		LEFT JOIN T_BRAND c ON a.BRAND_ID = c.BRAND_ID
+		LEFT JOIN T_UNIT d ON a.UNIT_ID = d.UNIT_ID
+		LEFT JOIN T_WAREHOUSE e ON b.WAREHOUSE_ID = e.WAREHOUSE_ID
+		LEFT JOIN T_STORAGE_ROOM f ON b.STORAGE_ROOM_ID = f.STORAGE_ROOM_ID
+		LEFT JOIN T_STORAGE_AREA g ON b.STORAGE_AREA_ID = g.STORAGE_AREA_ID
+		LEFT JOIN T_STORAGE_RACK h ON b.STORAGE_RACK_ID = h.STORAGE_RACK_ID
+		LEFT JOIN T_STORAGE_LOCATION i ON b.STORAGE_LOCATION_ID = i.STORAGE_LOCATION_ID
+		LEFT JOIN T_WAREHOUSE_GOODS_STATUS k ON b.COMPANY_ID = k.COMPANY_ID
+		AND b.GOODS_ID = k.GOODS_ID
+		<!--AND b.WAREHOUSE_ID = k.WAREHOUSE_ID
+		 <if test="warehouseGoodsSet.storageroomId != null and warehouseGoodsSet.storageroomId != ''">
+		AND b.STORAGE_ROOM_ID = k.STORAGE_ROOM_ID
+		</if>
+		 <if test="warehouseGoodsSet.storageAreaId != null and warehouseGoodsSet.storageAreaId != ''">
+		AND b.STORAGE_AREA_ID = k.STORAGE_AREA_ID
+		</if>
+		<if test="warehouseGoodsSet.storageRackId != null and warehouseGoodsSet.storageRackId != ''">
+		AND b.STORAGE_RACK_ID = k.STORAGE_RACK_ID
+		</if>
+		<if test="warehouseGoodsSet.storageLocationId != null and warehouseGoodsSet.storageLocationId != ''">
+		AND b.STORAGE_LOCATION_ID = k.STORAGE_LOCATION_ID
+		</if>-->
+		AND b.COMPANY_ID = k.COMPANY_ID
+		AND b.WAREHOUSE_ID = k.WAREHOUSE_ID
+		AND b.STORAGE_AREA_ID = k.STORAGE_AREA_ID
+		AND b.STORAGE_ROOM_ID = k.STORAGE_ROOM_ID
+		AND b.STORAGE_RACK_ID = k.STORAGE_RACK_ID
+		AND b.STORAGE_LOCATION_ID = k.STORAGE_LOCATION_ID
+		<where>
+		   1=1 
+		   AND b.COMPANY_ID = #{warehouseGoodsSet.companyId,jdbcType=INTEGER}
+		   <if test="warehouseGoodsSet.goodsName != null and warehouseGoodsSet.goodsName != ''">
+				AND a.GOODS_NAME like CONCAT('%',#{warehouseGoodsSet.goodsName,jdbcType=VARCHAR},'%' )
+		   </if>
+		   <if test="warehouseGoodsSet.brandName != null and warehouseGoodsSet.brandName != ''">
+				AND c.BRAND_NAME like CONCAT('%',#{warehouseGoodsSet.brandName,jdbcType=VARCHAR},'%' )
+		   </if>
+		   <if test="warehouseGoodsSet.model != null and warehouseGoodsSet.model != ''">
+				AND a.MODEL = #{warehouseGoodsSet.model,jdbcType=VARCHAR}
+		   </if>
+		   <if test="warehouseGoodsSet.sku != null and warehouseGoodsSet.sku != ''">
+				AND a.SKU = #{warehouseGoodsSet.sku,jdbcType=VARCHAR}
+		   </if>
+		   <if test="warehouseGoodsSet.materialCode != null and warehouseGoodsSet.materialCode != ''">
+				AND a.MATERIAL_CODE = #{warehouseGoodsSet.materialCode,jdbcType=VARCHAR}
+		   </if>
+		   <if test="warehouseGoodsSet.wareHouseId != null and warehouseGoodsSet.wareHouseId != ''">
+				AND e.WAREHOUSE_ID = #{warehouseGoodsSet.wareHouseId,jdbcType=INTEGER}
+		   </if>
+		   <if test="warehouseGoodsSet.storageroomId != null and warehouseGoodsSet.storageroomId != ''">
+				AND f.STORAGE_ROOM_ID = #{warehouseGoodsSet.storageroomId,jdbcType=INTEGER}
+		   </if>
+		   <if test="warehouseGoodsSet.storageAreaId != null and warehouseGoodsSet.storageAreaId != ''">
+				AND g.STORAGE_AREA_ID = #{warehouseGoodsSet.storageAreaId,jdbcType=INTEGER}
+		   </if>
+		   <if test="warehouseGoodsSet.storageRackId != null and warehouseGoodsSet.storageRackId != ''">
+				AND h.STORAGE_RACK_ID = #{warehouseGoodsSet.storageRackId,jdbcType=INTEGER}
+		   </if>
+		   <if test="warehouseGoodsSet.storageLocationId != null and warehouseGoodsSet.storageLocationId != ''">
+				AND i.STORAGE_LOCATION_ID = #{warehouseGoodsSet.storageLocationId,jdbcType=INTEGER}
+		   </if>
+		   <if test="warehouseGoodsSet.comments != null and warehouseGoodsSet.comments != ''">
+				AND b.COMMENTS = #{warehouseGoodsSet.comments,jdbcType=VARCHAR}
+		   </if>
+		   <if test="warehouseGoodsSet.isDiscard != null ">
+				AND a.IS_DISCARD = #{warehouseGoodsSet.isDiscard,jdbcType=BIT}
+		   </if>   
+	    </where>
+		<!-- GROUP BY
+		a.GOODS_NAME,
+		c.BRAND_NAME,
+		a.MODEL,
+		a.SKU,
+		a.MATERIAL_CODE,
+		d.UNIT_NAME,
+		e.WAREHOUSE_NAME,
+		e.WAREHOUSE_ID,
+		f.STORAGE_ROOM_NAME,
+		f.STORAGE_ROOM_ID,
+		g.STORAGE_AREA_NAME,
+		g.STORAGE_AREA_ID,
+		h.STORAGE_RACK_NAME,
+		h.STORAGE_RACK_ID,
+		i.STORAGE_LOCATION_NAME,
+		i.STORAGE_LOCATION_ID,
+		b.COMMENTS,
+		a.IS_DISCARD -->
+	</select>
+	<!-- 删除库位商品 -->
+	<delete id="delWarehouseGoods" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet">
+		DELETE FROM T_WAREHOUSE_GOODS_SET
+       <where> 
+	       GOODS_ID IN ( 
+			  SELECT a.GOODS_ID FROM T_GOODS a
+			  WHERE a.GOODS_NAME =  #{goodsName,jdbcType=VARCHAR}
+		    ) 
+	       <if test="wareHouseId != null and wareHouseId != ''">
+				AND WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+		   </if>
+		    <if test="storageroomId != null and storageroomId != ''">
+				AND STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageAreaId != null and storageAreaId != ''">
+				AND STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageRackId != null and storageRackId != ''">
+				AND STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageLocationId != null and storageLocationId != ''">
+				AND STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+		   </if>
+		</where>
+	</delete>
+	<!-- 批量删除库位商品 -->
+	<delete id="delBatchWarehouseGoods" parameterType="java.util.List">
+	  <foreach item="data" index="index" collection="list" separator=";">
+			DELETE FROM T_WAREHOUSE_GOODS_SET
+	       <where> 
+		       GOODS_ID IN ( 
+				  SELECT a.GOODS_ID FROM T_GOODS a
+				  WHERE a.GOODS_NAME =  #{data.goodsName,jdbcType=VARCHAR}
+			    ) 
+		       <if test="data.wareHouseId != null and data.wareHouseId != ''">
+					AND WAREHOUSE_ID = #{data.wareHouseId,jdbcType=INTEGER}
+			   </if>
+			    <if test="data.storageroomId != null and data.storageroomId != ''">
+					AND STORAGE_ROOM_ID = #{data.storageroomId,jdbcType=INTEGER}
+			   </if>
+			   <if test="data.storageAreaId != null and data.storageAreaId != ''">
+					AND STORAGE_AREA_ID = #{data.storageAreaId,jdbcType=INTEGER}
+			   </if>
+			   <if test="data.storageRackId != null and data.storageRackId != ''">
+					AND STORAGE_RACK_ID = #{data.storageRackId,jdbcType=INTEGER}
+			   </if>
+			   <if test="data.storageLocationId != null and data.storageLocationId != ''">
+					AND STORAGE_LOCATION_ID = #{data.storageLocationId,jdbcType=INTEGER}
+			   </if>
+			</where>
+		</foreach>
+	</delete>
+	<!-- 验证批量分配时订单号是否重复 -->
+	<select id="batchSaveSkuname" parameterType="java.util.List" resultType="java.lang.String">
+		SELECT b.SKU from T_WAREHOUSE_GOODS_SET a LEFT JOIN T_GOODS b
+        on a.GOODS_ID = b.GOODS_ID where b.SKU IN
+		<foreach item="data" index="index" collection="list" separator="," open="(" close=")">
+			#{data.sku,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+	<!-- 批量分配库位 -->
+	<insert id="batchSaveWarehouseGoods" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="warehouseGoodsSetId"><!-- 批量插入，返回主键，字段goodsId -->
+		<foreach item="data" index="index" collection="list" separator=";">
+			insert into T_WAREHOUSE_GOODS_SET
+			(
+			<if test="data.companyId != null and data.companyId != ''">
+				COMPANY_ID,
+			</if>
+			    GOODS_ID,
+			<if test="data.wareHouseId != null and data.wareHouseId != ''">
+				WAREHOUSE_ID,
+			</if>
+			<if test="data.storageroomId != null and data.storageroomId != ''">
+				STORAGE_ROOM_ID,
+			</if>
+			<if test="data.storageAreaId != null and data.storageAreaId != ''">
+				STORAGE_AREA_ID,
+			</if>
+			<if test="data.storageRackId != null and data.storageRackId != ''">
+				STORAGE_RACK_ID,
+			</if>
+			<if test="data.storageLocationId != null and data.storageLocationId != ''">
+				STORAGE_LOCATION_ID,
+			</if>
+			<if test="data.comments != null and data.comments != ''">
+				COMMENTS,
+			</if>
+			<if test="data.addTime != null and data.addTime != ''">
+				ADD_TIME,
+			</if>
+			<if test="data.creator != null and data.creator != ''">
+				CREATOR,
+			</if>
+			<if test="data.modTime != null and data.modTime != ''">
+				MOD_TIME,
+			</if>
+			<if test="data.updater != null and data.updater != ''">
+				UPDATER
+			</if>
+			)
+			select
+					<if test="data.companyId != null and data.companyId != ''">
+						#{data.companyId,jdbcType=INTEGER},
+					</if>
+			            GOODS_ID ,
+					<if test="data.wareHouseId != null and data.wareHouseId != ''">
+						#{data.wareHouseId,jdbcType=INTEGER},
+					</if>
+					<if test="data.storageroomId != null and data.storageroomId != ''">
+						#{data.storageroomId,jdbcType=INTEGER},
+					</if>
+					<if test="data.storageAreaId != null and data.storageAreaId != ''">
+						#{data.storageAreaId,jdbcType=INTEGER},
+					</if>
+					<if test="data.storageRackId != null and data.storageRackId != ''">
+						#{data.storageRackId,jdbcType=INTEGER},
+					</if>
+					<if test="data.storageLocationId != null and data.storageLocationId != ''">
+						#{data.storageLocationId,jdbcType=INTEGER},
+					</if>
+					<if test="data.comments != null and data.comments != ''">
+						#{data.comments,jdbcType=VARCHAR},
+					</if>
+					<if test="data.addTime != null and data.addTime != ''">
+						#{data.addTime,jdbcType=BIGINT},
+					</if>
+					<if test="data.creator != null and data.creator != ''">
+						#{data.creator,jdbcType=INTEGER},
+					</if>
+					<if test="data.modTime != null and data.modTime != ''">
+						#{data.modTime,jdbcType=BIGINT},
+					</if>
+					<if test="data.updater != null and data.updater != ''">
+						#{data.updater,jdbcType=INTEGER},
+					</if>
+			       from  T_GOODS 
+			where SKU=#{data.sku,jdbcType=VARCHAR}
+		</foreach>
+	</insert>
+	<!-- 查询所有的库位 -->
+	<select id="getWarehouseListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+	  	SELECT
+		a.WAREHOUSE_ID,
+		a.WAREHOUSE_NAME,
+		b.STORAGE_ROOM_ID,
+		b.STORAGE_ROOM_NAME,
+		c.STORAGE_AREA_ID,
+		c.STORAGE_AREA_NAME,
+		d.STORAGE_RACK_ID,
+		d.STORAGE_RACK_NAME,
+		e.STORAGE_LOCATION_ID,
+		e.STORAGE_LOCATION_NAME
+		FROM
+		T_WAREHOUSE a
+		LEFT JOIN T_STORAGE_ROOM b ON a.WAREHOUSE_ID = b.WAREHOUSE_ID
+		LEFT JOIN T_STORAGE_AREA c ON b.STORAGE_ROOM_ID = c.STORAGE_ROOM_ID
+		LEFT JOIN T_STORAGE_RACK d ON c.STORAGE_AREA_ID = d.STORAGE_AREA_ID
+		LEFT JOIN T_STORAGE_LOCATION e ON d.STORAGE_RACK_ID = e.STORAGE_LOCATION_ID
+	</select>
+	<!-- 根据订货号查询goods -->
+	<select id="getGoods" parameterType="com.vedeng.goods.model.Goods" resultMap="BaseResultMap">
+	  	SELECT *
+	  	from  T_GOODS 
+		where SKU=#{sku,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 查询商品库位列表 -->
+	<select id="getWarehouseSetForGood" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultMap="BaseResultMap">
+	  	SELECT
+		a.GOODS_NAME,
+		c.BRAND_NAME,
+		a.MODEL,
+		a.SKU,
+		a.MATERIAL_CODE,
+		d.UNIT_NAME,
+		e.WAREHOUSE_NAME,
+		e.WAREHOUSE_ID,
+		f.STORAGE_ROOM_NAME,
+		f.STORAGE_ROOM_ID,
+		g.STORAGE_AREA_NAME,
+		g.STORAGE_AREA_ID,
+		h.STORAGE_RACK_NAME,
+		h.STORAGE_RACK_ID,
+		i.STORAGE_LOCATION_NAME,
+		i.STORAGE_LOCATION_ID,
+		b.COMMENTS,
+		b.GOODS_ID,
+		a.IS_DISCARD
+		FROM
+		T_WAREHOUSE_GOODS_SET b
+		LEFT JOIN T_GOODS a ON a.GOODS_ID = b.GOODS_ID
+		LEFT JOIN T_BRAND c ON a.BRAND_ID = c.BRAND_ID
+		LEFT JOIN T_UNIT d ON a.UNIT_ID = d.UNIT_ID
+		LEFT JOIN T_WAREHOUSE e ON b.WAREHOUSE_ID = e.WAREHOUSE_ID
+		LEFT JOIN T_STORAGE_ROOM f ON b.STORAGE_ROOM_ID = f.STORAGE_ROOM_ID
+		LEFT JOIN T_STORAGE_AREA g ON b.STORAGE_AREA_ID = g.STORAGE_AREA_ID
+		LEFT JOIN T_STORAGE_RACK h ON b.STORAGE_RACK_ID = h.STORAGE_RACK_ID
+		LEFT JOIN T_STORAGE_LOCATION i ON b.STORAGE_LOCATION_ID = i.STORAGE_LOCATION_ID
+		<where>
+		   1=1
+		   <if test="goodsName != null and goodsName != ''">
+				AND a.GOODS_NAME like CONCAT('%',#{goodsName,jdbcType=VARCHAR},'%' )
+		   </if>
+		   <if test="brandName != null and brandName != ''">
+				AND c.BRAND_NAME like CONCAT('%',#{brandName,jdbcType=VARCHAR},'%' )
+		   </if>
+		   <if test="model != null and model != ''">
+				AND a.MODEL = #{model,jdbcType=VARCHAR}
+		   </if>
+		   <if test="sku != null and sku != ''">
+				AND a.SKU = #{sku,jdbcType=VARCHAR}
+		   </if>
+		   <if test="goodsId != null and goodsId != ''">
+				AND a.GOODS_ID = #{goodsId,jdbcType=VARCHAR}
+		   </if>
+		   <if test="materialCode != null and materialCode != ''">
+				AND a.MATERIAL_CODE = #{materialCode,jdbcType=VARCHAR}
+		   </if>
+		   <if test="wareHouseId != null and wareHouseId != ''">
+				AND e.WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageroomId != null and storageroomId != ''">
+				AND f.STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageAreaId != null and storageAreaId != ''">
+				AND g.STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageRackId != null and storageRackId != ''">
+				AND h.STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageLocationId != null and storageLocationId != ''">
+				AND i.STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+		   </if>
+		   <if test="comments != null and comments != ''">
+				AND b.COMMENTS = #{comments,jdbcType=VARCHAR}
+		   </if>
+		   <if test="isDiscard != null ">
+				AND a.IS_DISCARD = #{isDiscard,jdbcType=BIT}
+		   </if> 
+		   <if test="companyId != null and companyId != ''">
+				AND b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		   </if> 
+	    </where>
+	</select>
+	<!-- 查询记录是否已存在 -->
+	<select id="getWarehouseGoodsSet" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultMap="BaseResultMap">
+	  	SELECT *
+	  	from  T_WAREHOUSE_GOODS_SET 
+		where 1=1 
+		AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		<if test="wareHouseId != null and wareHouseId != ''">
+			AND WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+	    </if>
+	    <if test="storageroomId != null and storageroomId != ''">
+			AND STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+	    </if>
+	    <if test="storageAreaId != null and storageAreaId != ''">
+			AND STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+	    </if>
+	    <if test="storageRackId != null and storageRackId != ''">
+			AND STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+	    </if>
+	    <if test="storageLocationId != null and storageLocationId != ''">
+			AND STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+	    </if>
+	</select>
+	<!-- 产品货仓信息 -->
+	<select id="getWarehouseGoodsSetByGoodId" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultType="com.vedeng.logistics.model.WarehouseGoodsSet">
+	  	SELECT *
+	  	from  T_WAREHOUSE_GOODS_SET 
+		where 1=1 
+		AND COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		AND GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		<if test="wareHouseId != null " >
+       and WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+      </if>
+       <if test="wareHouseId == null " >
+       and WAREHOUSE_ID = 0
+      </if>
+      <if test="storageroomId != null" >
+      and STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+      </if>
+      <if test="storageroomId == null " >
+      and STORAGE_ROOM_ID = 0
+      </if>
+      <if test="storageAreaId != null" >
+      and STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+      </if>
+      <if test="storageAreaId == null " >
+      and STORAGE_AREA_ID = 0
+      </if>
+      <if test="storageLocationId != null" >
+      and STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+      </if>
+      <if test="storageLocationId == null" >
+      and STORAGE_LOCATION_ID = 0
+      </if>
+      <if test="storageRackId != null" >
+      and STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+      </if>
+      <if test="storageRackId == null" >
+      and STORAGE_RACK_ID = 0
+      </if>	
+	</select>
+	<!-- 更新信息 -->
+	<update id="updateWs" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" >
+    update T_WAREHOUSE_GOODS_SET
+    set <if test="companyId != null and companyId != ''">
+		    COMPANY_ID =  #{companyId,jdbcType=INTEGER},
+	    </if>
+		<if test="goodsId != null and goodsId != ''">
+			GOODS_ID =	#{goodsId,jdbcType=INTEGER},
+		</if>
+		<if test="wareHouseId != null and wareHouseId != ''">
+			WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER},
+		</if>
+		<if test="storageroomId != null and storageroomId != ''">
+			STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER},
+		</if>
+		<if test="storageAreaId != null and storageAreaId != ''">
+			STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER},
+		</if>
+		<if test="storageRackId != null and storageRackId != ''">
+			STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER},
+		</if>
+		<if test="storageLocationId != null and storageLocationId != ''">
+			STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER},
+		</if>
+		<if test="comments != null and comments != ''">
+			COMMENTS = #{comments,jdbcType=VARCHAR},
+		</if>
+		<if test="addTime != null and addTime != ''">
+			ADD_TIME = #{addTime,jdbcType=BIGINT},
+		</if>
+		<if test="creator != null and creator != ''">
+			CREATOR = #{creator,jdbcType=INTEGER},
+		</if>
+		<if test="modTime != null and modTime != ''">
+			MOD_TIME = #{modTime,jdbcType=BIGINT},
+		</if>
+		<if test="updater != null and updater != ''">
+			UPDATER = #{updater,jdbcType=INTEGER}
+		</if>
+    where WAREHOUSE_GOODS_SET_ID = #{warehouseGoodsSetId,jdbcType=INTEGER}
+  </update>
+  <!-- 插入记录 -->
+  <insert id="insertWs" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" >
+    insert into T_WAREHOUSE_GOODS_SET (
+	  <if test="companyId != null and companyId != ''">
+		  COMPANY_ID,
+	  </if>
+	  <if test="goodsId != null and goodsId != ''">
+		  GOODS_ID,
+	  </if>
+	  <if test="wareHouseId != null and wareHouseId != ''">
+		  WAREHOUSE_ID,
+	  </if>
+	  <if test="storageroomId != null and storageroomId != ''">
+		  STORAGE_ROOM_ID,
+	  </if>
+	  <if test="storageAreaId != null and storageAreaId != ''">
+		  STORAGE_AREA_ID,
+	  </if>
+	  <if test="storageRackId != null and storageRackId != ''">
+		  STORAGE_RACK_ID,
+	  </if>
+	  <if test="storageLocationId != null and storageLocationId != ''">
+		  STORAGE_LOCATION_ID,
+	  </if>
+	  <if test="comments != null and comments != ''">
+		  COMMENTS,
+	  </if>
+	  <if test="addTime != null and addTime != ''">
+		  ADD_TIME,
+	  </if>
+	  <if test="creator != null and creator != ''">
+		  CREATOR,
+	  </if>
+	  <if test="modTime != null and modTime != ''">
+		  MOD_TIME,
+	  </if>
+	  <if test="updater != null and updater != ''">
+		  UPDATER
+	  </if>
+      )
+    values (
+	  <if test="companyId != null and companyId != ''">
+		  #{companyId,jdbcType=INTEGER},
+	  </if>
+	  <if test="goodsId != null and goodsId != ''">
+		  #{goodsId,jdbcType=INTEGER},
+	  </if>
+	  <if test="wareHouseId != null and wareHouseId != ''">
+		  #{wareHouseId,jdbcType=INTEGER},
+	  </if>
+	  <if test="storageroomId != null and storageroomId != ''">
+		  #{storageroomId,jdbcType=INTEGER},
+	  </if>
+	  <if test="storageAreaId != null and storageAreaId != ''">
+		  #{storageAreaId,jdbcType=INTEGER},
+	  </if>
+	  <if test="storageRackId != null and storageRackId != ''">
+		  #{storageRackId,jdbcType=INTEGER},
+	  </if>
+	  <if test="storageLocationId != null and storageLocationId != ''">
+		  #{storageLocationId,jdbcType=INTEGER},
+	  </if>
+	  <if test="comments != null and comments != ''">
+		  #{comments,jdbcType=VARCHAR},
+	  </if>
+	  <if test="addTime != null and addTime != ''">
+		  #{addTime,jdbcType=BIGINT},
+	  </if>
+	  <if test="creator != null and creator != ''">
+		  #{creator,jdbcType=INTEGER},
+	  </if>
+	  <if test="modTime != null and modTime != ''">
+		  #{modTime,jdbcType=BIGINT},
+	  </if>
+	  <if test="updater != null and updater != ''">
+		  #{updater,jdbcType=INTEGER}
+	  </if>
+	  )
+  </insert>
+  
+  <!-- 根据公司id获取全部五级仓 -->
+	<select id="getWarehouseAll" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet" resultMap="BaseResultMap">
+	  	SELECT
+		e.WAREHOUSE_NAME,
+		e.WAREHOUSE_ID,
+		f.STORAGE_ROOM_NAME,
+		f.STORAGE_ROOM_ID,
+		g.STORAGE_AREA_NAME,
+		g.STORAGE_AREA_ID,
+		h.STORAGE_RACK_NAME,
+		h.STORAGE_RACK_ID,
+		i.STORAGE_LOCATION_NAME,
+		i.STORAGE_LOCATION_ID,
+		bg.GOODS_ID
+		FROM
+		T_WAREHOUSE_GOODS_SET wgs
+		LEFT JOIN T_WAREHOUSE e ON e.WAREHOUSE_ID = wgs.WAREHOUSE_ID
+		LEFT JOIN T_STORAGE_ROOM f ON wgs.STORAGE_ROOM_ID = f.STORAGE_ROOM_ID
+		LEFT JOIN T_STORAGE_AREA g ON wgs.STORAGE_AREA_ID = g.STORAGE_AREA_ID
+		LEFT JOIN T_STORAGE_RACK h ON wgs.STORAGE_RACK_ID = h.STORAGE_RACK_ID
+		LEFT JOIN T_STORAGE_LOCATION i ON wgs.STORAGE_LOCATION_ID = i.STORAGE_LOCATION_ID
+		<if test="buyorderId != null and buyorderId != ''">
+				LEFT JOIN T_BUYORDER_GOODS bg ON wgs.GOODS_ID = bg.GOODS_ID
+		</if>
+		<if test="afterSalesId != null and afterSalesId != ''">
+				LEFT JOIN T_AFTER_SALES_GOODS bg ON wgs.GOODS_ID = bg.GOODS_ID
+		</if>
+		<where>
+		   1=1
+		   <if test="companyId != null and companyId != ''">
+				AND wgs.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		   </if>
+		   <if test="wareHouseId != null and wareHouseId != ''">
+				AND e.WAREHOUSE_ID = #{wareHouseId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageroomId != null and storageroomId != ''">
+				AND f.STORAGE_ROOM_ID = #{storageroomId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageAreaId != null and storageAreaId != ''">
+				AND g.STORAGE_AREA_ID = #{storageAreaId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageRackId != null and storageRackId != ''">
+				AND h.STORAGE_RACK_ID = #{storageRackId,jdbcType=INTEGER}
+		   </if>
+		   <if test="storageLocationId != null and storageLocationId != ''">
+				AND i.STORAGE_LOCATION_ID = #{storageLocationId,jdbcType=INTEGER}
+		   </if>
+		   <if test="buyorderId != null and buyorderId != ''">
+				AND bg.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+		   </if>
+		   <if test="afterSalesId != null and afterSalesId != ''">
+				AND bg.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+		</if>
+	    </where>
+	</select>
+    <!--根据id删除商品库位-->
+    <delete id="delWarehouseGoodsById" parameterType="com.vedeng.logistics.model.WarehouseGoodsSet">
+        DELETE FROM T_WAREHOUSE_GOODS_SET
+        <where>
+            WAREHOUSE_GOODS_SET_ID = #{warehouseGoodsSetId,jdbcType=INTEGER}
+        </where>
+    </delete>
+    <!-- 根据id批量删除库位商品 -->
+    <delete id="delBatchWarehouseGoodsById" parameterType="java.util.List">
+        <foreach item="data" index="index" collection="list" separator=";">
+            DELETE FROM T_WAREHOUSE_GOODS_SET
+            <where>
+                WAREHOUSE_GOODS_SET_ID =  (
+                   #{data.warehouseGoodsSetId,jdbcType=INTEGER}
+                )
+            </where>
+        </foreach>
+    </delete>
+	<select id="getStorageLocationNameBuySku" resultMap="BaseResultMap" >
+		SELECT DISTINCT
+			a.GOODS_NAME,
+			c.BRAND_NAME,
+			a.MODEL,
+			a.SKU,
+			a.MATERIAL_CODE,
+			d.UNIT_NAME,
+			e.WAREHOUSE_NAME,
+			e.WAREHOUSE_ID,
+			f.STORAGE_ROOM_NAME,
+			f.STORAGE_ROOM_ID,
+			g.STORAGE_AREA_NAME,
+			g.STORAGE_AREA_ID,
+			h.STORAGE_RACK_NAME,
+			h.STORAGE_RACK_ID,
+			i.STORAGE_LOCATION_NAME,
+			i.STORAGE_LOCATION_ID,
+			b.WAREHOUSE_GOODS_SET_ID,
+			b.COMMENTS,
+			b.GOODS_ID,
+			a.IS_DISCARD
+		FROM
+			T_WAREHOUSE_GOODS_SET b
+			LEFT JOIN T_GOODS a ON a.GOODS_ID = b.GOODS_ID
+			LEFT JOIN T_BRAND c ON a.BRAND_ID = c.BRAND_ID
+			LEFT JOIN T_UNIT d ON a.UNIT_ID = d.UNIT_ID
+			LEFT JOIN T_WAREHOUSE e ON b.WAREHOUSE_ID = e.WAREHOUSE_ID
+			LEFT JOIN T_STORAGE_ROOM f ON b.STORAGE_ROOM_ID = f.STORAGE_ROOM_ID
+			LEFT JOIN T_STORAGE_AREA g ON b.STORAGE_AREA_ID = g.STORAGE_AREA_ID
+			LEFT JOIN T_STORAGE_RACK h ON b.STORAGE_RACK_ID = h.STORAGE_RACK_ID
+			LEFT JOIN T_STORAGE_LOCATION i ON b.STORAGE_LOCATION_ID = i.STORAGE_LOCATION_ID
+		WHERE
+			1 = 1
+			AND b.COMPANY_ID = 1
+			AND a.SKU = #{sku}
+			ORDER BY b.MOD_TIME DESC
+			LIMIT 1
+	</select>
+</mapper>

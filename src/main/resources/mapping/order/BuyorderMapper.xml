@@ -1,0 +1,2943 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.order.dao.BuyorderMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.order.model.Buyorder" >
+    <id column="BUYORDER_ID" property="buyorderId" jdbcType="INTEGER" />
+    <result column="BUYORDER_NO" property="buyorderNo" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="BIT" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+    <result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="LOCKED_STATUS" property="lockedStatus" jdbcType="BIT" />
+    <result column="INVOICE_STATUS" property="invoiceStatus" jdbcType="BIT" />
+    <result column="INVOICE_TIME" property="invoiceTime" jdbcType="BIGINT" />
+    <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="BIT" />
+    <result column="PAYMENT_TIME" property="paymentTime" jdbcType="BIGINT" />
+    <result column="DELIVERY_STATUS" property="deliveryStatus" jdbcType="BIT" />
+    <result column="DELIVERY_TIME" property="deliveryTime" jdbcType="BIGINT" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+    <result column="ARRIVAL_TIME" property="arrivalTime" jdbcType="BIGINT" />
+    <result column="SERVICE_STATUS" property="serviceStatus" jdbcType="BIT" />
+    <result column="HAVE_ACCOUNT_PERIOD" property="haveAccountPeriod" jdbcType="BIT" />
+    <result column="DELIVERY_DIRECT" property="deliveryDirect" jdbcType="BIT" />
+    <result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_TELEPHONE" property="traderContactTelephone" jdbcType="VARCHAR" />
+    <result column="TRADER_ADDRESS_ID" property="traderAddressId" jdbcType="INTEGER" />
+    <result column="TRADER_ADDRESS" property="traderAddress" jdbcType="VARCHAR" />
+    <result column="TRADER_COMMENTS" property="traderComments" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_ID" property="takeTraderId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_NAME" property="takeTraderName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_ID" property="takeTraderContactId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_CONTACT_NAME" property="takeTraderContactName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_MOBILE" property="takeTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_TELEPHONE" property="takeTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_ADDRESS_ID" property="takeTraderAddressId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_ADDRESS" property="takeTraderAddress" jdbcType="VARCHAR" />
+    <result column="PAYMENT_TYPE" property="paymentType" jdbcType="INTEGER" />
+    <result column="PREPAID_AMOUNT" property="prepaidAmount" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_PERIOD_AMOUNT" property="accountPeriodAmount" jdbcType="DECIMAL" />
+    <result column="RETAINAGE_AMOUNT" property="retainageAmount" jdbcType="DECIMAL" />
+    <result column="RETAINAGE_AMOUNT_MONTH" property="retainageAmountMonth" jdbcType="INTEGER" />
+    <result column="LOGISTICS_ID" property="logisticsId" jdbcType="INTEGER" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+    <result column="FREIGHT_DESCRIPTION" property="freightDescription" jdbcType="INTEGER" />
+    <result column="PAYMENT_COMMENTS" property="paymentComments" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR" />
+    <result column="INVOICE_COMMENTS" property="invoiceComments" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="ADDITIONAL_CLAUSE" property="additionalClause" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_AREA" property="takeTraderArea" jdbcType="VARCHAR" />
+    <result column="TRADER_AREA" property="traderArea" jdbcType="VARCHAR" />
+    <result column="SATISFY_DELIVERY_TIME" property="satisfyDeliveryTime" jdbcType="BIGINT" />
+    <result column="ESTIMATE_ARRIVAL_TIME" property="estimateArrivalTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap type="com.vedeng.order.model.vo.BuyorderVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="SKU" property="sku" jdbcType="VARCHAR" />
+  	<result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_NAME" property="logisticsName" jdbcType="VARCHAR" />
+    <result column="FREIGHT_DES" property="freightDes" jdbcType="VARCHAR" />
+    <result column="INVOICE_TYPE_STR" property="invoiceTypeStr" jdbcType="VARCHAR" />
+    <result column="ALL_NUM" property="allNum" jdbcType="INTEGER" />
+    <result column="ALL_ARRIVAL_NUM" property="allArrivalNum" jdbcType="INTEGER" /> 
+    <result column="PERIOD_DAY" property="periodDay" jdbcType="INTEGER" />
+    <result column="PERIOD_BALANCE" property="periodBalance" jdbcType="DECIMAL" />
+    <result column="LAST_VERIFY_USERNAME" property="shName" jdbcType="VARCHAR" />
+    
+    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="TAX_NUM" property="taxNum" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="FAX" property="fax" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    
+    <result column="VERIFY_USERNAME" property="verifyUsername" jdbcType="VARCHAR" />
+	<result column="VERIFY_STATUS" property="verifyStatus" jdbcType="INTEGER" />	
+	
+	<result column="PAY_VERIFY_USERNAME" property="paymentVerifyUsername" jdbcType="VARCHAR" />
+	<result column="PAY_VERIFY_STATUS" property="paymentVerifyStatus" jdbcType="INTEGER" />
+	
+	 <result column="STAKE_TRADER_CONTACT_NAME" property="sTakeTraderContactName" jdbcType="VARCHAR" />
+    <result column="STAKE_TRADER_CONTACT_MOBILE" property="sTakeTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="STAKE_TRADER_CONTACT_TELEPHONE" property="sTakeTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="STAKE_TRADER_ADDRESS" property="sTakeTraderAddress" jdbcType="VARCHAR" />
+    <result column="STAKE_TRADER_AREA" property="sTakeTraderArea" jdbcType="VARCHAR" />
+    <result column="BUYORDER_SUM" property="buyorderSum" jdbcType="INTEGER"/>
+    <result column="BUYORDER_AMOUNT" property="buyorderAmount" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    BUYORDER_ID, BUYORDER_NO, ORDER_TYPE, COMPANY_ID, ORG_ID, USER_ID, VALID_STATUS, VALID_TIME, 
+    STATUS, LOCKED_STATUS, INVOICE_STATUS, INVOICE_TIME, PAYMENT_STATUS, PAYMENT_TIME, 
+    DELIVERY_STATUS, DELIVERY_TIME, ARRIVAL_STATUS, ARRIVAL_TIME, SERVICE_STATUS, HAVE_ACCOUNT_PERIOD, 
+    DELIVERY_DIRECT, TOTAL_AMOUNT, TRADER_ID, TRADER_NAME, TRADER_CONTACT_ID, TRADER_CONTACT_NAME, 
+    TRADER_CONTACT_MOBILE, TRADER_CONTACT_TELEPHONE, TRADER_ADDRESS_ID, TRADER_ADDRESS, 
+    TRADER_COMMENTS, TAKE_TRADER_ID, TAKE_TRADER_NAME, TAKE_TRADER_CONTACT_ID, TAKE_TRADER_CONTACT_NAME, 
+    TAKE_TRADER_CONTACT_MOBILE, TAKE_TRADER_CONTACT_TELEPHONE, TAKE_TRADER_ADDRESS_ID, 
+    TAKE_TRADER_ADDRESS, PAYMENT_TYPE, PREPAID_AMOUNT, ACCOUNT_PERIOD_AMOUNT, RETAINAGE_AMOUNT, 
+    RETAINAGE_AMOUNT_MONTH, LOGISTICS_ID, INVOICE_TYPE, FREIGHT_DESCRIPTION, PAYMENT_COMMENTS, 
+    LOGISTICS_COMMENTS, INVOICE_COMMENTS, COMMENTS, ADDITIONAL_CLAUSE, ADD_TIME, CREATOR, 
+    MOD_TIME, UPDATER,TAKE_TRADER_AREA,TRADER_AREA,SATISFY_DELIVERY_TIME
+  </sql>
+  
+  <sql id="Buyorder_Where_Str" >
+    <if test="buyorder.companyId != null ">
+  		and bo.`COMPANY_ID` = #{buyorder.companyId }
+  	</if>
+	  <if test="buyorder.creator != null and buyorder.creator !=0 ">
+		  and bo.`creator` = #{buyorder.creator}
+	  </if>
+  	<if test="buyorder.orgId != null ">
+  		and bo.`ORG_ID` = #{buyorder.orgId }
+  	</if>
+  	<if test="buyorder.buyorderNo != null and buyorder.buyorderNo != '' ">
+  		and bo.BUYORDER_NO like CONCAT('%',#{buyorder.buyorderNo},'%' )
+  	</if>
+  	<if test="buyorder.status != null and  buyorder.status != -1">
+  		and bo.`STATUS` = #{buyorder.status }
+  	</if>
+  	<if test="buyorder.validStatus != null and buyorder.validStatus != -1">
+  		and bo.VALID_STATUS = #{buyorder.validStatus }
+  	</if>
+  	<if test="buyorder.paymentStatus != null and buyorder.paymentStatus !=-1">
+  		and bo.PAYMENT_STATUS = #{buyorder.paymentStatus }
+  	</if>
+  	<if test="buyorder.deliveryStatus != null and buyorder.deliveryStatus != -1">
+  		and bo.DELIVERY_STATUS = #{buyorder.deliveryStatus }
+  	</if>
+  	<if test="buyorder.arrivalStatus != null and buyorder.arrivalStatus != -1">
+  		and bo.ARRIVAL_STATUS = #{buyorder.arrivalStatus }
+  	</if>
+  	<if test="buyorder.invoiceStatus != null and buyorder.invoiceStatus != -1">
+  		and bo.INVOICE_STATUS = #{buyorder.invoiceStatus }
+  	</if>
+  	<if test="buyorder.invoiceType != null and buyorder.invoiceType != 0">
+  		and bo.INVOICE_TYPE = #{buyorder.invoiceType }
+  	</if>
+  	<!-- 审核状态 
+  	<if test="buyorder.reviewStatus != null and buyorder.reviewStatus != -1">
+  		and vr.`STATUS` = #{buyorder.reviewStatus}
+  	</if>
+  	-->
+	<if test="buyorder.verifyStatus !=null and buyorder.verifyStatus ==0">
+		and a.STATUS = 0
+	</if>
+	<if test="buyorder.verifyStatus !=null and buyorder.verifyStatus ==1">
+		and a.STATUS = 1
+	</if>
+	<if test="buyorder.verifyStatus !=null and buyorder.verifyStatus ==2">
+		and a.STATUS = 2
+	</if>
+	<if test="buyorder.verifyStatus !=null and buyorder.verifyStatus ==3">
+		and ISNULL(a.STATUS) 
+	</if>
+  	<if test="buyorder.serviceStatus != null and buyorder.serviceStatus != -1">
+  		and bo.SERVICE_STATUS = #{buyorder.serviceStatus }
+  	</if>
+  	<if test="buyorder.lockedStatus != null and buyorder.lockedStatus != -1">
+  		and bo.LOCKED_STATUS = #{buyorder.lockedStatus }
+  	</if>
+  	<if test="buyorder.traderName != null and buyorder.traderName != '' ">
+  		and bo.TRADER_NAME like CONCAT('%',#{buyorder.traderName},'%' )
+  	</if>
+  	<!-- 
+  	<if test="buyorder.goodsName != null and buyorder.goodsName != ''">
+  		and bog.GOODS_NAME like CONCAT('%',#{buyorder.goodsName},'%' )
+  	</if>  	
+  	<if test="buyorder.brandName != null and buyorder.brandName != '' ">
+  		and bog.BRAND_NAME like CONCAT('%',#{buyorder.brandName},'%' )
+  	</if>
+  	<if test="buyorder.model != null and buyorder.model != '' ">
+  		and bog.MODEL like CONCAT('%',#{buyorder.model},'%' )
+  	</if>
+  	<if test="buyorder.sku != null and buyorder.sku != '' ">
+  		and bog.SKU like CONCAT('%',#{buyorder.sku},'%' )
+  	</if>
+  	 -->
+  	<if test="buyorder.deliveryDirect != null">
+  		and bo.DELIVERY_DIRECT = #{buyorder.deliveryDirect}
+  	</if>
+  	<if test="buyorder.buyorderIdList != null">
+		and  bo.BUYORDER_ID in 
+ 		<foreach item="buyorderId" index="index" collection="buyorder.buyorderIdList" open="(" separator="," close=")">  
+		  #{buyorderId}  
+		</foreach>
+  	</if>
+  	<if test="buyorder.saleGoodsIdList != null">
+		and  sog.SALEORDER_GOODS_ID in 
+ 		<foreach item="saleGoodsId" index="index" collection="buyorder.saleGoodsIdList" open="(" separator="," close=")">  
+		  #{saleGoodsId}  
+		</foreach>
+  	</if>
+  	<if test="buyorder.userIds != null">
+		and  bo.USER_ID in 
+ 		<foreach item="userIds" index="index" collection="buyorder.userIds" open="(" separator="," close=")">  
+		  #{userIds}  
+		</foreach>
+  	</if>
+ 	<if test="buyorder.searchDateType ==1">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.ADD_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.ADD_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==2">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.VALID_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.VALID_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==3">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.PAYMENT_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.PAYMENT_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==4">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.DELIVERY_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.DELIVERY_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==5">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.ARRIVAL_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.ARRIVAL_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==6">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.INVOICE_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.INVOICE_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.isContractReturn != null ">
+		<if test="buyorder.isContractReturn == 0">
+			AND NOT EXISTS (SELECT 1 FROM T_ATTACHMENT atta WHERE atta.RELATED_ID = bo.BUYORDER_ID and atta.ATTACHMENT_FUNCTION = 514)
+		</if>
+		<if test="buyorder.isContractReturn == 1">
+			AND EXISTS (SELECT 1 FROM T_ATTACHMENT atta WHERE atta.RELATED_ID = bo.BUYORDER_ID and atta.ATTACHMENT_FUNCTION = 514)
+		</if>
+	</if>
+	<if test="buyorder.isFinanceAlready != null ">
+		<if test="buyorder.isFinanceAlready == 0">
+			AND (b.PAY_APPLY_ID IS NULL
+			or (
+				b.PAY_APPLY_ID IS NOT NULL
+				AND SUBSTRING_INDEX(c.VERIFY_USERNAME,',', 1) NOT IN 
+				(
+				SELECT
+					U.USERNAME
+					FROM T_USER U
+					LEFT JOIN T_R_USER_POSIT UR ON UR.USER_ID = U.USER_ID
+					LEFT JOIN T_POSITION R ON R.POSITION_ID = UR.POSITION_ID
+					WHERE  U.COMPANY_ID = #{buyorder.companyId } AND R.`TYPE`  = 314
+				)
+			)
+			)
+		</if>
+		<if test="buyorder.isFinanceAlready == 1">
+			AND b.PAY_APPLY_ID IS NOT NULL
+			AND c.VERIFIES_TYPE = 644 
+			AND SUBSTRING_INDEX(c.VERIFY_USERNAME,',', 1) IN 
+			(
+				SELECT
+					U.USERNAME
+					FROM T_USER U
+					LEFT JOIN T_R_USER_POSIT UR ON UR.USER_ID = U.USER_ID
+					LEFT JOIN T_POSITION R ON R.POSITION_ID = UR.POSITION_ID
+					WHERE  U.COMPANY_ID = #{buyorder.companyId } AND R.`TYPE`  = 314
+			)
+		</if>
+	</if>
+	<!-- 审核时间 
+	<if test="buyorder.searchDateType ==7">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and vr.ADD_TIME <![CDATA[>=]]> #{buyorder.searchBegintime}
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and vr.ADD_TIME <![CDATA[<=]]> #{buyorder.searchEndtime}
+		</if>
+	</if>
+	-->
+  </sql>
+  
+  <select id="getbuyordervolistpage" parameterType="Map" resultMap="VoResultMap">
+  	select 
+  		bo.BUYORDER_ID, bo.BUYORDER_NO, bo.ORDER_TYPE, bo.ORG_ID, bo.USER_ID, bo.VALID_STATUS, bo.VALID_TIME, 
+	    bo.STATUS, bo.LOCKED_STATUS, bo.INVOICE_STATUS, bo.INVOICE_TIME, bo.PAYMENT_STATUS, bo.PAYMENT_TIME, 
+	    bo.DELIVERY_STATUS, bo.DELIVERY_TIME, bo.ARRIVAL_STATUS, bo.ARRIVAL_TIME, bo.SERVICE_STATUS, bo.HAVE_ACCOUNT_PERIOD, 
+	    bo.DELIVERY_DIRECT, bo.TOTAL_AMOUNT, bo.TRADER_ID, bo.TRADER_NAME, bo.TRADER_CONTACT_ID, bo.TRADER_CONTACT_NAME, 
+	    bo.TRADER_CONTACT_MOBILE, bo.TRADER_CONTACT_TELEPHONE, bo.TRADER_ADDRESS_ID, bo.TRADER_ADDRESS, 
+	    bo.TRADER_COMMENTS, bo.TAKE_TRADER_ID, bo.TAKE_TRADER_NAME, bo.TAKE_TRADER_CONTACT_ID, bo.TAKE_TRADER_CONTACT_NAME, 
+	    bo.TAKE_TRADER_CONTACT_MOBILE, bo.TAKE_TRADER_CONTACT_TELEPHONE, bo.TAKE_TRADER_ADDRESS_ID, 
+	    bo.TAKE_TRADER_ADDRESS, bo.PAYMENT_TYPE, bo.PREPAID_AMOUNT, bo.ACCOUNT_PERIOD_AMOUNT, bo.RETAINAGE_AMOUNT, 
+	    bo.RETAINAGE_AMOUNT_MONTH, bo.LOGISTICS_ID, bo.INVOICE_TYPE, bo.FREIGHT_DESCRIPTION, bo.PAYMENT_COMMENTS, 
+	    bo.LOGISTICS_COMMENTS, bo.INVOICE_COMMENTS, bo.COMMENTS, bo.ADDITIONAL_CLAUSE, bo.ADD_TIME, bo.CREATOR, bo.SATISFY_DELIVERY_TIME,
+	    bo.MOD_TIME, bo.UPDATER,bo.TAKE_TRADER_AREA,bo.TRADER_AREA,a.VERIFY_USERNAME,a.STATUS as VERIFY_STATUS,
+	    c.VERIFY_USERNAME as PAY_VERIFY_USERNAME, c.STATUS as PAY_VERIFY_STATUS
+  	from T_BUYORDER bo
+  	<!-- 
+  	left join T_BUYORDER_GOODS bog on bo.BUYORDER_ID = bog.BUYORDER_ID
+  	left join T_R_BUYORDER_J_SALEORDER sog on bog.BUYORDER_GOODS_ID = sog.BUYORDER_GOODS_ID
+  	 -->
+  	LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER'
+  	left join T_PAY_APPLY b on b.RELATED_ID = bo.BUYORDER_ID and b.COMPANY_ID = bo.COMPANY_ID and b.PAY_TYPE = 517
+  	LEFT JOIN T_VERIFIES_INFO c ON c.RELATE_TABLE_KEY = b.PAY_APPLY_ID AND c.RELATE_TABLE = 'T_PAY_APPLY'
+  	<if test="buyorder.proUserId != 0 and buyorder.proUserId!=null">
+		LEFT JOIN T_BUYORDER_GOODS BG ON bo.BUYORDER_ID=BG.BUYORDER_ID
+		LEFT JOIN T_GOODS G ON BG.GOODS_ID = G.GOODS_ID
+		LEFT JOIN V_CORE_SKU CS ON G.SKU=CS.SKU_NO
+		LEFT JOIN V_CORE_SPU S ON CS.SPU_ID=S.SPU_ID
+	</if>
+  	<!--  关联查询出合同回传信息 -->
+  	
+  	<!-- 关联查询出是否到财务节点信息 -->
+  	<!-- 
+  	left join (SELECT tt.RELATED_ID,tt.VERIFIES_RECORD_ID,tt.VERIFIES_TYPE,tt.STATUS,tt.ADD_TIME,tt.CREATOR,tt.COMMENTS ,count(distinct tt.RELATED_ID) from (
+					SELECT t.VERIFIES_RECORD_ID,t.VERIFIES_TYPE,t.RELATED_ID,t.STATUS,t.ADD_TIME,t.CREATOR,t.COMMENTS
+						from T_VERIFIES_RECORD t where t.VERIFIES_TYPE = 136  ORDER BY t.ADD_TIME DESC  ) 
+			as tt GROUP BY tt.RELATED_ID ) as vr on vr.RELATED_ID = bo.BUYORDER_ID 
+			 -->
+  	where 1=1
+	  <if test="buyorder.proUserId != 0 and buyorder.proUserId!=null">
+		  and ((S.ASSIGNMENT_MANAGER_ID=#{buyorder.proUserId}) or (S.ASSIGNMENT_ASSISTANT_ID=#{buyorder.proUserId}))
+	  </if>
+  		<include refid="Buyorder_Where_Str" />
+	<!-- group by 避免关联到多条申请付款后产生重复数据 2018/2/12-->
+	group by bo.BUYORDER_ID
+  	ORDER BY bo.ADD_TIME DESC
+  </select>
+  
+  <select id="getbuyordervolistpagecount" parameterType="Map" resultType="java.lang.Integer">
+  	select 
+  		COUNT(DISTINCT bo.BUYORDER_ID)
+  	from T_BUYORDER bo
+  	LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER'
+  	left join T_PAY_APPLY b on b.RELATED_ID = bo.BUYORDER_ID and b.COMPANY_ID = bo.COMPANY_ID and b.PAY_TYPE = 517
+  	LEFT JOIN T_VERIFIES_INFO c ON c.RELATE_TABLE_KEY = b.PAY_APPLY_ID AND c.RELATE_TABLE = 'T_PAY_APPLY'
+	  <if test="buyorder.proUserId != 0 and buyorder.proUserId!=null">
+		  LEFT JOIN T_BUYORDER_GOODS BG ON bo.BUYORDER_ID=BG.BUYORDER_ID
+		  LEFT JOIN T_GOODS G ON BG.GOODS_ID = G.GOODS_ID
+		  LEFT JOIN V_CORE_SKU CS ON G.SKU=CS.SKU_NO
+		  LEFT JOIN V_CORE_SPU S ON CS.SPU_ID=S.SPU_ID
+	  </if>
+  	where 1=1
+	  <if test="buyorder.proUserId != 0 and buyorder.proUserId!=null">
+		  and ((S.ASSIGNMENT_MANAGER_ID=#{buyorder.proUserId}) or (S.ASSIGNMENT_ASSISTANT_ID=#{buyorder.proUserId}))
+	  </if>
+  		<include refid="Buyorder_Where_Str" />
+  </select>
+  
+  <select id="getPaymentTotalAmount" resultType="java.math.BigDecimal" parameterType="Map">
+  		select
+	  		COALESCE(sum(if(a.TRADER_TYPE=2 or a.TRADER_TYPE=5,ABS(a.AMOUNT),-ABS(a.AMOUNT))),0) 
+	  	from
+	  		T_CAPITAL_BILL a
+		left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		where
+			a.TRADER_TYPE in (1,2,4,5)
+		and
+			b.ORDER_TYPE = 2
+		and
+			b.BUSSINESS_TYPE != 533
+		and
+			b.RELATED_ID in (
+			
+			select
+				bo.BUYORDER_ID
+		  	from T_BUYORDER bo
+		  	LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER'
+		  	left join T_PAY_APPLY b on b.RELATED_ID = bo.BUYORDER_ID and b.COMPANY_ID = bo.COMPANY_ID and b.PAY_TYPE = 517
+		  	LEFT JOIN T_VERIFIES_INFO c ON c.RELATE_TABLE_KEY = b.PAY_APPLY_ID AND c.RELATE_TABLE = 'T_PAY_APPLY'  
+		  	where 1=1
+		  		<include refid="Buyorder_Where_Str" />
+		)
+			
+  </select>
+  
+  <select id="getInvoiceTotalAmount" resultType="java.math.BigDecimal" parameterType="Map">
+	  	select
+	  		COALESCE(sum(if(a.COLOR_TYPE=1,-ABS(a.AMOUNT),if(a.IS_ENABLE=1,ABS(a.AMOUNT),-ABS(a.AMOUNT))))+IFNULL(b.tk_amount,0),0)
+	  	from
+	  		T_INVOICE a
+	  	left join
+	  		(
+	  		select
+	  			sum(if(aa.COLOR_TYPE=1,-ABS(aa.AMOUNT),if(aa.IS_ENABLE=1,ABS(aa.AMOUNT),-ABS(aa.AMOUNT)))) as tk_amount,bb.ORDER_ID
+	  		from 
+	  			T_INVOICE aa
+	  		left join
+	  			T_AFTER_SALES bb
+	  		on 
+	  			aa.RELATED_ID = bb.AFTER_SALES_ID
+	  		where
+	  			aa.TYPE = 504
+	  		and
+	  			bb.SUBJECT_TYPE = 536
+	  		and
+	  			bb.VALID_STATUS = 1
+	  		and
+	  			bb.ATFER_SALES_STATUS in (1,2)
+	  		group by bb.ORDER_ID
+	  		) as b
+	  	on
+	  		a.RELATED_ID = b.ORDER_ID
+	  	where
+	  		a.TYPE = 503
+	  	and
+	  		a.VALID_STATUS = 1
+	  	and
+	  		a.RELATED_ID in (
+			
+			select
+				bo.BUYORDER_ID
+		  	from T_BUYORDER bo
+		  	LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER'
+		  	left join T_PAY_APPLY b on b.RELATED_ID = bo.BUYORDER_ID and b.COMPANY_ID = bo.COMPANY_ID and b.PAY_TYPE = 517
+		  	LEFT JOIN T_VERIFIES_INFO c ON c.RELATE_TABLE_KEY = b.PAY_APPLY_ID AND c.RELATE_TABLE = 'T_PAY_APPLY'  
+		  	where 1=1
+		  		<include refid="Buyorder_Where_Str" />
+		)
+	  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_BUYORDER
+    where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getBuyorderVoById" resultMap="VoResultMap" parameterType="java.lang.Integer" >
+    select 
+    	bo.BUYORDER_ID, bo.BUYORDER_NO,bo.COMPANY_ID, bo.ORDER_TYPE, bo.ORG_ID, bo.USER_ID, bo.VALID_STATUS, bo.VALID_TIME, 
+	    bo.STATUS, bo.LOCKED_STATUS, bo.INVOICE_STATUS, bo.INVOICE_TIME, bo.PAYMENT_STATUS, bo.PAYMENT_TIME, 
+	    bo.DELIVERY_STATUS, bo.DELIVERY_TIME, bo.ARRIVAL_STATUS, bo.ARRIVAL_TIME, bo.SERVICE_STATUS, bo.HAVE_ACCOUNT_PERIOD, 
+	    bo.DELIVERY_DIRECT, bo.TOTAL_AMOUNT, bo.TRADER_ID, bo.TRADER_NAME, bo.TRADER_CONTACT_ID, bo.TRADER_CONTACT_NAME, 
+	    bo.TRADER_CONTACT_MOBILE, bo.TRADER_CONTACT_TELEPHONE, bo.TRADER_ADDRESS_ID, bo.TRADER_ADDRESS, 
+	    bo.TRADER_COMMENTS, bo.TAKE_TRADER_ID, bo.TAKE_TRADER_NAME, bo.TAKE_TRADER_CONTACT_ID, bo.TAKE_TRADER_CONTACT_NAME, 
+	    bo.TAKE_TRADER_CONTACT_MOBILE, bo.TAKE_TRADER_CONTACT_TELEPHONE, bo.TAKE_TRADER_ADDRESS_ID, 
+	    bo.TAKE_TRADER_ADDRESS, bo.PAYMENT_TYPE, bo.PREPAID_AMOUNT, bo.ACCOUNT_PERIOD_AMOUNT, bo.RETAINAGE_AMOUNT, 
+	    bo.RETAINAGE_AMOUNT_MONTH, bo.LOGISTICS_ID, bo.INVOICE_TYPE, bo.FREIGHT_DESCRIPTION, bo.PAYMENT_COMMENTS, 
+	    bo.LOGISTICS_COMMENTS, bo.INVOICE_COMMENTS, bo.COMMENTS, bo.ADDITIONAL_CLAUSE,bo.ESTIMATE_ARRIVAL_TIME, bo.ADD_TIME, bo.CREATOR, 
+	    bo.MOD_TIME, bo.UPDATER,bo.TAKE_TRADER_AREA,bo.TRADER_AREA,l.NAME AS LOGISTICS_NAME, sod1.TITLE AS FREIGHT_DES, sod2.TITLE AS INVOICE_TYPE_STR ,
+	    s.PERIOD_DAY, s.PERIOD_AMOUNT as PERIOD_BALANCE,a.VERIFY_USERNAME,a.STATUS as VERIFY_STATUS
+    from T_BUYORDER bo
+    LEFT JOIN T_LOGISTICS l on bo.LOGISTICS_ID = l.LOGISTICS_ID
+    LEFT JOIN T_SYS_OPTION_DEFINITION sod1 on sod1.SYS_OPTION_DEFINITION_ID = bo.FREIGHT_DESCRIPTION
+    LEFT JOIN T_SYS_OPTION_DEFINITION sod2 on sod2.SYS_OPTION_DEFINITION_ID = bo.INVOICE_TYPE
+    LEFT JOIN T_TRADER_SUPPLIER s ON s.TRADER_ID = bo.TRADER_ID
+    LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER' 
+    where bo.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </select>
+  <select id="getBuyorderVoByBuyorderNo" resultMap="VoResultMap" parameterType="java.lang.String" >
+    select 
+    	bo.BUYORDER_ID, bo.BUYORDER_NO,bo.COMPANY_ID, bo.ORDER_TYPE, bo.ORG_ID, bo.USER_ID, bo.VALID_STATUS, bo.VALID_TIME, 
+	    bo.STATUS, bo.LOCKED_STATUS, bo.INVOICE_STATUS, bo.INVOICE_TIME, bo.PAYMENT_STATUS, bo.PAYMENT_TIME, 
+	    bo.DELIVERY_STATUS, bo.DELIVERY_TIME, bo.ARRIVAL_STATUS, bo.ARRIVAL_TIME, bo.SERVICE_STATUS, bo.HAVE_ACCOUNT_PERIOD, 
+	    bo.DELIVERY_DIRECT, bo.TOTAL_AMOUNT, bo.TRADER_ID, bo.TRADER_NAME, bo.TRADER_CONTACT_ID, bo.TRADER_CONTACT_NAME, 
+	    bo.TRADER_CONTACT_MOBILE, bo.TRADER_CONTACT_TELEPHONE, bo.TRADER_ADDRESS_ID, bo.TRADER_ADDRESS, 
+	    bo.TRADER_COMMENTS, bo.TAKE_TRADER_ID, bo.TAKE_TRADER_NAME, bo.TAKE_TRADER_CONTACT_ID, bo.TAKE_TRADER_CONTACT_NAME, 
+	    bo.TAKE_TRADER_CONTACT_MOBILE, bo.TAKE_TRADER_CONTACT_TELEPHONE, bo.TAKE_TRADER_ADDRESS_ID, 
+	    bo.TAKE_TRADER_ADDRESS, bo.PAYMENT_TYPE, bo.PREPAID_AMOUNT, bo.ACCOUNT_PERIOD_AMOUNT, bo.RETAINAGE_AMOUNT, 
+	    bo.RETAINAGE_AMOUNT_MONTH, bo.LOGISTICS_ID, bo.INVOICE_TYPE, bo.FREIGHT_DESCRIPTION, bo.PAYMENT_COMMENTS, 
+	    bo.LOGISTICS_COMMENTS, bo.INVOICE_COMMENTS, bo.COMMENTS, bo.ADDITIONAL_CLAUSE, bo.ADD_TIME, bo.CREATOR, 
+	    bo.MOD_TIME, bo.UPDATER,bo.TAKE_TRADER_AREA,bo.TRADER_AREA,l.NAME AS LOGISTICS_NAME, sod1.TITLE AS FREIGHT_DES, sod2.TITLE AS INVOICE_TYPE_STR ,
+	    s.PERIOD_DAY, s.PERIOD_AMOUNT as PERIOD_BALANCE,a.VERIFY_USERNAME,IFNULL(a.STATUS,-1) as VERIFY_STATUS, e.SALEORDER_NO
+    from T_BUYORDER bo
+	    LEFT JOIN T_LOGISTICS l on bo.LOGISTICS_ID = l.LOGISTICS_ID
+	    LEFT JOIN T_SYS_OPTION_DEFINITION sod1 on sod1.SYS_OPTION_DEFINITION_ID = bo.FREIGHT_DESCRIPTION
+	    LEFT JOIN T_SYS_OPTION_DEFINITION sod2 on sod2.SYS_OPTION_DEFINITION_ID = bo.INVOICE_TYPE
+	    LEFT JOIN T_TRADER_SUPPLIER s ON s.TRADER_ID = bo.TRADER_ID
+	    LEFT JOIN  T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER'
+	    LEFT JOIN T_BUYORDER_GOODS b ON bo.BUYORDER_ID = b.BUYORDER_ID
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+		LEFT JOIN T_SALEORDER_GOODS d ON c.SALEORDER_GOODS_ID = d.SALEORDER_GOODS_ID
+		LEFT JOIN T_SALEORDER e ON d.SALEORDER_ID = e.SALEORDER_ID
+    where bo.BUYORDER_NO = #{buyorderNo,jdbcType=VARCHAR}
+    GROUP BY bo.BUYORDER_NO
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_BUYORDER
+    where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.order.model.Buyorder" >
+    insert into T_BUYORDER (BUYORDER_ID, BUYORDER_NO, ORDER_TYPE,COMPANY_ID, 
+      ORG_ID, USER_ID, VALID_STATUS, 
+      VALID_TIME, STATUS, LOCKED_STATUS, 
+      INVOICE_STATUS, INVOICE_TIME, PAYMENT_STATUS, 
+      PAYMENT_TIME, DELIVERY_STATUS, DELIVERY_TIME, 
+      ARRIVAL_STATUS, ARRIVAL_TIME, SERVICE_STATUS, 
+      HAVE_ACCOUNT_PERIOD, DELIVERY_DIRECT, TOTAL_AMOUNT, 
+      TRADER_ID, TRADER_NAME, TRADER_CONTACT_ID, 
+      TRADER_CONTACT_NAME, TRADER_CONTACT_MOBILE, 
+      TRADER_CONTACT_TELEPHONE, TRADER_ADDRESS_ID, 
+      TRADER_ADDRESS, TRADER_COMMENTS, TAKE_TRADER_ID, 
+      TAKE_TRADER_NAME, TAKE_TRADER_CONTACT_ID, TAKE_TRADER_CONTACT_NAME, 
+      TAKE_TRADER_CONTACT_MOBILE, TAKE_TRADER_CONTACT_TELEPHONE, 
+      TAKE_TRADER_ADDRESS_ID, TAKE_TRADER_ADDRESS, 
+      PAYMENT_TYPE, PREPAID_AMOUNT, ACCOUNT_PERIOD_AMOUNT, 
+      RETAINAGE_AMOUNT, RETAINAGE_AMOUNT_MONTH, 
+      LOGISTICS_ID, INVOICE_TYPE, FREIGHT_DESCRIPTION, 
+      PAYMENT_COMMENTS, LOGISTICS_COMMENTS, INVOICE_COMMENTS, 
+      COMMENTS, ADDITIONAL_CLAUSE, ADD_TIME, 
+      CREATOR, MOD_TIME, UPDATER,TAKE_TRADER_AREA,TRADER_AREA
+      )
+    values (#{buyorderId,jdbcType=INTEGER}, #{buyorderNo,jdbcType=VARCHAR}, #{orderType,jdbcType=BIT}, #{companyId,jdbcType=INTEGER},
+      #{orgId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{validStatus,jdbcType=BIT}, 
+      #{validTime,jdbcType=BIGINT}, #{status,jdbcType=BIT}, #{lockedStatus,jdbcType=BIT}, 
+      #{invoiceStatus,jdbcType=BIT}, #{invoiceTime,jdbcType=BIGINT}, #{paymentStatus,jdbcType=BIT}, 
+      #{paymentTime,jdbcType=BIGINT}, #{deliveryStatus,jdbcType=BIT}, #{deliveryTime,jdbcType=BIGINT}, 
+      #{arrivalStatus,jdbcType=BIT}, #{arrivalTime,jdbcType=BIGINT}, #{serviceStatus,jdbcType=BIT}, 
+      #{haveAccountPeriod,jdbcType=BIT}, #{deliveryDirect,jdbcType=BIT}, #{totalAmount,jdbcType=DECIMAL}, 
+      #{traderId,jdbcType=INTEGER}, #{traderName,jdbcType=VARCHAR}, #{traderContactId,jdbcType=INTEGER}, 
+      #{traderContactName,jdbcType=VARCHAR}, #{traderContactMobile,jdbcType=VARCHAR}, 
+      #{traderContactTelephone,jdbcType=VARCHAR}, #{traderAddressId,jdbcType=INTEGER}, 
+      #{traderAddress,jdbcType=VARCHAR}, #{traderComments,jdbcType=VARCHAR}, #{takeTraderId,jdbcType=INTEGER}, 
+      #{takeTraderName,jdbcType=VARCHAR}, #{takeTraderContactId,jdbcType=INTEGER}, #{takeTraderContactName,jdbcType=VARCHAR}, 
+      #{takeTraderContactMobile,jdbcType=VARCHAR}, #{takeTraderContactTelephone,jdbcType=VARCHAR}, 
+      #{takeTraderAddressId,jdbcType=INTEGER}, #{takeTraderAddress,jdbcType=VARCHAR}, 
+      #{paymentType,jdbcType=INTEGER}, #{prepaidAmount,jdbcType=DECIMAL}, #{accountPeriodAmount,jdbcType=DECIMAL}, 
+      #{retainageAmount,jdbcType=DECIMAL}, #{retainageAmountMonth,jdbcType=INTEGER}, 
+      #{logisticsId,jdbcType=INTEGER}, #{invoiceType,jdbcType=INTEGER}, #{freightDescription,jdbcType=INTEGER}, 
+      #{paymentComments,jdbcType=VARCHAR}, #{logisticsComments,jdbcType=VARCHAR}, #{invoiceComments,jdbcType=VARCHAR}, 
+      #{comments,jdbcType=VARCHAR}, #{additionalClause,jdbcType=VARCHAR}, #{addTime,jdbcType=BIGINT}, 
+      #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=BIGINT}, #{updater,jdbcType=INTEGER},#{takeTraderArea,jdbcType=VARCHAR},#{traderArea,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.order.model.Buyorder" >
+    insert into T_BUYORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="buyorderId != null" >
+        BUYORDER_ID,
+      </if>
+      <if test="buyorderNo != null" >
+        BUYORDER_NO,
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="orgId != null" >
+        ORG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="validStatus != null" >
+        VALID_STATUS,
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="lockedStatus != null" >
+        LOCKED_STATUS,
+      </if>
+      <if test="invoiceStatus != null" >
+        INVOICE_STATUS,
+      </if>
+      <if test="invoiceTime != null" >
+        INVOICE_TIME,
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS,
+      </if>
+      <if test="paymentTime != null" >
+        PAYMENT_TIME,
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS,
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME,
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS,
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME,
+      </if>
+      <if test="serviceStatus != null" >
+        SERVICE_STATUS,
+      </if>
+      <if test="haveAccountPeriod != null" >
+        HAVE_ACCOUNT_PERIOD,
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT,
+      </if>
+      <if test="totalAmount != null" >
+        TOTAL_AMOUNT,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME,
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID,
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME,
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE,
+      </if>
+      <if test="traderContactTelephone != null" >
+        TRADER_CONTACT_TELEPHONE,
+      </if>
+      <if test="traderAddressId != null" >
+        TRADER_ADDRESS_ID,
+      </if>
+      <if test="traderAddress != null" >
+        TRADER_ADDRESS,
+      </if>
+      <if test="traderComments != null" >
+        TRADER_COMMENTS,
+      </if>
+      <if test="takeTraderId != null" >
+        TAKE_TRADER_ID,
+      </if>
+      <if test="takeTraderName != null" >
+        TAKE_TRADER_NAME,
+      </if>
+      <if test="takeTraderContactId != null" >
+        TAKE_TRADER_CONTACT_ID,
+      </if>
+      <if test="takeTraderContactName != null" >
+        TAKE_TRADER_CONTACT_NAME,
+      </if>
+      <if test="takeTraderContactMobile != null" >
+        TAKE_TRADER_CONTACT_MOBILE,
+      </if>
+      <if test="takeTraderContactTelephone != null" >
+        TAKE_TRADER_CONTACT_TELEPHONE,
+      </if>
+      <if test="takeTraderAddressId != null" >
+        TAKE_TRADER_ADDRESS_ID,
+      </if>
+      <if test="takeTraderAddress != null" >
+        TAKE_TRADER_ADDRESS,
+      </if>
+      <if test="takeTraderArea != null" >
+        TAKE_TRADER_AREA,
+      </if>
+      <if test="paymentType != null" >
+        PAYMENT_TYPE,
+      </if>
+      <if test="prepaidAmount != null" >
+        PREPAID_AMOUNT,
+      </if>
+      <if test="accountPeriodAmount != null" >
+        ACCOUNT_PERIOD_AMOUNT,
+      </if>
+      <if test="retainageAmount != null" >
+        RETAINAGE_AMOUNT,
+      </if>
+      <if test="retainageAmountMonth != null" >
+        RETAINAGE_AMOUNT_MONTH,
+      </if>
+      <if test="logisticsId != null" >
+        LOGISTICS_ID,
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE,
+      </if>
+      <if test="freightDescription != null" >
+        FREIGHT_DESCRIPTION,
+      </if>
+      <if test="paymentComments != null" >
+        PAYMENT_COMMENTS,
+      </if>
+      <if test="logisticsComments != null" >
+        LOGISTICS_COMMENTS,
+      </if>
+      <if test="invoiceComments != null" >
+        INVOICE_COMMENTS,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="additionalClause != null" >
+        ADDITIONAL_CLAUSE,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="traderArea != null" >
+        TRADER_AREA,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="buyorderId != null" >
+        #{buyorderId,jdbcType=INTEGER},
+      </if>
+      <if test="buyorderNo != null" >
+        #{buyorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=BIT},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="validStatus != null" >
+        #{validStatus,jdbcType=BIT},
+      </if>
+      <if test="validTime != null" >
+        #{validTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="lockedStatus != null" >
+        #{lockedStatus,jdbcType=BIT},
+      </if>
+      <if test="invoiceStatus != null" >
+        #{invoiceStatus,jdbcType=BIT},
+      </if>
+      <if test="invoiceTime != null" >
+        #{invoiceTime,jdbcType=BIGINT},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="paymentTime != null" >
+        #{paymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryStatus != null" >
+        #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="arrivalStatus != null" >
+        #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="arrivalTime != null" >
+        #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="serviceStatus != null" >
+        #{serviceStatus,jdbcType=BIT},
+      </if>
+      <if test="haveAccountPeriod != null" >
+        #{haveAccountPeriod,jdbcType=BIT},
+      </if>
+      <if test="deliveryDirect != null" >
+        #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderName != null" >
+        #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactId != null" >
+        #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactName != null" >
+        #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactTelephone != null" >
+        #{traderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="traderAddressId != null" >
+        #{traderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="traderAddress != null" >
+        #{traderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="traderComments != null" >
+        #{traderComments,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderId != null" >
+        #{takeTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderName != null" >
+        #{takeTraderName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactId != null" >
+        #{takeTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderContactName != null" >
+        #{takeTraderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactMobile != null" >
+        #{takeTraderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactTelephone != null" >
+        #{takeTraderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderAddressId != null" >
+        #{takeTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAddress != null" >
+        #{takeTraderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderArea != null" >
+        #{takeTraderArea,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="prepaidAmount != null" >
+        #{prepaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountPeriodAmount != null" >
+        #{accountPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="retainageAmount != null" >
+        #{retainageAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="retainageAmountMonth != null" >
+        #{retainageAmountMonth,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsId != null" >
+        #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="freightDescription != null" >
+        #{freightDescription,jdbcType=INTEGER},
+      </if>
+      <if test="paymentComments != null" >
+        #{paymentComments,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsComments != null" >
+        #{logisticsComments,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceComments != null" >
+        #{invoiceComments,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalClause != null" >
+        #{additionalClause,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="traderArea != null" >
+        #{traderArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="buyorderId">
+		SELECT LAST_INSERT_ID() AS buyorderId
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.order.model.Buyorder" >
+    update T_BUYORDER
+    <set >
+      <if test="buyorderNo != null" >
+        BUYORDER_NO = #{buyorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType,jdbcType=BIT},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="orgId != null" >
+        ORG_ID = #{orgId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="validStatus != null" >
+        VALID_STATUS = #{validStatus,jdbcType=BIT},
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME = #{validTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+      <if test="lockedStatus != null" >
+        LOCKED_STATUS = #{lockedStatus,jdbcType=BIT},
+      </if>
+      <if test="invoiceStatus != null" >
+        INVOICE_STATUS = #{invoiceStatus,jdbcType=BIT},
+      </if>
+      <if test="invoiceTime != null" >
+        INVOICE_TIME = #{invoiceTime,jdbcType=BIGINT},
+      </if>
+      <if test="paymentStatus != null" >
+        PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},
+      </if>
+      <if test="paymentTime != null" >
+        PAYMENT_TIME = #{paymentTime,jdbcType=BIGINT},
+      </if>
+      <if test="deliveryStatus != null" >
+        DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      </if>
+      <if test="deliveryTime != null" >
+        DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      </if>
+      <if test="arrivalStatus != null" >
+        ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      </if>
+      <if test="arrivalTime != null" >
+        ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      </if>
+      <if test="serviceStatus != null" >
+        SERVICE_STATUS = #{serviceStatus,jdbcType=BIT},
+      </if>
+      <if test="haveAccountPeriod != null" >
+        HAVE_ACCOUNT_PERIOD = #{haveAccountPeriod,jdbcType=BIT},
+      </if>
+      <if test="deliveryDirect != null" >
+        DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      </if>
+      <if test="totalAmount != null" >
+        TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID = #{traderId,jdbcType=INTEGER},
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactId != null" >
+        TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="traderContactName != null" >
+        TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactMobile != null" >
+        TRADER_CONTACT_MOBILE = #{traderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="traderContactTelephone != null" >
+        TRADER_CONTACT_TELEPHONE = #{traderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="traderAddressId != null" >
+        TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="traderAddress != null" >
+        TRADER_ADDRESS = #{traderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="traderComments != null" >
+        TRADER_COMMENTS = #{traderComments,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderId != null" >
+        TAKE_TRADER_ID = #{takeTraderId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderName != null" >
+        TAKE_TRADER_NAME = #{takeTraderName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactId != null" >
+        TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderContactName != null" >
+        TAKE_TRADER_CONTACT_NAME = #{takeTraderContactName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactMobile != null" >
+        TAKE_TRADER_CONTACT_MOBILE = #{takeTraderContactMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderContactTelephone != null" >
+        TAKE_TRADER_CONTACT_TELEPHONE = #{takeTraderContactTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderAddressId != null" >
+        TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER},
+      </if>
+      <if test="takeTraderAddress != null" >
+        TAKE_TRADER_ADDRESS = #{takeTraderAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTraderArea != null" >
+        TAKE_TRADER_AREA = #{takeTraderArea,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentType != null" >
+        PAYMENT_TYPE = #{paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="prepaidAmount != null" >
+        PREPAID_AMOUNT = #{prepaidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="accountPeriodAmount != null" >
+        ACCOUNT_PERIOD_AMOUNT = #{accountPeriodAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="retainageAmount != null" >
+        RETAINAGE_AMOUNT = #{retainageAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="retainageAmountMonth != null" >
+        RETAINAGE_AMOUNT_MONTH = #{retainageAmountMonth,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsId != null" >
+        LOGISTICS_ID = #{logisticsId,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceType != null" >
+        INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+      </if>
+      <if test="freightDescription != null" >
+        FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+      </if>
+      <if test="paymentComments != null" >
+        PAYMENT_COMMENTS = #{paymentComments,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsComments != null" >
+        LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceComments != null" >
+        INVOICE_COMMENTS = #{invoiceComments,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="additionalClause != null" >
+        ADDITIONAL_CLAUSE = #{additionalClause,jdbcType=VARCHAR},
+      </if>
+      <!-- 增加预计到货时间 -->
+      <if test="estimateArrivalTime != null" >
+        ESTIMATE_ARRIVAL_TIME = #{estimateArrivalTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="traderArea != null" >
+        TRADER_AREA = #{traderArea,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfyDeliveryTime != null" >
+        SATISFY_DELIVERY_TIME = #{satisfyDeliveryTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.order.model.Buyorder" >
+    update T_BUYORDER
+    set BUYORDER_NO = #{buyorderNo,jdbcType=VARCHAR},
+      ORDER_TYPE = #{orderType,jdbcType=BIT},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      ORG_ID = #{orgId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=INTEGER},
+      VALID_STATUS = #{validStatus,jdbcType=BIT},
+      VALID_TIME = #{validTime,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=BIT},
+      LOCKED_STATUS = #{lockedStatus,jdbcType=BIT},
+      INVOICE_STATUS = #{invoiceStatus,jdbcType=BIT},
+      INVOICE_TIME = #{invoiceTime,jdbcType=BIGINT},
+      PAYMENT_STATUS = #{paymentStatus,jdbcType=BIT},
+      PAYMENT_TIME = #{paymentTime,jdbcType=BIGINT},
+      DELIVERY_STATUS = #{deliveryStatus,jdbcType=BIT},
+      DELIVERY_TIME = #{deliveryTime,jdbcType=BIGINT},
+      ARRIVAL_STATUS = #{arrivalStatus,jdbcType=BIT},
+      ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},
+      SERVICE_STATUS = #{serviceStatus,jdbcType=BIT},
+      HAVE_ACCOUNT_PERIOD = #{haveAccountPeriod,jdbcType=BIT},
+      DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      TRADER_ID = #{traderId,jdbcType=INTEGER},
+      TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+      TRADER_CONTACT_NAME = #{traderContactName,jdbcType=VARCHAR},
+      TRADER_CONTACT_MOBILE = #{traderContactMobile,jdbcType=VARCHAR},
+      TRADER_CONTACT_TELEPHONE = #{traderContactTelephone,jdbcType=VARCHAR},
+      TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+      TRADER_ADDRESS = #{traderAddress,jdbcType=VARCHAR},
+      TRADER_COMMENTS = #{traderComments,jdbcType=VARCHAR},
+      TAKE_TRADER_ID = #{takeTraderId,jdbcType=INTEGER},
+      TAKE_TRADER_NAME = #{takeTraderName,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER},
+      TAKE_TRADER_CONTACT_NAME = #{takeTraderContactName,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_MOBILE = #{takeTraderContactMobile,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_TELEPHONE = #{takeTraderContactTelephone,jdbcType=VARCHAR},
+      TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER},
+      TAKE_TRADER_ADDRESS = #{takeTraderAddress,jdbcType=VARCHAR},
+      TAKE_TRADER_AREA = #{takeTraderArea,jdbcType=VARCHAR},
+      PAYMENT_TYPE = #{paymentType,jdbcType=INTEGER},
+      PREPAID_AMOUNT = #{prepaidAmount,jdbcType=DECIMAL},
+      ACCOUNT_PERIOD_AMOUNT = #{accountPeriodAmount,jdbcType=DECIMAL},
+      RETAINAGE_AMOUNT = #{retainageAmount,jdbcType=DECIMAL},
+      RETAINAGE_AMOUNT_MONTH = #{retainageAmountMonth,jdbcType=INTEGER},
+      LOGISTICS_ID = #{logisticsId,jdbcType=INTEGER},
+      INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+      FREIGHT_DESCRIPTION = #{freightDescription,jdbcType=INTEGER},
+      PAYMENT_COMMENTS = #{paymentComments,jdbcType=VARCHAR},
+      LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR},
+      INVOICE_COMMENTS = #{invoiceComments,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      ADDITIONAL_CLAUSE = #{additionalClause,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=BIGINT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=BIGINT},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      TRADER_AREA = #{traderArea,jdbcType=VARCHAR}
+    where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getEffectOrders" resultMap="BaseResultMap">
+  	select
+  		BUYORDER_ID,BUYORDER_NO
+  	from
+  		T_BUYORDER
+  	where
+		TRADER_ID = #{traderId,jdbcType=INTEGER}
+	and
+		VALID_STATUS = 1
+	and
+		STATUS != 3
+	order by 
+		ADD_TIME desc
+	limit #{limit,jdbcType=INTEGER}
+  </select>
+  <select id="getUnCompleteBuyorder" resultMap="VoResultMap" parameterType="com.vedeng.order.model.Buyorder">
+  	select
+  		BUYORDER_ID,BUYORDER_NO,VALID_TIME,USER_ID,TRADER_ID,TOTAL_AMOUNT
+  	from 
+  		T_BUYORDER
+  	where
+		TRADER_ID = #{traderId,jdbcType=INTEGER}
+	and
+		VALID_STATUS = 1
+	and
+		STATUS != 3
+	and (
+		INVOICE_STATUS != 2
+		or
+		PAYMENT_STATUS != 2
+		or
+		DELIVERY_STATUS != 2
+		or
+		ARRIVAL_STATUS != 2
+		)
+		
+	order by 
+			ADD_TIME desc	
+  </select>
+  <!--采购入库列表 ,列表中包含采购单的产品-->
+  <resultMap id="InfoResultMap" type="com.vedeng.order.model.vo.BuyorderVo" extends="VoResultMap">
+  	<association  property="buyorderGoodsVoList" javaType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+	    <id column="BUYORDER_GOODS_ID" property="buyorderGoodsId" jdbcType="INTEGER" />
+	    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+	    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+	    <result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+	    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+	    <result column="MODEL" property="model" jdbcType="VARCHAR" />
+	    <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+	    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+	    <result column="CURRENCY_UNIT_ID" property="currencyUnitId" jdbcType="INTEGER" />
+	    <result column="NUM" property="num" jdbcType="INTEGER" />
+	    <result column="ARRIVAL_NUM" property="arrivalNum" jdbcType="INTEGER" />
+	    <result column="ESTIMATE_DELIVERY_TIME" property="estimateDeliveryTime" jdbcType="BIGINT" />
+	    <result column="ESTIMATE_ARRIVAL_TIME" property="estimateArrivalTime" jdbcType="BIGINT" />
+	    <result column="ARRIVAL_USER_ID" property="arrivalUserId" jdbcType="INTEGER" />
+	    <result column="ARRIVAL_STATUS_G" property="arrivalStatus" jdbcType="BIT" />
+	    <result column="ARRIVAL_TIME_G" property="arrivalTime" jdbcType="BIGINT" />
+	    <result column="IS_DELETE" property="isDelete" jdbcType="BIT" />
+	    <result column="INSIDE_COMMENTS" property="insideComments" jdbcType="VARCHAR" />
+	    <result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+  	</association >
+  </resultMap>
+  <select id="getbuyorderinfolistpage" parameterType="Map" resultMap="InfoResultMap">
+  	select 
+  		bo.BUYORDER_ID, bo.BUYORDER_NO,bo.COMPANY_ID, bo.ORDER_TYPE, bo.ORG_ID, bo.USER_ID, bo.VALID_STATUS, bo.VALID_TIME, 
+	    bo.STATUS, bo.LOCKED_STATUS, bo.INVOICE_STATUS, bo.INVOICE_TIME, bo.PAYMENT_STATUS, bo.PAYMENT_TIME, 
+	    bo.DELIVERY_STATUS, bo.DELIVERY_TIME, bo.ARRIVAL_STATUS, bo.ARRIVAL_TIME, bo.SERVICE_STATUS, bo.HAVE_ACCOUNT_PERIOD, 
+	    bo.DELIVERY_DIRECT, bo.TOTAL_AMOUNT, bo.TRADER_ID, bo.TRADER_NAME, bo.TRADER_CONTACT_ID, bo.TRADER_CONTACT_NAME, 
+	    bo.TRADER_CONTACT_MOBILE, bo.TRADER_CONTACT_TELEPHONE, bo.TRADER_ADDRESS_ID, bo.TRADER_ADDRESS, 
+	    bo.TRADER_COMMENTS, bo.TAKE_TRADER_ID, bo.TAKE_TRADER_NAME, bo.TAKE_TRADER_CONTACT_ID, bo.TAKE_TRADER_CONTACT_NAME, 
+	    bo.TAKE_TRADER_CONTACT_MOBILE, bo.TAKE_TRADER_CONTACT_TELEPHONE, bo.TAKE_TRADER_ADDRESS_ID, 
+	    bo.TAKE_TRADER_ADDRESS, bo.PAYMENT_TYPE, bo.PREPAID_AMOUNT, bo.ACCOUNT_PERIOD_AMOUNT, bo.RETAINAGE_AMOUNT, 
+	    bo.RETAINAGE_AMOUNT_MONTH, bo.LOGISTICS_ID, bo.INVOICE_TYPE, bo.FREIGHT_DESCRIPTION, bo.PAYMENT_COMMENTS, 
+	    bo.LOGISTICS_COMMENTS, bo.INVOICE_COMMENTS, bo.COMMENTS, bo.ADDITIONAL_CLAUSE, bo.ADD_TIME, bo.CREATOR, 
+	    bo.MOD_TIME, bo.UPDATER,bo.TAKE_TRADER_AREA,bo.TRADER_AREA,a.VERIFY_USERNAME,a.STATUS as VERIFY_STATUS,
+	    c.VERIFY_USERNAME as PAY_VERIFY_USERNAME, c.STATUS as PAY_VERIFY_STATUS
+	   <!--  
+	    bog.BUYORDER_GOODS_ID,bog.GOODS_ID,bog.SKU,bog.GOODS_NAME,bog.BRAND_NAME,bog.MODEL,bog.UNIT_NAME,
+	    bog.PRICE,bog.CURRENCY_UNIT_ID,bog.NUM,bog.ARRIVAL_NUM,bog.ESTIMATE_DELIVERY_TIME,bog.ESTIMATE_ARRIVAL_TIME,bog.ARRIVAL_USER_ID,
+	    bog.ARRIVAL_STATUS as ARRIVAL_STATUS_G,bog.ARRIVAL_TIME as ARRIVAL_TIME_G,bog.IS_DELETE,bog.INSIDE_COMMENTS,g.MATERIAL_CODE
+	     -->  
+  	from T_BUYORDER bo
+  	left join T_BUYORDER_GOODS bog on bo.BUYORDER_ID = bog.BUYORDER_ID
+  	left join T_GOODS g on bog.GOODS_ID = g.GOODS_ID
+  	LEFT JOIN T_VERIFIES_INFO a ON a.RELATE_TABLE_KEY = bo.BUYORDER_ID AND a.RELATE_TABLE = 'T_BUYORDER' 
+  	left join T_PAY_APPLY b on b.RELATED_ID = bo.BUYORDER_ID and b.COMPANY_ID = bo.COMPANY_ID and b.PAY_TYPE = 517
+  	LEFT JOIN T_VERIFIES_INFO c ON c.RELATE_TABLE_KEY = b.PAY_APPLY_ID AND c.RELATE_TABLE = 'T_PAY_APPLY' 
+  	where 1=1 
+  	<if test="buyorder.companyId != null and buyorder.companyId != 0 ">
+  		and bo.COMPANY_ID = #{buyorder.companyId}
+  	</if>
+  	<if test="buyorder.traderId != null">
+  		and bo.TRADER_ID = #{buyorder.traderId}
+  	</if>
+  	<if test="buyorder.buyorderNo != null and buyorder.buyorderNo != '' ">
+  		and bo.BUYORDER_NO like CONCAT('%',#{buyorder.buyorderNo},'%' )
+  	</if>
+  	<if test="buyorder.status != null and  buyorder.status != -1">
+  		and bo.`STATUS` = #{buyorder.status }
+  	</if>
+  	<if test="buyorder.validStatus != null and buyorder.validStatus != -1">
+  		and bo.VALID_STATUS = #{buyorder.validStatus }
+  	</if>
+  	<if test="buyorder.paymentStatus != null and buyorder.paymentStatus !=-1">
+  		and bo.PAYMENT_STATUS = #{buyorder.paymentStatus }
+  	</if>
+  	<if test="buyorder.deliveryStatus != null and buyorder.deliveryStatus != -1">
+  		and bo.DELIVERY_STATUS = #{buyorder.deliveryStatus }
+  	</if>
+  	<if test="buyorder.arrivalStatus != null and buyorder.arrivalStatus != -1 and buyorder.arrivalStatus != 3">
+  		and bo.ARRIVAL_STATUS = #{buyorder.arrivalStatus }
+  	</if>
+  	<if test="buyorder.arrivalStatus == 3">
+  		<!-- 未全部收货 -->
+  		and bo.ARRIVAL_STATUS != 2
+  	</if>
+  	<if test="buyorder.invoiceStatus != null and buyorder.invoiceStatus != -1">
+  		and bo.INVOICE_STATUS = #{buyorder.invoiceStatus }
+  	</if>
+  	<!-- 审核状态 -->
+  	<if test="buyorder.verifyStatus != null  and buyorder.verifyStatus !=3">
+  		and a.STATUS = #{buyorder.verifyStatus }
+  	</if>
+  	<if test="buyorder.verifyStatus != null and buyorder.verifyStatus ==3">
+  		and ISNULL(a.STATUS)
+  	</if>
+  	<if test="buyorder.serviceStatus != null and buyorder.serviceStatus != -1">
+  		and bo.SERVICE_STATUS = #{buyorder.serviceStatus }
+  	</if>
+  	<if test="buyorder.lockedStatus != null and buyorder.lockedStatus != -1">
+  		and bo.LOCKED_STATUS = #{buyorder.lockedStatus }
+  	</if>
+  	<if test="buyorder.traderName != null and buyorder.traderName != '' ">
+  		and bo.TRADER_NAME like CONCAT('%',#{buyorder.traderName},'%' )
+  	</if>
+  	<if test="buyorder.orderType != null">
+  		and bo.ORDER_TYPE = #{buyorder.orderType}
+  	</if>
+  	<if test="buyorder.deliveryDirect != null">
+  		and bo.DELIVERY_DIRECT = #{buyorder.deliveryDirect}
+  	</if>
+  	<if test="buyorder.invoiceType != null">
+  		and bo.INVOICE_TYPE = #{buyorder.invoiceType}
+  	</if>
+  	<if test="buyorder.creator != null">
+  		and bo.CREATOR = #{buyorder.creator}
+  	</if>
+  	<if test="buyorder.userIds != null">
+		and  bo.USER_ID in 
+ 		<foreach item="userIds" index="index" collection="buyorder.userIds" open="(" separator="," close=")">  
+		  #{userIds}  
+		</foreach>
+  	</if>
+  	<if test="categoryIdList != null">
+		and g.CATEGORY_ID in 
+		<foreach item="categoryId" index="index" collection="categoryIdList" separator="," open="(" close=")">
+			#{categoryId,jdbcType=INTEGER}
+		</foreach>
+	</if>
+ 	<if test="buyorder.searchDateType ==1">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.ADD_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.ADD_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==2">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.VALID_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.VALID_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==3">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.PAYMENT_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.PAYMENT_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==4">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.DELIVERY_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.DELIVERY_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==5">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.ARRIVAL_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.ARRIVAL_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.searchDateType ==6">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and bo.INVOICE_TIME <![CDATA[>=]]> #{buyorder.searchBegintime} 
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and bo.INVOICE_TIME <![CDATA[<=]]> #{buyorder.searchEndtime} 
+		</if>
+	</if>
+	<if test="buyorder.buyorderIdList != null">
+		and  bo.BUYORDER_ID in 
+ 		<foreach item="buyorderId" index="index" collection="buyorder.buyorderIdList" open="(" separator="," close=")">  
+		  #{buyorderId}  
+		</foreach>
+  	</if>
+  	<if test="buyorder.goodsName != null and buyorder.goodsName != ''">
+  		and bog.GOODS_NAME like CONCAT('%',#{buyorder.goodsName},'%' )
+  	</if>  	
+  	<if test="buyorder.brandName != null and buyorder.brandName != '' ">
+  		and bog.BRAND_NAME like CONCAT('%',#{buyorder.brandName},'%' )
+  	</if>
+  	<if test="buyorder.model != null and buyorder.model != '' ">
+  		and bog.MODEL like CONCAT('%',#{buyorder.model},'%' )
+  	</if>
+  	<if test="buyorder.sku != null and buyorder.sku != '' ">
+  		and bog.SKU like CONCAT('%',#{buyorder.sku},'%' )
+  	</if>
+  	<if test="buyorder.materialCode != null and buyorder.materialCode != '' ">
+  		and g.MATERIAL_CODE like CONCAT('%',#{buyorder.materialCode},'%' )
+  	</if>
+  	<if test="buyorder.saleGoodsIdList != null">
+		and  bog.SALEORDER_GOODS_ID in 
+ 		<foreach item="saleGoodsId" index="index" collection="buyorder.saleGoodsIdList" open="(" separator="," close=")">  
+		  #{saleGoodsId}  
+		</foreach>
+  	</if>
+  	<!-- 订单总额 -->
+	<if test="buyorder.searchBeginAmount != null">
+		AND bo.TOTAL_AMOUNT <![CDATA[ >= ]]> #{buyorder.searchBeginAmount,jdbcType=DECIMAL}
+	</if>
+	<if test="buyorder.searchEndAmount != null">
+		AND bo.TOTAL_AMOUNT <![CDATA[ <= ]]> #{buyorder.searchEndAmount,jdbcType=DECIMAL}
+	</if>
+	<!-- 审核时间 
+	<if test="buyorder.searchDateType ==7">
+		<if test="buyorder.searchBegintime != null and buyorder.searchBegintime != 0">
+			and vr.ADD_TIME <![CDATA[>=]]> #{buyorder.searchBegintime}
+		</if>
+		<if test="buyorder.searchEndtime != null and buyorder.searchEndtime != 0">
+			and vr.ADD_TIME <![CDATA[<=]]> #{buyorder.searchEndtime}
+		</if>
+	</if>-->
+	GROUP BY bo.BUYORDER_ID
+  	ORDER BY bo.PAYMENT_TIME,bo.BUYORDER_ID ASC
+  </select>
+
+	<!-- 获取采购订单列表 -->
+	<resultMap id="InvoiceResultMap" type="com.vedeng.order.model.vo.BuyorderVo" extends="BaseResultMap">
+		<result column="INVOICE_TYPE_STR" property="invoiceTypeStr" jdbcType="VARCHAR" />
+		<result column="LOCKED_STATUS" property="lockedStatus" jdbcType="INTEGER" />
+		<association property="buyorderGoodsVoList" javaType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+			<id column="BUYORDER_GOODS_ID" property="buyorderGoodsId" jdbcType="INTEGER" />
+			<result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+			<result column="SKU" property="sku" jdbcType="VARCHAR" />
+			<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+			<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+			<result column="MODEL" property="model" jdbcType="VARCHAR" />
+			<result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+			<result column="PRICE" property="price" jdbcType="DECIMAL" />
+			<result column="NUM" property="num" jdbcType="INTEGER" />
+			<result column="ESTIMATE_ARRIVAL_TIME" property="estimateArrivalTime" jdbcType="BIGINT" />
+			<result column="ARRIVAL_NUM" property="arrivalNum" jdbcType="INTEGER" />
+			<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+		</association>
+	</resultMap>
+	<!-- 获取采购订单列表 -->
+	<select id="getInvoiceBuyorderList" parameterType="com.vedeng.order.model.vo.BuyorderVo" resultMap="InvoiceResultMap">
+		SELECT A.BUYORDER_NO,
+		       A.BUYORDER_ID,A.COMPANY_ID,
+		       A.VALID_TIME,
+		       A.TRADER_ID,
+		       A.TRADER_NAME,
+		       A.TOTAL_AMOUNT,
+		       A.INVOICE_TYPE,
+		       A.PAYMENT_TIME,
+		       A.INVOICE_COMMENTS,
+		       A.LOCKED_STATUS,
+		       B.BUYORDER_GOODS_ID,
+		       B.GOODS_ID,
+		       B.SKU,
+		       B.GOODS_NAME,
+		       B.BRAND_NAME,
+		       B.MODEL,
+		       B.PRICE,
+		       B.UNIT_NAME,
+		       B.NUM,
+		       B.ARRIVAL_NUM,
+		       C.MATERIAL_CODE
+		FROM T_BUYORDER A
+		     LEFT JOIN T_BUYORDER_GOODS B ON A.BUYORDER_ID = B.BUYORDER_ID AND B.IS_DELETE = 0
+		     LEFT JOIN T_GOODS C ON B.GOODS_ID = C.GOODS_ID
+		WHERE A.VALID_STATUS = 1 AND A.STATUS = 1 AND B.PRICE > 0 AND A.INVOICE_STATUS <![CDATA[ <> ]]> 2 <!-- 票状态0未收票 1部分收票 2全部收票 -->
+			AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		<!-- 产品型号 -->
+		<if test="model != null and model != ''">
+			AND B.MODEL LIKE CONCAT('%',#{model,jdbcType=VARCHAR},'%' )
+		</if>
+		<!-- 供应商 -->
+		<if test="traderName != null and traderName != ''">
+			AND A.TRADER_NAME LIKE CONCAT('%',#{traderName,jdbcType=VARCHAR},'%' )
+		</if>
+		<!-- 产品名称 -->
+		<if test="goodsName != null and goodsName != ''">
+			AND B.GOODS_NAME LIKE CONCAT('%',#{goodsName,jdbcType=VARCHAR},'%' )
+		</if>
+		<!-- 产品品牌 -->
+		<if test="brandName != null and brandName != ''">
+			AND B.BRAND_NAME LIKE CONCAT('%',#{brandName,jdbcType=VARCHAR},'%' )
+		</if>
+		<!-- 订单号 -->
+		<if test="buyorderNo != null and buyorderNo != ''">
+			AND A.BUYORDER_NO LIKE CONCAT('%',#{buyorderNo,jdbcType=VARCHAR},'%' )
+		</if>
+		<!-- 票种 -->
+		<if test="invoiceType != null and invoiceType != ''">
+			AND A.INVOICE_TYPE LIKE CONCAT('%',#{invoiceType,jdbcType=VARCHAR},'%' )
+		</if>
+	</select>
+	
+	<!--<select id="getGoodsOnWayNum" resultType="java.lang.Integer">-->
+		<!--select -->
+			<!--COALESCE(SUM(a.NUM-a.ARRIVAL_NUM),0)-->
+		<!--from-->
+			<!--T_BUYORDER_GOODS a-->
+		<!--left join -->
+			<!--T_BUYORDER b-->
+		<!--on -->
+			<!--a.BUYORDER_ID = b.BUYORDER_ID-->
+		<!--where-->
+			<!--b.VALID_STATUS = 1-->
+		<!--and-->
+			<!--b.PAYMENT_STATUS in (1,2)-->
+		<!--and-->
+			<!--b.DELIVERY_DIRECT = 0-->
+		<!--and -->
+			<!--b.STATUS != 3-->
+		<!--and-->
+			<!--a.GOODS_ID = #{goodsId,jdbcType=INTEGER}-->
+	<!--</select>-->
+
+	<select id="getGoodsOnWayNum" resultType="java.lang.Integer">
+		SELECT e.onWayNum-COALESCE(n.afterNum,0) as onWayNum FROM (
+		SELECT COALESCE(SUM( a.NUM - a.ARRIVAL_NUM ), 0 ) AS onWayNum,a.GOODS_ID
+		FROM
+		T_BUYORDER_GOODS a
+		LEFT JOIN T_BUYORDER b ON a.BUYORDER_ID = b.BUYORDER_ID
+		WHERE
+		b.VALID_STATUS = 1
+		AND b.PAYMENT_STATUS IN ( 1, 2 )
+		AND b.DELIVERY_DIRECT = 0
+		AND b.STATUS != 3
+		AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+		) e
+
+		LEFT join (
+		SELECT COALESCE(SUM( sg.NUM ), 0 ) as afterNum,
+		g.GOODS_ID
+		FROM
+		T_BUYORDER_GOODS g
+		LEFT JOIN T_BUYORDER bo ON g.BUYORDER_ID = bo.BUYORDER_ID
+		LEFT JOIN T_AFTER_SALES_GOODS sg ON g.BUYORDER_GOODS_ID = sg.ORDER_DETAIL_ID
+		LEFT JOIN T_AFTER_SALES tas ON sg.AFTER_SALES_ID = tas.AFTER_SALES_ID
+		WHERE
+		tas.SUBJECT_TYPE = 536
+		AND tas.TYPE = 546
+		AND tas.ATFER_SALES_STATUS = 2
+		AND tas.`STATUS` = 2
+		AND bo.VALID_STATUS = 1
+		AND bo.PAYMENT_STATUS IN ( 1, 2 )
+		AND bo.DELIVERY_DIRECT = 0
+		AND bo.STATUS != 3
+		AND g.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+
+		) n on e.GOODS_ID=n.GOODS_ID
+	</select>
+	
+	<!--<select id="getGoodsOnWayNumList" resultMap="goodsDataMap">-->
+		<!--select -->
+			<!--COALESCE(SUM(a.NUM-a.ARRIVAL_NUM),0) as onWayNum,a.GOODS_ID-->
+		<!--from-->
+			<!--T_BUYORDER_GOODS a-->
+		<!--left join -->
+			<!--T_BUYORDER b-->
+		<!--on -->
+			<!--a.BUYORDER_ID = b.BUYORDER_ID-->
+		<!--where-->
+			<!--b.VALID_STATUS = 1-->
+		<!--and-->
+			<!--b.PAYMENT_STATUS in (1,2)-->
+		<!--and-->
+			<!--b.DELIVERY_DIRECT = 0-->
+		<!--and -->
+			<!--b.STATUS != 3-->
+		<!--<if test="goodsIds != null" >-->
+        	<!--and a.GOODS_ID in-->
+	        <!--<foreach collection="goodsIds" item="goodsId" index="index"-->
+	           <!--open="(" close=")" separator=",">-->
+	           <!--#{goodsId}-->
+	       <!--</foreach>-->
+	      <!--</if>-->
+	      <!--group by a.GOODS_ID-->
+	<!--</select>-->
+
+
+
+	<select id="selectSumNumByBuyorderGoodsId" resultMap="InfoResultMap" parameterType="java.lang.Integer" >
+	    SELECT
+			bo.BUYORDER_ID,
+			bo.BUYORDER_NO,
+			bo.COMPANY_ID,
+			bo.ORDER_TYPE,
+			bo.ORG_ID,
+			bo.USER_ID,
+			bo.VALID_STATUS,
+			bo.VALID_TIME,
+			bo. STATUS,
+			bo.LOCKED_STATUS,
+			bo.INVOICE_STATUS,
+			bo.INVOICE_TIME,
+			bo.PAYMENT_STATUS,
+			bo.PAYMENT_TIME,
+			bo.DELIVERY_STATUS,
+			bo.DELIVERY_TIME,
+			bo.ARRIVAL_STATUS,
+			bo.ARRIVAL_TIME,
+			bo.SERVICE_STATUS,
+			bo.HAVE_ACCOUNT_PERIOD,
+			bo.DELIVERY_DIRECT,
+			bo.TOTAL_AMOUNT,
+			bo.TRADER_ID,
+			bo.TRADER_NAME,
+			bo.TRADER_CONTACT_ID,
+			bo.TRADER_CONTACT_NAME,
+			bo.TRADER_CONTACT_MOBILE,
+			bo.TRADER_CONTACT_TELEPHONE,
+			bo.TRADER_ADDRESS_ID,
+			bo.TRADER_ADDRESS,
+			bo.TRADER_COMMENTS,
+			bo.TAKE_TRADER_ID,
+			bo.TAKE_TRADER_NAME,
+			bo.TAKE_TRADER_CONTACT_ID,
+			bo.TAKE_TRADER_CONTACT_NAME,
+			bo.TAKE_TRADER_CONTACT_MOBILE,
+			bo.TAKE_TRADER_CONTACT_TELEPHONE,
+			bo.TAKE_TRADER_ADDRESS_ID,
+			bo.TAKE_TRADER_ADDRESS,
+			bo.PAYMENT_TYPE,
+			bo.PREPAID_AMOUNT,
+			bo.ACCOUNT_PERIOD_AMOUNT,
+			bo.RETAINAGE_AMOUNT,
+			bo.RETAINAGE_AMOUNT_MONTH,
+			bo.LOGISTICS_ID,
+			bo.INVOICE_TYPE,
+			bo.FREIGHT_DESCRIPTION,
+			bo.PAYMENT_COMMENTS,
+			bo.LOGISTICS_COMMENTS,
+			bo.INVOICE_COMMENTS,
+			bo.COMMENTS,
+			bo.ADDITIONAL_CLAUSE,
+			bo.ADD_TIME,
+			bo.CREATOR,
+			bo.MOD_TIME,
+			bo.UPDATER,
+			bo.TAKE_TRADER_AREA,
+			bo.TRADER_AREA,
+			IFNULL(sum(bog.NUM), 0) AS ALL_NUM,
+			IFNULL(sum(bog.ARRIVAL_NUM), 0) AS ALL_ARRIVAL_NUM,
+			bog.BUYORDER_GOODS_ID,
+			bog.GOODS_ID,
+			bog.NUM,
+			bog.ARRIVAL_NUM,
+			bog.IS_DELETE
+		FROM
+			T_BUYORDER bo
+		LEFT JOIN T_BUYORDER_GOODS bog ON bo.BUYORDER_ID = bog.BUYORDER_ID
+		AND bog.GOODS_ID NOT IN (
+			SELECT
+				COMMENTS
+			FROM
+				T_SYS_OPTION_DEFINITION
+			WHERE
+				PARENT_ID = 693
+		)
+		AND bog.IS_DELETE = 0
+		WHERE
+			bo.BUYORDER_ID = (
+				SELECT
+					a.BUYORDER_ID
+				FROM
+					T_BUYORDER_GOODS a
+				WHERE
+					a.BUYORDER_GOODS_ID = #{buyorderGoodsId,jdbcType=INTEGER}
+		)
+	  </select>
+	  <!-- 查询采购订单 -->
+	  <select id="selectBuyorderInfo" resultMap="InfoResultMap" parameterType="java.lang.Integer" >
+	  SELECT
+		bo.BUYORDER_ID,
+		bo.BUYORDER_NO,
+		bo.COMPANY_ID,
+		bo.ORDER_TYPE,
+		bo.ORG_ID,
+		bo.USER_ID,
+		bo.VALID_STATUS,
+		bo.VALID_TIME,
+		bo. STATUS,
+		bo.LOCKED_STATUS,
+		bo.INVOICE_STATUS,
+		bo.INVOICE_TIME,
+		bo.PAYMENT_STATUS,
+		bo.PAYMENT_TIME,
+		bo.DELIVERY_STATUS,
+		bo.DELIVERY_TIME,
+		bo.ARRIVAL_STATUS,
+		bo.ARRIVAL_TIME,
+		bo.SERVICE_STATUS,
+		bo.HAVE_ACCOUNT_PERIOD,
+		bo.DELIVERY_DIRECT,
+		bo.TOTAL_AMOUNT,
+		bo.TRADER_ID,
+		bo.TRADER_NAME,
+		bo.TRADER_CONTACT_ID,
+		bo.TRADER_CONTACT_NAME,
+		bo.TRADER_CONTACT_MOBILE,
+		bo.TRADER_CONTACT_TELEPHONE,
+		bo.TRADER_ADDRESS_ID,
+		bo.TRADER_ADDRESS,
+		bo.TRADER_COMMENTS,
+		bo.TAKE_TRADER_ID,
+		bo.TAKE_TRADER_NAME,
+		bo.TAKE_TRADER_CONTACT_ID,
+		bo.TAKE_TRADER_CONTACT_NAME,
+		bo.TAKE_TRADER_CONTACT_MOBILE,
+		bo.TAKE_TRADER_CONTACT_TELEPHONE,
+		bo.TAKE_TRADER_ADDRESS_ID,
+		bo.TAKE_TRADER_ADDRESS,
+		bo.PAYMENT_TYPE,
+		bo.PREPAID_AMOUNT,
+		bo.ACCOUNT_PERIOD_AMOUNT,
+		bo.RETAINAGE_AMOUNT,
+		bo.RETAINAGE_AMOUNT_MONTH,
+		bo.LOGISTICS_ID,
+		bo.INVOICE_TYPE,
+		bo.FREIGHT_DESCRIPTION,
+		bo.PAYMENT_COMMENTS,
+		bo.LOGISTICS_COMMENTS,
+		bo.INVOICE_COMMENTS,
+		bo.COMMENTS,
+		bo.ADDITIONAL_CLAUSE,
+		bo.ADD_TIME,
+		bo.CREATOR,
+		bo.MOD_TIME,
+		bo.UPDATER,
+		bo.TAKE_TRADER_AREA,
+		bo.TRADER_AREA,
+		IFNULL(sum(bog.ALL_NUM), 0) AS ALL_NUM,
+		IFNULL(sum(bog.ALL_ARRIVAL_NUM), 0) AS ALL_ARRIVAL_NUM
+	FROM
+		T_BUYORDER bo
+	LEFT JOIN (
+		SELECT
+			IFNULL(
+				sum(a.NUM) - IFNULL(SUM(T.SHNUM), 0),
+				0
+			) AS ALL_NUM,
+			IFNULL(sum(a.ARRIVAL_NUM), 0) AS ALL_ARRIVAL_NUM,
+			a.BUYORDER_ID,
+			a.BUYORDER_GOODS_ID,
+			a.GOODS_ID
+		FROM
+			T_BUYORDER_GOODS a
+		LEFT JOIN (
+			SELECT
+				SUM(b.NUM) SHNUM,
+				b.ORDER_DETAIL_ID
+			FROM
+				T_AFTER_SALES_GOODS b
+			LEFT JOIN T_AFTER_SALES c ON b.AFTER_SALES_ID = c.AFTER_SALES_ID
+			WHERE
+				b.GOODS_TYPE = 0
+			AND c.TYPE = 546
+			AND c.SUBJECT_TYPE = 536
+			AND c.ATFER_SALES_STATUS != 3
+			AND b.GOODS_ID NOT IN (
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+			GROUP BY
+				b.ORDER_DETAIL_ID
+		) T ON a.BUYORDER_GOODS_ID = T.ORDER_DETAIL_ID
+		WHERE
+			a.IS_DELETE = 0
+	   GROUP BY
+				a.BUYORDER_GOODS_ID
+	) bog ON bo.BUYORDER_ID = bog.BUYORDER_ID
+	WHERE
+		bo.BUYORDER_ID = (
+			SELECT
+				a.BUYORDER_ID
+			FROM
+				T_BUYORDER_GOODS a
+			WHERE
+				a.BUYORDER_GOODS_ID = #{buyorderGoodsId,jdbcType=INTEGER}
+		)
+		AND bog.GOODS_ID NOT IN (
+				SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693
+			)
+	  </select>
+	  <!-- 查询采购单入库的总的商品数 -->
+	  <select id="getIsInNum" resultMap="InfoResultMap" parameterType="java.lang.Integer" >
+	       SELECT
+				bo.BUYORDER_ID,
+				IFNULL(sum(bog.NUM), 0) AS ALL_NUM,
+				IFNULL(sum(bog.ARRIVAL_NUM), 0) AS ALL_ARRIVAL_NUM,
+				bog.BUYORDER_GOODS_ID,
+				bog.GOODS_ID,
+				bog.NUM,
+				bog.ARRIVAL_NUM,
+				bog.IS_DELETE
+			FROM
+				T_BUYORDER bo
+			LEFT JOIN T_BUYORDER_GOODS bog ON bo.BUYORDER_ID = bog.BUYORDER_ID
+			WHERE
+				bo.BUYORDER_ID = (
+					SELECT
+						a.BUYORDER_ID
+					FROM
+						T_BUYORDER_GOODS a
+					WHERE
+						a.BUYORDER_GOODS_ID = #{buyorderGoodsId,jdbcType=INTEGER})
+					AND bog.GOODS_ID NOT IN (
+						SELECT
+							COMMENTS
+						FROM
+							T_SYS_OPTION_DEFINITION
+						WHERE
+							PARENT_ID = 693
+					)
+					AND bog.IS_DELETE = 0
+	  </select>
+	  <!-- 将采购单下的特殊商品都改为已到货 -->
+	  <update id="updateTsGoodsDh" parameterType="com.vedeng.order.model.Buyorder">
+		update T_BUYORDER_GOODS set ARRIVAL_STATUS = 2,ARRIVAL_TIME = #{arrivalTime,jdbcType=BIGINT},ARRIVAL_NUM =1
+			where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER} AND GOODS_ID  IN (SELECT
+					COMMENTS
+				FROM
+					T_SYS_OPTION_DEFINITION
+				WHERE
+					PARENT_ID = 693)
+	</update>
+	  <!-- 在途商品信息 -->
+	  <select id="getBuyorderVoList" resultType="com.vedeng.order.model.vo.BuyorderVo">
+		<!-- SELECT * FROM (
+		select 
+		    a.GOODS_ID,
+		    COALESCE (SUM(a.NUM - a.ARRIVAL_NUM), 0) ONWAYNUM,
+		    b.BUYORDER_NO,
+		    a.ESTIMATE_ARRIVAL_TIME,
+		    b.VALID_TIME,
+		    b.BUYORDER_ID
+				from
+					T_BUYORDER_GOODS a
+				left join 
+					T_BUYORDER b
+				on 
+					a.BUYORDER_ID = b.BUYORDER_ID
+				where
+					b.VALID_STATUS = 1
+				and
+					b.PAYMENT_STATUS in (1,2)
+				and
+					b.DELIVERY_DIRECT = 0
+				and 
+		            b.ARRIVAL_STATUS in (0,1)
+		        AND 
+		            b.STATUS!=3
+		        and
+					a.GOODS_ID =  #{goodsId,jdbcType=INTEGER}
+		    GROUP BY b.BUYORDER_ID
+		    )T
+WHERE T.ONWAYNUM>0 -->
+				SELECT
+					*
+				FROM
+					(
+						SELECT
+							a.GOODS_ID,
+							COALESCE (SUM((a.NUM - IFNULL(a.ARRIVAL_NUM,0) - IFNULL(TT.SHNUM,0))),0) ONWAYNUM,
+							b.BUYORDER_NO,
+							a.ESTIMATE_ARRIVAL_TIME,
+							b.VALID_TIME,
+							b.BUYORDER_ID
+						FROM
+							T_BUYORDER_GOODS a
+						LEFT JOIN T_BUYORDER b ON a.BUYORDER_ID = b.BUYORDER_ID 
+				    LEFT JOIN 
+				     (
+							SELECT
+								IFNULL(SUM(d.NUM), 0) SHNUM,
+								c.ORDER_ID
+							FROM
+								T_AFTER_SALES c
+							LEFT JOIN T_AFTER_SALES_GOODS d ON c.AFTER_SALES_ID = d.AFTER_SALES_ID
+							WHERE
+								c.TYPE = 546
+							AND d.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+							AND c.VALID_STATUS = 1
+							AND c.ATFER_SALES_STATUS = 2
+							AND c.SUBJECT_TYPE = 536
+							GROUP BY
+								c.ORDER_ID
+						) TT ON a.BUYORDER_ID = TT.ORDER_ID
+						WHERE
+							b.VALID_STATUS = 1
+						AND b.PAYMENT_STATUS IN (1, 2)
+						AND b.DELIVERY_DIRECT = 0
+						AND b.ARRIVAL_STATUS IN (0, 1)
+						AND b. STATUS != 3
+						AND a.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+						GROUP BY
+							b.BUYORDER_ID
+					) T
+				WHERE
+					T.ONWAYNUM > 0
+	</select>
+	
+	  <select id="getBuyOrderTraderIdList" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+	  	select 
+	  		distinct a.TRADER_ID
+	  	from
+	  		T_BUYORDER a
+	  	left join T_TRADER t on t.TRADER_ID = a.TRADER_ID
+	  	where a.VALID_STATUS = 1 and t.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	  </select>
+	  
+	  <select id="getPaymentAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  <!-- 此处为减去售后退货的金额 -->
+	  select
+	  		COALESCE(sum(if(a.TRADER_TYPE=2 or a.TRADER_TYPE=5,ABS(a.AMOUNT),-ABS(a.AMOUNT))),0) 
+	  	from
+	  		T_CAPITAL_BILL a
+		left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		where
+			a.TRADER_TYPE in (1,2,4,5)
+		and
+			b.ORDER_TYPE = 2
+		and
+			b.BUSSINESS_TYPE != 533
+		and
+			b.RELATED_ID = #{buyorderId,jdbcType=INTEGER} 
+			
+	  </select>
+	  
+	  <select id="getPaymentAndPeriodAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+			
+		select
+	  		COALESCE(sum(ABS(a.AMOUNT))-ifnull(cc.thAmount,0)-ifnull(dd.tkAmount,0),0) 
+	  	from
+	  		T_CAPITAL_BILL a
+		left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		left join
+			(SELECT
+				sum(abs(a.AMOUNT)) AS thAmount,
+				c.ORDER_ID
+			FROM
+				T_CAPITAL_BILL_DETAIL a
+			LEFT JOIN T_CAPITAL_BILL b ON a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+			LEFT JOIN T_AFTER_SALES c ON a.RELATED_ID = c.AFTER_SALES_ID
+			WHERE
+				a.BUSSINESS_TYPE = 531
+			AND a.ORDER_type = 3
+			AND b.TRADER_TYPE in (1,4)
+			AND c.VALID_STATUS = 1
+			AND c.SUBJECT_TYPE = 536
+			AND c.TYPE in (549,546)<!-- 退货、退款 -->
+			AND c.ORDER_ID = #{buyorderId,jdbcType=INTEGER}
+			GROUP BY
+				c.ORDER_ID
+				) cc on b.RELATED_ID=cc.ORDER_ID
+		LEFT JOIN (
+			SELECT
+				sum(abs(b.AMOUNT)) AS tkAmount,
+				b.RELATED_ID
+			FROM
+				T_CAPITAL_BILL a
+			LEFT JOIN T_CAPITAL_BILL_DETAIL b ON a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+			WHERE
+				b.BUSSINESS_TYPE = 531
+			AND b.ORDER_TYPE = 2
+			AND b.RELATED_ID  = #{buyorderId,jdbcType=INTEGER}
+			GROUP BY
+				b.RELATED_ID
+		) dd ON dd.RELATED_ID = b.RELATED_ID
+		where
+			a.TRADER_TYPE in (2,5)
+		and
+			b.ORDER_TYPE = 2
+		and b.RELATED_ID  = #{buyorderId,jdbcType=INTEGER}
+			
+	  </select>
+	  
+	  <select id="batchPaymentAmountList" parameterType="com.vedeng.order.model.vo.BuyorderVo" resultType="com.vedeng.order.model.vo.BuyorderVo">
+	  	select
+	  		COALESCE(sum(if(a.TRADER_TYPE=2 or a.TRADER_TYPE=5,ABS(a.AMOUNT),-ABS(a.AMOUNT))),0) as paymentAmount, b.RELATED_ID as buyorderId
+	  	from
+	  		T_CAPITAL_BILL a
+		left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		where
+			a.TRADER_TYPE in (1,2,4,5)
+		and
+			b.ORDER_TYPE = 2
+		and
+			b.BUSSINESS_TYPE != 533
+		and
+			b.RELATED_ID in
+			<foreach collection="buyorderVos" item="bv" index="index" open="(" close=")" separator=",">
+	           #{bv.buyorderId}
+	       </foreach>
+			group by b.RELATED_ID
+	  </select>
+	  
+	  <select id="getLackAccountPeriodAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  	select
+	  		COALESCE(sum(ABS(a.AMOUNT))-IFNULL(c.hk_amount,0)-IFNULL(d.hk_amount,0),0) 
+	  	from
+	  		T_CAPITAL_BILL a
+	  	left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+	  	left join
+	  		(
+	  			select
+	  				COALESCE(sum(ABS(b1.AMOUNT)),0) as hk_amount,b1.RELATED_ID
+	  			from 
+			  		T_CAPITAL_BILL a1
+			  	left join
+					T_CAPITAL_BILL_DETAIL b1
+				on
+					a1.CAPITAL_BILL_ID = b1.CAPITAL_BILL_ID
+				where
+					a1.TRADER_TYPE in(2,5)
+				and
+	  				b1.ORDER_TYPE = 2
+				and
+					b1.BUSSINESS_TYPE = 533
+				group by b1.RELATED_ID
+	  		) as c
+	  	on
+	  		b.RELATED_ID = c.RELATED_ID
+	  	left join
+	  		(
+	  			select
+					COALESCE(sum(ABS(b1.AMOUNT)),0) as hk_amount,c1.ORDER_ID
+				from 
+					T_CAPITAL_BILL a1
+				left join
+					T_CAPITAL_BILL_DETAIL b1
+				on
+					a1.CAPITAL_BILL_ID = b1.CAPITAL_BILL_ID
+				left JOIN
+					T_AFTER_SALES c1
+				ON
+					c1.AFTER_SALES_ID = b1.RELATED_ID and c1.SUBJECT_TYPE = 536
+				where
+					a1.TRADER_TYPE = 3
+				and
+					b1.ORDER_TYPE = 3
+				and
+					b1.BUSSINESS_TYPE = 531 AND a1.TRADER_MODE = 529
+				group by c1.ORDER_ID
+	  		) as d 
+	  	on 
+	  		d.ORDER_ID = b.RELATED_ID
+	  	where
+	  		a.TRADER_TYPE = 3
+	  	and
+	  		a.TRADER_MODE = 527
+	  	and
+	  		b.ORDER_TYPE = 2
+	  	and
+	  		b.RELATED_ID = #{buyorderId,jdbcType=INTEGER}
+	  
+	  </select>
+	  <!-- 查询未还帐期金额大于0的采购订单集合 -->
+	  <select id="getLackAccountPeriodAmountBuyorderIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	  	select
+	  		e.BUYORDER_ID ,COALESCE(sum(ABS(a.AMOUNT))-IFNULL(c.hk_amount,0)-IFNULL(d.hk_amount,0),0) as LACK_COUNT
+	  	from
+	  		T_CAPITAL_BILL a
+	  	left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+	  	left join
+	  		(
+	  			select
+	  				COALESCE(sum(ABS(b1.AMOUNT)),0) as hk_amount,b1.RELATED_ID
+	  			from 
+			  		T_CAPITAL_BILL a1
+			  	left join
+					T_CAPITAL_BILL_DETAIL b1
+				on
+					a1.CAPITAL_BILL_ID = b1.CAPITAL_BILL_ID
+				where
+					a1.TRADER_TYPE in(2,5)
+				and
+	  				b1.ORDER_TYPE = 2
+				and
+					b1.BUSSINESS_TYPE = 533
+				group by b1.RELATED_ID
+	  		) as c
+	  	on
+	  		b.RELATED_ID = c.RELATED_ID
+	  	left join
+	  		(
+	  			select
+					COALESCE(sum(ABS(b1.AMOUNT)),0) as hk_amount,c1.ORDER_ID
+				from 
+					T_CAPITAL_BILL a1
+				left join
+					T_CAPITAL_BILL_DETAIL b1
+				on
+					a1.CAPITAL_BILL_ID = b1.CAPITAL_BILL_ID
+				left JOIN
+					T_AFTER_SALES c1
+				ON
+					c1.AFTER_SALES_ID = b1.RELATED_ID and c1.SUBJECT_TYPE = 536
+				where
+					a1.TRADER_TYPE = 3
+				and
+					b1.ORDER_TYPE = 3
+				and
+					b1.BUSSINESS_TYPE = 531 AND a1.TRADER_MODE = 529
+				group by c1.ORDER_ID
+	  		) as d 
+	  	on 
+	  		d.ORDER_ID = b.RELATED_ID
+			LEFT JOIN T_BUYORDER e ON b.RELATED_ID = e.BUYORDER_ID
+	  	where
+	  		a.TRADER_TYPE = 3
+	  	and
+	  		a.TRADER_MODE = 527
+	  	and
+	  		b.ORDER_TYPE = 2
+		AND e.HAVE_ACCOUNT_PERIOD = 1
+		AND e.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		GROUP BY e.BUYORDER_ID HAVING LACK_COUNT > 0
+	  </select>
+	  
+	  <select id="getInvoiceAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  	select
+	  		COALESCE(sum(if(a.COLOR_TYPE=1,-ABS(a.AMOUNT),if(a.IS_ENABLE=1,ABS(a.AMOUNT),-ABS(a.AMOUNT))))+IFNULL(b.tk_amount,0),0)
+	  	from
+	  		T_INVOICE a
+	  	left join
+	  		(
+	  		select
+	  			sum(if(aa.COLOR_TYPE=1,-ABS(aa.AMOUNT),if(aa.IS_ENABLE=1,ABS(aa.AMOUNT),-ABS(aa.AMOUNT)))) as tk_amount,bb.ORDER_ID
+	  		from 
+	  			T_INVOICE aa
+	  		left join
+	  			T_AFTER_SALES bb
+	  		on 
+	  			aa.RELATED_ID = bb.AFTER_SALES_ID
+	  		where
+	  			aa.TYPE = 504
+	  		and
+	  			bb.SUBJECT_TYPE = 536
+	  		and
+	  			bb.VALID_STATUS = 1
+	  		and
+	  			bb.ATFER_SALES_STATUS in (1,2)
+	  		group by bb.ORDER_ID
+	  		) as b
+	  	on
+	  		a.RELATED_ID = b.ORDER_ID
+	  	where
+	  		a.TYPE = 503
+	  	and
+	  		a.VALID_STATUS = 1
+	  	and
+	  		a.RELATED_ID = #{buyorderId,jdbcType=INTEGER}
+	  </select>
+	  
+
+  	  <select id="getRealAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+<!-- 			if(COALESCE(a.TOTAL_AMOUNT - IFNULL(abs(b.tk_amount),0) - IFNULL(abs(c.gtk_amount),0),0) <![CDATA[<]]> 0
+			,0,COALESCE(a.TOTAL_AMOUNT - IFNULL(abs(b.tk_amount),0) - IFNULL(abs(c.gtk_amount),0),0)) -->
+	  	SELECT
+			if(COALESCE(a.TOTAL_AMOUNT - IFNULL(abs(b.tk_amount),0) ,0) <![CDATA[<]]> 0
+			,0,COALESCE(a.TOTAL_AMOUNT - IFNULL(abs(b.tk_amount),0) ,0))
+		FROM
+			T_BUYORDER a
+		left JOIN
+		(
+			SELECT
+				sum(bb.NUM*cc.PRICE) as tk_amount,aa.ORDER_ID
+			FROM
+				T_AFTER_SALES aa
+			left JOIN
+				T_AFTER_SALES_GOODS bb
+			ON
+				aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+			left JOIN
+				T_BUYORDER_GOODS cc
+			ON
+				bb.ORDER_DETAIL_ID = cc.BUYORDER_GOODS_ID
+			WHERE
+				aa.TYPE = 546
+			AND
+				aa.SUBJECT_TYPE = 536
+			AND
+				aa.VALID_STATUS = 1
+			AND
+				aa.ATFER_SALES_STATUS in (1,2)
+			GROUP BY
+				aa.ORDER_ID
+		) as b
+		ON
+			a.BUYORDER_ID = b.ORDER_ID
+<!-- 		LEFT JOIN
+		(
+			select
+				sum(ac.REAL_REFUND_AMOUNT) as gtk_amount,ab.ORDER_ID
+			from
+				T_AFTER_SALES ab
+			left join
+				T_AFTER_SALES_DETAIL ac
+			on
+				ab.AFTER_SALES_ID = ac.AFTER_SALES_ID
+			where
+				ab.SUBJECT_TYPE = 536
+			and
+				ab.TYPE = 549
+			and
+				ab.ATFER_SALES_STATUS = 2
+			group by 
+				ab.ORDER_ID
+			
+		) as c
+		on 
+			a.BUYORDER_ID = c.ORDER_ID -->
+		WHERE
+			a.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+	  </select>
+
+	   <select id="getRealPreAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  	SELECT
+			COALESCE(a.PREPAID_AMOUNT - IFNULL(abs(b.tk_amount),0),0)
+		FROM
+			T_BUYORDER a
+		left JOIN
+		(
+			SELECT
+				sum(bb.NUM*cc.PRICE) as tk_amount,aa.ORDER_ID
+			FROM
+				T_AFTER_SALES aa
+			left JOIN
+				T_AFTER_SALES_GOODS bb
+			ON
+				aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+			left JOIN
+				T_BUYORDER_GOODS cc
+			ON
+				bb.ORDER_DETAIL_ID = cc.BUYORDER_GOODS_ID
+			WHERE
+				aa.TYPE = 546
+			AND
+				aa.SUBJECT_TYPE = 536
+			AND
+				aa.VALID_STATUS = 1
+			AND
+				aa.ATFER_SALES_STATUS in (1,2)
+			GROUP BY
+				aa.ORDER_ID
+		) as b
+		ON
+			a.BUYORDER_ID = b.ORDER_ID
+		WHERE
+			a.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+	  </select>
+	  
+	  <select id="getPeriodAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  	select
+	  		COALESCE(sum(ABS(a.AMOUNT))-IFNULL(abs(c.tk_amount),0),0) 
+	  	from
+	  		T_CAPITAL_BILL a
+	  	left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		left join
+		(
+			SELECT
+				sum(aa.AMOUNT) as tk_amount,cc.ORDER_ID
+			FROM
+				T_CAPITAL_BILL aa
+			left JOIN
+				T_CAPITAL_BILL_DETAIL bb
+			ON
+				aa.CAPITAL_BILL_ID = bb.CAPITAL_BILL_ID
+			left JOIN
+				T_AFTER_SALES cc
+			ON
+				cc.AFTER_SALES_ID = bb.RELATED_ID
+			AND
+				bb.ORDER_TYPE = 3
+			WHERE
+				aa.TRADER_MODE = 529
+			AND
+				aa.TRADER_TYPE = 3
+			AND
+				cc.SUBJECT_TYPE = 536
+			GROUP BY
+				cc.ORDER_ID
+		) as c
+		ON
+		c.ORDER_ID = b.RELATED_ID
+	  	where
+	  		a.TRADER_TYPE = 3
+	  	and
+	  		a.TRADER_MODE = 527
+	  	and
+	  		b.ORDER_TYPE = 2
+	  	and
+	  		b.RELATED_ID = #{buyorderId,jdbcType=INTEGER}
+	  </select>
+	  
+	  <select id="batchPeriodAmountList" parameterType="com.vedeng.order.model.vo.BuyorderVo" resultType="com.vedeng.order.model.vo.BuyorderVo">
+	  	select
+	  		COALESCE(sum(ABS(a.AMOUNT))-IFNULL(abs(c.tk_amount),0),0) as periodAmount, b.RELATED_ID as buyorderId
+	  	from
+	  		T_CAPITAL_BILL a
+	  	left join
+			T_CAPITAL_BILL_DETAIL b
+		on
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		left join
+		(
+			SELECT
+				sum(aa.AMOUNT) as tk_amount,cc.ORDER_ID
+			FROM
+				T_CAPITAL_BILL aa
+			left JOIN
+				T_CAPITAL_BILL_DETAIL bb
+			ON
+				aa.CAPITAL_BILL_ID = bb.CAPITAL_BILL_ID
+			left JOIN
+				T_AFTER_SALES cc
+			ON
+				cc.AFTER_SALES_ID = bb.RELATED_ID
+			AND
+				bb.ORDER_TYPE = 3
+			WHERE
+				aa.TRADER_MODE = 529
+			AND
+				aa.TRADER_TYPE = 3
+			AND
+				cc.SUBJECT_TYPE = 536
+			GROUP BY
+				cc.ORDER_ID
+		) as c
+		ON
+		c.ORDER_ID = b.RELATED_ID
+	  	where
+	  		a.TRADER_TYPE = 3
+	  	and
+	  		a.TRADER_MODE = 527
+	  	and
+	  		b.ORDER_TYPE = 2
+	  	and
+	  		b.RELATED_ID in
+			<foreach collection="buyorderVos" item="bv" index="index" open="(" close=")" separator=",">
+	           #{bv.buyorderId}
+	       </foreach>
+	       group by b.RELATED_ID
+	  </select>
+	  
+	  <select id="getHaveInvoiceNums" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  	select
+	  		COALESCE(sum(if(b.PRICE>0,abs(b.NUM),-b.NUM))+IFNULL(c.refundNum,0),0)
+	  	from
+	  		T_INVOICE a
+	  	left join
+	  		T_INVOICE_DETAIL b
+	  	on
+	  		a.INVOICE_ID = b.INVOICE_ID
+			LEFT JOIN
+			(
+				SELECT
+				sum(if(dd.PRICE>0,abs(dd.NUM),-abs(dd.NUM))) as refundNum,dd.DETAILGOODS_ID as detailId
+				FROM	
+				T_AFTER_SALES aa
+				LEFT JOIN
+				T_INVOICE cc on aa.AFTER_SALES_ID = cc.RELATED_ID and cc.TYPE=504
+				LEFT JOIN
+				T_INVOICE_DETAIL dd on cc.INVOICE_ID = dd.INVOICE_ID
+				WHERE
+				aa.SUBJECT_TYPE = 536
+				AND
+				cc.VALID_STATUS=1
+				GROUP BY dd.DETAILGOODS_ID
+			) as c on c.detailId = b.DETAILGOODS_ID
+	  	where
+	  		a.TYPE = 503
+	  	and
+	  		a.VALID_STATUS = 1
+	  	and
+	  		b.DETAILGOODS_ID = #{buyorderGoodsId,jdbcType=INTEGER}
+	  </select>
+	  <select id="getHaveInvoiceNumsByList" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo" resultType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+	  	select
+	  		COALESCE(sum(if(b.PRICE>0,abs(b.NUM),-b.NUM))+IFNULL(c.refundNum,0),0) as INVOICE_NUM,b.DETAILGOODS_ID BUYORDER_GOODS_ID
+	  	from
+	  		T_INVOICE a
+	  	left join
+	  		T_INVOICE_DETAIL b
+	  	on
+	  		a.INVOICE_ID = b.INVOICE_ID
+			LEFT JOIN
+			(
+				SELECT
+				sum(if(dd.PRICE>0,abs(dd.NUM),-abs(dd.NUM))) as refundNum,dd.DETAILGOODS_ID as detailId
+				FROM	
+				T_AFTER_SALES aa
+				LEFT JOIN
+				T_INVOICE cc on aa.AFTER_SALES_ID = cc.RELATED_ID and cc.TYPE=504
+				LEFT JOIN
+				T_INVOICE_DETAIL dd on cc.INVOICE_ID = dd.INVOICE_ID
+				WHERE
+				aa.SUBJECT_TYPE = 536
+				AND
+				cc.VALID_STATUS=1
+				GROUP BY dd.DETAILGOODS_ID
+			) as c on c.detailId = b.DETAILGOODS_ID
+	  	where
+	  		a.TYPE = 503
+	  	and
+	  		a.VALID_STATUS = 1
+	  	<if test="bgvList != null and bgvList.size()>0">
+	  		and b.DETAILGOODS_ID IN
+	  		<foreach collection="bgvList" index="index" item="bgv" open="(" close=")" separator=",">
+	  			#{bgv.buyorderGoodsId,jdbcType=INTEGER}
+	  		</foreach>
+	  	</if>
+	  	GROUP BY b.DETAILGOODS_ID
+	  </select>
+	 <select id="getHaveInvoiceNumsByParam" parameterType="com.vedeng.order.model.vo.BuyorderGoodsVo" resultType="com.vedeng.order.model.vo.BuyorderGoodsVo">
+	  	select
+	  		COALESCE(sum(if(b.PRICE>0,abs(b.NUM),-b.NUM))+IFNULL(c.refundNum,0),0) as invoiceNum, b.DETAILGOODS_ID as buyorderGoodsId
+	  	from
+	  		T_INVOICE a
+	  	left join
+	  		T_INVOICE_DETAIL b
+	  	on
+	  		a.INVOICE_ID = b.INVOICE_ID
+			LEFT JOIN
+			(
+				SELECT
+				sum(if(dd.PRICE>0,abs(dd.NUM),-abs(dd.NUM))) as refundNum,dd.DETAILGOODS_ID as detailId
+				FROM	
+				T_AFTER_SALES aa
+				LEFT JOIN
+				T_INVOICE cc on aa.AFTER_SALES_ID = cc.RELATED_ID and cc.TYPE=504
+				LEFT JOIN
+				T_INVOICE_DETAIL dd on cc.INVOICE_ID = dd.INVOICE_ID
+				WHERE
+				aa.SUBJECT_TYPE = 536
+				AND
+				cc.VALID_STATUS=1
+				GROUP BY dd.DETAILGOODS_ID
+			) as c on c.detailId = b.DETAILGOODS_ID
+	  	where
+	  		a.TYPE = 503
+	  	and
+	  		a.VALID_STATUS = 1
+	  	and
+	  		b.DETAILGOODS_ID in 
+		  		<foreach collection="list" item="bg" index="index"
+		           open="(" close=")" separator=",">
+		           #{bg.buyorderGoodsId,jdbcType=INTEGER}
+		       </foreach>
+	      group by b.DETAILGOODS_ID
+	  </select>
+	  
+  <select id="getGoodsOccupyAmount" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+	  select 
+	  		COALESCE(SUM(b.NUM-b.ARRIVAL_NUM)*b.PRICE,0)
+	  	from
+	  		T_BUYORDER a
+	  	left join
+	  		T_BUYORDER_GOODS b
+	  	on
+	  		a.BUYORDER_ID = b.BUYORDER_ID
+
+	  	where
+	  		a.STATUS = 1
+	  	and
+	  		a.DELIVERY_STATUS != 2
+	  	and
+	  		a.DELIVERY_DIRECT = 0	
+	  	and
+	  		b.IS_DELETE = 0
+	  	and
+	  		b.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAverageArrivalList" parameterType="java.lang.Integer" resultMap="VoResultMap">
+  	SELECT
+		aa.VALID_TIME,bb.ARRIVAL_TIME,cc.time
+	FROM
+		T_BUYORDER aa
+	LEFT JOIN
+		T_BUYORDER_GOODS bb
+	ON
+		aa.BUYORDER_ID = bb.BUYORDER_ID
+	left JOIN 
+		(
+		select 
+			max(a.VALID_TIME) as time,b.GOODS_ID
+		FROM
+			T_BUYORDER a
+		left JOIN
+			T_BUYORDER_GOODS b
+		ON
+			a.BUYORDER_ID = b.BUYORDER_ID
+		WHERE
+			a.VALID_STATUS = 1
+		group by b.GOODS_ID
+		) as cc on bb.GOODS_ID = cc.GOODS_ID
+	WHERE
+		bb.GOODS_ID = #{goodsId,jdbcType=INTEGER}
+	AND
+		aa.VALID_TIME > UNIX_TIMESTAMP(DATE_SUB(FROM_UNIXTIME(cc.time/1000,'%Y-%m-%d %H:%i:%S'), INTERVAL 3 MONTH))
+		  	
+  </select>
+  
+  <select id="getAverageArrivalListByGoodsIds" resultType="com.vedeng.order.model.vo.BuyorderVo">
+	    SELECT
+			sum(DATEDIFF(from_unixtime(bb.ARRIVAL_TIME/1000),from_unixtime(aa.VALID_TIME/1000))) as totalDays,count(bb.GOODS_ID) as times, 
+			bb.GOODS_ID
+		FROM
+			T_BUYORDER aa
+		LEFT JOIN T_BUYORDER_GOODS bb ON aa.BUYORDER_ID = bb.BUYORDER_ID
+		LEFT JOIN (
+			SELECT
+				max(a.VALID_TIME) AS time,
+				b.GOODS_ID
+			FROM
+				T_BUYORDER a
+			LEFT JOIN T_BUYORDER_GOODS b ON a.BUYORDER_ID = b.BUYORDER_ID
+			WHERE
+				a.VALID_STATUS = 1
+			GROUP BY
+				b.GOODS_ID
+		) AS cc ON bb.GOODS_ID = cc.GOODS_ID
+		WHERE
+			bb.GOODS_ID in 
+		<foreach collection="goodsIds" item="goodsId" index="index"
+           open="(" close=")" separator=",">
+           #{goodsId}
+       </foreach>
+		AND aa.VALID_TIME > UNIX_TIMESTAMP(
+			DATE_SUB(
+				FROM_UNIXTIME(
+					cc.time / 1000,
+					'%Y-%m-%d %H:%i:%S'
+				),
+				INTERVAL 3 MONTH
+			)
+		)
+		AND
+		aa.VALID_TIME > 0
+		AND
+		bb.ARRIVAL_TIME > 0
+		AND
+		bb.ARRIVAL_TIME > aa.VALID_TIME
+		GROUP BY bb.GOODS_ID
+  </select>
+  <!-- 打印采购单 -->
+  <select id="getBuyOrderPrintInfo" resultMap="VoResultMap" parameterType="com.vedeng.order.model.Buyorder">
+		     SELECT
+			a.*, b. NAME,b.SEX,
+			b.MOBILE,
+			b.FAX,
+			b.EMAIL,
+			c.BANK,
+			c.BANK_ACCOUNT,
+			c.TAX_NUM,
+			d.LAST_VERIFY_USERNAME,
+			h.TAKE_TRADER_CONTACT_NAME STAKE_TRADER_CONTACT_NAME,
+			h.TAKE_TRADER_CONTACT_MOBILE STAKE_TRADER_CONTACT_MOBILE,
+			h.TAKE_TRADER_CONTACT_TELEPHONE STAKE_TRADER_CONTACT_TELEPHONE,
+			h.TAKE_TRADER_AREA STAKE_TRADER_AREA,
+			h.TAKE_TRADER_ADDRESS STAKE_TRADER_ADDRESS
+		FROM
+			T_BUYORDER a
+			LEFT JOIN T_BUYORDER_GOODS e ON a.BUYORDER_ID = e.BUYORDER_ID
+			LEFT JOIN T_R_BUYORDER_J_SALEORDER f ON e.BUYORDER_GOODS_ID = f.BUYORDER_GOODS_ID
+			LEFT JOIN T_SALEORDER_GOODS g ON f.SALEORDER_GOODS_ID = g.SALEORDER_GOODS_ID AND g.IS_DELETE=0
+			LEFT JOIN T_SALEORDER h ON g.SALEORDER_ID = h.SALEORDER_ID
+			LEFT JOIN T_TRADER_CONTACT b ON a.TRADER_ID = b.TRADER_ID
+		AND b.TRADER_TYPE = 2
+		AND b.IS_ENABLE = 1
+		AND a.TRADER_CONTACT_NAME = b.NAME
+		LEFT JOIN T_TRADER_FINANCE c ON a.TRADER_ID = c.TRADER_ID
+		AND c.TRADER_TYPE = 2
+		LEFT JOIN T_VERIFIES_INFO d ON a.BUYORDER_ID = d.RELATE_TABLE_KEY
+        AND d.RELATE_TABLE = 'T_BUYORDER'
+		WHERE
+			1 = 1
+		AND a.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+		AND a.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		LIMIT 1
+  </select>
+  
+  <!-- 获取待同步采购订单数据 -->
+	<select id="getWaitSyncBuyorderList" resultMap="BaseResultMap" parameterType="com.vedeng.order.model.Buyorder">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			T_BUYORDER 
+		WHERE
+			BUYORDER_ID NOT IN (
+				SELECT
+					BUYORDER_ID
+				FROM
+					T_BUYORDER a
+				JOIN T_DATA_SYNC_STATUS b ON a.BUYORDER_ID = b.RELATED_ID
+				WHERE
+					b.SOURCE_TABLE = 'T_BUYORDER' 
+					AND	b.GOAL_TYPE = 591
+					AND b. STATUS = 1
+			);
+	</select>
+	
+	<select id="getBuyorderByBuyorderIdList" resultMap="BaseResultMap" >
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			T_BUYORDER 
+		WHERE
+			BUYORDER_ID in 
+			<foreach collection="buyorderIds" item="buyorderId" index="index"
+	           open="(" close=")" separator=",">
+	           #{buyorderId}
+	       </foreach>
+	</select>
+	
+	<!-- 根据订单号查询订单编号list -->
+	<select id="getBuyorderUserBySaleorderGoodsIds"  resultType="java.lang.Integer">
+		SELECT b.USER_ID
+		from
+		T_SALEORDER_GOODS sg
+		left join T_R_BUYORDER_J_SALEORDER rbjs on rbjs.SALEORDER_GOODS_ID = sg.SALEORDER_GOODS_ID
+		left join T_BUYORDER_GOODS bg on bg.BUYORDER_GOODS_ID = rbjs.BUYORDER_GOODS_ID
+		left join T_BUYORDER b on b.BUYORDER_ID = bg.BUYORDER_ID
+		where sg.SALEORDER_GOODS_ID in 
+		<foreach collection="saleorderGoodIds" item="saleorderGoodId" open="(" close=")" separator=",">
+			#{saleorderGoodId,jdbcType=INTEGER}
+		</foreach>				
+		group by b.USER_ID 
+	</select>
+	<select id="getByuorderByBuyorderGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Buyorder">
+		select
+		a.BUYORDER_ID,a.BUYORDER_NO,a.TAKE_TRADER_CONTACT_NAME,a.DELIVERY_DIRECT
+		from
+			T_BUYORDER a
+		left join
+			T_BUYORDER_GOODS b
+		on
+		a.BUYORDER_ID = b.BUYORDER_ID
+		where
+			b.BUYORDER_GOODS_ID =#{buyorderGoodsId}
+	</select>
+	<select id="getPeriodOrderAmount" parameterType="java.lang.Integer"  resultType="java.math.BigDecimal">
+	select
+  		COALESCE(sum(if(a.PREPAID_AMOUNT <![CDATA[<=]]> aa.payAmount,a.ACCOUNT_PERIOD_AMOUNT,0)),0 )
+  	from
+  		T_BUYORDER a
+  	left join
+  		(
+  			select
+  				COALESCE(sum(ABS(b.AMOUNT)),0) as payAmount ,b.RELATED_ID
+  			from
+		  		T_CAPITAL_BILL_DETAIL b
+		  	left join
+		  		T_CAPITAL_BILL c on c.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+  			where
+  				
+	  			b.ORDER_TYPE = 2
+	  		and
+	  			b.BUSSINESS_TYPE = 525
+	  		and
+	  			b.TRADER_ID = #{traderId}
+	  		GROUP BY b.RELATED_ID
+  		) aa on a.BUYORDER_ID = aa.RELATED_ID
+  	where
+  		a.TRADER_ID = #{traderId}
+  		and
+  		a.PAYMENT_STATUS = 1
+  		and
+  		a.HAVE_ACCOUNT_PERIOD = 1
+  		and
+  		a.STATUS != 3
+	</select>
+	<!-- 销售单关联的采购单 -->
+	<select id="getBuyorderListBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Buyorder">
+		select
+			c.BUYORDER_ID,c.BUYORDER_NO
+		from
+			T_R_BUYORDER_J_SALEORDER a
+		join
+			T_BUYORDER_GOODS b 
+		on a.BUYORDER_GOODS_ID = b.BUYORDER_GOODS_ID 
+		join T_BUYORDER c 
+		on b.BUYORDER_ID = c.BUYORDER_ID 
+		where
+			a.SALEORDER_GOODS_ID = #{saleorderGoodsId} and c.STATUS != 3
+	</select>
+	<!-- 销售单出库时关联的采购单 -->
+	<select id="getBuyorderOutListBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.Buyorder">
+			SELECT DISTINCT
+				e.BUYORDER_ID,
+				e.BUYORDER_NO
+			FROM
+				(
+					SELECT
+						a.WAREHOUSE_GOODS_OPERATE_LOG_ID,
+						a.BARCODE_ID
+					FROM
+						T_WAREHOUSE_GOODS_OPERATE_LOG a
+					LEFT JOIN T_SALEORDER_GOODS b ON a.RELATED_ID = b.SALEORDER_GOODS_ID
+					WHERE
+						a.OPERATE_TYPE = 2
+					AND a.IS_ENABLE = 1
+					AND b.SALEORDER_GOODS_ID = #{saleorderGoodsId}
+				) T
+			INNER JOIN T_WAREHOUSE_GOODS_OPERATE_LOG c ON T.BARCODE_ID = c.BARCODE_ID
+			AND c.IS_ENABLE = 1
+			AND c.OPERATE_TYPE = 1
+			LEFT JOIN T_BUYORDER_GOODS d ON c.RELATED_ID = d.BUYORDER_GOODS_ID
+			LEFT JOIN T_BUYORDER e ON d.BUYORDER_ID = e.BUYORDER_ID
+			UNION ALL
+				SELECT
+					e.AFTER_SALES_ID,
+					e.AFTER_SALES_NO
+				FROM
+					(
+						SELECT
+							a.WAREHOUSE_GOODS_OPERATE_LOG_ID,
+							a.BARCODE_ID
+						FROM
+							T_WAREHOUSE_GOODS_OPERATE_LOG a
+						LEFT JOIN T_SALEORDER_GOODS b ON a.RELATED_ID = b.SALEORDER_GOODS_ID
+						WHERE
+							a.OPERATE_TYPE = 2
+						AND a.IS_ENABLE = 1
+						AND b.SALEORDER_GOODS_ID = #{saleorderGoodsId}
+					) T
+				INNER JOIN T_WAREHOUSE_GOODS_OPERATE_LOG c ON T.BARCODE_ID = c.BARCODE_ID
+				AND c.IS_ENABLE = 1
+				AND c.OPERATE_TYPE IN (3, 5, 7)
+				LEFT JOIN T_AFTER_SALES_GOODS d ON c.RELATED_ID = d.AFTER_SALES_GOODS_ID
+				LEFT JOIN T_AFTER_SALES e ON d.AFTER_SALES_ID = e.AFTER_SALES_ID
+	</select>
+	<select id="getBuyorderGoodsSumBySaleorderGoodsId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		select
+			COALESCE(SUM(a.NUM),0)
+		from T_R_BUYORDER_J_SALEORDER a
+		join T_BUYORDER_GOODS b on a.BUYORDER_GOODS_ID = b.BUYORDER_GOODS_ID 
+		join T_BUYORDER c on b.BUYORDER_ID = c.BUYORDER_ID 
+			where c.VALID_STATUS = 1 AND c.STATUS BETWEEN 1 AND 2 AND a.SALEORDER_GOODS_ID = #{saleorderGoodsId} 
+	</select>
+	
+	<select id="getBuyorderListByAftersale" parameterType="com.vedeng.aftersales.model.vo.AfterSalesGoodsVo" resultType="com.vedeng.order.model.Buyorder">
+		select
+			c.BUYORDER_ID,c.BUYORDER_NO
+		from
+			T_R_BUYORDER_J_SALEORDER a
+		join T_BUYORDER_GOODS b on a.BUYORDER_GOODS_ID = b.BUYORDER_GOODS_ID 
+		join T_BUYORDER c on b.BUYORDER_ID = c.BUYORDER_ID 
+		where
+			a.SALEORDER_GOODS_ID in
+			<foreach collection="afterSalesGoodsVos" item="ag" open="(" close=")" separator=",">
+				#{ag.orderDetailId,jdbcType=INTEGER}
+			</foreach>
+			group by c.BUYORDER_ID
+	</select>
+	
+
+	<select id="getApplyBuyorderDetail" parameterType="com.vedeng.order.model.Buyorder" resultType="com.vedeng.order.model.vo.BuyorderVo">
+		select
+			a.BUYORDER_ID,a.BUYORDER_NO, a.DELIVERY_DIRECT, a.TAKE_TRADER_ID, a.TAKE_TRADER_NAME, a.TAKE_TRADER_CONTACT_ID, a.TAKE_TRADER_CONTACT_NAME, 
+		    a.TAKE_TRADER_CONTACT_MOBILE, a.TAKE_TRADER_CONTACT_TELEPHONE, a.TAKE_TRADER_ADDRESS_ID, a.TAKE_TRADER_ADDRESS, a.TAKE_TRADER_AREA, a.INVOICE_TYPE, 
+		    a.LOGISTICS_COMMENTS, a.INVOICE_COMMENTS
+		from
+			T_BUYORDER a
+		where
+			a.BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+	</select>
+	<select id="getBuyorderVoNumById" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.vo.BuyorderVo">
+		select sum(rg.num) BUYORDER_SUM,sum(rg.NUM*rg.PRICE) BUYORDER_AMOUNT from T_BUYORDER_GOODS rg
+			<!-- left join T_R_BUYORDER_J_SALEORDER rjs on rg.BUYORDER_GOODS_ID=rjs.BUYORDER_GOODS_ID
+			left join T_SALEORDER_GOODS good on rjs.SALEORDER_GOODS_ID=good.SALEORDER_GOODS_ID -->
+			where rg.BUYORDER_ID=#{buyorderId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getSaleorderIdListByBuyorderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT 
+			a.SALEORDER_ID 
+		FROM T_SALEORDER_GOODS a
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER b ON a.SALEORDER_GOODS_ID = b.SALEORDER_GOODS_ID
+		LEFT JOIN T_BUYORDER_GOODS c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+		where c.BUYORDER_ID=#{buyorderId,jdbcType=INTEGER}
+		GROUP BY a.SALEORDER_ID 
+	</select>
+	
+	<select id="getSaleorderGoodsDeliveryDirectByBuyorderId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT 
+			a.DELIVERY_DIRECT
+		FROM T_SALEORDER_GOODS a
+		LEFT JOIN T_R_BUYORDER_J_SALEORDER b ON a.SALEORDER_GOODS_ID = b.SALEORDER_GOODS_ID
+		LEFT JOIN T_BUYORDER_GOODS c ON b.BUYORDER_GOODS_ID = c.BUYORDER_GOODS_ID
+		where c.BUYORDER_ID=#{buyorderId,jdbcType=INTEGER}
+		GROUP BY a.DELIVERY_DIRECT 
+	</select>
+	
+	<update id="updateBuyorderApplyValid" parameterType="com.vedeng.order.model.Buyorder" >
+    update T_BUYORDER
+    set 
+      DELIVERY_DIRECT = #{deliveryDirect,jdbcType=BIT},
+      TAKE_TRADER_ID = #{takeTraderId,jdbcType=INTEGER},
+      TAKE_TRADER_NAME = #{takeTraderName,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_ID = #{takeTraderContactId,jdbcType=INTEGER},
+      TAKE_TRADER_CONTACT_NAME = #{takeTraderContactName,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_MOBILE = #{takeTraderContactMobile,jdbcType=VARCHAR},
+      TAKE_TRADER_CONTACT_TELEPHONE = #{takeTraderContactTelephone,jdbcType=VARCHAR},
+      TAKE_TRADER_ADDRESS_ID = #{takeTraderAddressId,jdbcType=INTEGER},
+      TAKE_TRADER_ADDRESS = #{takeTraderAddress,jdbcType=VARCHAR},
+      TAKE_TRADER_AREA = #{takeTraderArea,jdbcType=VARCHAR},
+      INVOICE_TYPE = #{invoiceType,jdbcType=INTEGER},
+      LOGISTICS_COMMENTS = #{logisticsComments,jdbcType=VARCHAR},
+      INVOICE_COMMENTS = #{invoiceComments,jdbcType=VARCHAR}
+    where BUYORDER_ID = #{buyorderId,jdbcType=INTEGER}
+  </update>
+
+	<select id="getPeriodOrderAmountNew" resultType="java.math.BigDecimal">
+	select
+  		COALESCE(sum(if(a.PREPAID_AMOUNT <![CDATA[<=]]> aa.payAmount,a.ACCOUNT_PERIOD_AMOUNT,0)),0 )
+  	from
+  		T_BUYORDER a
+  	left join
+  		(
+  			select
+  				COALESCE(sum(ABS(b.AMOUNT)),0) as payAmount ,b.RELATED_ID
+  			from
+		  		T_CAPITAL_BILL_DETAIL b
+		  	left join
+		  		T_CAPITAL_BILL c on c.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+  			where
+  				
+	  			b.ORDER_TYPE = 2
+	  		and
+	  			b.BUSSINESS_TYPE = 525
+	  		and
+	  			b.TRADER_ID = #{traderId}
+	  		GROUP BY b.RELATED_ID
+  		) aa on a.BUYORDER_ID = aa.RELATED_ID
+  	where
+  		a.TRADER_ID = #{traderId}
+  		and
+  		a.PAYMENT_STATUS = 1
+  		and
+  		a.HAVE_ACCOUNT_PERIOD = 1
+  		and
+  		a.STATUS != 3
+		and
+		a.COMPANY_ID = #{companyId}
+	</select>
+	
+	<select id="getBuyorderPeriodAmount" parameterType="java.lang.Integer" resultType="com.vedeng.order.model.vo.BuyorderVo">
+		SELECT
+			COALESCE(sum(ABS(a.AMOUNT))-IFNULL(abs(c.tk_amount),0)-IFNULL(abs(d.hx_amount),0),0) as periodAmount,
+				min(a.ADD_TIME) as periodTime,
+				IFNULL(c.tk_time,0) as tkTime,
+				IFNULL(d.hx_time,0) as hxTime,
+				sum(ABS(a.AMOUNT)) as accountPeriodAmount
+		FROM
+			T_CAPITAL_BILL a
+		LEFT JOIN T_CAPITAL_BILL_DETAIL b ON a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		LEFT JOIN (
+			SELECT
+				sum(aa.AMOUNT) AS tk_amount,
+				cc.ORDER_ID,
+					max(aa.ADD_TIME) as tk_time
+			FROM
+				T_CAPITAL_BILL aa
+			LEFT JOIN T_CAPITAL_BILL_DETAIL bb ON aa.CAPITAL_BILL_ID = bb.CAPITAL_BILL_ID
+			LEFT JOIN T_AFTER_SALES cc ON cc.AFTER_SALES_ID = bb.RELATED_ID
+			AND bb.ORDER_TYPE = 3
+			WHERE
+				aa.TRADER_MODE = 529
+			AND aa.TRADER_TYPE = 3
+			AND cc.SUBJECT_TYPE = 536
+			AND cc.ORDER_ID = #{buyorderId,jdbcType=INTEGER}
+		) AS c ON c.ORDER_ID = b.RELATED_ID
+		LEFT JOIN (
+				SELECT
+					sum(aa.AMOUNT) AS hx_amount,
+					bb.RELATED_ID,
+					max(aa.ADD_TIME) as hx_time
+				FROM
+					T_CAPITAL_BILL aa
+				LEFT JOIN T_CAPITAL_BILL_DETAIL bb ON aa.CAPITAL_BILL_ID = bb.CAPITAL_BILL_ID
+				WHERE
+					bb.BUSSINESS_TYPE = 533
+				AND bb.ORDER_TYPE = 2
+				AND bb.RELATED_ID = #{buyorderId,jdbcType=INTEGER}
+			) AS d ON d.RELATED_ID = b.RELATED_ID
+		WHERE
+			a.TRADER_TYPE = 3
+		AND a.TRADER_MODE = 527
+		AND b.ORDER_TYPE = 2
+		AND b.RELATED_ID = #{buyorderId,jdbcType=INTEGER}
+	</select>
+	<update id="updateDataTimeByOrderId">
+	UPDATE T_BUYORDER
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	BUYORDER_ID = #{orderId,jdbcType=INTEGER}
+	</update>
+	<update id="updateDataTimeByDetailId">
+	UPDATE T_BUYORDER
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	BUYORDER_ID = (
+	  SELECT A.BUYORDER_ID FROM T_BUYORDER_GOODS A WHERE A.BUYORDER_GOODS_ID = #{orderDetailId,jdbcType=INTEGER}
+	)
+	</update>
+	<select id="getSaleorderGooodsIdByBuyorderId" resultType="integer">
+		  SELECT
+	C.SALEORDER_GOODS_ID
+	FROM
+	T_BUYORDER A
+	LEFT JOIN T_BUYORDER_GOODS B ON A.BUYORDER_ID = B.BUYORDER_ID
+	LEFT JOIN T_R_BUYORDER_J_SALEORDER C ON B.BUYORDER_GOODS_ID=C.BUYORDER_GOODS_ID
+	WHERE B.IS_DELETE= 0 AND
+	A.BUYORDER_ID= #{orderId,jdbcType=INTEGER}
+	</select>
+
+</mapper>

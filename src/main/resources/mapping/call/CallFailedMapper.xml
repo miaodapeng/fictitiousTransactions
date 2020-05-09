@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.call.dao.CallFailedMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.call.model.CallFailed" >
+    <id column="CALL_FAILED_ID" property="callFailedId" jdbcType="INTEGER" />
+    <result column="LOG_ID" property="logId" jdbcType="INTEGER" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="COID" property="coid" jdbcType="VARCHAR" />
+    <result column="CALLER_NUMBER" property="callerNumber" jdbcType="VARCHAR" />
+    <result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="IS_DIAL_BACK" property="isDialBack" jdbcType="BIT" />
+    <result column="DIAL_BACK_USER_ID" property="dialBackUserId" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="USER_NAME" property="username" jdbcType="VARCHAR" />
+    <result column="DIAL_BACK_USER_USERNAME" property="dialBackUserUsername" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CALL_FAILED_ID, COMPANY_ID, LOG_ID, COID, CALLER_NUMBER, TRADER_NAME, USER_ID, IS_DIAL_BACK, 
+    DIAL_BACK_USER_ID, ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_CALL_FAILED
+    where CALL_FAILED_ID = #{callFailedId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_CALL_FAILED
+    where CALL_FAILED_ID = #{callFailedId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.call.model.CallFailed" >
+    insert into T_CALL_FAILED
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="callFailedId != null" >
+        CALL_FAILED_ID,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="coid != null" >
+        COID,
+      </if>
+      <if test="callerNumber != null" >
+        CALLER_NUMBER,
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="isDialBack != null" >
+        IS_DIAL_BACK,
+      </if>
+      <if test="dialBackUserId != null" >
+        DIAL_BACK_USER_ID,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="callFailedId != null" >
+        #{callFailedId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="coid != null" >
+        #{coid,jdbcType=VARCHAR},
+      </if>
+      <if test="callerNumber != null" >
+        #{callerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="traderName != null" >
+        #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isDialBack != null" >
+        #{isDialBack,jdbcType=BIT},
+      </if>
+      <if test="dialBackUserId != null" >
+        #{dialBackUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.call.model.CallFailed" >
+    update T_CALL_FAILED
+    <set >
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="logId != null" >
+        LOG_ID = #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="coid != null" >
+        COID = #{coid,jdbcType=VARCHAR},
+      </if>
+      <if test="callerNumber != null" >
+        CALLER_NUMBER = #{callerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="traderName != null" >
+        TRADER_NAME = #{traderName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isDialBack != null" >
+        IS_DIAL_BACK = #{isDialBack,jdbcType=BIT},
+      </if>
+      <if test="dialBackUserId != null" >
+        DIAL_BACK_USER_ID = #{dialBackUserId,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where CALL_FAILED_ID = #{callFailedId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getCallFailedByLogId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select
+  	<include refid="Base_Column_List" />
+    from T_CALL_FAILED
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getCallFailedDialBackUser" resultMap="BaseResultMap">
+  	select
+  		a.DIAL_BACK_USER_ID,b.USERNAME as DIAL_BACK_USER_USERNAME
+  	from 
+  		T_CALL_FAILED a
+  	left join 
+  		T_USER b on a.DIAL_BACK_USER_ID = b.USER_ID
+  	where
+  		a.DIAL_BACK_USER_ID > 0
+  	group by a.DIAL_BACK_USER_ID
+  		order by DIAL_BACK_USER_USERNAME asc
+  </select>
+  
+  <select id="queryCallFailedlistPage" resultMap="BaseResultMap" parameterType="Map">
+  	select
+  		a.CALL_FAILED_ID, a.LOG_ID, a.COID, a.CALLER_NUMBER, a.TRADER_NAME, a.USER_ID, a.IS_DIAL_BACK, 
+    	a.DIAL_BACK_USER_ID, a.ADD_TIME,
+    	b.USERNAME as USER_NAME,
+    	c.USERNAME as DIAL_BACK_USER_USERNAME
+  	from
+  		T_CALL_FAILED a
+  	left join
+  		T_USER b on a.USER_ID = b.USER_ID
+  	left join
+  		T_USER c on a.DIAL_BACK_USER_ID = c.USER_ID and a.DIAL_BACK_USER_ID > 0
+  	where
+  		1=1
+  		<if test="callFailed.companyId != null">
+  		and	a.COMPANY_ID = #{callFailed.companyId,jdbcType=INTEGER}
+  		</if>
+  		<if test="callFailed.callerNumber != null and callFailed.callerNumber !=''">
+  		and a.CALLER_NUMBER like CONCAT('%',#{callFailed.callerNumber},'%' ) 	
+  		</if>
+  		<if test="callFailed.traderName != null and callFailed.traderName != ''">
+  		and a.TRADER_NAME like CONCAT('%',#{callFailed.traderName},'%' ) 	
+  		</if>
+  		<if test="callFailed.dialBackUserId != null and callFailed.dialBackUserId != 0">
+  		and a.DIAL_BACK_USER_ID = #{callFailed.dialBackUserId,jdbcType=INTEGER}
+  		</if>
+  		<if test="callFailed.starttimeLong != null and callFailed.starttimeLong > 0">
+			and a.ADD_TIME <![CDATA[>=]]> #{callFailed.starttimeLong} 
+		</if>
+		<if test="callFailed.endtimeLong != null and callFailed.endtimeLong > 0">
+			and a.ADD_TIME <![CDATA[<=]]> #{callFailed.endtimeLong} 
+		</if>
+		
+		order by a.ADD_TIME desc
+  </select>
+</mapper>

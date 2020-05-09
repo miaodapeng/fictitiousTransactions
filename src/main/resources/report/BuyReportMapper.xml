@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.report.dao.BuyReportMapper">
+    <select id="getUserByCategory" resultType="com.vedeng.authorization.model.User">
+    	select
+			GROUP_CONCAT(b.USERNAME) as owners,a.CATEGORY_ID
+		from
+			T_R_CATEGORY_J_USER a
+		left join
+			T_USER b
+		on
+			a.USER_ID = b.USER_ID
+		where
+			a.CATEGORY_ID in
+			<foreach collection="categoryIds" item="categoryId" index="index"
+	          open="(" close=")" separator=",">
+	          #{categoryId}
+	    	</foreach>
+			and
+			b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+	  		group by a.CATEGORY_ID
+  </select>
+  
+  <select id="getGoodsSafeStock" resultType="com.vedeng.goods.model.GoodsSafeStock">
+    select 
+    GOODS_SAFE_STOCK_ID, COMPANY_ID, GOODS_ID, NUM, ADD_TIME, CREATOR, MOD_TIME, UPDATER
+    from T_GOODS_SAFE_STOCK
+    where 
+    	GOODS_ID in
+		<foreach collection="goodsIds" item="goodsId" index="index"
+          open="(" close=")" separator=",">
+          #{goodsId}
+    	</foreach>
+    and
+    	COMPANY_ID = #{companyId,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="getPurchasePrice" resultType="com.vedeng.goods.model.GoodsChannelPrice" parameterType="java.lang.Integer">
+  	select 
+    GOODS_CHANNEL_PRICE_ID, GOODS_ID, PROVINCE_ID, PROVINCE_NAME, CITY_ID, CITY_NAME, 
+    DISTRIBUTION_PRICE, PUBLIC_PRICE, PRIVATE_PRICE, DELIVERY_CYCLE, PERIOD_DATE, 
+    IS_REPORT_TERMINAL, IS_MANUFACTURER_AUTHORIZATION, ADD_TIME, CREATOR, MOD_TIME, UPDATER
+    from T_GOODS_CHANNEL_PRICE
+    where 
+    	GOODS_ID in
+		<foreach collection="goodsIds" item="goodsId" index="index"
+	         open="(" close=")" separator=",">
+	         #{goodsId}
+	   	</foreach>
+    	group by GOODS_CHANNEL_PRICE_ID
+  </select>
+  
+  <select id="getSupplierOwnerData" resultType="com.vedeng.trader.model.vo.TraderSupplierVo">
+    	SELECT
+			a.TRADER_ID,b.USERNAME as ownerSale,group_concat(d.ORG_NAME) as orgName
+		FROM
+			T_R_TRADER_J_USER a
+		LEFT JOIN
+			T_USER b
+		ON
+			a.USER_ID = b.USER_ID
+		LEFT JOIN
+			T_R_USER_POSIT r_u_p
+		ON
+			r_u_p.USER_ID = b.USER_ID
+		LEFT JOIN
+			T_POSITION c
+		ON
+			r_u_p.POSITION_ID = c.POSITION_ID
+		LEFT JOIN
+			T_ORGANIZATION d
+		ON
+			d.ORG_ID = c.ORG_ID
+		WHERE
+			a.TRADER_TYPE = 2
+		AND
+			a.TRADER_ID in
+   			<foreach collection="traderIds" item="traderId" index="index"
+	            open="(" close=")" separator=",">
+	            #{traderId}
+	        </foreach>
+		GROUP BY 
+			a.TRADER_ID
+		    	
+    </select>
+    
+    <select id="getSupplierCommunicateData" resultType="com.vedeng.trader.model.vo.TraderSupplierVo">
+    	SELECT
+			COUNT(*) as communcateCount,TRADER_ID,max(FROM_UNIXTIME(BEGINTIME/1000,'%Y-%m-%d %H:%i:%s')) as lastCommuncateTimeStr
+		FROM
+			T_COMMUNICATE_RECORD
+		WHERE
+			TRADER_TYPE=2
+		AND
+			TRADER_ID in
+   			<foreach collection="traderIds" item="traderId" index="index"
+	            open="(" close=")" separator=",">
+	            #{traderId}
+	        </foreach>
+		GROUP BY
+			TRADER_ID
+    </select>
+    
+    <select id="getTraderIdListByUserList" resultType="java.lang.Integer">
+		SELECT A.TRADER_ID
+		FROM T_R_TRADER_J_USER A
+		WHERE A.USER_ID IN 
+			<foreach collection="userIds" item="userId" open="(" close=")" separator=",">
+				#{userId,jdbcType=VARCHAR}
+			</foreach>
+			 AND A.TRADER_TYPE =2
+	</select>
+	
+	<select id="getTraderIdsByCommunicateIds" resultType="java.lang.Integer">
+		SELECT
+			DISTINCT TRADER_ID
+		FROM
+			T_COMMUNICATE_RECORD
+		WHERE
+			TRADER_TYPE = 2
+		AND
+			TRADER_ID > 0
+		and
+			COMMUNICATE_RECORD_ID in
+			<foreach collection="list" item="communicateRecordId" open="(" close=")" separator=",">
+				#{communicateRecordId}
+			</foreach>
+	</select>
+</mapper>

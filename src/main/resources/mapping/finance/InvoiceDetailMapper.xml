@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.finance.dao.InvoiceDetailMapper">
+	<resultMap id="BaseResultMap" type="com.vedeng.finance.model.InvoiceDetail">
+		<id column="INVOICE_DETAIL_ID" property="invoiceDetailId" jdbcType="INTEGER" />
+		<result column="INVOICE_ID" property="invoiceId" jdbcType="INTEGER" />
+		<result column="DETAILGOODS_ID" property="detailgoodsId" jdbcType="INTEGER" />
+		<result column="PRICE" property="price" jdbcType="DECIMAL" />
+		<result column="NUM" property="num" jdbcType="DECIMAL" />
+		<result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap type="com.vedeng.finance.model.vo.InvoiceDetailVo" id="VoResultMap" extends="BaseResultMap">
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+		<result column="INVOICE_NO" property="invoiceNo" jdbcType="VARCHAR" />
+		<result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+		<result column="RATIO" property="ratio" jdbcType="DECIMAL" />
+		<result column="COLOR_TYPE" property="colorType" jdbcType="BIT" />
+		<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+		<result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+		<result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+		<result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+		<result column="VALID_COMMENTS" property="validComments" jdbcType="VARCHAR" />
+		<result column="INVOICE_PRINT_STATUS" property="invoicePrintStatus" jdbcType="BIT" />
+		<result column="INVOICE_CANCEL_STATUS" property="invoiceCancelStatus" jdbcType="BIT" />
+		<result column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+		<result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+		<result column="CREATOR" property="creator" jdbcType="INTEGER" />
+		<result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+		<result column="UPDATER" property="updater" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- add by Tomcat.Hui 2019/11/5 16:44 .Desc:VDERP-1325 分批开票 . start -->
+	<resultMap type="com.vedeng.finance.model.Invoice" id="invoiceEntity" extends="BaseResultMap">
+		<id column="INVOICE_ID" property="invoiceId" jdbcType="INTEGER" />
+		<result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="INVOICE_CODE" property="invoiceCode" jdbcType="INTEGER" />
+		<result column="RELATED_ID" property="relatedId" jdbcType="INTEGER" />
+		<result column="INVOICE_NO" property="invoiceNo" jdbcType="VARCHAR" />
+		<result column="INVOICE_PROPERTY" property="invoiceProperty" jdbcType="INTEGER"/>
+		<result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+		<result column="INVOICE_HREF" property="invoiceHref" jdbcType="INTEGER" />
+		<result column="RATIO" property="ratio" jdbcType="DECIMAL" />
+		<result column="COLOR_TYPE" property="colorType" jdbcType="BIT" />
+		<result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+		<result column="IS_ENABLE" property="isEnable" jdbcType="BIT" />
+		<result column="VALID_USERID" property="validUserId" jdbcType="INTEGER" />
+		<result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+		<result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+		<result column="VALID_COMMENTS" property="validComments" jdbcType="VARCHAR" />
+		<result column="INVOICE_PRINT_STATUS" property="invoicePrintStatus" jdbcType="BIT" />
+		<result column="INVOICE_CANCEL_STATUS" property="invoiceCancelStatus" jdbcType="BIT" />
+		<result column="EXPRESS_ID" property="expressId" jdbcType="INTEGER" />
+		<result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+		<result column="CREATOR" property="creator" jdbcType="INTEGER" />
+		<result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+		<result column="UPDATER" property="updater" jdbcType="INTEGER" />
+		<result column="TAG" property="tag" jdbcType="INTEGER" />
+		<result column="IS_AUTH" property="isAuth" jdbcType="INTEGER" />
+		<result column="IS_MONTH_AUTH" property="isMonthAuth" jdbcType="INTEGER" />
+		<result column="AUTH_TIME" property="authTime" jdbcType="BIGINT" />
+		<collection property="invoiceDetailList" ofType="com.vedeng.finance.model.InvoiceDetail">
+			<result column="INVOICE_DETAIL_ID" property="invoiceDetailId" jdbcType="INTEGER" />
+			<result column="INVOICE_ID" property="invoiceId" jdbcType="INTEGER" />
+			<result column="DETAILGOODS_ID" property="detailgoodsId" jdbcType="INTEGER" />
+			<result column="PRICE" property="price" jdbcType="DECIMAL" />
+			<result column="NUM" property="num" jdbcType="DECIMAL" />
+			<result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+		</collection>
+	</resultMap>
+	<!-- add by Tomcat.Hui 2019/11/5 16:44 .Desc:VDERP-1325 分批开票 . end -->
+
+	<sql id="Base_Column_List">
+		INVOICE_DETAIL_ID, INVOICE_ID, DETAILGOODS_ID, PRICE, NUM,
+		ABS(TOTAL_AMOUNT) AS TOTAL_AMOUNT
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from T_INVOICE_DETAIL
+		where INVOICE_DETAIL_ID =
+		#{invoiceDetailId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		T_INVOICE_DETAIL
+		where INVOICE_DETAIL_ID =
+		#{invoiceDetailId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.vedeng.finance.model.InvoiceDetail">
+		insert into T_INVOICE_DETAIL
+		(INVOICE_DETAIL_ID, INVOICE_ID,
+		DETAILGOODS_ID,
+		PRICE, NUM, TOTAL_AMOUNT)
+		values (
+		#{invoiceDetailId,jdbcType=INTEGER}, #{invoiceId,jdbcType=INTEGER},
+		#{detailgoodsId,jdbcType=INTEGER},
+		#{price,jdbcType=DECIMAL}, #{num,jdbcType=DECIMAL}, #{totalAmount,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="com.vedeng.finance.model.InvoiceDetail">
+		insert into T_INVOICE_DETAIL
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="invoiceDetailId != null">
+				INVOICE_DETAIL_ID,
+			</if>
+			<if test="invoiceId != null">
+				INVOICE_ID,
+			</if>
+			<if test="detailgoodsId != null">
+				DETAILGOODS_ID,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="num != null">
+				NUM,
+			</if>
+			<if test="totalAmount != null">
+				TOTAL_AMOUNT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="invoiceDetailId != null">
+				#{invoiceDetailId,jdbcType=INTEGER},
+			</if>
+			<if test="invoiceId != null">
+				#{invoiceId,jdbcType=INTEGER},
+			</if>
+			<if test="detailgoodsId != null">
+				#{detailgoodsId,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=DECIMAL},
+			</if>
+			<if test="totalAmount != null">
+				#{totalAmount,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.vedeng.finance.model.InvoiceDetail">
+		update T_INVOICE_DETAIL
+		<set>
+			<if test="invoiceId != null">
+				INVOICE_ID = #{invoiceId,jdbcType=INTEGER},
+			</if>
+			<if test="detailgoodsId != null">
+				DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="num != null">
+				NUM = #{num,jdbcType=DECIMAL},
+			</if>
+			<if test="totalAmount != null">
+				TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where INVOICE_DETAIL_ID = #{invoiceDetailId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.vedeng.finance.model.InvoiceDetail">
+		update
+		T_INVOICE_DETAIL
+		set INVOICE_ID = #{invoiceId,jdbcType=INTEGER},
+		DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER},
+		PRICE =
+		#{price,jdbcType=DECIMAL},
+		NUM = #{num,jdbcType=DECIMAL},
+		TOTAL_AMOUNT =
+		#{totalAmount,jdbcType=DECIMAL}
+		where INVOICE_DETAIL_ID =
+		#{invoiceDetailId,jdbcType=INTEGER}
+	</update>
+
+	<select id="getBuyorderByDetailGoodsId" resultType="com.vedeng.finance.model.orderInfo">
+		<if test="invoiceType != null and invoiceType == '503'">
+			SELECT
+				A.INVOICE_DETAIL_ID,
+				A.DETAILGOODS_ID,
+				C.BUYORDER_ID,
+				C.BUYORDER_NO,
+				B.ARRIVAL_NUM,
+				C.VALID_TIME,
+				C.USER_ID,
+				B.PRICE,
+				P.INVOICE_ID
+			FROM T_INVOICE P
+				INNER JOIN T_INVOICE_DETAIL A
+				ON P.INVOICE_ID = A.INVOICE_ID
+				AND P.VALID_STATUS = 0
+				LEFT JOIN T_BUYORDER_GOODS B ON A.DETAILGOODS_ID = B.BUYORDER_GOODS_ID
+				LEFT JOIN T_BUYORDER C ON B.BUYORDER_ID = C.BUYORDER_ID
+			WHERE     A.DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER}
+			      AND P.INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
+			      AND P.TYPE = 503
+			      AND P.TAG = 2
+		</if>
+		<if test="invoiceType != null and invoiceType == '504'">
+			<if test="afterSubjectType != null and afterSubjectType == '536'">
+				SELECT A.INVOICE_DETAIL_ID,
+				       A.DETAILGOODS_ID,
+				       C.AFTER_SALES_ID AS BUYORDER_ID,
+				       C.AFTER_SALES_NO AS BUYORDER_NO,
+				       B.ARRIVAL_NUM,
+				       C.VALID_TIME,
+				       C.SERVICE_USER_ID AS USER_ID,
+				       B.PRICE,
+				       P.INVOICE_ID
+				FROM T_INVOICE P
+				     INNER JOIN T_INVOICE_DETAIL A
+				        ON P.INVOICE_ID = A.INVOICE_ID AND P.VALID_STATUS = 0
+				     LEFT JOIN T_AFTER_SALES_GOODS B
+				        ON A.DETAILGOODS_ID = B.AFTER_SALES_GOODS_ID
+				     LEFT JOIN T_AFTER_SALES C ON B.AFTER_SALES_ID = C.AFTER_SALES_ID
+				WHERE     A.DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER}
+				      AND P.INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
+				      AND P.TYPE = 504
+				      AND P.TAG = 2
+			</if>
+			<if test="afterSubjectType == null or afterSubjectType != '536'">
+				SELECT A.INVOICE_DETAIL_ID,
+				       A.DETAILGOODS_ID,
+				       C.AFTER_SALES_ID AS BUYORDER_ID,
+				       C.AFTER_SALES_NO AS BUYORDER_NO,
+				       1 AS ARRIVAL_NUM,<!-- 默认 -->
+				       C.VALID_TIME,
+				       C.SERVICE_USER_ID AS USER_ID,
+				       A.PRICE AS PRICE,
+				       P.INVOICE_ID
+				FROM T_INVOICE P
+				     INNER JOIN T_INVOICE_DETAIL A ON P.INVOICE_ID = A.INVOICE_ID AND P.VALID_STATUS = 0
+				     LEFT JOIN T_AFTER_SALES_INSTALLSTION B ON A.DETAILGOODS_ID = B.AFTER_SALES_INSTALLSTION_ID
+				     LEFT JOIN T_AFTER_SALES C ON B.AFTER_SALES_ID = C.AFTER_SALES_ID
+				WHERE     A.DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER}
+				      AND P.INVOICE_NO = #{invoiceNo,jdbcType=VARCHAR}
+				      AND P.TYPE = 504
+				      AND P.TAG = 2
+			</if>
+		</if>
+	</select>
+
+	<select id="getInvoiceInputNum" parameterType="java.util.List" resultType="com.vedeng.finance.model.InvoiceDetail">
+		SELECT B.DETAILGOODS_ID AS detailgoodsId,
+		       SUM(IF(A.COLOR_TYPE = 2 AND A.IS_ENABLE = 1, B.NUM, B.NUM * -1))
+		          AS enterNum,
+		       SUM(B.TOTAL_AMOUNT)
+		          AS enterAmount
+		FROM T_INVOICE A INNER JOIN T_INVOICE_DETAIL B ON A.INVOICE_ID = B.INVOICE_ID
+		WHERE B.DETAILGOODS_ID IN 
+			<foreach collection="detailGoodsIdList" item="detailgoodsId" index="num" separator="," open="(" close=")">
+				#{detailgoodsId,jdbcType=INTEGER}
+			</foreach>
+			AND A.VALID_STATUS <![CDATA[ <> ]]> 2 
+			<if test="type != null ">
+				AND A.TYPE = #{type,jdbcType=INTEGER}
+			</if>
+		GROUP BY A.RELATED_ID, B.DETAILGOODS_ID
+	</select>
+
+	<select id="getInvoiceEnterNum" parameterType="java.util.List" resultType="com.vedeng.finance.model.InvoiceDetail">
+		SELECT *
+		FROM (SELECT CONCAT(IF(A.TYPE = 504, C.AFTER_SALES_ID, A.RELATED_ID),
+		                    B.DETAILGOODS_ID)
+		                AS KEY_ID,
+		             IF(A.TYPE = 504, C.AFTER_SALES_ID, A.RELATED_ID)
+		                AS RELATED_ID,
+		             B.DETAILGOODS_ID,
+		             SUM(IF(A.COLOR_TYPE = 2 AND A.IS_ENABLE = 1, B.NUM, B.NUM * -1))
+		                AS enterNum,
+		             SUM(B.TOTAL_AMOUNT)
+		                AS enterAmount
+		      FROM T_INVOICE A
+		           INNER JOIN T_INVOICE_DETAIL B ON A.INVOICE_ID = B.INVOICE_ID
+		           LEFT JOIN T_AFTER_SALES C ON A.RELATED_ID = C.AFTER_SALES_ID
+		      WHERE     B.DETAILGOODS_ID IN 
+		            <foreach collection="goods_list" item="list" index="num" separator="," open="(" close=")">
+						#{list.detailgoodsId,jdbcType=INTEGER}
+					</foreach>
+					AND A.VALID_STATUS <![CDATA[ <> ]]> 2
+					<if test="type != null and type != ''">
+						AND A.TYPE = #{type,jdbcType=INTEGER} <!-- 销售或采购 -->
+					</if>
+		      GROUP BY IF(A.TYPE = 504, C.ORDER_ID, A.RELATED_ID), B.DETAILGOODS_ID)
+		     P
+		GROUP BY KEY_ID
+	
+	</select>
+<!-- 		SELECT IF(A.TYPE = 504, C.ORDER_ID, A.RELATED_ID) RELATED_ID,
+	       B.DETAILGOODS_ID,
+	       SUM(IF(A.COLOR_TYPE = 2 AND A.IS_ENABLE = 1, B.NUM, B.NUM * -1)) AS enterNum,
+	       SUM(B.TOTAL_AMOUNT) AS enterAmount
+		FROM T_INVOICE A INNER JOIN
+			T_INVOICE_DETAIL B ON A.INVOICE_ID = B.INVOICE_ID
+			LEFT JOIN T_AFTER_SALES C ON A.RELATED_ID = C.AFTER_SALES_ID
+		WHERE
+			B.DETAILGOODS_ID IN
+			<foreach collection="goods_list" item="list" index="num" separator="," open="(" close=")">
+				#{list.detailgoodsId,jdbcType=INTEGER}
+			</foreach>
+			AND A.VALID_STATUS <![CDATA[ <> ]]> 2
+			<if test="type != null and type != ''">
+				AND A.TYPE IN (#{type,jdbcType=INTEGER},504) 销售或采购与售后
+			</if>
+		GROUP BY B.DETAILGOODS_ID,A.RELATED_ID -->
+	
+	<!-- <select id="getSaleInvoiceEnterNum" parameterType="java.util.List" resultType="com.vedeng.finance.model.InvoiceDetail">
+		SELECT IF(A.TYPE = 504, C.ORDER_ID, A.RELATED_ID) RELATED_ID,
+	       B.DETAILGOODS_ID,
+	       SUM(IF(A.COLOR_TYPE = 2 AND A.IS_ENABLE = 1, B.NUM, B.NUM * -1)) AS enterNum,
+	       SUM(B.TOTAL_AMOUNT) AS enterAmount
+		FROM T_INVOICE A INNER JOIN
+			T_INVOICE_DETAIL B ON A.INVOICE_ID = B.INVOICE_ID
+			LEFT JOIN T_AFTER_SALES C ON A.RELATED_ID = C.AFTER_SALES_ID
+		WHERE
+			B.DETAILGOODS_ID IN
+			<foreach collection="goods_list" item="list" index="num" separator="," open="(" close=")">
+				#{list.detailgoodsId,jdbcType=INTEGER}
+			</foreach>
+			AND A.VALID_STATUS <![CDATA[ <> ]]> 2
+			<if test="type != null and type != ''">
+				AND A.TYPE IN (#{type,jdbcType=INTEGER},504) 销售或采购与售后
+			</if>
+		GROUP BY B.DETAILGOODS_ID||A.RELATED_ID
+	</select> -->
+
+	<select id="getSaleorderGoodsList" parameterType="java.lang.Integer" resultType="com.vedeng.finance.model.InvoiceDetail">
+		SELECT A.SALEORDER_GOODS_ID AS detailgoodsId,
+		       A.SALEORDER_ID AS relatedId,
+		       A.SKU,
+		       A.GOODS_ID,
+			   IF(LENGTH(F.REGISTER_NAME) > 0, F.REGISTER_NAME, A.GOODS_NAME) AS GOODS_NAME,
+		       A.BRAND_NAME,
+		       A.MODEL,
+		       <!-- A.PRICE, -->
+			   IF(G.ORDER_TYPE = 5, ROUND(A.MAX_SKU_REFUND_AMOUNT / A.NUM, 2), A.PRICE) AS PRICE,
+		       IF((A.NUM - IFNULL(E.NUM,0)) <![CDATA[ < ]]> 0, 0, A.NUM - IFNULL(E.NUM,0)) AS NUM,
+		       A.UNIT_NAME,
+ 		       <!-- IF((A.NUM - IFNULL(E.NUM,0)) * A.PRICE <![CDATA[ < ]]> 0, 0, (A.NUM - IFNULL(E.NUM,0)) * A.PRICE) AS totalAmount -->
+			   (ROUND(IF(G.ORDER_TYPE = 5, A.MAX_SKU_REFUND_AMOUNT, A.NUM * A.PRICE), 2) - IFNULL(E.SKU_REFUND_AMOUNT, 0)) AS totalAmount
+		FROM T_SALEORDER_GOODS A
+		     LEFT JOIN
+		     (SELECT SUM(IFNULL(C.NUM, 0)) NUM, C.ORDER_DETAIL_ID,
+					  SUM(IFNULL(C.SKU_REFUND_AMOUNT, 0)) AS SKU_REFUND_AMOUNT
+		      FROM T_AFTER_SALES B
+		           LEFT JOIN T_AFTER_SALES_GOODS C
+		              ON B.AFTER_SALES_ID = C.AFTER_SALES_ID
+		      WHERE     B.ORDER_ID = #{relatedId,jdbcType=INTEGER}
+		            AND B.ATFER_SALES_STATUS <![CDATA[ <> ]]> 3 <!-- 售后单状态：0待确认（默认）、1进行中、2已完结、3已关闭 -->
+		            AND B.SUBJECT_TYPE = 535 <!-- 销售 -->
+		            AND B.TYPE = 539 <!-- 销售退货 -->
+		            AND C.GOODS_TYPE = 0 <!-- 普通产品 -->
+		      GROUP BY C.ORDER_DETAIL_ID) E
+		        ON A.SALEORDER_GOODS_ID = E.ORDER_DETAIL_ID
+			INNER JOIN T_GOODS F ON A.GOODS_ID = F.GOODS_ID
+			INNER JOIN T_SALEORDER G ON A.SALEORDER_ID = G.SALEORDER_ID
+		WHERE A.SALEORDER_ID = #{relatedId,jdbcType=INTEGER} AND A.IS_DELETE = 0
+	</select>
+		<!-- SELECT A.SALEORDER_GOODS_ID AS detailgoodsId,
+			A.SALEORDER_ID AS relatedId,
+			A.SKU,
+			A.GOODS_ID,
+			A.GOODS_NAME,
+			A.BRAND_NAME,
+			A.MODEL,
+			A.PRICE,
+			IF(A.NUM - SUM(IFNULL(C.NUM, 0)) <![CDATA[ < ]]> 0, 0, A.NUM - SUM(IFNULL(C.NUM, 0))) AS NUM,
+	        A.UNIT_NAME,
+	        IF((A.NUM - SUM(IFNULL(C.NUM, 0))) * A.PRICE <![CDATA[ < ]]> 0, 0, (A.NUM - SUM(IFNULL(C.NUM, 0))) * A.PRICE)
+	          AS totalAmount
+		FROM T_SALEORDER_GOODS A
+		     LEFT JOIN T_AFTER_SALES B ON A.SALEORDER_ID = B.ORDER_ID AND B.ATFER_SALES_STATUS = 1 
+		     LEFT JOIN T_AFTER_SALES_GOODS C
+		        ON     B.AFTER_SALES_ID = C.AFTER_SALES_ID
+		           AND A.SALEORDER_GOODS_ID = C.ORDER_DETAIL_ID
+		           AND A.GOODS_ID = C.GOODS_ID
+		           AND C.GOODS_TYPE = 0
+		WHERE A.SALEORDER_ID = #{relatedId,jdbcType=INTEGER} AND A.IS_DELETE = 0 
+		GROUP BY A.SALEORDER_ID 避免多个售后单 -->
+	
+	
+	<update id="updateSaleOrderInvoiceStatus">
+		UPDATE T_SALEORDER 
+			SET INVOICE_STATUS = #{invoiceStatus,jdbcType=INTEGER},
+				MOD_TIME = #{sysdate,jdbcType=BIGINT} 
+		WHERE SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 插入发票子表:蓝字作废发票记录，根据原有发票ID -->
+	<insert id="insertInvoiceDetail" parameterType="java.lang.Integer">
+		INSERT INTO T_INVOICE_DETAIL(INVOICE_ID,
+		                             DETAILGOODS_ID,
+		                             PRICE,
+		                             NUM,
+		                             TOTAL_AMOUNT)
+		   SELECT #{newInvoiceId,jdbcType=INTEGER},
+		          A.DETAILGOODS_ID,
+		          A.PRICE*-1,
+		          A.NUM,
+		          A.TOTAL_AMOUNT*-1
+		   FROM T_INVOICE_DETAIL A
+		   WHERE A.INVOICE_ID = #{oldInvoiceId,jdbcType=INTEGER}
+	</insert>
+	
+	<select id="getInvoiceDetailVoList" resultMap="VoResultMap" parameterType="com.vedeng.finance.model.vo.InvoiceDetailVo">
+		SELECT
+			A.COMPANY_ID, A.TYPE, A.RELATED_ID, A.INVOICE_NO, A.INVOICE_TYPE, A.RATIO, A.COLOR_TYPE,
+			SUM(b.TOTAL_AMOUNT) AS AMOUNT, A.IS_ENABLE, A.VALID_STATUS, A.VALID_TIME, A.VALID_COMMENTS, A.INVOICE_PRINT_STATUS,
+			A.INVOICE_CANCEL_STATUS, A.EXPRESS_ID,A.ADD_TIME, A.CREATOR, A.MOD_TIME, A.UPDATER, SUM(b.NUM) AS NUM
+		FROM T_INVOICE A 
+		left join T_INVOICE_DETAIL b on A.INVOICE_ID = b.INVOICE_ID
+		WHERE A.VALID_STATUS = 1
+		<if test="companyId != null and companyId != 0">
+			and	A.COMPANY_ID = #{companyId,jdbcType=INTEGER}ƒ
+		</if>
+		<if test="relatedId != null and relatedId != 0">
+			and	A.RELATED_ID = #{relatedId,jdbcType=INTEGER}
+		</if>
+		<if test="detailgoodsId != null and detailgoodsId != 0">
+			and	b.DETAILGOODS_ID = #{detailgoodsId,jdbcType=INTEGER}
+		</if>
+		<if test="type != null and type !=''">
+			AND A.TYPE = #{type,jdbcType=INTEGER}
+		</if>
+		<!-- 红蓝字 -->
+		<if test="colorType != null and colorType != ''">
+			AND A.COLOR_TYPE = #{colorType,jdbcType=BIT}
+		</if>
+		<!-- 是否有效 -->
+		<if test="isEnable != null">
+			AND A.IS_ENABLE = #{isEnable,jdbcType=BIT}
+		</if>
+		GROUP BY A.INVOICE_NO
+		order by A.ADD_TIME desc
+	</select>
+	
+	<select id="getInvoiceDetails" resultType="com.vedeng.finance.model.InvoiceDetail" parameterType="com.vedeng.finance.model.Invoice">
+		select
+			a.INVOICE_DETAIL_ID, a.INVOICE_ID, a.DETAILGOODS_ID, a.PRICE, a.NUM,
+			ABS(a.TOTAL_AMOUNT) AS TOTAL_AMOUNT,
+		<if test="type == 505"><!-- 销售开票 -->
+			b.GOODS_ID
+		</if>
+		from
+			T_INVOICE_DETAIL a
+		<if test="type == 505"><!-- 销售开票 -->
+		left join
+			T_SALEORDER_GOODS b
+		on
+			a.DETAILGOODS_ID = b.SALEORDER_GOODS_ID
+		</if>
+		where
+			a.INVOICE_ID = #{invoiceId,jdbcType=INTEGER}
+	</select>
+
+	<select id="getInvoiceDetailsBySaleorderId" resultType="com.vedeng.finance.model.InvoiceDetail">
+		SELECT
+			id.DETAILGOODS_ID,id.INVOICE_DETAIL_ID,id.INVOICE_ID,id.NUM,id.PRICE,id.TOTAL_AMOUNT
+		FROM
+		T_INVOICE i
+		LEFT JOIN T_INVOICE_DETAIL id ON i.INVOICE_ID =id.INVOICE_ID
+		where i.RELATED_ID=#{saleorderId,jdbcType=INTEGER}
+	</select>
+
+</mapper>

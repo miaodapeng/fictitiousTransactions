@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:apollo="http://www.ctrip.com/schema/apollo" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.ctrip.com/schema/apollo http://www.ctrip.com/schema/apollo.xsd
+		http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+	<!--rabbit连接-->
+	<rabbit:connection-factory
+			id="connectionFactory"
+			addresses="${mjx.rabbitmq.host}"
+			username="${mjx.rabbitmq.username}"
+			password="${mjx.rabbitmq.password}"
+			virtual-host="${mjx.rabbitmq.virtualHost}"
+			channel-cache-size="100"
+			publisher-returns="true"
+			publisher-confirms="true" />
+
+	<!-- 定义mq管理 -->
+	<rabbit:admin connection-factory="connectionFactory" />
+    <!--用来将消息转换为Json，方便消息在生产者和消费者之间传输。-->
+	<bean id="messageConverter"
+		  class="org.springframework.amqp.support.converter.SimpleMessageConverter" />
+
+	<rabbit:template id="rabbitTemplate"
+					 connection-factory="connectionFactory" message-converter="messageConverter" />
+
+	<!-- 防止生产数据过大，导致消息队列积压，造成磁盘爆满，配置清除策略 -->
+<!--	<rabbit:queue name="MjxLogisticsQueue" durable="true" auto-delete="false"  exclusive="false" >
+		<rabbit:queue-arguments>
+			<entry key="x-message-ttl">
+				<value type="java.lang.Integer">60000</value> &lt;!&ndash;保留60s内的数据&ndash;&gt;
+			</entry>
+			<entry key="x-max-priority"> &lt;!&ndash;设置消息队列优先级&ndash;&gt;
+				<value type="java.lang.Integer">10</value>
+			</entry>
+		</rabbit:queue-arguments>
+	</rabbit:queue>-->
+
+	<!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列-->
+	<rabbit:queue name="MjxLogisticsQueue" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="StockServiceOccupyQueue" durable="true" auto-delete="false" exclusive="false" />
+	<rabbit:queue name="StockServiceStockNumQueue" durable="true" auto-delete="false" exclusive="false" />
+	<!--定义direct-exchange（一对一） -->
+	<rabbit:direct-exchange name="MjxLogisticsExchange" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="MjxLogisticsQueue" key="MjxLogisticsRoutingkey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<rabbit:direct-exchange name="StockServiceExchange" durable="true" auto-delete="false">
+		<rabbit:bindings>
+			<rabbit:binding queue="StockServiceOccupyQueue" key="StockServiceOccupyRoutingkey" />
+			<rabbit:binding queue="StockServiceStockNumQueue" key="StockServiceStockNumRoutingkey" />
+		</rabbit:bindings>
+	</rabbit:direct-exchange>
+
+	<rabbit:queue name="erpGoodsBusinessQueue" durable="true" auto-declare="false" exclusive="false" />
+	<rabbit:listener-container connection-factory="connectionFactory" acknowledge="manual">
+		<rabbit:listener ref="businessChanceConsumer" queues="erpGoodsBusinessQueue"></rabbit:listener>
+	</rabbit:listener-container>
+
+</beans>

@@ -1,0 +1,234 @@
+.select,
+.select .select-title .select-label,
+.select .select-selected,
+.select .select-tabs,
+.select .select-tab {
+    display: inline-block;
+    vertical-align: middle;
+    *vertical-align: middle;
+    *display: inline;
+    *zoom: 1;
+}
+
+.select {
+    min-width: 80px;
+    padding-right: 26px;
+    position: relative;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ced3d9;
+    vertical-align: top;
+}
+
+.select-none-border {
+    border: 0 none;
+}
+
+.select.hover,
+.select:hover {
+    border-color: #B6BABF;
+}
+
+.select.focus {
+    border-color: #2E8AE6;
+}
+
+.select .select-title {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.select .select-title .hide {
+    display: block;
+}
+
+.select .select-title .select-label {
+    padding: 5px 10px;
+    background: #f5f7fa;
+    border-right: 1px solid #ced3d9;
+    color: #666;
+    border-radius: 3px 0 0 3px;
+}
+
+.select.search-selected .select-selected {
+    color: #2E8AE6;
+}
+
+.select.disabled {
+    cursor: not-allowed;
+    color: #b2b2b2;
+    border: 1px solid #ced3d9;
+    background: #edf0f2;
+}
+
+.select.disabled.hover,
+.select.disabled:hover {
+    border-color: #ced3d9;
+}
+
+.select.disabled .select-title {
+    cursor: not-allowed;
+}
+
+.select.disabled .select-title .select-label {
+    background: #edf0f2;
+    color: #b2b2b2;
+}
+
+.select .select-selected {
+    padding: 5px 0 5px 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.select .select-arrow {
+    box-sizing: content-box;
+    position: absolute;
+    padding: 0 5px;
+    right: 0;
+    top: 50%;
+    margin-top: -8px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    transition: transform .2s ease;
+}
+
+.select .select-arrow .micon {
+    margin-right: 0;
+}
+
+.select .select-list {
+    display: none;
+    background: #fff;
+    position: absolute;
+    left: -1px;
+    top: 100%;
+    margin-top: 1px;
+    min-width: 100%;
+    *width: 100%;
+    border: 1px solid #ced3d9;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px rgba(0, 33, 66, 0.1);
+    z-index: 66;
+}
+
+.select .select-list-wrap {
+    overflow: auto;
+    max-height: 300px;
+    *height: 300px;
+    padding: 5px 0;
+    min-width: 100%;
+    *width: 100%;
+}
+
+.select .select-opt {
+    padding: 5px 10px;
+    color: #666;
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.select .select-opt.hide {
+    display: none;
+}
+
+.select .select-opt:hover,
+.select .select-opt.hover,
+.select .select-opt.selected {
+    color: #666;
+    background: #e6ecf2;
+}
+
+.select .select-opt.disabled {
+    border: 0 none;
+    cursor: not-allowed;
+    color: #b2b2b2;
+    background: none;
+}
+
+.select .select-opt.disabled:hover {
+    background: none;
+}
+
+.select .select-group {
+    padding: 0 10px;
+}
+
+.select .select-group .select-opt {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.select .select-group:after {
+    height: 0;
+    content: "";
+    display: block;
+    padding: 0 10px;
+    margin: 5px 0;
+    border-bottom: 1px solid #edf0f2;
+    box-sizing: border-box;
+}
+
+.select .select-group:last-of-type:after {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+}
+
+.select .select-opt-label {
+    font-weight: bold;
+}
+
+.select.open {
+    z-index: 110;
+}
+
+.select.open .select-arrow {
+    transform: rotate(180deg);
+}
+
+.select.open .select-list {
+    display: block;
+}
+
+.select.top .select-list {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 1px;
+    border: 1px solid #ced3d9;
+    border-bottom: 0 none;
+}
+
+.select .select-tabs-wrap {
+    text-align: center;
+    border-bottom: 1px solid #dae0e6;
+    margin: 0 10px;
+    font-size: 0;
+}
+
+.select .select-tabs {
+    font-size: 12px;
+    padding: 8px 10px;
+    margin: 0 auto -9px -5px;
+    white-space: nowrap;
+}
+
+.select .select-tab {
+    color: #999;
+    margin-right: 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+}
+
+.select .select-tab.active {
+    color: #333;
+    border-bottom: 2px solid #E64545;
+    cursor: default;
+}

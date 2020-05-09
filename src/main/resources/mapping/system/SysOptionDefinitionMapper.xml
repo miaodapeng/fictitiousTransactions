@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vedeng.system.dao.SysOptionDefinitionMapper">
+  
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.SysOptionDefinition">
+    <id column="SYS_OPTION_DEFINITION_ID" property="sysOptionDefinitionId" jdbcType="INTEGER" />
+    <result column="SCOPE" property="scope" jdbcType="INTEGER" />
+    <result column="pScope" property="pScope" jdbcType="INTEGER" />
+    <result column="PARENT_ID" property="parentId" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="pTitle" property="pTitle" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="RELATED_TABLE" property="relatedTable" jdbcType="VARCHAR" />
+    <result column="RELATED_FIELD" property="relatedField" jdbcType="VARCHAR" />
+    <result column="OPTION_TYPE" property="optionType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    SYS_OPTION_DEFINITION_ID, SCOPE, PARENT_ID, STATUS, SORT, TITLE, COMMENTS, RELATED_TABLE, 
+    RELATED_FIELD,OPTION_TYPE
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.vedeng.system.model.SysOptionDefinition">
+    select 
+    SYS_OPTION_DEFINITION_ID, SCOPE, PARENT_ID, STATUS, SORT, TITLE, COMMENTS, RELATED_TABLE, 
+    RELATED_FIELD
+    from T_SYS_OPTION_DEFINITION
+    where SYS_OPTION_DEFINITION_ID = #{sysOptionDefinitionId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_SYS_OPTION_DEFINITION
+    where SYS_OPTION_DEFINITION_ID = #{sysOptionDefinitionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.SysOptionDefinition">
+    insert into T_SYS_OPTION_DEFINITION (SYS_OPTION_DEFINITION_ID, SCOPE, PARENT_ID, 
+      STATUS, SORT, TITLE, COMMENTS, 
+      RELATED_TABLE, RELATED_FIELD)
+    values (#{sysOptionDefinitionId,jdbcType=INTEGER}, #{scope,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT}, #{sort,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, 
+      #{relatedTable,jdbcType=VARCHAR}, #{relatedField,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.SysOptionDefinition">
+    insert into T_SYS_OPTION_DEFINITION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sysOptionDefinitionId != null">
+        SYS_OPTION_DEFINITION_ID,
+      </if>
+      <if test="scope != null">
+        SCOPE,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="sort != null">
+        SORT,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="relatedTable != null">
+        RELATED_TABLE,
+      </if>
+      <if test="relatedField != null">
+        RELATED_FIELD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sysOptionDefinitionId != null">
+        #{sysOptionDefinitionId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedTable != null">
+        #{relatedTable,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedField != null">
+        #{relatedField,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.SysOptionDefinition">
+    update T_SYS_OPTION_DEFINITION
+    <set>
+      <if test="scope != null">
+        SCOPE = #{scope,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+      <if test="sort != null">
+        SORT = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedTable != null">
+        RELATED_TABLE = #{relatedTable,jdbcType=VARCHAR},
+      </if>
+      <if test="relatedField != null">
+        RELATED_FIELD = #{relatedField,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SYS_OPTION_DEFINITION_ID = #{sysOptionDefinitionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.SysOptionDefinition">
+    update T_SYS_OPTION_DEFINITION
+    set SCOPE = #{scope,jdbcType=INTEGER},
+      PARENT_ID = #{parentId,jdbcType=INTEGER},
+      STATUS = #{status,jdbcType=BIT},
+      SORT = #{sort,jdbcType=INTEGER},
+      TITLE = #{title,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      RELATED_TABLE = #{relatedTable,jdbcType=VARCHAR},
+      RELATED_FIELD = #{relatedField,jdbcType=VARCHAR}
+    where SYS_OPTION_DEFINITION_ID = #{sysOptionDefinitionId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="getSysOptionDefinitionByParam" resultMap="BaseResultMap">
+	SELECT
+		a.TITLE AS pTitle,
+		a.SCOPE AS pScope,
+		b.SYS_OPTION_DEFINITION_ID,
+		b.SCOPE,
+		b.PARENT_ID,
+		b.`STATUS`,
+		b.SORT,
+		b.TITLE,
+		b.COMMENTS,
+		b.RELATED_TABLE,
+		b.RELATED_FIELD
+	FROM
+		T_SYS_OPTION_DEFINITION a
+	LEFT JOIN T_SYS_OPTION_DEFINITION b ON a.SYS_OPTION_DEFINITION_ID = b.PARENT_ID
+	WHERE
+		a.`STATUS` = 1
+	AND b.`STATUS` = 1
+	AND a.SCOPE IN
+	<foreach item="scope" index="index" collection="list" open="(" separator="," close=")">  
+	  #{scope}  
+	</foreach> 
+	ORDER BY
+		b.SORT DESC
+  </select>
+  
+  <select id="getSysOptionDefinitionByOptionType" resultMap="BaseResultMap">
+	SELECT
+		a.TITLE AS pTitle,
+		a.SCOPE AS pScope,
+		b.SYS_OPTION_DEFINITION_ID,
+		b.SCOPE,
+		b.PARENT_ID,
+		b.`STATUS`,
+		b.SORT,
+		b.TITLE,
+		b.COMMENTS,
+		b.RELATED_TABLE,
+		b.RELATED_FIELD,
+		b.OPTION_TYPE
+	FROM
+		T_SYS_OPTION_DEFINITION a
+	LEFT JOIN T_SYS_OPTION_DEFINITION b ON a.SYS_OPTION_DEFINITION_ID = b.PARENT_ID
+	WHERE
+		a.`STATUS` = 1
+	AND b.`STATUS` = 1
+	AND b.OPTION_TYPE =#{optionType,jdbcType=VARCHAR}
+	ORDER BY
+		b.SORT DESC
+  </select>
+
+    <select id="getSysOptionDefinitionIdByTitleAndParentTitle" resultType="java.lang.Integer">
+        SELECT SYS_OPTION_DEFINITION_ID FROM T_SYS_OPTION_DEFINITION WHERE TITLE = #{title} AND PARENT_ID =
+        (
+            SELECT SYS_OPTION_DEFINITION_ID FROM T_SYS_OPTION_DEFINITION WHERE TITLE = #{parentTitle}
+        )
+    </select>
+
+    <select id="getSysOptionDefinitionByParentTitle" resultType="com.vedeng.system.model.SysOptionDefinition">
+        SELECT * FROM T_SYS_OPTION_DEFINITION WHERE PARENT_ID =
+        (
+            SELECT SYS_OPTION_DEFINITION_ID FROM T_SYS_OPTION_DEFINITION WHERE TITLE = #{title}
+        )
+    </select>
+
+
+</mapper>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.RTraderJUserMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.trader.model.RTraderJUser" >
+    <id column="R_TRADER_J_USER_ID" property="rTraderJUserId" jdbcType="INTEGER" />
+    <result column="TRADER_TYPE" property="traderType" jdbcType="BIT" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    R_TRADER_J_USER_ID, TRADER_TYPE, USER_ID, TRADER_ID
+  </sql>
+  <insert id="insert" parameterType="com.vedeng.trader.model.RTraderJUser" >
+    insert into T_R_TRADER_J_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rTraderJUserId != null" >
+        R_TRADER_J_USER_ID,
+      </if>
+      <if test="traderType != null" >
+        TRADER_TYPE,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="traderId != null" >
+        TRADER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rTraderJUserId != null" >
+        #{rTraderJUserId,jdbcType=INTEGER},
+      </if>
+      <if test="traderType != null" >
+        #{traderType,jdbcType=BIT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="traderId != null" >
+        #{traderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getRTraderJUserListByUserId" resultType="java.lang.Integer" parameterType="com.vedeng.trader.model.RTraderJUser" >
+    select 
+    	TRADER_ID
+    from T_R_TRADER_J_USER
+    where 1=1
+    	<if test="traderType != null">
+    		and TRADER_TYPE = #{traderType,jdbcType=BIT}
+    	</if>
+    	<if test="userId != null">
+    		and USER_ID = #{userId,jdbcType=INTEGER}
+    	</if>
+  </select>
+
+
+    <select id="getUserByTraderId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from T_R_TRADER_J_USER
+        where TRADER_TYPE=1
+        AND TRADER_ID=#{traderId}
+        limit 1
+    </select>
+  <select id="getUserTrader" resultMap="BaseResultMap" parameterType="com.vedeng.trader.model.RTraderJUser">
+  	select 
+    <include refid="Base_Column_List" />
+    from T_R_TRADER_J_USER
+    <where>
+    	1=1
+    	<if test="traderType != null">
+    		and TRADER_TYPE = #{traderType,jdbcType=BIT}
+    	</if>
+    	<if test="userId != null">
+    		and USER_ID = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="traderIds != null">
+	    	and TRADER_ID in 
+	    	<foreach item="traId" index="index" collection="traderIds" open="(" separator="," close=")">  
+			  #{traId}  
+			</foreach>
+    	</if>
+    	<if test="traderId != null and traderId != 0">
+    		and TRADER_ID = #{traderId,jdbcType=INTEGER}
+    	</if>
+    </where>
+  </select>
+  
+  <delete id="deleteRTraderJUser" parameterType="com.vedeng.trader.model.RTraderJUser">
+  	 delete from T_R_TRADER_J_USER
+     <where>
+    	1=1
+     	<if test="traderType != null">
+    		and TRADER_TYPE = #{traderType,jdbcType=BIT}
+    	</if>
+    	<if test="userId != null">
+    		and USER_ID = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="traderId != null">
+    		and TRADER_ID = #{traderId,jdbcType=INTEGER}
+    	</if>
+     </where>
+  </delete>
+  
+  <update id="update">
+  	update T_R_TRADER_J_USER
+  	set 
+  		USER_ID = #{toUser,jdbcType=INTEGER}
+  	where
+  		USER_ID = #{fromUser,jdbcType=INTEGER}
+  		<if test="traderType != null">
+    		and TRADER_TYPE = #{traderType,jdbcType=BIT}
+    	</if>
+  </update>
+  
+  <update id="updateByKey">
+	  update T_R_TRADER_J_USER
+	  	set 
+	  		USER_ID = #{toUser,jdbcType=INTEGER}
+	  	where
+	  		R_TRADER_J_USER_ID in 
+  		<foreach item="rTraderJUserId" index="index" collection="rTraderJUserIds" open="(" separator="," close=")">  
+		  #{rTraderJUserId}  
+		</foreach>
+  </update>
+  
+  <select id="getRTraderJUserByTraderIds" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+    from T_R_TRADER_J_USER
+    <where>
+    	1=1
+    	<if test="traderType != null">
+    		and TRADER_TYPE = #{traderType,jdbcType=BIT}
+    	</if>
+    	<if test="traderIds != null">
+    		and TRADER_ID in 
+    		<foreach item="traderId" index="index" collection="traderIds" open="(" separator="," close=")">  
+			  #{traderId}  
+			</foreach>
+    	</if>
+    </where>
+  </select>
+
+
+    <select id="getSaleUserIdByContactMobile" resultType="com.vedeng.trader.model.RTraderJUser">
+        SELECT
+            TU.*
+        FROM
+            T_TRADER_CONTACT TC
+                JOIN T_R_TRADER_J_USER TU ON TC.TRADER_ID = TU.TRADER_ID
+                JOIN T_USER U ON TU.USER_ID = U.USER_ID
+        WHERE
+            (TC.TELEPHONE = #{mobile} OR TC.MOBILE = #{mobile} OR TC.MOBILE2 = #{mobile}) AND TC.IS_ENABLE = 1 AND U.IS_DISABLED = 0
+    </select>
+
+</mapper>

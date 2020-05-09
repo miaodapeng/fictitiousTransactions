@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.logistics.dao.WarehouseStockMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.logistics.model.WarehouseStock" >
+    <!--          -->
+    <id column="WAREHOUSE_STOCK_ID" property="warehouseStockId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+    <result column="STOCK_NUM" property="stockNum" jdbcType="INTEGER" />
+    <result column="OCCUPY_NUM" property="occupyNum" jdbcType="INTEGER" />
+    <result column="IS_DELETE" property="isDelete" jdbcType="BIT" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    WAREHOUSE_STOCK_ID, GOODS_ID, SKU, STOCK_NUM, OCCUPY_NUM, IS_DELETE, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_WAREHOUSE_STOCK
+    where WAREHOUSE_STOCK_ID = #{warehouseStockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from T_WAREHOUSE_STOCK
+    where WAREHOUSE_STOCK_ID = #{warehouseStockId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.logistics.model.WarehouseStock" >
+    <!--          -->
+    insert into T_WAREHOUSE_STOCK (WAREHOUSE_STOCK_ID, GOODS_ID, SKU, 
+      STOCK_NUM, OCCUPY_NUM, IS_DELETE, 
+      ADD_TIME, MOD_TIME)
+    values (#{warehouseStockId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{sku,jdbcType=VARCHAR}, 
+      #{stockNum,jdbcType=INTEGER}, #{occupyNum,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{modTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.logistics.model.WarehouseStock" >
+    <!--          -->
+    insert into T_WAREHOUSE_STOCK
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="warehouseStockId != null" >
+        WAREHOUSE_STOCK_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="sku != null" >
+        SKU,
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM,
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="warehouseStockId != null" >
+        #{warehouseStockId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="sku != null" >
+        #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.logistics.model.WarehouseStock" >
+    <!--          -->
+    update T_WAREHOUSE_STOCK
+    <set >
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="sku != null" >
+        SKU = #{sku,jdbcType=VARCHAR},
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where WAREHOUSE_STOCK_ID = #{warehouseStockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.logistics.model.WarehouseStock" >
+    <!--          -->
+    update T_WAREHOUSE_STOCK
+    set GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      SKU = #{sku,jdbcType=VARCHAR},
+      STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      IS_DELETE = #{isDelete,jdbcType=BIT},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+    where WAREHOUSE_STOCK_ID = #{warehouseStockId,jdbcType=INTEGER}
+  </update>
+  <!--获取订单内商品占用数量-->
+  <select id="getOrderOccupyNum" resultMap="BaseResultMap">
+         SELECT
+        b.`SKU`,
+        COALESCE (
+            SUM(
+            IF
+                (
+                    b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 ) > 0,
+                    b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 ),
+                    0
+                )
+            ),
+            0
+        ) AS OCCUPY_NUM
+    FROM
+        T_SALEORDER a
+        LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN (
+        SELECT COALESCE
+            ( SUM( aa.NUM ), 0 ) AS thNum,
+            aa.ORDER_DETAIL_ID
+        FROM
+            T_AFTER_SALES_GOODS aa
+            LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+            LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+        WHERE
+            bb.ATFER_SALES_STATUS IN (2 )
+            AND bb.SUBJECT_TYPE = 535
+            AND bb.TYPE = 539
+        GROUP BY
+            aa.ORDER_DETAIL_ID,
+            gg.`SKU`
+        ) AS c ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+        LEFT JOIN (
+	SELECT COALESCE
+		( SUM( aa.ARRIVAL_NUM ), 0 ) AS arNum,
+		aa.ORDER_DETAIL_ID
+	FROM
+		T_AFTER_SALES_GOODS aa
+		LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+		LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+	WHERE
+		bb.ATFER_SALES_STATUS IN (1,2)
+		AND bb.SUBJECT_TYPE = 535
+		AND bb.TYPE = 539
+	GROUP BY
+		aa.ORDER_DETAIL_ID,
+		gg.`SKU`
+	) AS cc ON b.SALEORDER_GOODS_ID = cc.ORDER_DETAIL_ID
+    WHERE
+        a.STATUS = 1
+        AND b.DELIVERY_DIRECT = 0
+        AND b.IS_DELETE = 0
+        AND a.ORDER_TYPE!=5
+        AND a.PAYMENT_STATUS = 2
+        AND b.IS_ACTION_GOODS=0
+        AND a.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+    GROUP BY
+        b.`SKU`
+  </select>
+  <select id="getHCorderOccupyNum" resultMap="BaseResultMap">
+        SELECT
+        b.`SKU`,
+        COALESCE (
+            SUM(
+            IF
+                (
+                    b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 )> 0,
+                    b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 ),
+                    0
+                )),
+            0
+        ) AS OCCUPY_NUM
+    FROM
+        T_SALEORDER a
+        LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN (
+        SELECT COALESCE
+            ( SUM( aa.NUM ), 0 ) AS thNum,
+            aa.ORDER_DETAIL_ID
+        FROM
+            T_AFTER_SALES_GOODS aa
+            LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+            LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+        WHERE
+            bb.ATFER_SALES_STATUS IN (2)
+            AND bb.SUBJECT_TYPE = 535
+            AND bb.TYPE = 539
+        GROUP BY
+            aa.ORDER_DETAIL_ID,
+            gg.`SKU`
+        ) AS c ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+        LEFT JOIN (
+	SELECT COALESCE
+		( SUM( aa.ARRIVAL_NUM ), 0 ) AS arNum,
+		aa.ORDER_DETAIL_ID
+	FROM
+		T_AFTER_SALES_GOODS aa
+		LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+		LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+	WHERE
+		bb.ATFER_SALES_STATUS IN (1,2)
+		AND bb.SUBJECT_TYPE = 535
+		AND bb.TYPE = 539
+	GROUP BY
+		aa.ORDER_DETAIL_ID,
+		gg.`SKU`
+	) AS cc ON b.SALEORDER_GOODS_ID = cc.ORDER_DETAIL_ID
+    WHERE
+        a.STATUS IN (0,1)
+        AND b.DELIVERY_DIRECT = 0
+        AND b.IS_DELETE = 0
+        AND a.ORDER_TYPE = 5
+        AND b.IS_ACTION_GOODS=0
+        AND a.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+    GROUP BY
+        b.`SKU`
+  </select>
+  <select id="getAfterOccupyNum" resultMap="BaseResultMap">
+      SELECT
+		COALESCE (
+		SUM(
+		IF
+			(
+				aa.ARRIVAL_NUM-aa.DELIVERY_NUM > 0,
+				aa.ARRIVAL_NUM-aa.DELIVERY_NUM,
+				0
+			)
+		),
+		0
+	) AS OCCUPY_NUM,
+		gg.SKU
+	FROM
+		 T_SALEORDER a
+		LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+		LEFT JOIN T_AFTER_SALES_GOODS aa ON b.SALEORDER_GOODS_ID=aa.ORDER_DETAIL_ID
+		LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+		LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+	WHERE
+		bb.ATFER_SALES_STATUS IN (1, 2 )
+		AND bb.SUBJECT_TYPE = 535
+		AND bb.TYPE = 540
+		AND b.IS_ACTION_GOODS=0
+		AND a.SALEORDER_ID = #{saleorderId,jdbcType=INTEGER}
+	GROUP BY
+	aa.AFTER_SALES_GOODS_ID,
+		aa.ORDER_DETAIL_ID,
+		gg.`SKU`
+  </select>
+    <!--非耗材非换货占用-->
+  <select id="getOccupyNumBySku" resultMap="BaseResultMap">
+      SELECT
+      b.`SKU`,
+      COALESCE(
+      SUM(
+      IF(
+      b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL(c.thNum, 0) > 0,
+      b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL(c.thNum, 0),
+      0
+      )
+      ),
+      0
+      ) AS OCCUPY_NUM
+      FROM
+      T_SALEORDER a
+      LEFT JOIN T_SALEORDER_GOODS b
+      ON a.SALEORDER_ID = b.SALEORDER_ID
+      LEFT JOIN
+      (SELECT
+      COALESCE(SUM(aa.NUM), 0) AS thNum,
+      aa.ORDER_DETAIL_ID
+      FROM
+      T_AFTER_SALES_GOODS aa
+      LEFT JOIN T_AFTER_SALES bb
+      ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+      LEFT JOIN `T_GOODS` gg
+      ON aa.`GOODS_ID` = gg.`GOODS_ID`
+      WHERE bb.ATFER_SALES_STATUS =2
+      AND bb.SUBJECT_TYPE = 535
+      AND bb.TYPE = 539
+      AND gg.`SKU` IN
+      <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+          #{sku,jdbcType=VARCHAR}
+      </foreach>
+      GROUP BY aa.ORDER_DETAIL_ID,
+      gg.`SKU`) AS c
+      ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+      LEFT JOIN (
+      SELECT COALESCE
+      ( SUM( aa.ARRIVAL_NUM ), 0 ) AS arNum,
+      aa.ORDER_DETAIL_ID
+      FROM
+      T_AFTER_SALES_GOODS aa
+      LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+      LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+      WHERE
+      bb.ATFER_SALES_STATUS IN (1,2)
+      AND bb.SUBJECT_TYPE = 535
+      AND bb.TYPE = 539
+      AND gg.`SKU` IN
+      <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+          #{sku,jdbcType=VARCHAR}
+      </foreach>
+      GROUP BY
+      aa.ORDER_DETAIL_ID,
+      gg.`SKU`
+      ) AS cc ON b.SALEORDER_GOODS_ID = cc.ORDER_DETAIL_ID
+      WHERE a.STATUS = 1
+      AND b.DELIVERY_DIRECT = 0
+      AND b.IS_DELETE = 0
+      AND a.ORDER_TYPE !=5
+      AND a.PAYMENT_STATUS = 2
+      AND b.IS_ACTION_GOODS=0
+      AND b.`SKU` IN
+      <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+          #{sku,jdbcType=VARCHAR}
+      </foreach>
+      GROUP BY b.`SKU`
+  </select>
+    <!--耗材占用-->
+    <select id="getHcOccupyBySku" resultMap="BaseResultMap">
+              SELECT
+            b.`SKU`,
+            COALESCE (
+                SUM(
+                IF
+                    (
+                        b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 )> 0,
+                        b.NUM - b.DELIVERY_NUM +IFNULL(cc.arNum,0) - IFNULL( c.thNum, 0 ),
+                        0
+                    )),
+                0
+            ) AS OCCUPY_NUM
+        FROM
+            T_SALEORDER a
+            LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+            LEFT JOIN (
+            SELECT COALESCE
+                ( SUM( aa.NUM ), 0 ) AS thNum,
+                aa.ORDER_DETAIL_ID
+            FROM
+                T_AFTER_SALES_GOODS aa
+                LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+                LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+            WHERE
+                bb.ATFER_SALES_STATUS IN (2)
+                AND bb.SUBJECT_TYPE = 535
+                AND bb.TYPE = 539
+               AND gg.`SKU` IN
+             <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+            #{sku,jdbcType=VARCHAR}
+            </foreach>
+            GROUP BY
+                aa.ORDER_DETAIL_ID,
+                gg.`SKU`
+            ) AS c ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+        LEFT JOIN (
+        SELECT COALESCE
+        ( SUM( aa.ARRIVAL_NUM ), 0 ) AS arNum,
+        aa.ORDER_DETAIL_ID
+        FROM
+        T_AFTER_SALES_GOODS aa
+        LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+        LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+        WHERE
+        bb.ATFER_SALES_STATUS IN (1,2)
+        AND bb.SUBJECT_TYPE = 535
+        AND bb.TYPE = 539
+        AND gg.`SKU` IN
+        <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+            #{sku,jdbcType=VARCHAR}
+        </foreach>
+        GROUP BY
+        aa.ORDER_DETAIL_ID,
+        gg.`SKU`
+        ) AS cc ON b.SALEORDER_GOODS_ID = cc.ORDER_DETAIL_ID
+        WHERE
+            a.STATUS IN (0,1)
+            AND b.DELIVERY_DIRECT = 0
+            AND b.IS_DELETE = 0
+            AND a.ORDER_TYPE = 5
+            AND b.IS_ACTION_GOODS=0
+            AND b.`SKU` IN
+        <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+            #{sku,jdbcType=VARCHAR}
+        </foreach>
+        GROUP BY
+            b.`SKU`
+    </select>
+    <!--售后换货占用-->
+    <select id="getAfterOccupyNumBySku" resultMap="BaseResultMap">
+        SELECT
+		COALESCE (
+		SUM(
+		IF
+			(
+				aa.ARRIVAL_NUM-aa.DELIVERY_NUM > 0,
+				aa.ARRIVAL_NUM-aa.DELIVERY_NUM,
+				0
+			)
+		),
+		0
+	) AS OCCUPY_NUM,
+		gg.SKU
+	FROM
+		 T_SALEORDER a
+		LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+		LEFT JOIN T_AFTER_SALES_GOODS aa ON b.SALEORDER_GOODS_ID=aa.ORDER_DETAIL_ID
+		LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+		LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+	WHERE
+		bb.ATFER_SALES_STATUS IN ( 1, 2 )
+		AND bb.SUBJECT_TYPE = 535
+		AND bb.TYPE = 540
+        AND b.IS_ACTION_GOODS=0
+        AND b.`SKU` IN
+        <foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+            #{sku,jdbcType=VARCHAR}
+        </foreach>
+	GROUP BY
+	aa.AFTER_SALES_GOODS_ID,
+		aa.ORDER_DETAIL_ID,
+		gg.`SKU`
+    </select>
+    <select id="getOrderOccupyNumBySku" resultMap="BaseResultMap">
+    SELECT
+	A.SKU,
+	SUM( A.OCCUPY_NUM ) AS OCCUPY_NUM
+  FROM
+	T_SALEORDER_GOODS A
+  WHERE
+	A.SKU IN
+	<foreach item="sku" index="index" collection="list" open="(" separator="," close=")">
+        #{sku,jdbcType=VARCHAR}
+    </foreach>
+	AND A.IS_DELETE = 0
+  GROUP BY
+	A.SKU
+
+    </select>
+    <select id="getActionOccupyNum" resultMap="BaseResultMap">
+      SELECT
+        b.`SKU`,
+        COALESCE (
+            SUM(
+            IF
+                (
+                    b.NUM - b.DELIVERY_NUM + IFNULL( cc.arNum, 0 )- IFNULL( c.thNum, 0 ) +IFNULL( hh.hhNum, 0 ) > 0,
+                    b.NUM - b.DELIVERY_NUM + IFNULL( cc.arNum, 0 ) - IFNULL( c.thNum, 0 )+IFNULL( hh.hhNum, 0 ),
+                    0
+                )
+            ),
+            0
+        ) AS actionOccupyNum
+    FROM
+        T_SALEORDER a
+        LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN (
+        SELECT COALESCE
+            ( SUM( aa.NUM ), 0 ) AS thNum,
+            aa.ORDER_DETAIL_ID
+        FROM
+            T_AFTER_SALES_GOODS aa
+            LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+            LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+        WHERE
+            bb.ATFER_SALES_STATUS IN ( 2 )
+            AND bb.SUBJECT_TYPE = 535
+            AND bb.TYPE = 539
+        GROUP BY
+            aa.ORDER_DETAIL_ID,
+            gg.`SKU`
+        ) AS c ON b.SALEORDER_GOODS_ID = c.ORDER_DETAIL_ID
+        LEFT JOIN (
+        SELECT COALESCE
+            ( SUM( aa.ARRIVAL_NUM ), 0 ) AS arNum,
+            aa.ORDER_DETAIL_ID
+        FROM
+            T_AFTER_SALES_GOODS aa
+            LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+            LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+        WHERE
+            bb.ATFER_SALES_STATUS IN ( 1, 2 )
+            AND bb.SUBJECT_TYPE = 535
+            AND bb.TYPE = 539
+        GROUP BY
+            aa.ORDER_DETAIL_ID,
+            gg.`SKU`
+        ) AS cc ON b.SALEORDER_GOODS_ID = cc.ORDER_DETAIL_ID
+            LEFT JOIN (
+            SELECT COALESCE
+        (
+            SUM(
+            IF
+                (
+                    aa.ARRIVAL_NUM - aa.DELIVERY_NUM > 0,
+                    aa.ARRIVAL_NUM - aa.DELIVERY_NUM,
+                    0
+                )
+            ),
+            0
+        ) AS hhNum,
+        aa.ORDER_DETAIL_ID,
+        gg.SKU
+    FROM
+        T_SALEORDER a
+        LEFT JOIN T_SALEORDER_GOODS b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN T_AFTER_SALES_GOODS aa ON b.SALEORDER_GOODS_ID = aa.ORDER_DETAIL_ID
+        LEFT JOIN T_AFTER_SALES bb ON aa.AFTER_SALES_ID = bb.AFTER_SALES_ID
+        LEFT JOIN `T_GOODS` gg ON aa.`GOODS_ID` = gg.`GOODS_ID`
+    WHERE
+        bb.ATFER_SALES_STATUS IN ( 1, 2 )
+        AND bb.SUBJECT_TYPE = 535
+        AND bb.TYPE = 540
+        AND a.ACTION_ID != 0
+        AND b.IS_ACTION_GOODS = 1
+        AND b.IS_DELETE = 0
+            AND a.SALEORDER_ID=#{saleorderId,jdbcType=INTEGER}
+    GROUP BY
+        aa.AFTER_SALES_GOODS_ID,
+        aa.ORDER_DETAIL_ID,
+        gg.`SKU`
+            ) hh ON hh.ORDER_DETAIL_ID=b.SALEORDER_GOODS_ID
+    WHERE
+        a.STATUS !=3 AND a.ACTION_ID!=0
+        AND b.IS_ACTION_GOODS=1
+        AND b.IS_DELETE = 0
+        AND a.SALEORDER_ID=#{saleorderId,jdbcType=INTEGER}
+    GROUP BY
+        b.`SKU`,b.SALEORDER_GOODS_ID
+    </select>
+</mapper>

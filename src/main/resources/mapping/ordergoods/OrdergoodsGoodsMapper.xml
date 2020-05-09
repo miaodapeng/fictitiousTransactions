@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.ordergoods.dao.OrdergoodsGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.ordergoods.model.OrdergoodsGoods" >
+    <id column="ORDERGOODS_GOODS_ID" property="ordergoodsGoodsId" jdbcType="INTEGER" />
+    <result column="ORDERGOODS_STORE_ID" property="ordergoodsStoreId" jdbcType="INTEGER" />
+    <result column="GOODS_ID" property="goodsId" jdbcType="INTEGER" />
+    <result column="SALE_AREA_ID" property="saleAreaId" jdbcType="INTEGER" />
+    <result column="SUPPLY_COMPANY" property="supplyCompany" jdbcType="VARCHAR" />
+    <result column="UNIT" property="unit" jdbcType="VARCHAR" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="DECIMAL" />
+    <result column="MARKET_PRICE" property="marketPrice" jdbcType="DECIMAL" />
+    <result column="RETAIL_PRICE" property="retailPrice" jdbcType="DECIMAL" />
+    <result column="AGENCY_PRICE_1" property="agencyPrice1" jdbcType="DECIMAL" />
+    <result column="AGENCY_PRICE_2" property="agencyPrice2" jdbcType="DECIMAL" />
+    <result column="SPEC" property="spec" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="USED" property="used" jdbcType="VARCHAR" />
+    <result column="TEST_METHOD" property="testMethod" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ORDERGOODS_GOODS_ID, ORDERGOODS_STORE_ID, GOODS_ID, SALE_AREA_ID, SUPPLY_COMPANY, 
+    UNIT, COST_PRICE, MARKET_PRICE, RETAIL_PRICE, AGENCY_PRICE_1, AGENCY_PRICE_2, SPEC, 
+    COMMENTS, USED, TEST_METHOD, ADD_TIME, CREATOR
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_ORDERGOODS_GOODS
+    where ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_ORDERGOODS_GOODS
+    where ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.vedeng.ordergoods.model.OrdergoodsGoods" >
+    insert into T_ORDERGOODS_GOODS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ordergoodsGoodsId != null" >
+        ORDERGOODS_GOODS_ID,
+      </if>
+      <if test="ordergoodsStoreId != null" >
+        ORDERGOODS_STORE_ID,
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID,
+      </if>
+      <if test="saleAreaId != null" >
+        SALE_AREA_ID,
+      </if>
+      <if test="supplyCompany != null" >
+        SUPPLY_COMPANY,
+      </if>
+      <if test="unit != null" >
+        UNIT,
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE,
+      </if>
+      <if test="marketPrice != null" >
+        MARKET_PRICE,
+      </if>
+      <if test="retailPrice != null" >
+        RETAIL_PRICE,
+      </if>
+      <if test="agencyPrice1 != null" >
+        AGENCY_PRICE_1,
+      </if>
+      <if test="agencyPrice2 != null" >
+        AGENCY_PRICE_2,
+      </if>
+      <if test="spec != null" >
+        SPEC,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+      <if test="used != null" >
+        USED,
+      </if>
+      <if test="testMethod != null" >
+        TEST_METHOD,
+      </if>
+      <if test="transportRequirements != null" >
+        TRANSPORT_REQUIREMENTS,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ordergoodsGoodsId != null" >
+        #{ordergoodsGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="ordergoodsStoreId != null" >
+        #{ordergoodsStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="saleAreaId != null" >
+        #{saleAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="supplyCompany != null" >
+        #{supplyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailPrice != null" >
+        #{retailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="agencyPrice1 != null" >
+        #{agencyPrice1,jdbcType=DECIMAL},
+      </if>
+      <if test="agencyPrice2 != null" >
+        #{agencyPrice2,jdbcType=DECIMAL},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="used != null" >
+        #{used,jdbcType=VARCHAR},
+      </if>
+      <if test="testMethod != null" >
+        #{testMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="transportRequirements != null" >
+        #{transportRequirements,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.vedeng.ordergoods.model.OrdergoodsGoods" >
+    update T_ORDERGOODS_GOODS
+    <set >
+      <if test="ordergoodsStoreId != null" >
+        ORDERGOODS_STORE_ID = #{ordergoodsStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        GOODS_ID = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="saleAreaId != null" >
+        SALE_AREA_ID = #{saleAreaId,jdbcType=INTEGER},
+      </if>
+      <if test="supplyCompany != null" >
+        SUPPLY_COMPANY = #{supplyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE = #{costPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null" >
+        MARKET_PRICE = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="retailPrice != null" >
+        RETAIL_PRICE = #{retailPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="agencyPrice1 != null" >
+        AGENCY_PRICE_1 = #{agencyPrice1,jdbcType=DECIMAL},
+      </if>
+      <if test="agencyPrice2 != null" >
+        AGENCY_PRICE_2 = #{agencyPrice2,jdbcType=DECIMAL},
+      </if>
+      <if test="spec != null" >
+        SPEC = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="used != null" >
+        USED = #{used,jdbcType=VARCHAR},
+      </if>
+      <if test="testMethod != null" >
+        TEST_METHOD = #{testMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="transportRequirements != null" >
+        TRANSPORT_REQUIREMENTS = #{transportRequirements,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ORDERGOODS_GOODS_ID = #{ordergoodsGoodsId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getGoodsListPage" parameterType="Map" resultType="com.vedeng.ordergoods.model.vo.OrdergoodsGoodsVo">
+  	select
+  		a.ORDERGOODS_GOODS_ID,a.GOODS_ID,a.SPEC,a.UNIT,a.COST_PRICE,a.RETAIL_PRICE,a.COMMENTS,a.TRANSPORT_REQUIREMENTS,
+  		b.SORT,b.ORDERGOODS_CATEGORY_ID,b.R_ORDERGOODS_GOODS_J_CATEGORY_ID
+  	from
+  		T_ORDERGOODS_GOODS a
+  		/*新商品流*/
+  		inner join V_CORE_SKU k on a.GOODS_ID=k.SKU_ID
+  	left join
+  		T_R_ORDERGOODS_GOODS_J_CATEGORY b
+  	on
+  		a.ORDERGOODS_GOODS_ID = b.ORDERGOODS_GOODS_ID
+  	where
+  		1=1
+  		<if test="ordergoodsGoodsVo.ordergoodsStoreId != null">
+  			and a.ORDERGOODS_STORE_ID = #{ordergoodsGoodsVo.ordergoodsStoreId}
+  		</if>
+  		<if test="ordergoodsGoodsVo.goodsIds != null and ordergoodsGoodsVo.goodsIds.size > 0">
+    		and a.GOODS_ID in
+			<foreach collection="ordergoodsGoodsVo.goodsIds" item="goodsId" open="(" close=")" separator=",">
+				#{goodsId,jdbcType=INTEGER}
+			</foreach>
+    	</if>
+    	<if test="ordergoodsGoodsVo.ordergoodsCategoryId != null">
+    		and b.ORDERGOODS_CATEGORY_ID = #{ordergoodsGoodsVo.ordergoodsCategoryId}
+    	</if>
+  		order by b.SORT DESC
+  </select>
+  
+  <select id="getOrdergoodsGoods" resultType="com.vedeng.ordergoods.model.vo.OrdergoodsGoodsVo" parameterType="com.vedeng.ordergoods.model.vo.OrdergoodsGoodsVo">
+  	select
+  	*
+    from T_ORDERGOODS_GOODS
+    where
+    	1=1
+    	<if test="ordergoodsStoreId != null">
+    	and ORDERGOODS_STORE_ID = #{ordergoodsStoreId}
+    	</if>
+    	<if test="goodsId != null">
+    	and GOODS_ID = #{goodsId}
+    	</if>
+    	order by ORDERGOODS_GOODS_ID desc
+    	limit 1
+  </select>
+</mapper>

@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.trader.dao.WebAccountMapper">
+    <resultMap id="BaseResultMap" type="com.vedeng.trader.model.WebAccount">
+        <id column="ERP_ACCOUNT_ID" property="erpAccountId" jdbcType="INTEGER"/>
+        <result column="WEB_ACCOUNT_ID" property="webAccountId" jdbcType="INTEGER"/>
+        <result column="SSO_ACCOUNT_ID" property="ssoAccountId" jdbcType="INTEGER"/>
+        <result column="TRADER_ID" property="traderId" jdbcType="INTEGER"/>
+        <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER"/>
+        <result column="TRADER_ADDRESS_ID" property="traderAddressId" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="userId" jdbcType="INTEGER"/>
+        <result column="IS_ENABLE" property="isEnable" jdbcType="BIT"/>
+        <result column="FROM" property="from" jdbcType="BIT"/>
+        <result column="COMPANY_STATUS" property="companyStatus" jdbcType="BIT"/>
+        <result column="INDENTITY_STATUS" property="indentityStatus" jdbcType="BIT"/>
+        <result column="IS_OPEN_STORE" property="isOpenStore" jdbcType="BIT"/>
+        <result column="ACCOUNT" property="account" jdbcType="VARCHAR"/>
+        <result column="EMAIL" property="email" jdbcType="VARCHAR"/>
+        <result column="MOBILE" property="mobile" jdbcType="VARCHAR"/>
+        <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="SEX" property="sex" jdbcType="BIT"/>
+        <result column="WEIXIN_OPENID" property="weixinOpenid" jdbcType="VARCHAR"/>
+        <result column="UUID" property="uuid" jdbcType="VARCHAR"/>
+        <result column="ADD_TIME" property="addTime" jdbcType="BIGINT"/>
+        <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="BIGINT"/>
+        <result column="IS_VEDENG_JX" property="isVedengJx" jdbcType="BIT"/>
+        <result column="IS_VEDENG_JOIN" property="isVedengJoin"/>
+        <result column="MOD_TIME_JOIN" property="modTimeJoin"/>
+        <result column="IS_SEND_MESSAGE" property="isSendMessage"/>
+        <result column="IS_VEDENG_MEMBER" property="isVedengMember" jdbcType="INTEGER"/>
+        <result column="VEDENG_MEMBER_TIME" property="vedengMemberTime" />
+    </resultMap>
+
+    <resultMap type="com.vedeng.trader.model.vo.WebAccountVo" id="VoResultMap" extends="BaseResultMap">
+        <result column="TRADER_NAME" property="relateComapnyName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    ERP_ACCOUNT_ID, WEB_ACCOUNT_ID, SSO_ACCOUNT_ID, TRADER_ID, TRADER_CONTACT_ID, TRADER_ADDRESS_ID, USER_ID, IS_ENABLE,
+    `FROM`, COMPANY_STATUS, INDENTITY_STATUS, IS_OPEN_STORE, ACCOUNT, EMAIL, MOBILE, COMPANY_NAME, IS_VEDENG_MEMBER,VEDENG_MEMBER_TIME,
+    `NAME`, SEX, WEIXIN_OPENID, UUID, ADD_TIME, LAST_LOGIN_TIME, IS_VEDENG_JX,REGISTER_PLATFORM ,BELONG_PLATFORM,IS_SEND_MESSAGE,MOD_TIME_JOIN
+  </sql>
+    <select id="getWebAccount" resultType="com.vedeng.trader.model.vo.WebAccountVo" parameterType="com.vedeng.trader.model.WebAccount">
+        select
+            <include refid="Base_Column_List"/>
+        from T_WEB_ACCOUNT
+        where 1=1
+        <if test="erpAccountId != null">
+            and ERP_ACCOUNT_ID = #{erpAccountId,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountId != null">
+            and WEB_ACCOUNT_ID = #{webAccountId,jdbcType=INTEGER}
+        </if>
+        <if test="uuid != null">
+            and UUID = #{uuid,jdbcType=VARCHAR}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.vedeng.trader.model.WebAccount">
+        insert into T_WEB_ACCOUNT
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="webAccountId != null">
+                WEB_ACCOUNT_ID,
+            </if>
+            <if test="ssoAccountId != null">
+                SSO_ACCOUNT_ID,
+            </if>
+            <if test="traderId != null">
+                TRADER_ID,
+            </if>
+            <if test="traderContactId != null">
+                TRADER_CONTACT_ID,
+            </if>
+            <if test="traderAddressId != null">
+                TRADER_ADDRESS_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="isEnable != null">
+                IS_ENABLE,
+            </if>
+            <if test="from != null">
+                `FROM`,
+            </if>
+            <if test="companyStatus != null">
+                COMPANY_STATUS,
+            </if>
+            <if test="indentityStatus != null">
+                INDENTITY_STATUS,
+            </if>
+            <if test="isOpenStore != null">
+                IS_OPEN_STORE,
+            </if>
+            <if test="account != null">
+                ACCOUNT,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="mobile != null">
+                MOBILE,
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME,
+            </if>
+            <if test="name != null">
+                `NAME`,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="weixinOpenid != null">
+                WEIXIN_OPENID,
+            </if>
+            <if test="uuid != null">
+                `UUID`,
+            </if>
+            <if test="addTime != null">
+                ADD_TIME,
+            </if>
+            <if test="lastLoginTime != null">
+                LAST_LOGIN_TIME,
+            </if>
+            <if test="modTimeJoin != null">
+                MOD_TIME_JOIN,
+            </if>
+            <if test="isVedengJoin!=null">
+                IS_VEDENG_JOIN,
+            </if>
+            <if test="belongPlatform!=null">
+                BELONG_PLATFORM,
+            </if>
+            <if test="registerPlatform!=null">
+                REGISTER_PLATFORM,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="webAccountId != null">
+                #{webAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="ssoAccountId != null">
+                #{ssoAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="traderId != null">
+                #{traderId,jdbcType=INTEGER},
+            </if>
+            <if test="traderContactId != null">
+                #{traderContactId,jdbcType=INTEGER},
+            </if>
+            <if test="traderAddressId != null">
+                #{traderAddressId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null">
+                #{isEnable,jdbcType=BIT},
+            </if>
+            <if test="from != null">
+                #{from,jdbcType=BIT},
+            </if>
+            <if test="companyStatus != null">
+                #{companyStatus,jdbcType=BIT},
+            </if>
+            <if test="indentityStatus != null">
+                #{indentityStatus,jdbcType=BIT},
+            </if>
+            <if test="isOpenStore != null">
+                #{isOpenStore,jdbcType=BIT},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=BIT},
+            </if>
+            <if test="weixinOpenid != null">
+                #{weixinOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null">
+                #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=BIGINT},
+            </if>
+            <if test="modTimeJoin != null">
+                #{modTimeJoin},
+            </if>
+            <if test="isVedengJoin!=null">
+                #{isVedengJoin},
+            </if>
+            <if test="belongPlatform!=null">
+                #{belongPlatform},
+            </if>
+            <if test="registerPlatform!=null">
+                #{registerPlatform},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.vedeng.trader.model.vo.WebAccountVo">
+        update T_WEB_ACCOUNT
+        <set>
+            <if test="webAccountId != null">
+                WEB_ACCOUNT_ID = #{webAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="ssoAccountId != null">
+                SSO_ACCOUNT_ID = #{ssoAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="traderId != null">
+                TRADER_ID = #{traderId,jdbcType=INTEGER},
+            </if>
+            <if test="traderContactId != null">
+                TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+            </if>
+            <if test="traderAddressId != null">
+                TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null">
+                IS_ENABLE = #{isEnable,jdbcType=BIT},
+            </if>
+            <if test="from != null">
+                `FROM` = #{from,jdbcType=BIT},
+            </if>
+            <if test="companyStatus != null">
+                COMPANY_STATUS = #{companyStatus,jdbcType=BIT},
+            </if>
+            <if test="indentityStatus != null">
+                INDENTITY_STATUS = #{indentityStatus,jdbcType=BIT},
+            </if>
+            <if test="isOpenStore != null">
+                IS_OPEN_STORE = #{isOpenStore,jdbcType=BIT},
+            </if>
+            <if test="account != null">
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=BIT},
+            </if>
+            <if test="weixinOpenid != null">
+                WEIXIN_OPENID = #{weixinOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null">
+                UUID = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                ADD_TIME = #{addTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastLoginTime != null">
+                LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=BIGINT},
+            </if>
+            <if test="isVedengJx != null">
+                IS_VEDENG_JX = #{isVedengJx,jdbcType=BIGINT},
+            </if>
+            <if test="belongPlatform != null">
+                BELONG_PLATFORM=#{belongPlatform,jdbcType=INTEGER}
+            </if>
+        </set>
+        where
+        ERP_ACCOUNT_ID = #{erpAccountId,jdbcType=INTEGER}
+    </update>
+
+    <select id="getWebAccountListPage" parameterType="Map" resultMap="VoResultMap">
+        select
+        a.ERP_ACCOUNT_ID,a.WEB_ACCOUNT_ID, a.SSO_ACCOUNT_ID, a.TRADER_CONTACT_ID, a.TRADER_ADDRESS_ID, a.USER_ID,
+        a.IS_ENABLE,a.TRADER_ID,
+        a.`FROM`, a.COMPANY_STATUS, a.INDENTITY_STATUS, a.IS_OPEN_STORE, a.ACCOUNT, a.EMAIL, a.MOBILE, a.COMPANY_NAME,
+        a.NAME, a.SEX, a.WEIXIN_OPENID, a.UUID, a.ADD_TIME, a.LAST_LOGIN_TIME,
+        a.IS_VEDENG_JX,a.MOD_TIME_JOIN,a.IS_VEDENG_JOIN,a.BELONG_PLATFORM,a.REGISTER_PLATFORM,a.IS_VEDENG_MEMBER,a.VEDENG_MEMBER_TIME, t.TRADER_NAME AS relateComapnyName
+        from
+        T_WEB_ACCOUNT a
+        LEFT JOIN T_TRADER t ON a.TRADER_ID = t.TRADER_ID
+        where
+        1=1
+        <if test="webAccountVo.webAccountId != null and webAccountVo.webAccountId > 0">
+            and a.WEB_ACCOUNT_ID = #{webAccountVo.webAccountId,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.mobile != null and webAccountVo.mobile != ''">
+            and a.MOBILE like CONCAT('%',#{webAccountVo.mobile},'%' )
+        </if>
+        <if test="webAccountVo.companyName != null and webAccountVo.companyName != ''">
+            and a.COMPANY_NAME like CONCAT('%',#{webAccountVo.companyName},'%' )
+        </if>
+        <if test="webAccountVo.isEnable != null and webAccountVo.isEnable != -1">
+            and a.IS_ENABLE = #{webAccountVo.isEnable,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.userId != null and webAccountVo.userId > 0">
+            and a.USER_ID = #{webAccountVo.userId,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.relateStatus != null and webAccountVo.relateStatus == 0">
+            and a.TRADER_CONTACT_ID = 0
+        </if>
+        <if test="webAccountVo.relateStatus != null and webAccountVo.relateStatus == 1">
+            and a.TRADER_CONTACT_ID != 0
+        </if>
+        <if test="webAccountVo.assignStatus != null and webAccountVo.assignStatus == 0">
+            and a.USER_ID = 0
+        </if>
+        <if test="webAccountVo.assignStatus != null and webAccountVo.assignStatus == 1">
+            and a.USER_ID != 0
+        </if>
+        <if test="webAccountVo.isVedengJx != null and webAccountVo.isVedengJx != -1">
+            and a.IS_VEDENG_JX = #{webAccountVo.isVedengJx,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.isVedengMember != null and webAccountVo.isVedengMember != -1">
+            and a.IS_VEDENG_MEMBER = #{webAccountVo.isVedengMember,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.startMemberDate != null and webAccountVo.startMemberDate != ''">
+            AND a.VEDENG_MEMBER_TIME <![CDATA[ >= ]]> FROM_UNIXTIME( #{webAccountVo.startMemberDate,jdbcType=BIGINT} / 1000, '%Y-%m-%d %H:%i:%S' )
+        </if>
+        <if test="webAccountVo.endMemberDate != null and webAccountVo.endMemberDate != ''">
+            AND a.VEDENG_MEMBER_TIME <![CDATA[ <= ]]> FROM_UNIXTIME( #{webAccountVo.endMemberDate,jdbcType=BIGINT} / 1000, '%Y-%m-%d %H:%i:%S' )
+        </if>
+
+
+        <if test="webAccountVo.isVedengJoin != null and webAccountVo.isVedengJoin != -1">
+            and a.IS_VEDENG_JOIN = #{webAccountVo.isVedengJoin,jdbcType=INTEGER}
+        </if>
+
+        <if test="webAccountVo.startAddDate != null and webAccountVo.startAddDate != ''">
+            AND a.ADD_TIME <![CDATA[ >= ]]> #{webAccountVo.startAddDate,jdbcType=BIGINT}
+        </if>
+        <if test="webAccountVo.endAddDate != null and webAccountVo.endAddDate != ''">
+            AND a.ADD_TIME <![CDATA[ <= ]]> #{webAccountVo.endAddDate,jdbcType=BIGINT}
+        </if>
+        <if test="webAccountVo.startJoinDate != null and webAccountVo.startJoinDate != ''">
+            AND a.MOD_TIME_JOIN <![CDATA[ >= ]]> #{webAccountVo.startJoinDate,jdbcType=BIGINT}
+        </if>
+        <if test="webAccountVo.endJoinDate != null and webAccountVo.endJoinDate != ''">
+            AND a.MOD_TIME_JOIN <![CDATA[ <= ]]> #{webAccountVo.endJoinDate,jdbcType=BIGINT}
+        </if>
+        <if test="webAccountVo.belongPlatform !=null">
+            AND a.BELONG_PLATFORM = #{webAccountVo.belongPlatform}
+        </if>
+        <if test="webAccountVo.registerPlatform !=null">
+            AND a.REGISTER_PLATFORM = #{webAccountVo.registerPlatform}
+        </if>
+        <if test="webAccountVo.from !=null and webAccountVo.from != 6">
+            AND a.`FROM` = #{webAccountVo.from}
+        </if>
+        <if test="webAccountVo.from !=null and webAccountVo.from == 6">
+            AND (a.`FROM` = 3 OR a.`FROM`=4)
+        </if>
+        <!--<if test="webAccountVo.beginTime != null and webAccountVo.beginTime != ''">
+          AND a.ADD_TIME >= #{webAccountVo.beginTime,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.endTime != null and webAccountVo.endTime != ''">
+          AND a.ADD_TIME <![CDATA[ <= ]]> #{webAccountVo.endTime,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.beginModTime != null and webAccountVo.beginModTime != ''">
+          AND a.MOD_TIME_JOIN >= #{webAccountVo.beginModTime,jdbcType=INTEGER}
+        </if>
+        <if test="webAccountVo.endModTime != null and webAccountVo.endModTime != ''">
+          AND a.MOD_TIME_JOIN <![CDATA[ <= ]]> #{webAccountVo.endModTime,jdbcType=INTEGER}
+        </if>-->
+        order by a.ERP_ACCOUNT_ID desc
+    </select>
+
+    <select id="getAccountOwnerInfo" parameterType="java.lang.Integer" resultType="com.vedeng.trader.model.WebAccount">
+        select
+            a.USER_ID,c.ORG_ID,a.TRADER_CONTACT_ID,a.TRADER_ADDRESS_ID
+        from
+            T_WEB_ACCOUNT a
+        left join
+            T_R_USER_POSIT b on a.USER_ID = b.USER_ID
+        left join
+            T_POSITION c on b.POSITION_ID = c.POSITION_ID
+        where
+            a.WEB_ACCOUNT_ID = #{webAccountId}
+        limit 1
+    </select>
+
+    <select id="getWebAccountInfo" parameterType="java.lang.Integer" resultType="com.vedeng.trader.model.WebAccount">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        T_WEB_ACCOUNT
+        where
+        ERP_ACCOUNT_ID =#{erpAccountId}
+        limit 1
+    </select>
+	<select id="getTraderContactWebInfo" parameterType="java.lang.Integer" resultType="com.vedeng.trader.model.WebAccount">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        T_WEB_ACCOUNT
+        where
+        TRADER_CONTACT_ID = #{traderContactId}
+        limit 1
+    </select>
+   <select id="getWebAccountListByParam" parameterType="com.vedeng.trader.model.WebAccount" resultType="com.vedeng.trader.model.WebAccount">
+  	select
+       ERP_ACCOUNT_ID, WEB_ACCOUNT_ID, SSO_ACCOUNT_ID, a.TRADER_ID, a.TRADER_CONTACT_ID, a.TRADER_ADDRESS_ID, a.USER_ID, a.IS_ENABLE,
+       a.`FROM`, a.COMPANY_STATUS, a.INDENTITY_STATUS, a.IS_OPEN_STORE, a.ACCOUNT, a.EMAIL, a.MOBILE, a.COMPANY_NAME,
+       a.`NAME`, a.SEX, a.WEIXIN_OPENID, a.UUID, a.ADD_TIME, a.LAST_LOGIN_TIME, a.IS_VEDENG_JX,a.REGISTER_PLATFORM ,a.BELONG_PLATFORM,a.IS_SEND_MESSAGE,a.MOD_TIME_JOIN
+  	from
+  		T_WEB_ACCOUNT a
+       LEFT JOIN T_TRADER_CUSTOMER tc
+       ON a.TRADER_ID=tc.`TRADER_ID`
+       LEFT JOIN T_VERIFIES_INFO tv
+       ON tc.`TRADER_CUSTOMER_ID`=tv.`RELATE_TABLE_KEY` AND RELATE_TABLE='T_CUSTOMER_APTITUDE'
+    where
+      1=1
+      <if test="traderContactId != null">
+        and a.TRADER_CONTACT_ID = #{traderContactId}
+      </if>
+      <if test="traderId != null">
+        and a.TRADER_ID = #{traderId}
+      </if>
+      <if test="traderId != null">
+        and a.TRADER_ID = #{traderId}
+      </if>
+       <if test="isSendMessage!=null">
+         and a.IS_SEND_MESSAGE=#{isSendMessage}
+       </if>
+       <if test="mobile!=null">
+           and a.MOBILE=#{mobile}
+       </if>
+       <if test="belongPlatform !=null">
+          and a.BELONG_PLATFORM=#{belongPlatform}
+       </if>
+       <if test="status!=null">
+         and  tv.`STATUS`=#{status}
+       </if>
+       <if test="customerNature!=null">
+         and  tc.CUSTOMER_NATURE=#{customerNature}
+       </if>
+    order by
+    a.ERP_ACCOUNT_ID desc
+  </select>
+<!--根据手机查询该用户是否是老用户-->
+  <select id="getMobileCount" resultType="int">
+   SELECT  COUNT(MOBILE) FROM T_WEB_ACCOUNT
+   WHERE MOBILE=#{mobile}
+  </select>
+  <!--根据手机号修改是否加入贝登精选状态-->
+    <update id="updateisVedengJoin">
+        update T_WEB_ACCOUNT
+        <set>
+            <if test="webAccountId != null">
+                WEB_ACCOUNT_ID = #{webAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="ssoAccountId != null">
+                SSO_ACCOUNT_ID = #{ssoAccountId,jdbcType=INTEGER},
+            </if>
+            <if test="traderId != null">
+                TRADER_ID = #{traderId,jdbcType=INTEGER},
+            </if>
+            <if test="traderContactId != null">
+                TRADER_CONTACT_ID = #{traderContactId,jdbcType=INTEGER},
+            </if>
+            <if test="traderAddressId != null">
+                TRADER_ADDRESS_ID = #{traderAddressId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null">
+                IS_ENABLE = #{isEnable,jdbcType=BIT},
+            </if>
+            <if test="from != null">
+                `FROM` = #{from,jdbcType=BIT},
+            </if>
+            <if test="companyStatus != null">
+                COMPANY_STATUS = #{companyStatus,jdbcType=BIT},
+            </if>
+            <if test="indentityStatus != null">
+                INDENTITY_STATUS = #{indentityStatus,jdbcType=BIT},
+            </if>
+            <if test="isOpenStore != null">
+                IS_OPEN_STORE = #{isOpenStore,jdbcType=BIT},
+            </if>
+            <if test="account != null">
+                ACCOUNT = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `NAME` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=BIT},
+            </if>
+            <if test="weixinOpenid != null">
+                WEIXIN_OPENID = #{weixinOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="uuid != null">
+                UUID = #{uuid,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                ADD_TIME = #{addTime,jdbcType=BIGINT},
+            </if>
+            <if test="lastLoginTime != null">
+                LAST_LOGIN_TIME = #{lastLoginTime,jdbcType=BIGINT},
+            </if>
+            <if test="isVedengJx != null">
+                IS_VEDENG_JX = #{isVedengJx,jdbcType=BIGINT},
+            </if>
+            <if test="isVedengJoin!=null">
+                IS_VEDENG_JOIN=#{isVedengJoin},
+            </if>
+            <if test="modTimeJoin!=null">
+                MOD_TIME_JOIN=#{modTimeJoin},
+            </if>
+            <if test="isSendMessage!=null">
+                IS_SEND_MESSAGE=#{isSendMessage}
+            </if>
+        </set>
+        where MOBILE=#{mobile}
+    </update>
+  <!--根据手机号码查询1、是否有效 2、是否是贝登会员 3、是否申请加入贝登精选-->
+<select id="selectMobileResult" resultMap="BaseResultMap">
+ SELECT * FROM T_WEB_ACCOUNT t
+ WHERE t.`MOBILE`=#{mobile}
+</select>
+
+    <update id="updateErpUserId" parameterType="com.vedeng.trader.model.vo.WebAccountVo">
+        UPDATE T_WEB_ACCOUNT A
+        <set>
+        <if test="userId!=null">
+            A.USER_ID = #{userId,jdbcType=INTEGER},
+        </if>
+        <if test="belongPlatform!=null">
+            A.BELONG_PLATFORM=#{belongPlatform},
+        </if>
+        <if test="modTime!=null">
+            A.MOD_TIME=#{modTime}
+        </if>
+        </set>
+        WHERE  <if test="traderId!=null">
+        TRADER_ID=#{traderId}
+        </if>
+        <if test="userTraderId!=null">
+            A.USER_ID=#{userTraderId}
+        </if>
+    </update>
+
+    <select id="getWebAccountIdByMobile" resultType="java.lang.Integer" >
+    SELECT `ERP_ACCOUNT_ID` FROM `T_WEB_ACCOUNT`  WHERE `MOBILE`=#{traderContactTelephone}
+    </select>
+    <select id="getWenAccountInfoByMobile" resultType="com.vedeng.trader.model.WebAccount">
+    SELECT * FROM `T_WEB_ACCOUNT` a WHERE a.`MOBILE`=#{createMobile}
+    </select>
+    <select id="getTraderIdByErpAccountId" resultType="java.lang.Integer">
+	SELECT
+	B.`TRADER_ID`
+	FROM
+	T_TRADER_CONTACT B
+	WHERE B.`TRADER_CONTACT_ID` =
+	(SELECT
+	A.`TRADER_CONTACT_ID`
+	FROM
+	`T_WEB_ACCOUNT` A
+	WHERE A.`ERP_ACCOUNT_ID` = #{erpAccountId})
+</select>
+    <update id="updateTraderUser">
+	UPDATE T_R_TRADER_J_USER SET USER_ID=#{userId}  WHERE TRADER_ID=#{traderId}
+
+</update>
+
+    <update id="updateBelongPlatformOfHasTrader">
+        UPDATE T_WEB_ACCOUNT WA
+            JOIN T_TRADER T ON WA.TRADER_ID = T.TRADER_ID
+        SET WA.BELONG_PLATFORM = T.BELONG_PLATFORM WHERE 1 =1
+    </update>
+    <update id="updateBelongPlatformOfNoUserIdAndNoTrader">
+        UPDATE T_WEB_ACCOUNT SET BELONG_PLATFORM = REGISTER_PLATFORM WHERE USER_ID = 0 AND TRADER_ID = 0
+    </update>
+    <update id="updateBelongPlatformByUserIdList">
+        UPDATE T_WEB_ACCOUNT SET BELONG_PLATFORM = #{belongPlatform} WHERE USER_ID IN
+        <foreach collection="userList" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="getWebAccontAuthous" resultMap="BaseResultMap">
+      SELECT TRADER_ID ,USER_ID,MOBILE FROM T_WEB_ACCOUNT
+      WHERE 1=1
+      <if test="erpAccountId!=null and erpAccountId!=''">
+       and  ERP_ACCOUNT_ID=#{erpAccountId}
+      </if>
+  </select>
+
+    <select id="getWebAccontTrader" resultMap="BaseResultMap">
+        SELECT TRADER_ID ,USER_ID,MOBILE FROM T_WEB_ACCOUNT
+        WHERE 1=1
+        <if test="erpAccountId!=null and erpAccountId!=''">
+            and  ERP_ACCOUNT_ID=#{erpAccountId}
+        </if>
+        <if test="traders!=null">
+         and   TRADER_ID IN <foreach collection="traders" item="trader" index="index" open="(" separator="," close=")">
+            #{trader}
+        </foreach>
+        </if>
+    </select>
+    <select id="getSalerIdListOfNoTrader" resultType="java.lang.Integer">
+        SELECT DISTINCT USER_ID FROM T_WEB_ACCOUNT WHERE TRADER_ID = 0 AND USER_ID > 0
+    </select>
+    <select id="getWebAccountIsMember" resultType="java.lang.Integer">
+    SELECT
+	A.ERP_ACCOUNT_ID
+  FROM
+	T_WEB_ACCOUNT A
+	JOIN T_TRADER_CUSTOMER B ON A.TRADER_ID = B.TRADER_ID
+    JOIN T_VERIFIES_INFO C ON B.TRADER_CUSTOMER_ID=C.RELATE_TABLE_KEY
+  WHERE
+	A.BELONG_PLATFORM = 1
+	AND (A.IS_VEDENG_MEMBER != 1 OR( A.IS_VEDENG_MEMBER =1 AND A.VEDENG_MEMBER_TIME IS NULL) )
+	AND A.TRADER_ID != 0
+	AND C.RELATE_TABLE='T_CUSTOMER_APTITUDE'
+	AND C.`STATUS`=1
+	AND B.CUSTOMER_NATURE = 465
+    </select>
+
+    <update id="updateVedengMember">
+    UPDATE T_WEB_ACCOUNT
+    SET IS_VEDENG_MEMBER = 1
+    WHERE
+        ERP_ACCOUNT_ID IN
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="webAccounId">
+            #{webAccounId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+    <update id="updateVedengMemberTime">
+        UPDATE T_WEB_ACCOUNT
+        SET VEDENG_MEMBER_TIME = NOW()
+        WHERE
+        VEDENG_MEMBER_TIME IS NULL AND
+        ERP_ACCOUNT_ID IN
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="webAccounId">
+            #{webAccounId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+    <select id="getWebAccountMemberInfo" resultMap="BaseResultMap">
+	SELECT
+	A.ERP_ACCOUNT_ID,A.TRADER_ID,A.BELONG_PLATFORM,IFNULL(B.CUSTOMER_NATURE,0) CUSTOMER_NATURE,IFNULL(C.`STATUS`,0) STATUS
+    FROM
+	T_WEB_ACCOUNT A
+	LEFT JOIN  T_TRADER_CUSTOMER B ON A.TRADER_ID = B.TRADER_ID
+	LEFT JOIN T_VERIFIES_INFO C ON B.TRADER_CUSTOMER_ID=C.RELATE_TABLE_KEY AND C.RELATE_TABLE='T_CUSTOMER_APTITUDE'
+    WHERE A.IS_VEDENG_MEMBER =1
+    </select>
+
+    <update id="updateVedengNoMember">
+        UPDATE T_WEB_ACCOUNT
+        SET IS_VEDENG_MEMBER = 0
+        WHERE
+        ERP_ACCOUNT_ID IN
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="webAccounId">
+            #{webAccounId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+    <select id="getTraderCustomerMemberInfo" resultMap="BaseResultMap">
+    SELECT
+	A.TRADER_CUSTOMER_ID as ERP_ACCOUNT_ID,A.TRADER_ID,B.BELONG_PLATFORM,IFNULL(A.CUSTOMER_NATURE,0) CUSTOMER_NATURE,IFNULL(C.`STATUS`,0) STATUS
+    FROM
+	T_TRADER_CUSTOMER A
+	LEFT JOIN  T_TRADER B ON A.TRADER_ID = B.TRADER_ID
+	LEFT JOIN T_VERIFIES_INFO C ON A.TRADER_CUSTOMER_ID=C.RELATE_TABLE_KEY AND C.RELATE_TABLE='T_CUSTOMER_APTITUDE'
+    WHERE A.IS_VEDENG_MEMBER =1;
+    </select>
+    <select id="getWebAccountListByMobile" resultType="com.vedeng.trader.model.WebAccount">
+        SELECT * FROM T_WEB_ACCOUNT WHERE MOBILE = #{mobile}
+    </select>
+</mapper>

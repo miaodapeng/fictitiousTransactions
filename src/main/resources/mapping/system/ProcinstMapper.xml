@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.ProcinstMapper" >
+
+  
+
+
+  <select id="getBuyOrderIdsByCurrentOperateUser" resultType="java.lang.String" parameterType="java.util.Map" >
+  	select PROC_INST_ID_ from ACT_HI_ACTINST where END_TIME_ is null and ASSIGNEE_ like concat('%',#{currentOperateUser,jdbcType=VARCHAR},'%')  and ( PROC_DEF_ID_ like 'buyorderVerify%' or PROC_DEF_ID_ like 'paymentVerify%' )
+  </select>
+
+
+    <select id="getBuyOrderIdsByProcessIds" resultType="java.lang.String" parameterType="java.util.Map" >
+      select BUSINESS_KEY_ from ACT_HI_PROCINST where PROC_INST_ID_ in
+        <foreach item="processId" index="index" collection="processIds" separator="," open="(" close=")">
+            #{processId,jdbcType=INTEGER}
+        </foreach>
+  </select>
+</mapper>

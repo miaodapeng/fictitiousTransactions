@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.approval.dao.ApprovalMapper">
+
+	<!-- 新增 -->
+	<insert id="insertApproval" parameterType="com.vedeng.approval.model.ApprovalEntity">
+		<selectKey keyProperty="approvalId" order="AFTER"
+			resultType="int">
+			select LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO
+		T_APPROVAL
+		(
+		APPROVAL_ID,
+		TITLE,
+		LINK_ADDRESS,
+		ORGANIZE_NAME,
+
+		ORGANIZE_TYPE,
+		ORGANIZE_SUBJECT,
+		FOLLOW_USER_ID,
+		FOLLOW_STATE,
+
+		FOCUS_STATE,
+		CONTACT_ADDRESS,
+		CONTACT_PHONE,
+		CREATOR,
+		CREATE_NAME,
+		ADD_TIME,
+
+		UPDATER,
+		UPDATE_NAME,
+		MOD_TIME,
+		IS_INCLUDE,
+		IS_DELETE
+		)
+		VALUES
+		(
+		#{approvalId},
+		#{title},
+		#{linkAddress},
+		#{organizeName},
+
+		#{organizeType},
+		#{organizeSubject},
+		#{followUserId},
+		#{followState},
+
+		#{focusState},
+		#{contactAddress},
+		#{contactPhone},
+		#{creator},
+		#{createName},
+		#{addTime},
+
+		#{updater},
+		#{updateName},
+		#{modTime},
+		'2',
+		'0'
+		)
+	</insert>
+
+
+	<!-- 修改 -->
+	<update id="updateApproval" parameterType="com.vedeng.approval.model.ApprovalEntity">
+		UPDATE
+		T_APPROVAL
+		<set>
+			<if test="approvalId !=null and approvalId !=''">APPROVAL_ID = #{approvalId},</if>
+			<if test="title !=null and title !=''">TITLE = #{title},</if>
+			<!-- <if test="releaseTime !=null and releaseTime !=''">RELEASE_TIME = 
+				#{releaseTime},</if> -->
+			<if test="linkAddress !=null and linkAddress !=''">LINK_ADDRESS = #{linkAddress},</if>
+			ORGANIZE_NAME = #{organizeName},
+
+			ORGANIZE_TYPE = #{organizeType},
+			ORGANIZE_SUBJECT = #{organizeSubject},
+			FOLLOW_USER_ID = #{followUserId},
+			<if test="followState !=null and followState !=''">FOLLOW_STATE = #{followState},</if>
+
+			<if test="focusState !=null and focusState !=''">FOCUS_STATE = #{focusState},</if>
+			CONTACT_ADDRESS = #{contactAddress},
+			CONTACT_PHONE = #{contactPhone},
+			<if test="creator !=null and creator !=''">CREATOR = #{creator},</if>
+			<if test="createName !=null and createName !=''">CREATE_NAME = #{createName},</if>
+			<if test="addTime !=null and addTime !=''">ADD_TIME = #{addTime},</if>
+
+			<if test="updater !=null and updater !=''">UPDATER = #{updater},</if>
+			<if test="updateName !=null and updateName !=''">UPDATE_NAME = #{updateName},</if>
+			<if test="modTime !=null and modTime !=''">MOD_TIME = #{modTime},</if>
+			<if test="isInclude !=null and isInclude !=''">IS_INCLUDE = #{isInclude},</if>
+			<if test="isDelete !=null and isDelete !=''">IS_DELETE = #{isDelete}</if>
+		</set>
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+
+	<!-- 关注状态 (手动修改) -->
+	<update id="updateFocusState" parameterType="com.vedeng.approval.model.ApprovalEntity">
+		UPDATE
+		T_APPROVAL
+		<set>
+			<if test="focusState !=null and focusState !=''">FOCUS_STATE = #{focusState},</if>
+			<if test="updater !=null and updater !=''">UPDATER = #{updater},</if>
+			<if test="updateName !=null and updateName !=''">UPDATE_NAME = #{updateName},</if>
+			<if test="modTime !=null and modTime !=''">MOD_TIME = #{modTime},</if>
+		</set>
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+	<!-- 是否收录 (手动修改) -->
+	<update id="updateIsInclude" parameterType="com.vedeng.approval.model.ApprovalEntity">
+		UPDATE
+		T_APPROVAL
+		<set>
+			<if test="isInclude !=null and isInclude !=''">IS_INCLUDE = #{isInclude},</if>
+			<if test="updater !=null and updater !=''">UPDATER = #{updater},</if>
+			<if test="updateName !=null and updateName !=''">UPDATE_NAME = #{updateName},</if>
+			<if test="modTime !=null and modTime !=''">MOD_TIME = #{modTime},</if>
+		</set>
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+
+	<!-- 根据 id 删除一条数据 -->
+	<update id="deleteByApprovalId" parameterType="com.vedeng.approval.model.ApprovalEntity">
+		UPDATE
+		T_APPROVAL
+		<set>
+			<if test="updater !=null and updater !=''">UPDATER = #{updater},</if>
+			<if test="modTime !=null and modTime !=''">MOD_TIME = #{modTime},</if>
+			IS_DELETE = '0'
+		</set>
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+
+	<!-- 批量删除 (现在改成了批量不再收录 IS_INCLUDE = 1) -->
+	<update id="delApprovalBatch">
+		UPDATE
+		T_APPROVAL
+		SET
+		IS_INCLUDE = 1
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+
+	<!-- 优化批量删除 -->
+	<!-- find_in_set (b.GOODS_ID,#{goodsIdsList}) -->
+	<update id="delApprovalBatchNew" parameterType="java.util.List">
+		update T_APPROVAL
+		<set>
+			IS_INCLUDE = 1
+		</set>
+		where
+		APPROVAL_ID in
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+
+
+	<!-- 查询列表 -->
+	<!-- '%Y-%m-%d %H:%m:%i' -->
+	<select id="queryListPage" parameterType="java.util.Map"
+		resultType="com.vedeng.approval.model.ApprovalEntity">
+		SELECT
+		APPROVAL_ID as approvalId,
+		TITLE as title,
+		DATE_FORMAT(RELEASE_TIME,'%Y-%m-%d') as releaseTime,
+		LINK_ADDRESS as linkAddress,
+		ORGANIZE_NAME as organizeName,
+		ORGANIZE_TYPE as organizeType,
+		ORGANIZE_SUBJECT as organizeSubject,
+		FOLLOW_USER_ID as followUserId,
+		FOLLOW_STATE as followState,
+		FOCUS_STATE as focusState,
+		CONTACT_ADDRESS as contactAddress,
+		CONTACT_PHONE as contactPhone,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME as modTime,
+		IS_INCLUDE as isInclude,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL
+		WHERE
+		IS_DELETE = '0'
+		<if test="approvalEntity.title != null and approvalEntity.title != ''">
+			AND TITLE like CONCAT('%',#{approvalEntity.title},'%' )
+		</if>
+		<if test="approvalEntity.addTime !=null and approvalEntity.addTime !=''">
+			AND RELEASE_TIME <![CDATA[>=]]>
+			#{approvalEntity.addTime,jdbcType=VARCHAR}
+		</if>
+		<if test="approvalEntity.endTime !=null and approvalEntity.endTime !=''">
+			AND RELEASE_TIME <![CDATA[<=]]>
+			#{approvalEntity.endTime,jdbcType=VARCHAR}
+		</if>
+		<if
+			test="approvalEntity.focusState  !=null and approvalEntity.focusState  !=''">
+			AND FOCUS_STATE = #{approvalEntity.focusState }
+		</if>
+		<if
+			test="approvalEntity.followState  !=null and approvalEntity.followState  !=''">
+			AND FOLLOW_STATE = #{approvalEntity.followState }
+		</if>
+		<if
+			test="approvalEntity.createName  !=null and approvalEntity.createName  !=''">
+			AND CREATE_NAME like CONCAT('%',#{approvalEntity.createName},'%' )
+		</if>
+		<if
+			test="approvalEntity.updateName  !=null and approvalEntity.updateName  !=''">
+			AND UPDATE_NAME like CONCAT('%',#{approvalEntity.updateName},'%' )
+		</if>
+
+		<if test="approvalEntity.isInclude  !=null ">
+			AND IS_INCLUDE = #{approvalEntity.isInclude}
+		</if>
+
+		<if
+			test="approvalEntity.approvalId != null and approvalEntity.approvalId != ''">
+			AND APPROVAL_ID = #{approvalEntity.approvalId }
+		</if>
+		ORDER BY RELEASE_TIME DESC
+	</select>
+
+	<!-- 根据 id 查询一条数据 -->
+	<!-- %Y-%m-%d %H:%m:%i -->
+	<select id="queryByApprovalId" parameterType="java.lang.Integer"
+		resultType="com.vedeng.approval.model.ApprovalEntity">
+		SELECT
+		APPROVAL_ID as approvalId,
+		TITLE as title,
+		DATE_FORMAT(RELEASE_TIME,'%Y-%m-%d') releaseTime,
+		LINK_ADDRESS as linkAddress,
+		ORGANIZE_NAME as organizeName,
+		ORGANIZE_TYPE as organizeType,
+		ORGANIZE_SUBJECT as organizeSubject,
+		FOLLOW_USER_ID as followUserId,
+		FOLLOW_STATE as followState,
+		FOCUS_STATE as focusState,
+		CONTACT_ADDRESS as contactAddress,
+		CONTACT_PHONE as contactPhone,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME as modTime,
+		IS_DELETE as isDelete
+		FROM T_APPROVAL
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+	</select>
+
+	<!-- ================================================= 子表 ===================================================== -->
+
+	<!-- 根据 主表id 查询多条子表数据 -->
+	<select id="queryApprovalRecordByApprovalId" resultType="com.vedeng.approval.model.ApprovalRecordEntity">
+		SELECT
+		RECORD_ID as recordId,
+		APPROVAL_ID as approvalId,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME modTime,
+		RECORD_CONTENT as recordContent,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL_RECORD
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+		ORDER BY MOD_TIME DESC
+
+	</select>
+
+	<!-- 小分页 -->
+	<select id="querylistpage" parameterType="java.util.Map"
+		resultType="com.vedeng.approval.model.ApprovalRecordEntity">
+		SELECT
+		RECORD_ID as recordId,
+		APPROVAL_ID as approvalId,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME modTime,
+		RECORD_CONTENT as recordContent,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL_RECORD
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+		ORDER BY MOD_TIME DESC
+
+	</select>
+
+	<!-- 同时传入page -->
+	<select id="queryApprovalRecordByApprovalIdQueryListPage"
+		parameterType="java.util.Map" resultType="com.vedeng.approval.model.ApprovalRecordEntity">
+		SELECT
+		RECORD_ID as recordId,
+		APPROVAL_ID as approvalId,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME modTime,
+		RECORD_CONTENT as recordContent,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL_RECORD
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+		ORDER BY MOD_TIME DESC
+
+	</select>
+
+
+	<!-- 新增 子表 foreach -->
+	<insert id="addApprovalRecord" parameterType="java.util.List">
+		insert into
+		T_APPROVAL_RECORD(
+
+		RECORD_ID,
+		APPROVAL_ID,
+		CREATOR,
+		CREATE_NAME,
+		ADD_TIME,
+		UPDATER,
+		UPDATE_NAME,
+		MOD_TIME,
+		RECORD_CONTENT,
+		IS_DELETE
+		)
+		values
+		<foreach item="item" collection="list" index="index"
+			separator=",">
+			(
+			#{item.recordId},
+			#{item.approvalId},
+			#{item.creator},
+			#{item.createName},
+			#{item.addTime},
+			#{item.updater},
+			#{item.updateName},
+			#{item.modTime},
+			#{item.recordContent},
+			'0'
+			)
+		</foreach>
+	</insert>
+
+	<!-- 根据 id 删除一条子表数据 -->
+	<update id="deleteApprovalRecord" parameterType="com.vedeng.approval.model.ApprovalRecordEntity">
+		UPDATE
+		T_APPROVAL_RECORD
+		SET
+		IS_DELETE = '1'
+		WHERE
+		APPROVAL_ID = #{approvalId}
+	</update>
+
+
+	<!-- 小弹框的删除,逻辑删 -->
+	<update id="deleterecord" parameterType="java.lang.Integer">
+		UPDATE
+		T_APPROVAL_RECORD
+		SET
+		IS_DELETE = '1'
+		WHERE
+		RECORD_ID = #{recordId}
+	</update>
+
+
+	<!-- 弹框新增子表 -->
+	<insert id="addApprovalRecordTankuang" parameterType="com.vedeng.approval.model.ApprovalRecordEntity">
+		INSERT INTO
+		T_APPROVAL_RECORD
+		(
+		RECORD_ID,
+		APPROVAL_ID,
+		CREATOR,
+		CREATE_NAME,
+		ADD_TIME,
+
+		UPDATER,
+		UPDATE_NAME,
+		MOD_TIME,
+		RECORD_CONTENT,
+		IS_DELETE
+		)
+		VALUES
+		(
+		#{recordId},
+		#{approvalId},
+		#{creator},
+		#{createName},
+		#{addTime},
+
+		#{updater},
+		#{updateName},
+		#{modTime},
+		#{recordContent},
+		'0'
+		)
+	</insert>
+
+
+	<!-- 弹框：直接编辑 -->
+	<update id="updateApprovalRecord" parameterType="com.vedeng.approval.model.ApprovalRecordEntity">
+		UPDATE
+		T_APPROVAL_RECORD
+		<set>
+			<if test="recordId !=null and recordId !=''">RECORD_ID = #{recordId},</if>
+			<if test="approvalId !=null and approvalId !=''">APPROVAL_ID = #{approvalId},</if>
+
+			<if test="creator !=null and creator !=''">CREATOR = #{creator},</if>
+			<if test="createName !=null and createName !=''">CREATE_NAME = #{createName},</if>
+			<if test="addTime !=null and addTime !=''">ADD_TIME = #{addTime},</if>
+
+			<if test="updater !=null and updater !=''">UPDATER = #{updater},</if>
+			<if test="updateName !=null and updateName !=''">UPDATE_NAME = #{updateName},</if>
+			<if test="modTime !=null and modTime !=''">MOD_TIME = #{modTime},</if>
+
+			<if test="recordContent !=null and recordContent !=''">RECORD_CONTENT = #{recordContent},</if>
+			<if test="isDelete !=null and isDelete !=''">IS_DELETE = #{isDelete}</if>
+		</set>
+		WHERE
+		RECORD_ID = #{recordId}
+	</update>
+
+	<!-- 无参查子表 -->
+	<select id="queryApprovalRecord" resultType="com.vedeng.approval.model.ApprovalRecordEntity">
+		SELECT
+		RECORD_ID as recordId,
+		APPROVAL_ID as approvalId,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME as modTime,
+		RECORD_CONTENT as recordContent,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL_RECORD
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+		ORDER BY
+		MOD_TIME DESC
+	</select>
+
+	<!-- 查子表详情 -->
+	<select id="queryZiBiaolistpage" parameterType="java.util.Map"
+		resultType="com.vedeng.approval.model.ApprovalRecordEntity">
+		SELECT
+		RECORD_ID as recordId,
+		APPROVAL_ID as approvalId,
+		CREATOR as creator,
+		CREATE_NAME as createName,
+		ADD_TIME as addTime,
+
+		UPDATER as updater,
+		UPDATE_NAME as updateName,
+		MOD_TIME modTime,
+		RECORD_CONTENT as recordContent,
+		IS_DELETE as isDelete
+		FROM
+		T_APPROVAL_RECORD
+		WHERE
+		IS_DELETE = '0'
+		AND
+		APPROVAL_ID = #{approvalId}
+		ORDER BY MOD_TIME DESC
+
+	</select>
+
+</mapper>
+ 
+
+
+

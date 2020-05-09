@@ -1,0 +1,108 @@
+.select-lv {
+    min-width: 80px;
+    padding-right: 26px;
+    position: relative;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #333;
+    border-radius: 3px;
+    background: #fff;
+    border: 1px solid #ced3d9;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.select-lv ul {
+    list-style: none;
+}
+
+.select-lv.focus {
+    border-color: #2E8AE6;
+}
+
+.select-lv.open {
+    z-index: 110;
+}
+
+.select-lv .select-title {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.select-lv .select-label {
+    padding: 5px 10px;
+    background: #f5f7fa;
+    border-right: 1px solid #ced3d9;
+    color: #666;
+    border-radius: 3px 0 0 3px;
+}
+
+.select-lv .select-selected {
+    padding: 5px 0 5px 10px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.select-lv .select-arrow {
+    box-sizing: content-box;
+    position: absolute;
+    padding: 0 5px;
+    right: 0;
+    top: 50%;
+    margin-top: -8px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    transition: transform .2s ease;
+}
+
+.select-lv .select-list {
+    display: flex;
+    background: #fff;
+    position: absolute;
+    left: -1px;
+    top: 100%;
+    margin-top: 1px;
+    border-radius: 3px;
+    z-index: 66;
+    border: 1px solid transparent;
+    height: 0;
+    overflow: hidden;
+    transition: all .1s;
+}
+
+.select-lv .select-list.show {
+    height: auto;
+    border-color: #ced2d9;
+    box-shadow: 2px 2px 3px rgba(0, 33, 66, 0.1);
+    overflow: unset;
+}
+
+.select-lv .select-list-wrap {
+    padding: 5px 0;
+    height: 310px;
+    width: 160px;
+    margin: 0;
+    border-right: 1px solid #ced2d9;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.select-lv .select-list-wrap:last-child {
+    border-right: 0;
+}
+
+.select-lv .select-opt {
+    padding: 6px 10px;
+    color: #333;
+    display: block;
+    word-wrap: break-word;
+    text-decoration: none;
+}
+
+.select-lv .select-opt:hover,
+.select-lv .select-opt.selected {
+    color: #333;
+    background: #e6ecf2;
+}

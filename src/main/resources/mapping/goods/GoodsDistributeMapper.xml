@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.GoodsDistributeMapper">
+  <resultMap id="DistributeResultMap" type="com.vedeng.goods.model.GoodsDistribute">
+   <id column="SPU_ID" jdbcType="INTEGER" property="spuId" />
+   <id column="SPU_NAME" jdbcType="VARCHAR" property="spuName" />
+   <id column="SPU_NO" jdbcType="VARCHAR" property="spuNo" />
+   <id column="MANAGER_USERNAME" jdbcType="VARCHAR" property="managerUsername" />
+   <id column="ASS_USERNAME" jdbcType="VARCHAR" property="assUsername" />
+   <id column="SPU_LEVEL" jdbcType="INTEGER" property="spuLevel" />
+   <id column="BRAND_NATURE" jdbcType="VARCHAR" property="brandNature" />
+   <id column="HAS_M" jdbcType="VARCHAR" property="hasM" />
+   <id column="HAS_A" jdbcType="VARCHAR" property="hasA" />
+   <id column="BRAND_ID" jdbcType="INTEGER" property="brandId" />  
+   <id column="BRAND_NAME" jdbcType="VARCHAR" property="brandName" />
+   <id column="CATEGORY_ID" jdbcType="INTEGER" property="categoryId" />
+   <id column="CATEGORY_NAME" jdbcType="VARCHAR" property="categoryName" />
+   
+   
+  </resultMap>
+	
+	<select id="getGoodsDistributeListPage" parameterType="java.util.Map" resultMap="DistributeResultMap">
+	SELECT
+	spu.SPU_ID AS SPU_ID ,
+	spu.SPU_NAME AS SPU_NAME,
+	spu.SPU_NO as SPU_NO,
+	m.USERNAME AS MANAGER_USERNAME,
+	a.USERNAME AS ASS_USERNAME,
+	spu.SPU_LEVEL AS SPU_LEVEL ,
+CASE
+		
+		WHEN b.BRAND_NATURE = 1 THEN
+		'国产品牌' 
+		WHEN b.BRAND_NATURE = 2 THEN
+		'进口品牌' ELSE '无品牌' 
+	END BRAND_NATURE ,
+CASE
+		
+		WHEN m.USERNAME IS NULL THEN
+		'0' ELSE '1' 
+	END HAS_M  ,
+CASE
+		
+		WHEN a.USERNAME IS NULL THEN
+		'0' ELSE '1' 
+	END HAS_A ,
+	b.BRAND_ID AS BRAND_ID ,
+	b.BRAND_NAME AS BRAND_NAME ,
+	spu.CATEGORY_ID AS CATEGORY_ID,
+	  case WHEN t3.BASE_CATEGORY_NAME IS  NULL THEN t2.BASE_CATEGORY_NAME
+	       WHEN t2.BASE_CATEGORY_NAME IS NULL THEN t4.BASE_CATEGORY_NAME
+		   ELSE t3.BASE_CATEGORY_NAME END CATEGORY_NAME
+FROM
+	V_CORE_SPU spu
+	LEFT JOIN T_USER m ON spu.ASSIGNMENT_MANAGER_ID = m.USER_ID
+	LEFT JOIN T_USER a ON spu.ASSIGNMENT_ASSISTANT_ID = a.USER_ID
+	LEFT JOIN T_BRAND b ON spu.BRAND_ID = b.BRAND_ID
+	LEFT JOIN V_BASE_CATEGORY t4 ON t4.BASE_CATEGORY_ID = spu.CATEGORY_ID
+	LEFT JOIN V_BASE_CATEGORY t2 ON t4.PARENT_ID = t2.BASE_CATEGORY_ID
+    LEFT JOIN V_BASE_CATEGORY t3 ON t2.PARENT_ID = t3.BASE_CATEGORY_ID
+    <if test="goodsDistribute.spuId == null and goodsDistribute.spuNo != null and goodsDistribute.spuNo != ''">
+		LEFT JOIN V_CORE_SKU sku on spu.SPU_ID=sku.SPU_ID
+	</if>
+	WHERE 1=1
+
+	<!--是否分配产品经理-->
+	<if test="goodsDistribute.hasM != null and goodsDistribute.hasM !=-1 and goodsDistribute.hasM != 1  ">
+       AND spu.ASSIGNMENT_MANAGER_ID IS NOT NULL
+ 	</if>
+ 	<if test="goodsDistribute.hasM != null  and goodsDistribute.hasM !=-1 and goodsDistribute.hasM != 0">
+       AND spu.ASSIGNMENT_MANAGER_ID IS NULL
+ 	</if>
+    
+   	<!--是否分配产品助理-->
+ 	<if test="goodsDistribute.hasA != null and  goodsDistribute.hasA != -1 and goodsDistribute.hasA != 1 ">
+       AND spu.ASSIGNMENT_ASSISTANT_ID IS NOT NULL
+ 	</if>
+ 	<if test="goodsDistribute.hasA != null and  goodsDistribute.hasA != -1 and  goodsDistribute.hasA != 0 ">
+       AND spu.ASSIGNMENT_ASSISTANT_ID IS  NULL
+ 	</if>
+
+ 	<if test="goodsDistribute.spuLevel != null and  goodsDistribute.spuLevel != -1 ">
+       AND spu.SPU_LEVEL = #{goodsDistribute.spuLevel,jdbcType=INTEGER}
+ 	</if>
+ 	<!--品牌类型-->
+ 	<if test="goodsDistribute.brandNatureSearch != null">
+       AND b.BRAND_NATURE = #{goodsDistribute.brandNatureSearch,jdbcType=INTEGER}
+ 	</if>
+ 	<!--品牌名称-->
+ 	<if test="goodsDistribute.brandName != null and goodsDistribute.brandName != '' ">
+      AND b.BRAND_NAME LIKE CONCAT('%',#{goodsDistribute.brandName, jdbcType=VARCHAR},'%')
+ 	</if>
+ 	<!--产品分类-->
+		<if test="goodsDistribute.categoryLevel==3">
+			and t4.BASE_CATEGORY_ID=#{goodsDistribute.categoryLv3Name,jdbcType=INTEGER}
+		</if>
+		<if test="goodsDistribute.categoryLevel==2">
+			AND t2.BASE_CATEGORY_ID=#{goodsDistribute.categoryLv2Name,jdbcType=INTEGER}
+		</if>
+		<if test="goodsDistribute.categoryLevel==1">
+			AND t3.BASE_CATEGORY_ID=#{goodsDistribute.categoryLv1Name,jdbcType=INTEGER}
+		</if>
+
+ 	 <!--<if test="categorylist != null and categorylist.size()>0">-->
+                <!--AND-->
+                <!--spu.CATEGORY_ID IN-->
+               <!--<foreach collection="categorylist" index="i" item="categoryIDs" open="(" separator="," close=")">-->
+                   <!--#{categoryIDs}-->
+               <!--</foreach>-->
+            <!--</if>-->
+ 	<!--归属产品经理-->
+ 	  <if test="managerUseIDsList != null and managerUseIDsList.size()>0">
+                AND
+                spu.ASSIGNMENT_MANAGER_ID IN
+               <foreach collection="managerUseIDsList" index="i" item="managerUseIDs" open="(" separator="," close=")">
+                   #{managerUseIDs}
+               </foreach>
+     </if>
+ 	<!--归属产品助理-->
+ 	<if test="assUserIDsList != null and assUserIDsList.size()>0">
+                AND
+                spu.ASSIGNMENT_ASSISTANT_ID IN
+               <foreach collection="assUserIDsList" index="i" item="assUseIDs" open="(" separator="," close=")">
+                   #{assUseIDs}
+                   
+               </foreach>
+    </if>
+
+	<!--商品名称-->
+	<if test="goodsDistribute.spuName != null and goodsDistribute.spuName !='' ">
+       AND spu.SPU_NAME LIKE CONCAT('%',#{goodsDistribute.spuName,jdbcType=VARCHAR},'%')
+ 	</if>
+ 	<!--订货号-->
+ 	<if test="goodsDistribute.spuId != null">
+       AND spu.SPU_ID = #{goodsDistribute.spuId}
+ 	</if>
+		<if test="goodsDistribute.spuId == null and goodsDistribute.spuNo != null and goodsDistribute.spuNo != ''">
+			AND sku.SKU_NO = #{goodsDistribute.spuNo}
+		</if>
+ 	    ORDER BY spu.SPU_ID
+	</select>
+	
+	
+	
+	<!--分配商品归属-->
+	 <update id="addDistribution" parameterType="java.util.Map" >
+     UPDATE V_CORE_SPU
+      <set> 
+	  <if test="assignmentManagerId != null" > 
+	  ASSIGNMENT_MANAGER_ID = #{assignmentManagerId},
+	  </if> 
+	  <if test="assignmentAssistantId != null" > 
+	  ASSIGNMENT_ASSISTANT_ID = #{assignmentAssistantId}
+	  </if> 
+	 </set>   
+	 where SPU_ID in 
+	  <foreach collection="spuIdList" index="i" item="spuIdList" open="(" separator="," close=")">
+                   #{spuIdList}
+       </foreach>
+	</update>
+	
+	<!--归属经理更换-->
+	<update id="editDistributionM" parameterType="java.util.Map" >
+     UPDATE V_CORE_SPU
+     <set>
+      <if test="goodsDistribute.assignmentManagerIdNew != null" > 
+	  ASSIGNMENT_MANAGER_ID = #{goodsDistribute.assignmentManagerIdNew}
+	  </if> 
+     </set>
+     where 
+        1=1
+       <if test="goodsDistribute.assignmentManagerIdOld != null" > 
+	       AND ASSIGNMENT_MANAGER_ID = #{goodsDistribute.assignmentManagerIdOld}
+	  </if> 
+         
+     </update>
+     
+     <!--归属助理更换-->
+	<update id="editDistributionA" parameterType="java.util.Map" >
+     UPDATE V_CORE_SPU
+     <set>
+	  <if test="goodsDistribute.assignmentAssistantIdNew != null" > 
+	  ASSIGNMENT_ASSISTANT_ID = #{goodsDistribute.assignmentAssistantIdNew}
+	  </if>
+     </set>
+     where 1=1
+       
+	  <if test="goodsDistribute.assignmentAssistantIdOld != null" > 
+	    AND ASSIGNMENT_ASSISTANT_ID = #{goodsDistribute.assignmentAssistantIdOld}
+	  </if>
+         
+     </update>
+     
+     
+    <select id="isHaveDistribution" parameterType="java.util.Map" resultMap="DistributeResultMap">
+            SELECT * from V_CORE_SPU
+             where
+                 SPU_ID in 
+              <foreach collection="spuIdList" index="i" item="spuIdList" open="(" separator="," close=")">
+                   #{spuIdList}
+             </foreach>
+         </select>
+	
+</mapper>

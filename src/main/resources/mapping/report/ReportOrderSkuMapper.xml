@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.report.dao.ReportOrderSkuMapper" >
+  <resultMap id="BaseResultMap" type="com.newtask.model.ReportOrderSku" >
+    <!--          -->
+    <id column="ORDER_SKU_ID" property="orderSkuId" jdbcType="VARCHAR" />
+    <result column="SKU_NO" property="skuNo" jdbcType="VARCHAR" />
+    <result column="SKU_NAME" property="skuName" jdbcType="VARCHAR" />
+    <result column="SKU_TYPE_ID" property="skuTypeId" jdbcType="INTEGER" />
+    <result column="SKU_TYPE_NAME" property="skuTypeName" jdbcType="VARCHAR" />
+    <result column="SKU_LEVEL_ID" property="skuLevelId" jdbcType="INTEGER" />
+    <result column="SKU_LEVEL_NAME" property="skuLevelName" jdbcType="VARCHAR" />
+    <result column="BRAND_ID" property="brandId" jdbcType="INTEGER" />
+    <result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+    <result column="TOP_CATEGORY_ID" property="topCategoryId" jdbcType="INTEGER" />
+    <result column="TOP_CATEGORY_NAME" property="topCategoryName" jdbcType="VARCHAR" />
+    <result column="SECOND_CATEGORY_ID" property="secondCategoryId" jdbcType="INTEGER" />
+    <result column="SECOND_CATEGORY_NAME" property="secondCategoryName" jdbcType="VARCHAR" />
+    <result column="THIRD_CATEHGORY_ID" property="thirdCatehgoryId" jdbcType="INTEGER" />
+    <result column="THIRD_CATEHGORY_NAME" property="thirdCatehgoryName" jdbcType="VARCHAR" />
+    <result column="UNIT_ID" property="unitId" jdbcType="INTEGER" />
+    <result column="UNIT_NAME" property="unitName" jdbcType="VARCHAR" />
+    <result column="BASE_UNIT_ID" property="baseUnitId" jdbcType="INTEGER" />
+    <result column="BASE_UNIT_NAME" property="baseUnitName" jdbcType="VARCHAR" />
+    <result column="CHANGE_NUM" property="changeNum" jdbcType="INTEGER" />
+    <result column="COST_PRICE" property="costPrice" jdbcType="VARCHAR" />
+    <result column="IS_ON_SALE" property="isOnSale" jdbcType="INTEGER" />
+    <result column="PURCHASE_ON_ORDER_NUM" property="purchaseOnOrderNum" jdbcType="INTEGER" />
+    <result column="STOCK_NUM" property="stockNum" jdbcType="INTEGER" />
+    <result column="OCCUPY_NUM" property="occupyNum" jdbcType="INTEGER" />
+    <result column="ACTION_LOCK_COUNT" property="actionLockCount" jdbcType="INTEGER" />
+    <result column="ACTION_OCCUPY_COUNT" property="actionOccupyCount" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+    <result column="MOD_TIME" property="modTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    ORDER_SKU_ID, SKU_NO, SKU_NAME, SKU_TYPE_ID, SKU_TYPE_NAME, SKU_LEVEL_ID, SKU_LEVEL_NAME, 
+    BRAND_ID, BRAND_NAME, TOP_CATEGORY_ID, TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, SECOND_CATEGORY_NAME, 
+    THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, UNIT_ID, UNIT_NAME, BASE_UNIT_ID, BASE_UNIT_NAME, 
+    CHANGE_NUM, COST_PRICE, IS_ON_SALE, PURCHASE_ON_ORDER_NUM, STOCK_NUM, OCCUPY_NUM, 
+    ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_ORDER_SKU
+    where ORDER_SKU_ID = #{orderSkuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <!--          -->
+    delete from T_REPORT_ORDER_SKU
+    where ORDER_SKU_ID = #{orderSkuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.newtask.model.ReportOrderSku" >
+    <!--          -->
+    insert into T_REPORT_ORDER_SKU (ORDER_SKU_ID, SKU_NO, SKU_NAME, 
+      SKU_TYPE_ID, SKU_TYPE_NAME, SKU_LEVEL_ID, 
+      SKU_LEVEL_NAME, BRAND_ID, BRAND_NAME, 
+      TOP_CATEGORY_ID, TOP_CATEGORY_NAME, SECOND_CATEGORY_ID, 
+      SECOND_CATEGORY_NAME, THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME, 
+      UNIT_ID, UNIT_NAME, BASE_UNIT_ID, 
+      BASE_UNIT_NAME, CHANGE_NUM, COST_PRICE, 
+      IS_ON_SALE, PURCHASE_ON_ORDER_NUM, STOCK_NUM, 
+      OCCUPY_NUM, ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT, 
+      ADD_TIME, MOD_TIME)
+    values (#{orderSkuId,jdbcType=VARCHAR}, #{skuNo,jdbcType=VARCHAR}, #{skuName,jdbcType=VARCHAR}, 
+      #{skuTypeId,jdbcType=INTEGER}, #{skuTypeName,jdbcType=VARCHAR}, #{skuLevelId,jdbcType=INTEGER}, 
+      #{skuLevelName,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, 
+      #{topCategoryId,jdbcType=INTEGER}, #{topCategoryName,jdbcType=VARCHAR}, #{secondCategoryId,jdbcType=INTEGER}, 
+      #{secondCategoryName,jdbcType=VARCHAR}, #{thirdCatehgoryId,jdbcType=INTEGER}, #{thirdCatehgoryName,jdbcType=VARCHAR}, 
+      #{unitId,jdbcType=INTEGER}, #{unitName,jdbcType=VARCHAR}, #{baseUnitId,jdbcType=INTEGER}, 
+      #{baseUnitName,jdbcType=VARCHAR}, #{changeNum,jdbcType=INTEGER}, #{costPrice,jdbcType=VARCHAR}, 
+      #{isOnSale,jdbcType=INTEGER}, #{purchaseOnOrderNum,jdbcType=INTEGER}, #{stockNum,jdbcType=INTEGER}, 
+      #{occupyNum,jdbcType=INTEGER}, #{actionLockCount,jdbcType=INTEGER}, #{actionOccupyCount,jdbcType=INTEGER}, 
+      #{addTime,jdbcType=VARCHAR}, #{modTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtask.model.ReportOrderSku" >
+    <!--          -->
+    insert into T_REPORT_ORDER_SKU
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderSkuId != null" >
+        ORDER_SKU_ID,
+      </if>
+      <if test="skuNo != null" >
+        SKU_NO,
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME,
+      </if>
+      <if test="skuTypeId != null" >
+        SKU_TYPE_ID,
+      </if>
+      <if test="skuTypeName != null" >
+        SKU_TYPE_NAME,
+      </if>
+      <if test="skuLevelId != null" >
+        SKU_LEVEL_ID,
+      </if>
+      <if test="skuLevelName != null" >
+        SKU_LEVEL_NAME,
+      </if>
+      <if test="brandId != null" >
+        BRAND_ID,
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME,
+      </if>
+      <if test="topCategoryId != null" >
+        TOP_CATEGORY_ID,
+      </if>
+      <if test="topCategoryName != null" >
+        TOP_CATEGORY_NAME,
+      </if>
+      <if test="secondCategoryId != null" >
+        SECOND_CATEGORY_ID,
+      </if>
+      <if test="secondCategoryName != null" >
+        SECOND_CATEGORY_NAME,
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        THIRD_CATEHGORY_ID,
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        THIRD_CATEHGORY_NAME,
+      </if>
+      <if test="unitId != null" >
+        UNIT_ID,
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME,
+      </if>
+      <if test="baseUnitId != null" >
+        BASE_UNIT_ID,
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME,
+      </if>
+      <if test="changeNum != null" >
+        CHANGE_NUM,
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE,
+      </if>
+      <if test="isOnSale != null" >
+        IS_ON_SALE,
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        PURCHASE_ON_ORDER_NUM,
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM,
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM,
+      </if>
+      <if test="actionLockCount != null" >
+        ACTION_LOCK_COUNT,
+      </if>
+      <if test="actionOccupyCount != null" >
+        ACTION_OCCUPY_COUNT,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderSkuId != null" >
+        #{orderSkuId,jdbcType=VARCHAR},
+      </if>
+      <if test="skuNo != null" >
+        #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTypeId != null" >
+        #{skuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeName != null" >
+        #{skuTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuLevelId != null" >
+        #{skuLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="skuLevelName != null" >
+        #{skuLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topCategoryId != null" >
+        #{topCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="topCategoryName != null" >
+        #{topCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategoryId != null" >
+        #{secondCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategoryName != null" >
+        #{secondCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        #{thirdCatehgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        #{thirdCatehgoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="unitName != null" >
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseUnitId != null" >
+        #{baseUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="baseUnitName != null" >
+        #{baseUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeNum != null" >
+        #{changeNum,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnSale != null" >
+        #{isOnSale,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        #{purchaseOnOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null" >
+        #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="actionLockCount != null" >
+        #{actionLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="actionOccupyCount != null" >
+        #{actionOccupyCount,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtask.model.ReportOrderSku" >
+    <!--          -->
+    update T_REPORT_ORDER_SKU
+    <set >
+      <if test="skuNo != null" >
+        SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="skuName != null" >
+        SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuTypeId != null" >
+        SKU_TYPE_ID = #{skuTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="skuTypeName != null" >
+        SKU_TYPE_NAME = #{skuTypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="skuLevelId != null" >
+        SKU_LEVEL_ID = #{skuLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="skuLevelName != null" >
+        SKU_LEVEL_NAME = #{skuLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        BRAND_ID = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="topCategoryId != null" >
+        TOP_CATEGORY_ID = #{topCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="topCategoryName != null" >
+        TOP_CATEGORY_NAME = #{topCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="secondCategoryId != null" >
+        SECOND_CATEGORY_ID = #{secondCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="secondCategoryName != null" >
+        SECOND_CATEGORY_NAME = #{secondCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCatehgoryId != null" >
+        THIRD_CATEHGORY_ID = #{thirdCatehgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="thirdCatehgoryName != null" >
+        THIRD_CATEHGORY_NAME = #{thirdCatehgoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="unitId != null" >
+        UNIT_ID = #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="unitName != null" >
+        UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="baseUnitId != null" >
+        BASE_UNIT_ID = #{baseUnitId,jdbcType=INTEGER},
+      </if>
+      <if test="baseUnitName != null" >
+        BASE_UNIT_NAME = #{baseUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="changeNum != null" >
+        CHANGE_NUM = #{changeNum,jdbcType=INTEGER},
+      </if>
+      <if test="costPrice != null" >
+        COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnSale != null" >
+        IS_ON_SALE = #{isOnSale,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseOnOrderNum != null" >
+        PURCHASE_ON_ORDER_NUM = #{purchaseOnOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="stockNum != null" >
+        STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      </if>
+      <if test="occupyNum != null" >
+        OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      </if>
+      <if test="actionLockCount != null" >
+        ACTION_LOCK_COUNT = #{actionLockCount,jdbcType=INTEGER},
+      </if>
+      <if test="actionOccupyCount != null" >
+        ACTION_OCCUPY_COUNT = #{actionOccupyCount,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORDER_SKU_ID = #{orderSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtask.model.ReportOrderSku" >
+    <!--          -->
+    update T_REPORT_ORDER_SKU
+    set SKU_NO = #{skuNo,jdbcType=VARCHAR},
+      SKU_NAME = #{skuName,jdbcType=VARCHAR},
+      SKU_TYPE_ID = #{skuTypeId,jdbcType=INTEGER},
+      SKU_TYPE_NAME = #{skuTypeName,jdbcType=VARCHAR},
+      SKU_LEVEL_ID = #{skuLevelId,jdbcType=INTEGER},
+      SKU_LEVEL_NAME = #{skuLevelName,jdbcType=VARCHAR},
+      BRAND_ID = #{brandId,jdbcType=INTEGER},
+      BRAND_NAME = #{brandName,jdbcType=VARCHAR},
+      TOP_CATEGORY_ID = #{topCategoryId,jdbcType=INTEGER},
+      TOP_CATEGORY_NAME = #{topCategoryName,jdbcType=VARCHAR},
+      SECOND_CATEGORY_ID = #{secondCategoryId,jdbcType=INTEGER},
+      SECOND_CATEGORY_NAME = #{secondCategoryName,jdbcType=VARCHAR},
+      THIRD_CATEHGORY_ID = #{thirdCatehgoryId,jdbcType=INTEGER},
+      THIRD_CATEHGORY_NAME = #{thirdCatehgoryName,jdbcType=VARCHAR},
+      UNIT_ID = #{unitId,jdbcType=INTEGER},
+      UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      BASE_UNIT_ID = #{baseUnitId,jdbcType=INTEGER},
+      BASE_UNIT_NAME = #{baseUnitName,jdbcType=VARCHAR},
+      CHANGE_NUM = #{changeNum,jdbcType=INTEGER},
+      COST_PRICE = #{costPrice,jdbcType=VARCHAR},
+      IS_ON_SALE = #{isOnSale,jdbcType=INTEGER},
+      PURCHASE_ON_ORDER_NUM = #{purchaseOnOrderNum,jdbcType=INTEGER},
+      STOCK_NUM = #{stockNum,jdbcType=INTEGER},
+      OCCUPY_NUM = #{occupyNum,jdbcType=INTEGER},
+      ACTION_LOCK_COUNT = #{actionLockCount,jdbcType=INTEGER},
+      ACTION_OCCUPY_COUNT = #{actionOccupyCount,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      MOD_TIME = #{modTime,jdbcType=VARCHAR}
+    where ORDER_SKU_ID = #{orderSkuId,jdbcType=VARCHAR}
+  </update>
+  <update id="trunCateOrderSku">
+      TRUNCATE TABLE T_REPORT_ORDER_SKU
+  </update>
+  <select id="getDistinctSkuTotalCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+    SELECT
+      COUNT(1)
+    FROM
+      (
+        SELECT
+          DISTINCT a.GOODS_ID
+        FROM
+          T_SALEORDER_GOODS a
+        LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+        LEFT JOIN T_CAPITAL_BILL_DETAIL c ON b.SALEORDER_ID = c.RELATED_ID
+        LEFT JOIN T_CAPITAL_BILL d ON c.CAPITAL_BILL_ID = d.CAPITAL_BILL_ID
+        WHERE b.`STATUS` != #{status,jdbcType=INTEGER}
+          <if test="traderTypeList != null and traderTypeList.size() > 0 and traderModeList != null and traderModeList.size() > 0">
+            AND d.TRADER_TYPE IN
+            <foreach collection="traderTypeList" separator="," open="(" close=")" item="traderType" index="index">
+              #{traderType,jdbcType=INTEGER}
+            </foreach>
+            AND d.TRADER_MODE NOT IN
+            <foreach collection="traderModeList" separator="," open="(" close=")" item="traderMode" index="index">
+              #{traderMode,jdbcType=INTEGER}
+            </foreach>
+          </if>
+      ) m
+  </select>
+  <select id="getReportOrderSkuList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+      CONCAT('V',m.GOODS_ID) AS SKU_NO
+    FROM
+    (
+      SELECT
+        DISTINCT a.GOODS_ID
+      FROM
+        T_SALEORDER_GOODS a
+      LEFT JOIN T_SALEORDER b ON a.SALEORDER_ID = b.SALEORDER_ID
+      LEFT JOIN T_CAPITAL_BILL_DETAIL c ON b.SALEORDER_ID = c.RELATED_ID
+      LEFT JOIN T_CAPITAL_BILL d ON c.CAPITAL_BILL_ID = d.CAPITAL_BILL_ID
+      WHERE b.`STATUS` != #{status,jdbcType=INTEGER}
+      <if test="traderTypeList != null and traderTypeList.size() > 0 and traderModeList != null and traderModeList.size() > 0">
+        AND d.TRADER_TYPE IN
+        <foreach collection="traderTypeList" separator="," open="(" close=")" item="traderType" index="index">
+          #{traderType,jdbcType=INTEGER}
+        </foreach>
+        AND d.TRADER_MODE NOT IN
+        <foreach collection="traderModeList" separator="," open="(" close=")" item="traderMode" index="index">
+          #{traderMode,jdbcType=INTEGER}
+        </foreach>
+      </if>
+    ) m
+    ORDER BY m.GOODS_ID
+    LIMIT #{beginCount,jdbcType=INTEGER},#{endCount,jdbcType=INTEGER}
+  </select>
+  <select id="getReportOrderSkuOtherInfoList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+      a.SKU_NO,
+      a.SKU_NAME,
+      b.SPU_LEVEL AS SKU_LEVEL_ID,
+      (
+        CASE WHEN b.SPU_LEVEL = 0 THEN '其他产品'
+        WHEN b.SPU_LEVEL = 1 THEN '核心产品'
+        WHEN b.SPU_LEVEL = 2 THEN '临时产品'
+        END
+      ) AS SKU_LEVEL_NAME,
+      b.SPU_TYPE AS SKU_TYPE_ID,
+      d.TITLE AS SKU_TYPE_NAME,
+      b.BRAND_ID,
+      c.BRAND_NAME,
+      a.UNIT_ID,
+      a.BASE_UNIT_ID,
+      a.CHANGE_NUM,
+      b.CATEGORY_ID AS THIRD_CATEHGORY_ID
+    FROM
+      V_CORE_SKU a
+    LEFT JOIN V_CORE_SPU b ON a.SPU_ID = b.SPU_ID
+    LEFT JOIN T_BRAND c ON b.BRAND_ID = c.BRAND_ID
+    LEFT JOIN T_SYS_OPTION_DEFINITION d ON d.SYS_OPTION_DEFINITION_ID = b.SPU_TYPE
+    <if test="list != null and list.size() > 0">
+      WHERE a.SKU_NO IN
+      <foreach collection="list" index="index" item="reportOrderSku" open="(" close=")" separator=",">
+        #{reportOrderSku.skuNo,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+  </select>
+  <select id="getUnitList" resultType="com.vedeng.goods.model.Unit">
+    SELECT
+      UNIT_ID,
+      UNIT_NAME
+    FROM
+      T_UNIT
+    WHERE IS_DEL = 0
+  </select>
+  <select id="getReportOrderSkuCategoryInfoList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+      a.BASE_CATEGORY_ID AS THIRD_CATEHGORY_ID,
+      a.BASE_CATEGORY_NAME AS THIRD_CATEHGORY_NAME,
+      b.BASE_CATEGORY_ID AS SECOND_CATEGORY_ID,
+      b.BASE_CATEGORY_NAME AS SECOND_CATEGORY_NAME,
+      c.BASE_CATEGORY_ID AS TOP_CATEGORY_ID,
+      c.BASE_CATEGORY_NAME AS TOP_CATEGORY_NAME
+    FROM
+      V_BASE_CATEGORY a
+    LEFT JOIN V_BASE_CATEGORY b ON a.PARENT_ID = b.BASE_CATEGORY_ID
+    LEFT JOIN V_BASE_CATEGORY c ON b.PARENT_ID = c.BASE_CATEGORY_ID
+    <if test="list != null and list.size() > 0">
+      WHERE a.BASE_CATEGORY_ID IN
+      <foreach collection="list" separator="," open="(" close=")" item="reportOrderSku" index="index">
+        #{reportOrderSku.thirdCatehgoryId,jdbcType=VARCHAR}
+      </foreach>
+    </if>
+  </select>
+  <select id="getReportOrderSkuOnOrderNumList" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+        T.SKU AS SKU_NO,
+        SUM(T.ONWAYNUM) AS PURCHASE_ON_ORDER_NUM
+    FROM
+        (
+            SELECT
+                a.`SKU`,
+                COALESCE (
+                    SUM(
+                        (
+                            a.NUM - IFNULL(a.ARRIVAL_NUM, 0) - IFNULL(TT.SHNUM, 0)
+                        )
+                    ),
+                    0
+                ) ONWAYNUM,
+                b.BUYORDER_NO,
+                a.ESTIMATE_ARRIVAL_TIME,
+                b.VALID_TIME,
+                b.BUYORDER_ID
+            FROM
+                T_BUYORDER_GOODS a
+            LEFT JOIN T_BUYORDER b ON a.BUYORDER_ID = b.BUYORDER_ID
+            LEFT JOIN (
+                SELECT
+                    IFNULL(SUM(d.NUM), 0) SHNUM,
+                    c.ORDER_ID
+                FROM
+                    T_AFTER_SALES c
+                LEFT JOIN T_AFTER_SALES_GOODS d ON c.AFTER_SALES_ID = d.AFTER_SALES_ID
+                LEFT JOIN T_GOODS go ON d.GOODS_ID = go.GOODS_ID
+                WHERE
+                    c.TYPE = 546
+                <if test="list != null and list.size() > 0">
+                    AND go.SKU IN
+                    <foreach collection="list" index="index" item="reportOrderSku" open="(" close=")" separator=",">
+                        #{reportOrderSku.skuNo,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+                AND c.VALID_STATUS = 1
+                AND c.ATFER_SALES_STATUS != 3
+                AND c.SUBJECT_TYPE = 536
+                GROUP BY
+                    c.ORDER_ID
+            ) TT ON a.BUYORDER_ID = TT.ORDER_ID
+            WHERE
+                b.VALID_STATUS = 1
+            AND b.PAYMENT_STATUS IN (1, 2)
+            AND b.DELIVERY_DIRECT = 0
+            AND b.ARRIVAL_STATUS IN (0, 1)
+            AND b. STATUS != 3
+            <if test="list != null and list.size() > 0">
+                AND a.`SKU` IN
+                <foreach collection="list" index="index" item="reportOrderSku" open="(" close=")" separator=",">
+                    #{reportOrderSku.skuNo,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+            GROUP BY
+                b.BUYORDER_ID,
+                a.`SKU`
+        ) T
+    WHERE
+        T.ONWAYNUM > 0
+    GROUP BY T.SKU
+  </select>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into T_REPORT_ORDER_SKU (ORDER_SKU_ID, SKU_NO, SKU_NAME,
+      SKU_TYPE_ID, SKU_TYPE_NAME, SKU_LEVEL_ID,
+      SKU_LEVEL_NAME, BRAND_ID, BRAND_NAME,
+      TOP_CATEGORY_ID, TOP_CATEGORY_NAME, SECOND_CATEGORY_ID,
+      SECOND_CATEGORY_NAME, THIRD_CATEHGORY_ID, THIRD_CATEHGORY_NAME,
+      UNIT_ID, UNIT_NAME, BASE_UNIT_ID,
+      BASE_UNIT_NAME, CHANGE_NUM, COST_PRICE,
+      IS_ON_SALE, PURCHASE_ON_ORDER_NUM, STOCK_NUM,
+      OCCUPY_NUM, ACTION_LOCK_COUNT, ACTION_OCCUPY_COUNT,
+      ADD_TIME, MOD_TIME)
+    values
+      <foreach collection="list" index="index" item="reportOrderSku" separator="," >
+        (#{reportOrderSku.orderSkuId,jdbcType=VARCHAR}, #{reportOrderSku.skuNo,jdbcType=VARCHAR}, #{reportOrderSku.skuName,jdbcType=VARCHAR},
+        #{reportOrderSku.skuTypeId,jdbcType=INTEGER}, #{reportOrderSku.skuTypeName,jdbcType=VARCHAR}, #{reportOrderSku.skuLevelId,jdbcType=INTEGER},
+        #{reportOrderSku.skuLevelName,jdbcType=VARCHAR}, #{reportOrderSku.brandId,jdbcType=INTEGER}, #{reportOrderSku.brandName,jdbcType=VARCHAR},
+        #{reportOrderSku.topCategoryId,jdbcType=INTEGER}, #{reportOrderSku.topCategoryName,jdbcType=VARCHAR}, #{reportOrderSku.secondCategoryId,jdbcType=INTEGER},
+        #{reportOrderSku.secondCategoryName,jdbcType=VARCHAR}, #{reportOrderSku.thirdCatehgoryId,jdbcType=INTEGER}, #{reportOrderSku.thirdCatehgoryName,jdbcType=VARCHAR},
+        #{reportOrderSku.unitId,jdbcType=INTEGER}, #{reportOrderSku.unitName,jdbcType=VARCHAR}, #{reportOrderSku.baseUnitId,jdbcType=INTEGER},
+        #{reportOrderSku.baseUnitName,jdbcType=VARCHAR}, #{reportOrderSku.changeNum,jdbcType=INTEGER}, #{reportOrderSku.costPrice,jdbcType=VARCHAR},
+        #{reportOrderSku.isOnSale,jdbcType=INTEGER}, #{reportOrderSku.purchaseOnOrderNum,jdbcType=INTEGER}, #{reportOrderSku.stockNum,jdbcType=INTEGER},
+        #{reportOrderSku.occupyNum,jdbcType=INTEGER}, #{reportOrderSku.actionLockCount,jdbcType=INTEGER}, #{reportOrderSku.actionOccupyCount,jdbcType=INTEGER},
+        #{reportOrderSku.addTime,jdbcType=VARCHAR}, #{reportOrderSku.modTime,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+</mapper>

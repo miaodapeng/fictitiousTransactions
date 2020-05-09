@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.ParamsConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.ParamsConfig" >
+    <id column="PARAMS_CONFIG_ID" property="paramsConfigId" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="PARAMS_KEY" property="paramsKey" jdbcType="INTEGER" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap type="com.vedeng.system.model.vo.ParamsConfigVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="PARAMS_CONFIG_VALUE_ID" property="paramsConfigValueId" jdbcType="INTEGER" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="PARAMS_VALUE" property="paramsValue" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    PARAMS_CONFIG_ID, STATUS, PARAMS_KEY, TITLE, COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_PARAMS_CONFIG
+    where PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_PARAMS_CONFIG
+    where PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.ParamsConfig" >
+    insert into T_PARAMS_CONFIG (PARAMS_CONFIG_ID, STATUS, PARAMS_KEY, 
+      TITLE, COMMENTS)
+    values (#{paramsConfigId,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{paramsKey,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.ParamsConfig" >
+    insert into T_PARAMS_CONFIG
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paramsConfigId != null" >
+        PARAMS_CONFIG_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="paramsKey != null" >
+        PARAMS_KEY,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="comments != null" >
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paramsConfigId != null" >
+        #{paramsConfigId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="paramsKey != null" >
+        #{paramsKey,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="paramsConfigId">
+		SELECT LAST_INSERT_ID() AS paramsConfigId
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.ParamsConfig" >
+    update T_PARAMS_CONFIG
+    <set >
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+      <if test="paramsKey != null" >
+        PARAMS_KEY = #{paramsKey,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.ParamsConfig" >
+    update T_PARAMS_CONFIG
+    set STATUS = #{status,jdbcType=BIT},
+      PARAMS_KEY = #{paramsKey,jdbcType=INTEGER},
+      TITLE = #{title,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR}
+    where PARAMS_CONFIG_ID = #{paramsConfigId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getParamsConfigVoByParamsKey" resultMap="VoResultMap" parameterType="com.vedeng.system.model.vo.ParamsConfigVo">
+  	select  
+  		a.PARAMS_CONFIG_ID, a.STATUS, a.PARAMS_KEY, a.TITLE, a.COMMENTS,
+  		b.PARAMS_CONFIG_VALUE_ID, b.COMPANY_ID, b.PARAMS_VALUE
+  	from T_PARAMS_CONFIG a
+  	left join T_PARAMS_CONFIG_VALUE b on a.PARAMS_CONFIG_ID = b.PARAMS_CONFIG_ID
+  	<if test="companyId != null and companyId != 0" >
+         and b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+      </if>
+  	where a.STATUS = 1
+  	  
+  	  <if test="paramsKey != null" >
+         and a.PARAMS_KEY = #{paramsKey,jdbcType=INTEGER}
+      </if>
+      <if test="title != null" >
+         and a.TITLE = #{title,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+   <select id="getParamsConfigVoList" resultMap="VoResultMap" parameterType="com.vedeng.system.model.vo.ParamsConfigVo">
+  	select  
+  		a.PARAMS_CONFIG_ID, a.STATUS, a.PARAMS_KEY, a.TITLE, a.COMMENTS,
+  		b.PARAMS_CONFIG_VALUE_ID, b.COMPANY_ID, b.PARAMS_VALUE
+  	from T_PARAMS_CONFIG a
+  	left join T_PARAMS_CONFIG_VALUE b on a.PARAMS_CONFIG_ID = b.PARAMS_CONFIG_ID
+  	where a.STATUS = 1
+  	  <if test="companyId != null and companyId != 0" >
+         and b.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+      </if>
+  	  <if test="paramsKey != null" >
+         and a.PARAMS_KEY = #{paramsKey,jdbcType=INTEGER}
+      </if>
+      <if test="title != null" >
+         and a.TITLE = #{title,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
+  <delete id="delParamsConfig" parameterType="java.lang.Integer" >
+  		delete from T_PARAMS_CONFIG
+    		where STATUS = 1 AND PARAMS_KEY = #{paramsKey,jdbcType=INTEGER}  
+  </delete>
+</mapper>

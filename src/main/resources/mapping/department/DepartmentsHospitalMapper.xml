@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vedeng.department.dao.DepartmentsHospitalMapper">
+  <resultMap id="BaseResultMap" type="com.vedeng.department.model.DepartmentsHospital">
+    <id column="DEPARTMENT_ID" jdbcType="INTEGER" property="departmentId" />
+    <result column="DEPARTMENT_NAME" jdbcType="VARCHAR" property="departmentName" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+    <result column="IS_DELETE" jdbcType="BIT" property="isDelete" />
+    <result column="UPDATER" jdbcType="INTEGER" property="updater" />
+    <result column="MOD_TIME" jdbcType="BIGINT" property="modTime" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="ADD_TIME" jdbcType="BIGINT" property="addTime" />
+    <result column="GOODS_NUM" property="goodsNum" />
+
+    <collection property="departmentFeeItemsMappings" ofType="com.vedeng.department.model.DepartmentFeeItemsMapping">
+      <result column="feePro" jdbcType="VARCHAR" property="feePro"/>
+    </collection>
+
+      <!-- 一级收费项目 -->
+    <collection property="departmentFeeItems" ofType="com.vedeng.department.model.DepartmentFeeItems">
+      <result column="FEE_ID_ONE" property="departmentFeeItemsId"/>
+      <result column="FEE_NAME_ONE" property="feeItemsName"/>
+        <!-- 二级收费项目 -->
+        <collection property="departmentFeeItemsList" ofType="com.vedeng.department.model.DepartmentFeeItems">
+            <result column="FEE_ID_TWO" property="departmentFeeItemsId"/>
+            <result column="FEE_NAME_TWO" property="feeItemsName"/>
+            <result column="FEE_NAME_THREE" property="feeItemsNameThree"/>
+            <!-- 三级收费项目 -->
+            <!--<collection property="departmentFeeItemsList" ofType="com.vedeng.department.model.DepartmentFeeItems">
+                <result column="FEE_ID_THREE" property="departmentFeeItemsId"/>
+                <result column="FEE_NAME_THREE" property="feeItemsName"/>
+            </collection>-->
+        </collection>
+    </collection>
+
+  </resultMap>
+  <sql id="Base_Column_List">
+    DEPARTMENT_ID, DEPARTMENT_NAME, DESCRIPTION, IS_DELETE, UPDATER, MOD_TIME, CREATOR,
+    ADD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from T_DEPARTMENTS_HOSPITAL
+    where DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER}
+    and IS_DELETE = 0
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_DEPARTMENTS_HOSPITAL
+    where DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER}
+  </delete>
+
+  <update id="deleteByParam" parameterType="java.util.Map">
+      update
+        T_DEPARTMENTS_HOSPITAL
+      set
+        IS_DELETE = 1,
+        UPDATER = #{userId, jdbcType=INTEGER},
+        MOD_TIME = unix_timestamp(now())*1000
+      where DEPARTMENT_ID = #{departmentId, jdbcType=INTEGER}
+  </update>
+
+  <insert id="insert" parameterType="com.vedeng.department.model.DepartmentsHospital">
+    insert into T_DEPARTMENTS_HOSPITAL (DEPARTMENT_ID, DEPARTMENT_NAME, DESCRIPTION,
+      IS_DELETE, UPDATER, MOD_TIME, 
+      CREATOR, ADD_TIME)
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=BIT}, #{updater,jdbcType=INTEGER}, #{modTime,jdbcType=BIGINT}, 
+      #{creator,jdbcType=INTEGER}, #{addTime,jdbcType=BIGINT})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.vedeng.department.model.DepartmentsHospital" useGeneratedKeys="true" keyProperty="departmentId">
+    insert into T_DEPARTMENTS_HOSPITAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        DEPARTMENT_ID,
+      </if>
+      <if test="departmentName != null">
+        DEPARTMENT_NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+        ADD_TIME,
+        CREATOR,
+        MOD_TIME,
+        UPDATER,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null">
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+        unix_timestamp(now())*1000,
+        #{creator,jdbcType=INTEGER},
+        unix_timestamp(now())*1000,
+        #{creator,jdbcType=INTEGER},
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.department.model.DepartmentsHospital">
+    update T_DEPARTMENTS_HOSPITAL
+    <set>
+      <if test="departmentName != null">
+        DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+        MOD_TIME = unix_timestamp(now())*1000,
+    </set>
+    where DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.department.model.DepartmentsHospital">
+    update T_DEPARTMENTS_HOSPITAL
+    set DEPARTMENT_NAME = #{departmentName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      IS_DELETE = #{isDelete,jdbcType=BIT},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=BIGINT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      ADD_TIME = #{addTime,jdbcType=BIGINT}
+    where DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="getHostipalDepartmentInfoListPage" resultMap="BaseResultMap">
+	SELECT
+		a.DEPARTMENT_ID,
+		a.DEPARTMENT_NAME,
+		a.DESCRIPTION,
+		a.MOD_TIME,
+        COALESCE(COUNT(c.SKU_ID), 0) as GOODS_NUM
+	FROM
+		T_DEPARTMENTS_HOSPITAL a
+        LEFT JOIN V_SPU_DEPARTMENT_MAPPING b ON a.DEPARTMENT_ID = b.DEPARTMENT_ID = 1
+        LEFT JOIN V_CORE_SKU c ON b.SPU_ID = c.SPU_ID and c.CHECK_STATUS <![CDATA[ != ]]> 4
+	WHERE
+		a.IS_DELETE = #{isDelete, jdbcType=INTEGER}
+		and b.`STATUS` = 1
+        <if test="null != searchStatus and searchStatus == 1">
+            AND (a.DEPARTMENT_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')  or a.DESCRIPTION LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%'))
+        </if>
+        <if test="null != searchStatus and searchStatus == 2">
+            AND a.DEPARTMENT_NAME LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="null != searchStatus and searchStatus == 3">
+            AND a.DESCRIPTION LIKE CONCAT('%',#{keyWords,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="deptName != null">
+            AND a.DEPARTMENT_NAME LIKE CONCAT('%',#{deptName,jdbcType=VARCHAR},'%')
+        </if>
+
+        <if test="deptName1 != null">
+            AND a.DEPARTMENT_NAME = #{deptName1,jdbcType=VARCHAR}
+        </if>
+
+        <if test="notEqId != null">
+            AND a.DEPARTMENT_ID <![CDATA[ != ]]> #{notEqId, jdbcType=INTEGER}
+        </if>
+
+        <if test="null != updateStartDate">
+            AND a.MOD_TIME <![CDATA[ >= ]]> #{updateStartDate, jdbcType=BIGINT}
+        </if>
+        <if test="null != updateEndDate">
+            AND a.MOD_TIME <![CDATA[ <= ]]> #{updateEndDate, jdbcType=BIGINT}
+        </if>
+
+        GROUP BY a.DEPARTMENT_ID
+
+        <if test="null != timeSort and timeSort == 1">
+            ORDER BY a.MOD_TIME DESC
+        </if>
+        <if test="null != timeSort and timeSort == 2">
+            ORDER BY a.MOD_TIME
+        </if>
+
+  </select>
+
+  <resultMap id="FeeResultMap" type="com.vedeng.department.model.DepartmentFeeItems">
+    <id column="DEPARTMENT_FEE_ITEMS_ID" jdbcType="INTEGER" property="departmentFeeItemsId" />
+    <result column="PARENT_ID" jdbcType="INTEGER" property="parentId" />
+    <result column="FEE_ITEMS_NUMBER" jdbcType="INTEGER" property="feeItemsNumber" />
+    <result column="FEE_ITEMS_NAME" jdbcType="VARCHAR" property="feeItemsName" />
+    <result column="EVENT_MEANING" jdbcType="VARCHAR" property="eventMeaning" />
+    <result column="EXTRA_CONTENT" jdbcType="VARCHAR" property="extraContent" />
+    <result column="DESCRIPTION" jdbcType="VARCHAR" property="description" />
+
+    <collection property="departmentFeeItemsList" ofType="com.vedeng.department.model.DepartmentFeeItems">
+      <id column="departmentFeeItemsId1" jdbcType="INTEGER" property="departmentFeeItemsId" />
+      <result column="parentId1" jdbcType="INTEGER" property="parentId" />
+      <result column="feeItemsNumber1" jdbcType="INTEGER" property="feeItemsNumber" />
+      <result column="feeItemsName1" jdbcType="VARCHAR" property="feeItemsName" />
+      <result column="eventMeaning1" jdbcType="VARCHAR" property="eventMeaning" />
+      <result column="extraContent1" jdbcType="VARCHAR" property="extraContent" />
+      <result column="description1" jdbcType="VARCHAR" property="description" />
+
+      <collection property="departmentFeeItemsList" ofType="com.vedeng.department.model.DepartmentFeeItems">
+        <id column="departmentFeeItemsId2" jdbcType="INTEGER" property="departmentFeeItemsId" />
+        <result column="parentId2" jdbcType="INTEGER" property="parentId" />
+        <result column="feeItemsNumber2" jdbcType="INTEGER" property="feeItemsNumber" />
+        <result column="feeItemsName2" jdbcType="VARCHAR" property="feeItemsName" />
+        <result column="eventMeaning2" jdbcType="VARCHAR" property="eventMeaning" />
+        <result column="extraContent2" jdbcType="VARCHAR" property="extraContent" />
+        <result column="description2" jdbcType="VARCHAR" property="description" />
+      </collection>
+    </collection>
+  </resultMap>
+
+  <select id="getDepartmentFeeItemsInfo" resultMap="FeeResultMap">
+    SELECT
+        a.DEPARTMENT_FEE_ITEMS_ID,
+        a.PARENT_ID,
+        a.FEE_ITEMS_NUMBER,
+        a.FEE_ITEMS_NAME,
+        a.EVENT_MEANING,
+        a.EXTRA_CONTENT,
+        a.DESCRIPTION,
+        b.DEPARTMENT_FEE_ITEMS_ID AS departmentFeeItemsId1,
+        b.PARENT_ID AS parentId1,
+        b.FEE_ITEMS_NUMBER AS feeItemsNumber1,
+        b.FEE_ITEMS_NAME AS feeItemsName1,
+        b.EVENT_MEANING AS eventMeaning1,
+        b.EXTRA_CONTENT AS extraContent1,
+        b.DESCRIPTION AS description1,
+        c.DEPARTMENT_FEE_ITEMS_ID AS departmentFeeItemsId2,
+        c.PARENT_ID AS parentId2,
+        c.FEE_ITEMS_NUMBER AS feeItemsNumber2,
+        c.FEE_ITEMS_NAME AS feeItemsName2,
+        c.EVENT_MEANING AS eventMeaning2,
+        c.EXTRA_CONTENT AS extraContent2,
+        c.DESCRIPTION AS description2
+    FROM
+        T_DEPARTMENT_FEE_ITEMS a
+        LEFT JOIN T_DEPARTMENT_FEE_ITEMS b ON a.DEPARTMENT_FEE_ITEMS_ID = b.PARENT_ID
+        LEFT JOIN T_DEPARTMENT_FEE_ITEMS c ON b.DEPARTMENT_FEE_ITEMS_ID = c.PARENT_ID
+    WHERE
+        a.PARENT_ID = #{parentId, jdbcType=INTEGER}
+    ORDER BY a.DEPARTMENT_FEE_ITEMS_ID, b.DEPARTMENT_FEE_ITEMS_ID
+  </select>
+
+
+  <select id="getDepartmentsHospitalInfoById" resultMap="BaseResultMap">
+    SELECT
+        a.DEPARTMENT_ID,
+        a.DEPARTMENT_NAME,
+        a.DESCRIPTION,
+        IF(
+              e.FEE_ITEMS_NAME = '' OR e.FEE_ITEMS_NAME IS NULL,
+              IF(
+                  d.FEE_ITEMS_NAME = '' OR d.FEE_ITEMS_NAME IS NULL,
+                IF(c.FEE_ITEMS_NAME = '' OR c.FEE_ITEMS_NAME IS NULL, '--', c.FEE_ITEMS_NAME),
+                CONCAT(d.FEE_ITEMS_NAME, '>', c.FEE_ITEMS_NAME)
+              ),
+              CONCAT(e.FEE_ITEMS_NAME, '>', d.FEE_ITEMS_NAME, '>', c.FEE_ITEMS_NAME)
+            ) AS feePro
+
+    FROM
+        T_DEPARTMENTS_HOSPITAL a
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS_MAPPING b ON a.DEPARTMENT_ID = b.DEPARTMENT_ID AND b.IS_DELETE = 0
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS c ON b.DEPARTMENT_FEE_ITEMS_ID = c.DEPARTMENT_FEE_ITEMS_ID
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS d ON c.PARENT_ID = d.DEPARTMENT_FEE_ITEMS_ID
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS e ON d.PARENT_ID = e.DEPARTMENT_FEE_ITEMS_ID
+    WHERE
+        a.DEPARTMENT_ID = #{departmentsHospitalId, jdbcType=INTEGER}
+        <if test="isDelete != null">
+            AND a.IS_DELETE = #{isDelete, jdbcType=INTEGER}
+        </if>
+    ORDER BY
+      a.DEPARTMENT_ID DESC
+  </select>
+
+  <select id="getDepartmentsHospitalInfoByIdEdit" resultMap="BaseResultMap">
+    SELECT
+        a.DEPARTMENT_ID,
+        a.DEPARTMENT_NAME,
+        a.DESCRIPTION,
+        IF(
+              e.FEE_ITEMS_NAME = '' OR e.FEE_ITEMS_NAME IS NULL,
+              IF(
+                  d.FEE_ITEMS_NAME = '' OR d.FEE_ITEMS_NAME IS NULL,
+                IF(c.FEE_ITEMS_NAME = '' OR c.FEE_ITEMS_NAME IS NULL, '--', c.FEE_ITEMS_NAME),
+                CONCAT(d.FEE_ITEMS_NAME, '>', c.FEE_ITEMS_NAME)
+              ),
+              CONCAT(e.FEE_ITEMS_NAME, '>', d.FEE_ITEMS_NAME, '>', c.FEE_ITEMS_NAME)
+            ) AS feePro,
+        IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, c.DEPARTMENT_FEE_ITEMS_ID, d.DEPARTMENT_FEE_ITEMS_ID), e.DEPARTMENT_FEE_ITEMS_ID) AS FEE_ID_ONE,
+        IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, c.FEE_ITEMS_NAME, d.FEE_ITEMS_NAME), e.FEE_ITEMS_NAME) AS FEE_NAME_ONE,
+
+        IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, c.DEPARTMENT_FEE_ITEMS_ID), IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, c.DEPARTMENT_FEE_ITEMS_ID, d.DEPARTMENT_FEE_ITEMS_ID)) AS FEE_ID_TWO,
+        IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, c.FEE_ITEMS_NAME), IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, c.FEE_ITEMS_NAME, d.FEE_ITEMS_NAME)) AS FEE_NAME_TWO,
+        REPLACE(GROUP_CONCAT(IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, c.DEPARTMENT_FEE_ITEMS_ID))
+				ORDER BY IF(e.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, IF(d.DEPARTMENT_FEE_ITEMS_ID IS NULL, NULL, c.DEPARTMENT_FEE_ITEMS_ID)) DESC), ",", "@") AS FEE_NAME_THREE
+
+    FROM
+        T_DEPARTMENTS_HOSPITAL a
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS_MAPPING b ON a.DEPARTMENT_ID = b.DEPARTMENT_ID AND b.IS_DELETE = 0
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS c ON b.DEPARTMENT_FEE_ITEMS_ID = c.DEPARTMENT_FEE_ITEMS_ID
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS d ON c.PARENT_ID = d.DEPARTMENT_FEE_ITEMS_ID
+    LEFT JOIN T_DEPARTMENT_FEE_ITEMS e ON d.PARENT_ID = e.DEPARTMENT_FEE_ITEMS_ID
+    WHERE
+        a.DEPARTMENT_ID = #{departmentsHospitalId, jdbcType=INTEGER}
+        <if test="isDelete != null">
+          AND a.IS_DELETE = #{isDelete, jdbcType=INTEGER}
+        </if>
+    GROUP BY
+            FEE_ID_TWO
+    ORDER BY a.DEPARTMENT_ID DESC, FEE_ID_ONE DESC, FEE_ID_TWO DESC
+  </select>
+
+</mapper>

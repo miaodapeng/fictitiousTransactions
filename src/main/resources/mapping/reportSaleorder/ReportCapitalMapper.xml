@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.reportSaleorder.dao.ReportCapitalMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.reportSaleorder.model.ReportCapital" >
+    <!--          -->
+    <id column="CAPITAL_ID" property="capitalId" jdbcType="INTEGER" />
+    <result column="SALEORDER_NO" property="saleorderNo" jdbcType="VARCHAR" />
+    <result column="CAPITAL_AMOUNT" property="capitalAmount" jdbcType="DECIMAL" />
+    <result column="VALID_USER_ID" property="validUserId" jdbcType="INTEGER" />
+    <result column="VALID_USER_NAME" property="validUserName" jdbcType="VARCHAR" />
+    <result column="VALID_DEPT_ID" property="validDeptId" jdbcType="INTEGER" />
+    <result column="VALID_PARENT_DEPT_ID" property="validParentDeptId" jdbcType="INTEGER" />
+    <result column="VALID_DEPT_NAME" property="validDeptName" jdbcType="VARCHAR" />
+    <result column="VALID_PARENT_DEPT_NAME" property="validParentDeptName" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_YEAR" property="dataDateYear" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_MONTH" property="dataDateMonth" jdbcType="VARCHAR" />
+    <result column="DATA_DATE_YM" property="dataDateYm" jdbcType="VARCHAR" />
+    <result column="DATA_DATE" property="dataDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    CAPITAL_ID, SALEORDER_NO, CAPITAL_AMOUNT, VALID_USER_ID, VALID_USER_NAME, VALID_DEPT_ID, 
+    VALID_PARENT_DEPT_ID, VALID_DEPT_NAME, VALID_PARENT_DEPT_NAME, DATA_DATE_YEAR, DATA_DATE_MONTH, 
+    DATA_DATE_YM, DATA_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--          -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_REPORT_CAPITAL
+    where CAPITAL_ID = #{capitalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--          -->
+    delete from T_REPORT_CAPITAL
+    where CAPITAL_ID = #{capitalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.reportSaleorder.model.ReportCapital" >
+    <!--          -->
+    insert into T_REPORT_CAPITAL (CAPITAL_ID, SALEORDER_NO, CAPITAL_AMOUNT, 
+      VALID_USER_ID, VALID_USER_NAME, VALID_DEPT_ID, 
+      VALID_PARENT_DEPT_ID, VALID_DEPT_NAME, VALID_PARENT_DEPT_NAME, 
+      DATA_DATE_YEAR, DATA_DATE_MONTH, DATA_DATE_YM, 
+      DATA_DATE)
+    values (#{capitalId,jdbcType=INTEGER}, #{saleorderNo,jdbcType=VARCHAR}, #{capitalAmount,jdbcType=DECIMAL}, 
+      #{validUserId,jdbcType=INTEGER}, #{validUserName,jdbcType=VARCHAR}, #{validDeptId,jdbcType=INTEGER}, 
+      #{validParentDeptId,jdbcType=INTEGER}, #{validDeptName,jdbcType=VARCHAR}, #{validParentDeptName,jdbcType=VARCHAR}, 
+      #{dataDateYear,jdbcType=VARCHAR}, #{dataDateMonth,jdbcType=VARCHAR}, #{dataDateYm,jdbcType=VARCHAR}, 
+      #{dataDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.reportSaleorder.model.ReportCapital" >
+    <!--          -->
+    insert into T_REPORT_CAPITAL
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="capitalId != null" >
+        CAPITAL_ID,
+      </if>
+      <if test="saleorderNo != null" >
+        SALEORDER_NO,
+      </if>
+      <if test="capitalAmount != null" >
+        CAPITAL_AMOUNT,
+      </if>
+      <if test="validUserId != null" >
+        VALID_USER_ID,
+      </if>
+      <if test="validUserName != null" >
+        VALID_USER_NAME,
+      </if>
+      <if test="validDeptId != null" >
+        VALID_DEPT_ID,
+      </if>
+      <if test="validParentDeptId != null" >
+        VALID_PARENT_DEPT_ID,
+      </if>
+      <if test="validDeptName != null" >
+        VALID_DEPT_NAME,
+      </if>
+      <if test="validParentDeptName != null" >
+        VALID_PARENT_DEPT_NAME,
+      </if>
+      <if test="dataDateYear != null" >
+        DATA_DATE_YEAR,
+      </if>
+      <if test="dataDateMonth != null" >
+        DATA_DATE_MONTH,
+      </if>
+      <if test="dataDateYm != null" >
+        DATA_DATE_YM,
+      </if>
+      <if test="dataDate != null" >
+        DATA_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="capitalId != null" >
+        #{capitalId,jdbcType=INTEGER},
+      </if>
+      <if test="saleorderNo != null" >
+        #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalAmount != null" >
+        #{capitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="validUserId != null" >
+        #{validUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validUserName != null" >
+        #{validUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDeptId != null" >
+        #{validDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validParentDeptId != null" >
+        #{validParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validDeptName != null" >
+        #{validDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validParentDeptName != null" >
+        #{validParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYear != null" >
+        #{dataDateYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateMonth != null" >
+        #{dataDateMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYm != null" >
+        #{dataDateYm,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDate != null" >
+        #{dataDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.reportSaleorder.model.ReportCapital" >
+    <!--          -->
+    update T_REPORT_CAPITAL
+    <set >
+      <if test="saleorderNo != null" >
+        SALEORDER_NO = #{saleorderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="capitalAmount != null" >
+        CAPITAL_AMOUNT = #{capitalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="validUserId != null" >
+        VALID_USER_ID = #{validUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validUserName != null" >
+        VALID_USER_NAME = #{validUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="validDeptId != null" >
+        VALID_DEPT_ID = #{validDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validParentDeptId != null" >
+        VALID_PARENT_DEPT_ID = #{validParentDeptId,jdbcType=INTEGER},
+      </if>
+      <if test="validDeptName != null" >
+        VALID_DEPT_NAME = #{validDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="validParentDeptName != null" >
+        VALID_PARENT_DEPT_NAME = #{validParentDeptName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYear != null" >
+        DATA_DATE_YEAR = #{dataDateYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateMonth != null" >
+        DATA_DATE_MONTH = #{dataDateMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDateYm != null" >
+        DATA_DATE_YM = #{dataDateYm,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDate != null" >
+        DATA_DATE = #{dataDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CAPITAL_ID = #{capitalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.reportSaleorder.model.ReportCapital" >
+    <!--          -->
+    update T_REPORT_CAPITAL
+    set SALEORDER_NO = #{saleorderNo,jdbcType=VARCHAR},
+      CAPITAL_AMOUNT = #{capitalAmount,jdbcType=DECIMAL},
+      VALID_USER_ID = #{validUserId,jdbcType=INTEGER},
+      VALID_USER_NAME = #{validUserName,jdbcType=VARCHAR},
+      VALID_DEPT_ID = #{validDeptId,jdbcType=INTEGER},
+      VALID_PARENT_DEPT_ID = #{validParentDeptId,jdbcType=INTEGER},
+      VALID_DEPT_NAME = #{validDeptName,jdbcType=VARCHAR},
+      VALID_PARENT_DEPT_NAME = #{validParentDeptName,jdbcType=VARCHAR},
+      DATA_DATE_YEAR = #{dataDateYear,jdbcType=VARCHAR},
+      DATA_DATE_MONTH = #{dataDateMonth,jdbcType=VARCHAR},
+      DATA_DATE_YM = #{dataDateYm,jdbcType=VARCHAR},
+      DATA_DATE = #{dataDate,jdbcType=VARCHAR}
+    where CAPITAL_ID = #{capitalId,jdbcType=INTEGER}
+  </update>
+  <select id="getReportCapitalList" parameterType="java.util.Map" resultType="com.vedeng.reportSaleorder.model.ReportCapital">
+    SELECT
+      a.SALEORDER_NO,
+      ROUND(SUM(b.AMOUNT/10000),4) AS CAPITAL_AMOUNT,
+      a.VALID_USER_ID,
+      a.VALID_USER_NAME,
+      a.VALID_DEPT_ID,
+      a.VALID_DEPT_NAME,
+      a.VALID_PARENT_DEPT_ID,
+      a.VALID_PARENT_DEPT_NAME,
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y') AS DATA_DATE_YEAR,
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%m') AS DATA_DATE_MONTH,
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y/%m') AS DATA_DATE_YM,
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y/%m/%d') AS DATA_DATE
+    FROM
+      T_REPORT_SALEORDER a
+    LEFT JOIN T_SALEORDER d ON a.SALEORDER_NO = d.SALEORDER_NO
+    LEFT JOIN T_CAPITAL_BILL_DETAIL b ON b.RELATED_ID = d.SALEORDER_ID AND b.ORDER_TYPE = 1 AND b.BUSSINESS_TYPE = 526
+    LEFT JOIN T_CAPITAL_BILL c ON c.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID AND c.TRADER_TYPE IN (1,4)
+    WHERE c.TRADER_TIME >= #{beginTime,jdbcType=BIGINT}
+    GROUP BY
+      a.SALEORDER_NO,
+      a.VALID_USER_ID,
+      a.VALID_USER_NAME,
+      a.VALID_DEPT_ID,
+      a.VALID_DEPT_NAME,
+      a.VALID_PARENT_DEPT_ID,
+      a.VALID_PARENT_DEPT_NAME,
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y'),
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%m'),
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y/%m'),
+      FROM_UNIXTIME(c.TRADER_TIME/1000,'%Y/%m/%d')
+  </select>
+  <delete id="deleteReportCapitalListThisMon" parameterType="java.lang.String">
+    DELETE
+    FROM T_REPORT_CAPITAL
+    WHERE DATA_DATE_YM = #{saleorderYM,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertReportCapitalBatch" parameterType="java.util.List">
+    insert into T_REPORT_CAPITAL ( SALEORDER_NO, CAPITAL_AMOUNT,
+      VALID_USER_ID, VALID_USER_NAME, VALID_DEPT_ID,
+      VALID_PARENT_DEPT_ID, VALID_DEPT_NAME, VALID_PARENT_DEPT_NAME,
+      DATA_DATE_YEAR, DATA_DATE_MONTH, DATA_DATE_YM,
+      DATA_DATE)
+    values
+      <foreach collection="reportCapitalList" index="index" separator="," item="reportCapital">
+        (#{reportCapital.saleorderNo,jdbcType=VARCHAR}, #{reportCapital.capitalAmount,jdbcType=DECIMAL},
+        #{reportCapital.validUserId,jdbcType=INTEGER}, #{reportCapital.validUserName,jdbcType=VARCHAR},
+        #{reportCapital.validDeptId,jdbcType=INTEGER},#{reportCapital.validParentDeptId,jdbcType=INTEGER},
+        #{reportCapital.validDeptName,jdbcType=VARCHAR}, #{reportCapital.validParentDeptName,jdbcType=VARCHAR},
+        #{reportCapital.dataDateYear,jdbcType=VARCHAR}, #{reportCapital.dataDateMonth,jdbcType=VARCHAR},
+        #{reportCapital.dataDateYm,jdbcType=VARCHAR},#{reportCapital.dataDate,jdbcType=VARCHAR})
+      </foreach>
+  </insert>
+</mapper>

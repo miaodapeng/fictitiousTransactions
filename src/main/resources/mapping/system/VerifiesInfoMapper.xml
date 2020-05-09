@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.system.dao.VerifiesInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.system.model.VerifiesInfo" >
+    <id column="VERIFIES_INFO_ID" property="verifiesInfoId" jdbcType="INTEGER" />
+    <result column="RELATE_TABLE" property="relateTable" jdbcType="VARCHAR" />
+    <result column="RELATE_TABLE_KEY" property="relateTableKey" jdbcType="INTEGER" />
+    <result column="VERIFY_USERNAME" property="verifyUsername" jdbcType="VARCHAR" />
+    <result column="VERIFIES_TYPE" property="verifiesType" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    VERIFIES_INFO_ID, RELATE_TABLE, RELATE_TABLE_KEY, VERIFY_USERNAME, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_VERIFIES_INFO
+    where VERIFIES_INFO_ID = #{verifiesInfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_VERIFIES_INFO
+    where VERIFIES_INFO_ID = #{verifiesInfoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.system.model.VerifiesInfo" >
+    insert into T_VERIFIES_INFO (VERIFIES_INFO_ID, RELATE_TABLE, RELATE_TABLE_KEY, 
+      VERIFY_USERNAME,VERIFIES_TYPE,ADD_TIME, MOD_TIME
+      )
+    values (#{verifiesInfoId,jdbcType=INTEGER}, #{relateTable,jdbcType=VARCHAR}, #{relateTableKey,jdbcType=INTEGER}, 
+      #{verifyUsername,jdbcType=VARCHAR},#{verifiesType,jdbcType=INTEGER},#{addTime,jdbcType=BIGINT}, #{modTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.system.model.VerifiesInfo" >
+    insert into T_VERIFIES_INFO
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="verifiesInfoId != null" >
+        VERIFIES_INFO_ID,
+      </if>
+      <if test="relateTable != null" >
+        RELATE_TABLE,
+      </if>
+      <if test="relateTableKey != null" >
+        RELATE_TABLE_KEY,
+      </if>
+      <if test="verifyUsername != null" >
+        VERIFY_USERNAME,
+      </if>
+      <if test="verifiesType != null and verifiesType != ''">
+	    VERIFIES_TYPE,
+	  </if>
+	  <if test="status != null">
+	    STATUS,
+	  </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="verifiesInfoId != null" >
+        #{verifiesInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="relateTable != null" >
+        #{relateTable,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTableKey != null" >
+        #{relateTableKey,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUsername != null" >
+        #{verifyUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiesType != null and verifiesType != ''">
+	    #{verifiesType,jdbcType=INTEGER},
+	  </if>
+	  <if test="status != null">
+	    #{status,jdbcType=INTEGER},
+	  </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.system.model.VerifiesInfo" >
+    update T_VERIFIES_INFO
+    <set >
+      <if test="relateTable != null" >
+        RELATE_TABLE = #{relateTable,jdbcType=VARCHAR},
+      </if>
+      <if test="relateTableKey != null" >
+        RELATE_TABLE_KEY = #{relateTableKey,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUsername != null" >
+        VERIFY_USERNAME = #{verifyUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="verifiesType != null and verifiesType != ''">
+	    VERIFIES_TYPE = #{verifiesType,jdbcType=INTEGER},
+	  </if>
+	  <if test="status != null">
+	    STATUS = #{status,jdbcType=INTEGER},
+	  </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where VERIFIES_INFO_ID = #{verifiesInfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.system.model.VerifiesInfo" >
+    update T_VERIFIES_INFO
+    set RELATE_TABLE = #{relateTable,jdbcType=VARCHAR},
+      RELATE_TABLE_KEY = #{relateTableKey,jdbcType=INTEGER},
+      VERIFY_USERNAME = #{verifyUsername,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      <if test="verifiesType != null and verifiesType != ''">
+	  VERIFIES_TYPE = #{verifiesType,jdbcType=INTEGER},
+	  </if>
+      ADD_TIME = #{addTime,jdbcType=BIGINT},
+      MOD_TIME = #{modTime,jdbcType=BIGINT}
+    where VERIFIES_INFO_ID = #{verifiesInfoId,jdbcType=INTEGER}
+  </update>
+  <select id="getVerifiesInfo" resultType="com.vedeng.system.model.VerifiesInfo" >
+    select * from T_VERIFIES_INFO 
+    where 1=1
+    <if test="verifiesInfoId != null and verifiesInfoId != ''">
+		AND VERIFIES_INFO_ID = #{verifiesInfoId,jdbcType=INTEGER}
+	</if>
+    <if test="relateTable != null and relateTable != ''">
+		AND RELATE_TABLE = #{relateTable,jdbcType=VARCHAR}
+	</if>
+	<if test="relateTableKey != null and relateTableKey != ''">
+		AND RELATE_TABLE_KEY = #{relateTableKey,jdbcType=INTEGER}
+	</if>
+	<if test="verifiesType != null and verifiesType != ''">
+		AND VERIFIES_TYPE = #{verifiesType,jdbcType=INTEGER}
+	</if>
+	<if test="verifyUsername != null and verifyUsername != ''">
+		AND VERIFY_USERNAME = #{verifyUsername,jdbcType=VARCHAR}
+	</if>
+	<if test="status != null and status != ''">
+		AND STATUS = #{status,jdbcType=INTEGER}
+	</if> 
+    <if test="relateTableKeys != null and relateTableKeys.size()>0">
+			AND RELATE_TABLE_KEY in
+			<foreach collection="relateTableKeys" item="relateTableKey" index="index"
+	            open="(" close=")" separator=",">
+	            #{relateTableKey,jdbcType=INTEGER}
+	        </foreach>
+	</if>
+    
+  </select>
+  
+  <select id="getVerifiesInfoByParam" resultType="com.vedeng.system.model.VerifiesInfo" >
+    select * from T_VERIFIES_INFO 
+    where 1=1
+    <if test="relateTable != null and relateTable != ''">
+		AND RELATE_TABLE = #{relateTable,jdbcType=VARCHAR}
+	</if>
+	<if test="relateTableKey != null and relateTableKey != ''">
+		AND RELATE_TABLE_KEY = #{relateTableKey,jdbcType=INTEGER}
+	</if>
+	<if test="verifiesType != null and verifiesType != ''">
+		AND VERIFIES_TYPE = #{verifiesType,jdbcType=INTEGER}
+	</if>
+  </select>
+    <select id="getBuyorderListUnVerified" resultType="java.lang.Integer">
+        SELECT
+            RELATE_TABLE_KEY
+        FROM
+            T_VERIFIES_INFO
+        WHERE
+            RELATE_TABLE = 'T_BUYORDER'
+          AND VERIFIES_TYPE = 621
+          AND `STATUS` = 0
+          AND VERIFY_USERNAME LIKE concat('%',#{currentOperateUser,jdbcType=VARCHAR},'%')
+        UNION
+        SELECT
+            B.BUYORDER_ID
+        FROM
+            T_VERIFIES_INFO VI
+                JOIN T_PAY_APPLY PA ON VI.RELATE_TABLE_KEY = PA.PAY_APPLY_ID
+                JOIN T_BUYORDER B ON PA.RELATED_ID = B.BUYORDER_ID
+        WHERE
+            VI.RELATE_TABLE = 'T_PAY_APPLY'
+          AND VI.`STATUS` = 0
+          AND VI.VERIFY_USERNAME LIKE concat('%',#{currentOperateUser,jdbcType=VARCHAR},'%')
+          AND PA.PAY_TYPE = 517
+    </select>
+
+    <!-- 根据传参修改某张表 -->
+	<update id="updateInfo">
+		update ${tableName}
+		<set>
+			${key} = #{value},
+		</set>
+		where ${id} = #{idValue}
+	</update>
+	
+	<update id="updateInfoTime">
+		update ${tableName}
+		<set>
+			${key} = #{value},
+			MOD_TIME = #{modTime,jdbcType=BIGINT},
+			VALID_TIME = #{validTime,jdbcType=BIGINT},
+		</set>
+		
+		where ${id} = #{idValue}
+	</update>
+	
+	<update id="updateVerifyInfo">
+		update T_VERIFIES_INFO
+		<set>
+			STATUS = ${value},
+		</set>
+		where RELATE_TABLE = #{tableName} and RELATE_TABLE_KEY = ${idValue}
+	</update>
+	
+	<delete id="deleteVerifiesInfo">
+		DELETE FROM T_VERIFIES_INFO
+		WHERE RELATE_TABLE = #{relateTable,jdbcType=VARCHAR} AND RELATE_TABLE_KEY = #{relateTableKey,jdbcType=INTEGER}
+	</delete>
+</mapper>

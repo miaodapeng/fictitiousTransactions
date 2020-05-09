@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 日志记录器，日期滚动记录 -->
+    <appender name="rollingAppend" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/app/logs/erp/erp.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>/app/logs/history/erp/erp-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>365</maxHistory>
+            <totalSizeCap>30GB</totalSizeCap>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [erp] [%thread] %logger Line:%-3L - %msg%n  </pattern>
+            <charset>utf-8</charset>
+        </encoder>
+
+    </appender>
+
+    <appender name="armorAppend" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/app/logs/erp/erp-armor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>/app/logs/history/erp/erp-armor-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [erp] [%thread] %logger Line:%-3L - %msg%n </pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+    <appender name="visitorAppend" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/app/logs/erp/erp-visitor.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>/app/logs/history/erp/erp-visitor-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>365</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern> %d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [erp] [%thread] %logger Line:%-3L - %msg%n </pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC_rollingAppend" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="rollingAppend"/>
+    </appender>
+    <appender name="ASYNC_armorAppend" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="armorAppend"/>
+    </appender>
+    <appender name="ASYNC_visitorAppend" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="visitorAppend"/>
+    </appender>
+
+    　　　<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    　　　　　 <encoder>
+    　　　　　　　　　<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [erp] [%thread] %logger Line:%-3L - %msg%n</pattern>
+    　　　　　 </encoder>
+    　　　</appender>
+
+    <root level="info">
+    　	<appender-ref ref="ASYNC_rollingAppend" />
+        <appender-ref ref="stdout" />
+    </root>
+    <logger name="net.sf.json.JSONObject" level="error" additivity="false" >
+        <appender-ref ref="ASYNC_rollingAppend" />
+    </logger>
+    <logger name="sqlog" level="debug" additivity="false">
+        <appender-ref ref="ASYNC_armorAppend" />
+        <appender-ref ref="stdout" />
+    </logger>
+    <logger name="visitor" level="info" additivity="false">
+        <appender-ref ref="ASYNC_visitorAppend" />
+    </logger>
+
+
+</configuration>

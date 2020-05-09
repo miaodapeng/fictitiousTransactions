@@ -1,0 +1,76 @@
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/input.css');
+@import url('../../../common/lib/pikaday.css');
+@import url('../../../common/lib/tab.css');
+@import url('../../../common/lib/form.css');
+@import url('../../../common/lib/table.css');
+@import url('../../../common/lib/select.css');
+@import url('../../../common/lib/pager.css');
+@import url('../../../common/lib/dialog.css');
+@import url('../../../common/lib/tag.css');
+@import url('../../../common/lib/tip.css');
+@import url('../../../pages/modules/list.css');
+
+.del-wrap {
+    padding-left: 42px;
+    position: relative;
+
+    .del-tip {
+        margin-bottom: 10px;
+        padding-top: 7px;
+
+        .icon-caution2 {
+            color: #FF9500;
+            font-size: 32px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin-top: -7px;
+        }
+    }
+
+    .del-cnt {
+        .input-textarea {
+            width: 100%;
+            height: 100px;
+        }
+    }
+}
+
+.tip-wrap {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    .icon-info2 {
+        color: #f63;
+        cursor: pointer;
+
+        &.icon-grey {
+            color: #999;
+        }
+    }
+
+    .tip {
+        top: -7px;
+        left: 24px;
+        display: none;
+    }
+
+    .tip-con {
+        white-space: nowrap;
+    }
+
+    &:hover {
+        .tip {
+            display: block;
+        }
+    }
+}
+
+.stand-wrap {
+    position: relative;
+    padding-right: 30px;
+
+}

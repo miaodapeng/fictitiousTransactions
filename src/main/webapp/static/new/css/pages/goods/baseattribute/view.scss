@@ -1,0 +1,61 @@
+@import url('../../../common/lib/button.css');
+@import url('../../../common/lib/dialog.css');
+@import url('../../../common/lib/pager.css');
+@import url('../../../pages/modules/detail.css');
+
+.cate-list {
+    border: 1px solid #EDF0F2;
+    margin: 0 -1px -1px -1px;
+
+    .cate-th {
+        display: flex;
+        border-bottom: 1px solid #EDF0F2;
+        padding: 10px 20px;
+
+        .cate-item {
+            color: #999;
+        }
+    }
+
+    .cate-cnt {}
+
+    .cate-tr {
+        display: flex;
+        border-bottom: 1px solid #EDF0F2;
+        padding: 10px 0;
+        margin: 0 20px;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    .cate-item {
+        &:first-child {
+            width: 170px;
+        }
+
+        &:nth-child(2) {
+            flex: 1;
+        }
+    }
+
+    .cate-list-nodata {
+        padding: 60px 0;
+        text-align: center;
+
+        .icon-caution1 {
+            color: #2E8AE6;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+    }
+}
+
+.pager {
+    text-align: center;
+
+    .pager-wrap {
+        padding: 10px 0;
+    }
+}

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vedeng.goods.dao.BaseAttributeMapper">
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.BaseAttribute">
+    <id column="BASE_ATTRIBUTE_ID" jdbcType="INTEGER" property="baseAttributeId" />
+    <result column="BASE_ATTRIBUTE_NAME" jdbcType="VARCHAR" property="baseAttributeName" />
+    <result column="IS_DELETED" jdbcType="BIT" property="isDeleted" />
+    <result column="ADD_TIME" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="MOD_TIME" property="modTime" />
+    <result column="UPDATER" jdbcType="INTEGER" property="updater" />
+    <result column="IS_UNIT" jdbcType="BIT" property="isUnit" />
+  </resultMap>
+  <resultMap id="BaseResultVoMap" type="com.vedeng.goods.model.vo.BaseAttributeVo" extends="BaseResultMap">
+      <result column="TIME_SORT" jdbcType="INTEGER" property="timeSort" />
+      <result column="CATEGORY_NUM" jdbcType="VARCHAR" property="categoryNum" />
+      <result column="IS_USED" jdbcType="INTEGER" property="isUserd" />
+      <!--<collection property="attrValue" ofType="com.vedeng.goods.model.vo.BaseAttributeValueVo">
+          <id column="BASE_ATTRIBUTE_VALUE_ID" property="baseAttributeValueId" />
+          <result column="ATTR_VALUE" property="attrValue" />
+          <result column="SORT" property="sort" />
+          <result column="UNIT_ID" property="unitId" />
+          <result column="UNIT_NAME" property="unitName" />
+          <result column="VALUE_CATEGORY_NUM" property="valueCategoryNum" />
+      </collection>-->
+  </resultMap>
+  <sql id="Base_Column_List">
+    BASE_ATTRIBUTE_ID, BASE_ATTRIBUTE_NAME, IS_DELETED, ADD_TIME, CREATOR,
+    MOD_TIME, UPDATER, IS_UNIT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from V_BASE_ATTRIBUTE
+    where BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from V_BASE_ATTRIBUTE
+    where BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.goods.model.BaseAttribute">
+    insert into V_BASE_ATTRIBUTE (BASE_ATTRIBUTE_ID, BASE_ATTRIBUTE_NAME,
+      INPUT_TYPE, IS_DELETED, ADD_TIME, 
+      CREATOR, MOD_TIME, UPDATER, 
+      IS_UNIT)
+    values (#{baseAttributeId,jdbcType=INTEGER}, #{baseAttributeName,jdbcType=VARCHAR}, 
+      #{isDeleted,jdbcType=BIT}, #{addTime,jdbcType=TIMESTAMP},
+      #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=INTEGER}, 
+      #{isUnit,jdbcType=BIT})
+  </insert>
+
+
+
+  <insert id="insertSelective" parameterType="com.vedeng.goods.model.vo.BaseAttributeVo" useGeneratedKeys="true" keyProperty="baseAttributeId">
+    insert into V_BASE_ATTRIBUTE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="baseAttributeId != null">
+        BASE_ATTRIBUTE_ID,
+      </if>
+      <if test="baseAttributeName != null">
+        BASE_ATTRIBUTE_NAME,
+      </if>
+      <if test="isDeleted != null">
+        IS_DELETED,
+      </if>
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="creator != null">
+        CREATOR,
+      </if>
+      <if test="modTime != null">
+        MOD_TIME,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+      <if test="isUnit != null">
+        IS_UNIT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="baseAttributeId != null">
+        #{baseAttributeId,jdbcType=INTEGER},
+      </if>
+      <if test="baseAttributeName != null">
+        #{baseAttributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null">
+        #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="isUnit != null">
+        #{isUnit,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.goods.model.vo.BaseAttributeVo">
+    update V_BASE_ATTRIBUTE
+    <set>
+      <if test="baseAttributeName != null">
+        BASE_ATTRIBUTE_NAME = #{baseAttributeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDeleted != null">
+        IS_DELETED = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="modTime != null">
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="isUnit != null">
+        IS_UNIT = #{isUnit,jdbcType=BIT},
+      </if>
+    </set>
+    where BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.goods.model.BaseAttribute">
+    update V_BASE_ATTRIBUTE
+    set BASE_ATTRIBUTE_NAME = #{baseAttributeName,jdbcType=VARCHAR},
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      ADD_TIME = #{addTime,jdbcType=TIMESTAMP},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      IS_UNIT = #{isUnit,jdbcType=BIT}
+    where BASE_ATTRIBUTE_ID = #{baseAttributeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getBaseAttributeByParam" resultMap="BaseResultVoMap">
+      SELECT
+          a.BASE_ATTRIBUTE_ID,
+          a.BASE_ATTRIBUTE_NAME,
+          a.IS_UNIT,
+          COUNT(b.BASE_CATEGORY_ID) AS CATEGORY_NUM
+      FROM
+          V_BASE_ATTRIBUTE a
+      LEFT JOIN V_CATEGORY_ATTR_VALUE_MAPPING b ON a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID AND b.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+      WHERE
+          a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+          AND a.BASE_ATTRIBUTE_ID = #{baseAttributeId, jdbcType=INTEGER}
+      GROUP BY
+          a.BASE_ATTRIBUTE_ID,
+          a.BASE_ATTRIBUTE_NAME,
+          a.IS_UNIT
+  </select>
+
+  <select id="getBaseAttributeInfoListPage" parameterType="java.util.Map" resultMap="BaseResultVoMap">
+      SELECT
+          a.BASE_ATTRIBUTE_ID,
+          a.BASE_ATTRIBUTE_NAME,
+          a.IS_UNIT,
+          a.MOD_TIME,
+          COUNT(DISTINCT d.BASE_CATEGORY_ID) AS CATEGORY_NUM
+      FROM
+          V_BASE_ATTRIBUTE a
+      LEFT JOIN V_CATEGORY_ATTR_VALUE_MAPPING d ON a.BASE_ATTRIBUTE_ID = d.BASE_ATTRIBUTE_ID AND d.IS_DELETED = #{baseAttributeVo.isDeleted, jdbcType=INTEGER}
+      WHERE
+          1 = 1
+          <if test="baseAttributeVo.isDeleted != null">
+              AND a.IS_DELETED = #{baseAttributeVo.isDeleted, jdbcType=INTEGER}
+          </if>
+          <if test="baseAttributeVo.baseAttributeName != null and baseAttributeVo.baseAttributeName != ''">
+              AND a.BASE_ATTRIBUTE_NAME LIKE CONCAT('%',#{baseAttributeVo.baseAttributeName, jdbcType=VARCHAR},'%')
+          </if>
+          GROUP BY
+              a.BASE_ATTRIBUTE_ID,
+              a.BASE_ATTRIBUTE_NAME,
+              a.IS_UNIT,
+              a.MOD_TIME
+          <if test="baseAttributeVo.timeSort != null and baseAttributeVo.timeSort == 1">
+              order by
+                COUNT(DISTINCT d.BASE_CATEGORY_ID) desc,
+                a.MOD_TIME DESC
+          </if>
+          <if test="baseAttributeVo.timeSort != null and baseAttributeVo.timeSort == 2">
+              order by
+                COUNT(DISTINCT d.BASE_CATEGORY_ID),
+                a.MOD_TIME DESC
+          </if>
+          <if test="baseAttributeVo.timeSort != null and baseAttributeVo.timeSort == 3">
+              order by
+                a.MOD_TIME desc
+          </if>
+          <if test="baseAttributeVo.timeSort != null and baseAttributeVo.timeSort == 4">
+              order by
+                a.MOD_TIME
+          </if>
+  </select>
+
+  <select id="getUnitInfoMap" resultType="java.util.Map">
+      SELECT
+          UNIT_ID AS value,
+          UNIT_NAME AS label
+      FROM
+          T_UNIT
+      WHERE
+          <if test="companyId != null">
+              UNIT_GROUP_ID = #{companyId} and
+          </if>
+          IS_DEL = #{isDeleted, jdbcType=INTEGER}
+      ORDER BY
+          UNIT_ID DESC
+  </select>
+
+  <update id="delAttribute" parameterType="java.util.Map">
+      update
+        V_BASE_ATTRIBUTE
+      set
+        IS_DELETED = #{isDelete, jdbcType=INTEGER},
+        UPDATER = #{userId, jdbcType=INTEGER},
+        MOD_TIME = #{modTime,jdbcType=TIMESTAMP}
+      where
+        BASE_ATTRIBUTE_ID = #{baseAttributeId, jdbcType=INTEGER}
+
+  </update>
+
+    <select id="getAttributeInfoByCategory" resultMap="BaseResultMap">
+        SELECT
+            b.BASE_ATTRIBUTE_ID,
+            b.BASE_ATTRIBUTE_NAME
+        FROM
+            V_CATEGORY_ATTR_VALUE_MAPPING a
+        JOIN V_BASE_ATTRIBUTE b ON a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID AND b.IS_DELETED = 0
+        WHERE
+            a.IS_DELETED = 0
+            and a.BASE_CATEGORY_ID = #{baseCategoryId, jdbcType=INTEGER}
+        ORDER BY
+            b.MOD_TIME DESC,
+            b.BASE_ATTRIBUTE_ID DESC
+    </select>
+
+    <select id="checkAttrubuteIsExist" parameterType="com.vedeng.goods.model.vo.BaseAttributeVo" resultType="java.lang.Integer">
+      SELECT COUNT(1)
+      FROM V_BASE_ATTRIBUTE a
+      WHERE a.BASE_ATTRIBUTE_NAME = #{baseAttributeName,jdbcType=VARCHAR}
+      AND IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+      <if test="baseAttributeId != null">
+          AND BASE_ATTRIBUTE_ID != #{baseAttributeId, jdbcType=INTEGER}
+      </if>
+    </select>
+
+    <select id="getAttributeListByCategoryId" parameterType="java.util.Map" resultType="com.vedeng.goods.model.vo.BaseAttributeVo">
+        SELECT DISTINCT
+            b.BASE_ATTRIBUTE_ID,
+            a.BASE_CATEGORY_ID,
+            b.BASE_ATTRIBUTE_NAME
+        FROM
+            V_CATEGORY_ATTR_VALUE_MAPPING a
+        LEFT JOIN V_BASE_ATTRIBUTE b ON a.BASE_ATTRIBUTE_ID = b.BASE_ATTRIBUTE_ID AND b.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+        AND b.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+        WHERE
+            a.IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+            <if test="list != null and list.size()>0">
+                AND
+                a.BASE_CATEGORY_ID IN
+                <foreach collection="list" index="index" open="(" close=")" item="baseCategoryVo" separator=",">
+                    #{baseCategoryVo.baseCategoryId, jdbcType=INTEGER}
+                </foreach>
+            </if>
+    </select>
+    <select id="getDeletedAttrNumByIds" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          V_BASE_ATTRIBUTE
+        WHERE IS_DELETED = #{isDeleted, jdbcType=INTEGER}
+        <if test="list!=null and list.size()>0">
+            AND
+            BASE_ATTRIBUTE_ID IN
+            <foreach collection="list" index="index" open="(" close=")" item="attrId" separator=",">
+                #{attrId, jdbcType=INTEGER}
+            </foreach>
+        </if>
+    </select>
+</mapper>

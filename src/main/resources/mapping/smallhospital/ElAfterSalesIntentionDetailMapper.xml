@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallhospital.dao.ElAfterSalesIntentionDetailMapper">
+
+    <insert id="insertBatch">
+        INSERT INTO T_EL_AFTER_SALES_INTENTION_DETAIL (EL_AFTER_SALES_INTENTION_ID, SKU_NO, SKU_NAME, AFTER_SALE_COUNT,SALEORDER_NO) VALUES
+        <foreach collection="list" index="index" separator="," item="item">
+            (#{item.elAfterSalesIntentionId,jdbcType=INTEGER},#{item.skuNo,jdbcType=VARCHAR},#{item.skuName,jdbcType=VARCHAR},#{item.afterSaleCount,jdbcType=INTEGER},#{item.saleorderNo,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+    <select id="getDetailsByIntentionId" resultType="com.smallhospital.model.ElAfterSalesIntentionDetail">
+        SELECT
+            SKU_NO, SKU_NAME,SALEORDER_NO, SUM(AFTER_SALE_COUNT) AS AFTER_SALE_COUNT
+        FROM T_EL_AFTER_SALES_INTENTION_DETAIL
+        WHERE EL_AFTER_SALES_INTENTION_ID = #{intentionId,jdbcType=INTEGER} GROUP BY SKU_NO
+    </select>
+
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.goods.dao.SetMealExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.goods.model.SetMeal" >
+    <!--          -->
+    <id column="SET_MEAL_ID" property="setMealId" jdbcType="INTEGER" />
+    <result column="SET_MEAL_NAME" property="setMealName" jdbcType="VARCHAR" />
+    <result column="SET_MEAL_TYPE" property="setMealType" jdbcType="BIT" />
+    <result column="SET_MEAL_DESCRIPT" property="setMealDescript" jdbcType="VARCHAR" />
+    <result column="IS_DELETED" property="isDeleted" jdbcType="BIT" />
+    <result column="DELETED_REASON" property="deletedReason" jdbcType="VARCHAR" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+    <result column="ADD_TIME" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="MOD_TIME" property="modTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--          -->
+    SET_MEAL_ID, SET_MEAL_NAME, SET_MEAL_TYPE, SET_MEAL_DESCRIPT, IS_DELETED, DELETED_REASON,
+    CREATOR, UPDATER, ADD_TIME, MOD_TIME
+  </sql>
+  <select id="getSetMealListPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List" />
+    FROM
+      V_SET_MEAL a
+    WHERE a.IS_DELETED = #{setMealVo.isDeleted,jdbcType=BIT}
+      <if test="setMealVo.setMealName != null and setMealVo.setMealName != ''">
+        AND a.SET_MEAL_NAME LIKE CONCAT('%',#{setMealVo.setMealName, jdbcType=VARCHAR},'%')
+      </if>
+      <if test="setMealVo.setMealType != null">
+        AND a.SET_MEAL_TYPE = #{setMealVo.setMealType,jdbcType=BIT}
+      </if>
+      <if test="setMealVo.addBeginTime != null and setMealVo.addBeginTime != '' ">
+        AND a.ADD_TIME &gt;=  CONCAT(#{setMealVo.addBeginTime,jdbcType=VARCHAR},' 00:00:00')
+      </if>
+      <if test="setMealVo.addEndTime != null and setMealVo.addEndTime != '' ">
+        AND a.ADD_TIME &lt;=  CONCAT(#{setMealVo.addEndTime,jdbcType=VARCHAR},' 23:59:59')
+      </if>
+      <if test="setMealVo.modBeginTime != null and setMealVo.modBeginTime != '' ">
+        AND a.MOD_TIME &gt;=  CONCAT(#{setMealVo.modBeginTime,jdbcType=VARCHAR},' 00:00:00')
+      </if>
+      <if test="setMealVo.modEndTime != null and setMealVo.modEndTime != '' ">
+        AND a.MOD_TIME &lt;=  CONCAT(#{setMealVo.modEndTime,jdbcType=VARCHAR},' 23:59:59')
+      </if>
+      <if test="setMealVo.orderType == null or setMealVo.orderType == 1">
+        ORDER BY
+        a.MOD_TIME DESC
+      </if>
+      <if test="setMealVo.orderType == 2">
+        ORDER BY
+        a.MOD_TIME
+      </if>
+      <if test="setMealVo.orderType == 3">
+        ORDER BY
+        a.ADD_TIME DESC
+      </if>
+      <if test="setMealVo.orderType == 4">
+        ORDER BY
+        a.ADD_TIME
+      </if>
+  </select>
+  <update id="deleteSetMeal" parameterType="java.util.Map">
+    UPDATE
+      V_SET_MEAL
+    SET
+      IS_DELETED = #{isDeleted,jdbcType=BIT},
+      DELETED_REASON = #{deletedReason,jdbcType=VARCHAR},
+      UPDATER = #{userId,jdbcType=INTEGER},
+      MOD_TIME = #{nowDate,jdbcType=TIMESTAMP}
+    WHERE
+      SET_MEAL_ID IN
+      <foreach collection="list" open="(" close=")" index="index" separator="," item="setMealId">
+        #{setMealId,jdbcType=INTEGER}
+      </foreach>
+  </update>
+  <select id="getSetMealByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List"/>
+    FROM
+      V_SET_MEAL
+    WHERE
+      IS_DELETED = 0
+      AND SET_MEAL_ID IN
+    <foreach collection="list" open="(" close=")" index="index" separator="," item="setMealId">
+      #{setMealId,jdbcType=INTEGER}
+    </foreach>
+  </select>
+  <select id="getSetMealByName" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    V_SET_MEAL a
+    WHERE a.SET_MEAL_NAME = #{setMealName, jdbcType=VARCHAR}
+    <if test="setMealId!=null and setMealId !=0">
+      AND a.SET_MEAL_ID != #{setMealId,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>

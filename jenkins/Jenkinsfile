@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven'
+        jdk 'jdk'
+    }
+    stages {
+        stage ('initialize') {
+            steps {
+                echo "branch: ${env.BRANCH_NAME}"
+            }
+        }
+
+        stage ('build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+
+        stage ('test') {
+            steps {
+                echo 'no test'
+            }
+        }
+
+        stage ('fat pre deploy') {
+            steps {
+                script {
+                    approvalMap = timeout(time: 3, unit:'MINUTES') {
+                        input(
+                            message: '准备发布到哪个环境？',
+                            ok: '确定',
+                            parameters: [
+                                choice(name: 'server', choices: 'erp_fat_all\n192.168.1.66\n192.168.1.115', description: '请选择要部署的服务器'),
+                                string(defaultValue: 'fat', description: '', name: 'env')
+                            ]
+                        )
+                    }
+                }
+            }
+        }
+
+        stage ('deploy') {
+            steps {
+                ansiblePlaybook(
+                    playbook: "/opt/jenkins/test/erp.vedeng.com/scripts/deploy.yml",
+                    extraVars: [
+                        hosts: "${approvalMap['server']}",
+                        env: "${approvalMap['env']}",
+                        branch_dir: "${env.WORKSPACE}"
+                    ]
+
+                )
+
+                echo "end......"
+            }
+        }
+    }
+}

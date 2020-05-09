@@ -1,0 +1,136 @@
+.pager-wrap {
+    position: relative;
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .page-total {
+        color: #999;
+        position: absolute;
+        left: 20px;
+        line-height: 30px;
+    }
+
+    .page-num {
+        font-size: 0;
+
+        a {
+            display: inline-block;
+            border: 1px solid #ced2d9;
+            padding: 0 10px;
+            text-align: center;
+            border-radius: 3px;
+            margin-right: 3px;
+            background: #f5f7fa;
+            color: #333;
+            font-size: 12px;
+            min-width: 30px;
+            line-height: 28px;
+
+            &:hover {
+                background: #e6ebf2;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.page-disabled {
+                color: #999;
+                cursor: not-allowed;
+                border-color: #e6ebf2;
+
+                &:hover {
+                    background: #f5f7fa;
+                }
+            }
+
+            &.page-prev,
+            &.page-next {
+                width: auto;
+                padding: 0;
+
+                i {
+                    font-size: 16px;
+                    vertical-align: -2px
+                }
+            }
+
+            &.page-prev {
+                padding-right: 10px;
+                padding-left: 3px;
+                margin-right: 10px;
+
+                i {
+                    margin-right: 2px;
+                }
+            }
+
+            &.page-next {
+                padding-left: 10px;
+                padding-right: 3px;
+                margin-left: 7px;
+
+                i {
+                    margin-left: 2px;
+                }
+            }
+
+            &.page-current {
+                background: #2E8AE6;
+                color: #fff;
+                font-weight: 700;
+                border-color: #2E8AE6;
+            }
+        }
+
+        .page-total-txt {
+            display: inline-block;
+            margin-left: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .page-jump {
+            display: inline-block;
+            margin-left: 15px;
+            font-size: 14px;
+            vertical-align: top;
+
+            .page-jump-txt {
+                color: #666;
+            }
+
+            .page-input {
+                height: 30px;
+                line-height: 30px;
+                border: 1px solid #ced2d9;
+                border-radius: 3px;
+                color: #333;
+                padding: 0 10px;
+                width: 58px;
+
+                &:hover {
+                    border-color: #b6babf;
+                }
+
+                &:focus {
+                    border-color: #0091f2;
+                }
+            }
+
+            .page-jump-btn {
+                vertical-align: top;
+                margin-left: 7px;
+            }
+        }
+
+        .omit {
+            font-size: 14px;
+            vertical-align: 3px;
+            margin: 0 10px 0 7px
+        }
+
+    }
+}

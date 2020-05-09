@@ -1,0 +1,122 @@
+.bx {
+  width: 1600px;
+  margin: 0 auto;
+}
+
+.content {
+  box-sizing: border-box;
+  color: #333;
+  min-width: 1600px;
+}
+
+.tab_hd {
+  background-color: #eee;
+}
+
+.tab_hd > ul {
+  display: flex;
+  align-content: center;
+}
+
+.tab_hd > ul .active {
+  background-color: skyblue;
+}
+
+.tab_hd > ul > li a {
+  display: block;
+  padding: 10px 20px;
+  background-color: #ccc;
+  margin-right: 5px;
+}
+
+.listBox {
+  margin-top: 30px;
+  box-sizing: border-box;
+}
+
+.listBox .listCloum {
+  margin-bottom: 30px;
+}
+
+.listBox .listCloum h3 {
+  font-weight: normal;
+}
+
+.listBox .listCloum h3 > input {
+  position: relative;
+  top: 1px;
+  margin-right: 5px;
+}
+
+.listBox .listCloum .details {
+  box-sizing: border-box;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  padding: 0px 10px 0px 5px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.listBox .listCloum .details .detailsCloum {
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.listBox .listCloum .details p {
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+.listBox .listCloum .details p input {
+  position: relative;
+  top: 1px;
+  margin-right: 5px;
+}
+
+.listBox .listCloum .details ul {
+  overflow: hidden;
+}
+
+.listBox .listCloum .details ul li {
+  width: 150px;
+  float: left;
+  margin-right: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.listBox .listCloum .details ul li input {
+  position: relative;
+  top: 1px;
+  margin-right: 5px;
+}
+
+.btnBox {
+  text-align: center;
+  margin-top: 70px;
+}
+
+.btnBox button {
+  border: none;
+  padding: 5px 15px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 15px;
+}
+
+.btnBox .btn1 {
+  background-color: #0099ff;
+  border: 1px solid #0099ff;
+}
+
+.btnBox .btn1:hover {
+  background-color: #0091f2;
+  border: 1px solid #0091f2;
+}
+
+.btnBox .btn2 {
+  border: 1px solid #bbb;
+  background-color: #bbb;
+}

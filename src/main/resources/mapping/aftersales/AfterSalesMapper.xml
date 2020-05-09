@@ -1,0 +1,1745 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vedeng.aftersales.dao.AfterSalesMapper" >
+  <resultMap id="BaseResultMap" type="com.vedeng.aftersales.model.AfterSales" >
+    <id column="AFTER_SALES_ID" property="afterSalesId" jdbcType="INTEGER" />
+    <result column="AFTER_SALES_NO" property="afterSalesNo" jdbcType="VARCHAR" />
+    <result column="COMPANY_ID" property="companyId" jdbcType="INTEGER" />
+    <result column="SUBJECT_TYPE" property="subjectType" jdbcType="INTEGER" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="ORDER_ID" property="orderId" jdbcType="INTEGER" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="SERVICE_USER_ID" property="serviceUserId" jdbcType="INTEGER" />
+    <result column="VALID_STATUS" property="validStatus" jdbcType="BIT" />
+    <result column="VALID_TIME" property="validTime" jdbcType="BIGINT" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="ATFER_SALES_STATUS" property="atferSalesStatus" jdbcType="BIT" />
+
+    <result column="FIRST_VALID_STATUS" property="firstValidStatus" jdbcType="BIT" />
+    <result column="FIRST_VALID_TIME" property="firstValidTime" jdbcType="BIGINT" />
+    <result column="FIRST_VALID_USER" property="firstValidUser" jdbcType="INTEGER" />
+    <result column="FIRST_VALID_COMMENTS" property="firstValidComments" jdbcType="VARCHAR" />
+
+    <result column="SOURCE" property="source" jdbcType="BIT" />
+    <result column="ADD_TIME" property="addTime" jdbcType="BIGINT" />
+    <result column="CREATOR" property="creator" jdbcType="INTEGER" />
+    <result column="MOD_TIME" property="modTime" jdbcType="BIGINT" />
+    <result column="UPDATER" property="updater" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap type="com.vedeng.aftersales.model.vo.AfterSalesVo" id="VoResultMap" extends="BaseResultMap">
+  	<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+  	<result column="REASON_NAME" property="reasonName" jdbcType="VARCHAR" />
+  	<result column="AFTER_SALES_DETAIL_ID" property="afterSalesDetailId" jdbcType="INTEGER" />
+    <result column="REASON" property="reason" jdbcType="INTEGER" />
+    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_ID" property="traderContactId" jdbcType="INTEGER" />
+    <result column="TRADER_CONTACT_NAME" property="traderContactName" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_MOBILE" property="traderContactMobile" jdbcType="VARCHAR" />
+    <result column="TRADER_CONTACT_TELEPHONE" property="traderContactTelephone" jdbcType="VARCHAR" />
+    <result column="REFUND" property="refund" jdbcType="BIT" />
+    <result column="AREA_ID" property="areaId" jdbcType="INTEGER" />
+    <result column="ADDRESS_ID" property="addressId" jdbcType="INTEGER" />
+    <result column="AREA" property="area" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_FEE" property="refundFee" jdbcType="DECIMAL" />
+    <result column="REAL_REFUND_AMOUNT" property="realRefundAmount" jdbcType="DECIMAL" />
+    <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="DECIMAL" />
+    <result column="REFUND_AMOUNT_STATUS" property="refundAmountStatus" jdbcType="BIT" />
+    <result column="TRADER_SUBJECT" property="traderSubject" jdbcType="BIT" />
+    <result column="TRADER_MODE" property="traderMode" jdbcType="BIT" />
+    <result column="PAYEE" property="payee" jdbcType="VARCHAR" />
+    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="SERVICE_AMOUNT" property="serviceAmount" jdbcType="DECIMAL" />
+    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+    <result column="IS_SEND_INVOICE" property="isSendInvoice" jdbcType="BIT" />
+    <result column="PERIOD_AMOUNT" property="payPeriodAmount" jdbcType="DECIMAL" />
+    <result column="INVOICE_TRADER_ID" property="invoiceTraderId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_NAME" property="invoiceTraderName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_ID" property="invoiceTraderContactId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_CONTACT_NAME" property="invoiceTraderContactName" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_MOBILE" property="invoiceTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_CONTACT_TELEPHONE" property="invoiceTraderContactTelephone" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_ADDRESS_ID" property="invoiceTraderAddressId" jdbcType="INTEGER" />
+    <result column="INVOICE_TRADER_ADDRESS" property="invoiceTraderAddress" jdbcType="VARCHAR" />
+    <result column="INVOICE_TRADER_AREA" property="invoiceTraderArea" jdbcType="VARCHAR" />
+    <result column="INVOICE_COMMENTS" property="invoiceComments" jdbcType="VARCHAR" />
+    <result column="SKU" property="sku" jdbcType="VARCHAR" />
+    
+    <result column="SALEORDER_ID" property="saleorderId" jdbcType="INTEGER" />
+	<result column="TAKE_TRADER_NAME" property="takeTraderName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_ADDRESS" property="takeTraderAddress" jdbcType="VARCHAR" />
+    <result column="DELIVERY_TYPE" property="deliveryType" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_AREA" property="takeTraderArea" jdbcType="VARCHAR" />
+    <result column="LOGISTICS_ID" property="logisticsId" jdbcType="INTEGER" />
+    <result column="FREIGHT_DESCRIPTION" property="freightDescription" jdbcType="INTEGER" />
+    <result column="LOGISTICS_COMMENTS" property="logisticsComments" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_ID" property="takeTraderContactId" jdbcType="INTEGER" />
+    <result column="TAKE_TRADER_CONTACT_NAME" property="takeTraderContactName" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_MOBILE" property="takeTraderContactMobile" jdbcType="VARCHAR" />
+    <result column="TAKE_TRADER_CONTACT_TELEPHONE" property="takeTraderContactTelephone" jdbcType="VARCHAR" />
+    
+    <result column="ORG_ID" property="orgId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="SALEORDER_VALID_TIME" property="saleorderValidTime" jdbcType="BIGINT" />
+    <result column="SALEORDER_STATUS" property="saleorderStatus" jdbcType="BIT" />
+    <result column="PURCHASE_STATUS" property="purchaseStatus" jdbcType="BIT" />
+    <result column="INVOICE_STATUS" property="invoiceStatus" jdbcType="BIT" />
+    <result column="PAYMENT_STATUS" property="paymentStatus" jdbcType="BIT" />
+    <result column="ARRIVAL_STATUS" property="arrivalStatus" jdbcType="BIT" />
+    <result column="TOTAL_AMOUNT" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+    <result column="CUSTOMER_NATURE" property="customerNature" jdbcType="INTEGER" />
+  	<result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+  	<result column="GOODS_NAME" property="goodsName" jdbcType="VARCHAR" />
+  	<result column="MODEL" property="model" jdbcType="VARCHAR" />
+  	<result column="BRAND_NAME" property="brandName" jdbcType="VARCHAR" />
+  	<result column="MATERIAL_CODE" property="materialCode" jdbcType="VARCHAR" />
+	<result column="CUSTOMER_LEVEL" property="customerLevel" jdbcType="INTEGER" />
+	
+	<result column="GRADE" property="grade" jdbcType="INTEGER" />
+	<result column="BUYORDER_VALID_TIME" property="buyorderValidTime" jdbcType="BIGINT" />
+    <result column="BUYORDER_STATUS" property="buyorderStatus" jdbcType="BIT" />
+    
+    <result column="TRADER_AMOUNT" property="traderAmount" jdbcType="DECIMAL"/>
+    
+    <result column="VERIFIES_TYPE" property="verifiesType" jdbcType="INTEGER" />
+	<result column="VERIFY_USERNAME" property="verifyUsername" jdbcType="VARCHAR" />
+	<result column="VERIFY_STATUS" property="verifyStatus" jdbcType="INTEGER" />
+	<result column="TRADER_ID" property="traderId" jdbcType="VARCHAR" />
+	<result column="TRADER_NAME" property="traderName" jdbcType="VARCHAR" />
+	
+	<result column="ORDER_NUM" property="orderNum" jdbcType="INTEGER" />
+	
+	<result column="ATFER_SALES_STATUS_RESON" property="afterSalesStatusReson" jdbcType="INTEGER"/>
+	<result column="ATFER_SALES_STATUS_USER" property="afterSalesStatusUser" jdbcType="INTEGER"/>
+	<result column="ATFER_SALES_STATUS_COMMENTS" property="afterSalesStatusComments" jdbcType="VARCHAR"/>
+	
+	<!-- 2018-9-5 新增开票/收票状态-->
+<!-- 	<result column="INVOICE_STATUS" property="invoiceStatus" jdbcType="INTEGER"/> -->
+<!-- 	<result column="INVOICE_TIME" property="invoiceTime" jdbcType="BIGINT"/> -->
+<!-- 	<result column="RECEIVE_INVOICE_STATUS" property="receiveInvoiceStatus" jdbcType="INTEGER"/> -->
+<!-- 	<result column="RECEIVE_INVOICE_TIME" property="receiveInvoiceTime" jdbcType="BIGINT"/> -->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AFTER_SALES_ID, AFTER_SALES_NO, COMPANY_ID, SUBJECT_TYPE, TYPE, ORDER_ID, ORDER_NO, SERVICE_USER_ID, 
+    VALID_STATUS, VALID_TIME, STATUS, ATFER_SALES_STATUS, ADD_TIME, CREATOR, MOD_TIME, 
+    UPDATER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from T_AFTER_SALES
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from T_AFTER_SALES
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    insert into T_AFTER_SALES (AFTER_SALES_ID, AFTER_SALES_NO, COMPANY_ID, SUBJECT_TYPE, 
+      TYPE, ORDER_ID, ORDER_NO, 
+      SERVICE_USER_ID, VALID_STATUS, VALID_TIME, 
+      STATUS, ATFER_SALES_STATUS, ADD_TIME, 
+      CREATOR, MOD_TIME, UPDATER, 
+      FIRST_VALID_STATUS, FIRST_VALID_TIME, FIRST_VALID_USER, FIRST_VALID_COMMENTS, SOURCE
+      )
+    values (#{afterSalesId,jdbcType=INTEGER}, #{afterSalesNo,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER}, #{subjectType,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, 
+      #{serviceUserId,jdbcType=INTEGER}, #{validStatus,jdbcType=BIT}, #{validTime,jdbcType=BIGINT}, 
+      #{status,jdbcType=BIT}, #{atferSalesStatus,jdbcType=BIT}, #{addTime,jdbcType=BIGINT}, 
+      #{creator,jdbcType=INTEGER}, #{modTime,jdbcType=BIGINT}, #{updater,jdbcType=INTEGER},
+      #{firstValidStatus,jdbcType=BIT}, #{firstValidTime,jdbcType=BIGINT}, #{firstValidUser,jdbcType=INTEGER},
+      #{firstValidComments,jdbcType=VARCHAR}, #{source,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    insert into T_AFTER_SALES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="afterSalesId != null" >
+        AFTER_SALES_ID,
+      </if>
+      <if test="afterSalesNo != null" >
+        AFTER_SALES_NO,
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID,
+      </if>
+      <if test="subjectType != null" >
+        SUBJECT_TYPE,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="serviceUserId != null" >
+        SERVICE_USER_ID,
+      </if>
+      <if test="validStatus != null" >
+        VALID_STATUS,
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="atferSalesStatus != null" >
+        ATFER_SALES_STATUS,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="creator != null" >
+        CREATOR,
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME,
+      </if>
+      <if test="updater != null" >
+        UPDATER,
+      </if>
+      <if test="firstValidStatus != null" >
+        FIRST_VALID_STATUS,
+      </if>
+      <if test="firstValidTime != null" >
+        FIRST_VALID_TIME,
+      </if>
+      <if test="firstValidUser != null" >
+        FIRST_VALID_USER,
+      </if>
+      <if test="firstValidComments != null" >
+        FIRST_VALID_COMMENTS,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="afterSalesId != null" >
+        #{afterSalesId,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalesNo != null" >
+        #{afterSalesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectType != null" >
+        #{subjectType,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUserId != null" >
+        #{serviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validStatus != null" >
+        #{validStatus,jdbcType=BIT},
+      </if>
+      <if test="validTime != null" >
+        #{validTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="atferSalesStatus != null" >
+        #{atferSalesStatus,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        #{updater,jdbcType=INTEGER},
+      </if>
+      <if test="firstValidStatus != null" >
+        #{firstValidStatus,jdbcType=BIT}, 
+      </if>
+      <if test="firstValidTime != null" >
+        #{firstValidTime,jdbcType=BIGINT},  
+      </if>
+      <if test="firstValidUser != null" >
+        #{firstValidUser,jdbcType=INTEGER},
+      </if>
+      <if test="firstValidComments != null" >
+        #{firstValidComments,jdbcType=VARCHAR},  
+      </if>
+      <if test="source != null" >
+         #{source,jdbcType=BIT},  
+      </if>
+    </trim>
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="afterSalesId">
+		SELECT LAST_INSERT_ID() AS afterSalesId
+    </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    update T_AFTER_SALES
+    <set >
+      <if test="afterSalesNo != null" >
+        AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectType != null" >
+        SUBJECT_TYPE = #{subjectType,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUserId != null" >
+        SERVICE_USER_ID = #{serviceUserId,jdbcType=INTEGER},
+      </if>
+      <if test="validStatus != null" >
+        VALID_STATUS = #{validStatus,jdbcType=BIT},
+      </if>
+      <if test="validTime != null" >
+        VALID_TIME = #{validTime,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=BIT},
+      </if>
+      <if test="atferSalesStatus != null" >
+        ATFER_SALES_STATUS = #{atferSalesStatus,jdbcType=BIT},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=BIGINT},
+      </if>
+      <if test="creator != null" >
+        CREATOR = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="modTime != null" >
+        MOD_TIME = #{modTime,jdbcType=BIGINT},
+      </if>
+      <if test="updater != null" >
+        UPDATER = #{updater,jdbcType=INTEGER},
+      </if>
+<!--       	新增售后关闭/完结原因、操作人、备注 -->
+      <if test="afterSalesStatusReson != null">
+      	ATFER_SALES_STATUS_RESON = #{afterSalesStatusReson,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalesStatusUser != null">
+      	ATFER_SALES_STATUS_USER = #{afterSalesStatusUser,jdbcType=INTEGER},
+      </if>
+      <if test="afterSalesStatusComments != null">
+      	ATFER_SALES_STATUS_COMMENTS = #{afterSalesStatusComments},
+      </if>
+<!--       end -->
+	  <if test="firstValidStatus != null" >
+       FIRST_VALID_STATUS = #{firstValidStatus,jdbcType=BIT}, 
+      </if>
+      <if test="firstValidTime != null" >
+        FIRST_VALID_TIME = #{firstValidTime,jdbcType=BIGINT},  
+      </if>
+      <if test="firstValidUser != null" >
+        FIRST_VALID_USER = #{firstValidUser,jdbcType=INTEGER},
+      </if>
+      <if test="firstValidComments != null" >
+        FIRST_VALID_COMMENTS = #{firstValidComments,jdbcType=VARCHAR},  
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=BIT},  
+      </if>
+      <if test="isOutAfter!=null">
+          IS_OUT_AFTER=#{isOutAfter}
+      </if>
+    </set>
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    update T_AFTER_SALES
+    set AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR},
+      COMPANY_ID = #{companyId,jdbcType=INTEGER},
+      SUBJECT_TYPE = #{subjectType,jdbcType=INTEGER},
+      TYPE = #{type,jdbcType=INTEGER},
+      ORDER_ID = #{orderId,jdbcType=INTEGER},
+      ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      SERVICE_USER_ID = #{serviceUserId,jdbcType=INTEGER},
+      VALID_STATUS = #{validStatus,jdbcType=BIT},
+      VALID_TIME = #{validTime,jdbcType=BIGINT},
+      STATUS = #{status,jdbcType=BIT},
+      ATFER_SALES_STATUS = #{atferSalesStatus,jdbcType=BIT},
+      ADD_TIME = #{addTime,jdbcType=BIGINT},
+      CREATOR = #{creator,jdbcType=INTEGER},
+      MOD_TIME = #{modTime,jdbcType=BIGINT},
+      UPDATER = #{updater,jdbcType=INTEGER},
+      FIRST_VALID_STATUS = #{firstValidStatus,jdbcType=BIT}, 
+      FIRST_VALID_TIME = #{firstValidTime,jdbcType=BIGINT},
+      FIRST_VALID_USER = #{firstValidUser,jdbcType=INTEGER},
+      FIRST_VALID_COMMENTS = #{firstValidComments,jdbcType=VARCHAR},
+      SOURCE = #{source,jdbcType=BIT}  
+    where AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getAfterSalesVoListPage" resultMap="VoResultMap" parameterType="Map">
+  	select 
+  		a.AFTER_SALES_ID, a.AFTER_SALES_NO, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	s.TITLE as TYPE_NAME,v.VERIFIES_TYPE,v.VERIFY_USERNAME,v.STATUS AS VERIFY_STATUS, b.TRADER_ID,t.TRADER_NAME,
+    	b.INVOICE_STATUS,b.RECEIVE_INVOICE_STATUS
+  	from
+  		T_AFTER_SALES a
+  	left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+  	LEFT JOIN T_TRADER t on b.TRADER_ID = t.TRADER_ID
+  	left join T_SYS_OPTION_DEFINITION s on s.SYS_OPTION_DEFINITION_ID = a.TYPE
+  	left join T_VERIFIES_INFO v on a.AFTER_SALES_ID = v.RELATE_TABLE_KEY AND v.RELATE_TABLE = 'T_AFTER_SALES' AND v.VERIFIES_TYPE = 614
+  	where 
+  		a.TYPE not in (546,547,548,549)
+  	<if test="afterSalesVo.companyId != null" >
+        and a.COMPANY_ID = #{afterSalesVo.companyId,jdbcType=INTEGER}
+    </if>
+  	<if test="afterSalesVo.afterSalesNo != null and afterSalesVo.afterSalesNo != '' " >
+        and a.AFTER_SALES_NO like CONCAT('%',#{afterSalesVo.afterSalesNo,jdbcType=VARCHAR},'%' )
+    </if>
+  	<if test="afterSalesVo.orderNo != null and afterSalesVo.orderNo != ''" >
+       and a.ORDER_NO like CONCAT('%',#{afterSalesVo.orderNo,jdbcType=VARCHAR},'%' )
+    </if>
+    <if test="afterSalesVo.traderName != null and afterSalesVo.traderName != ''" >
+       and t.TRADER_NAME like CONCAT('%',#{afterSalesVo.traderName,jdbcType=VARCHAR},'%' )
+    </if>
+    <if test="afterSalesVo.status != null" >
+      and a.STATUS = #{afterSalesVo.status,jdbcType=BIT}
+    </if>
+    <if test="afterSalesVo.atferSalesStatus != null" >
+      and a.ATFER_SALES_STATUS = #{afterSalesVo.atferSalesStatus,jdbcType=BIT}
+    </if>
+    <!-- 2018-9-5 新增根据收票/开票状态 查询 -->
+    <if test="afterSalesVo.invoiceStatus != null ">
+    	and b.INVOICE_STATUS = #{afterSalesVo.invoiceStatus}
+    </if>
+    <if test="afterSalesVo.receiveInvoiceStatus != null">
+    	and b.RECEIVE_INVOICE_STATUS = #{afterSalesVo.receiveInvoiceStatus}
+    </if>
+    <!-- END -->
+    <if test="afterSalesVo.receivePaymentStatus != null" >
+      and b.RECEIVE_PAYMENT_STATUS = #{afterSalesVo.receivePaymentStatus,jdbcType=BIT}
+    </if>
+    <if test="afterSalesVo.paymentStatus != null" >
+      and b.PAYMENT_STATUS = #{afterSalesVo.paymentStatus,jdbcType=BIT}
+    </if>
+    <if test="afterSalesVo.type != null" >
+        and a.TYPE = #{afterSalesVo.type,jdbcType=INTEGER}
+    </if>
+    <if test="afterSalesVo.serviceUserId != null" >
+        and a.SERVICE_USER_ID in
+        <foreach item="serviceUserId" index="index" collection="afterSalesVo.serviceUserIdList" open="(" separator="," close=")">  
+		  #{serviceUserId}  
+		</foreach>
+    </if>
+    <if test="afterSalesVo.timeType == 1" >
+        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+			and a.ADD_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+		</if>
+		<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+			and a.ADD_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+		</if>
+    </if>
+    <if test="afterSalesVo.timeType == 2" >
+        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+			and a.VALID_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+		</if>
+		<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+			and a.VALID_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+		</if>
+    </if>
+    <if test="afterSalesVo.source != null">
+        and a.SOURCE = #{afterSalesVo.source,jdbcType=INTEGER}
+    </if>
+    order by a.ADD_TIME desc
+  </select>
+  
+  <select id="getBuyorderAfterSalesListPage" parameterType="Map" resultMap="VoResultMap">
+  	select 
+  		a.AFTER_SALES_ID, a.AFTER_SALES_NO, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	s.TITLE as TYPE_NAME,v.VERIFIES_TYPE,v.VERIFY_USERNAME,v.STATUS AS VERIFY_STATUS, b.TRADER_ID, b.TRADER_NAME
+  	from
+  		T_AFTER_SALES a
+	  	LEFT JOIN T_SYS_OPTION_DEFINITION s on s.SYS_OPTION_DEFINITION_ID = a.TYPE
+	  	LEFT JOIN T_VERIFIES_INFO v on a.AFTER_SALES_ID = v.RELATE_TABLE_KEY AND v.RELATE_TABLE = 'T_AFTER_SALES' AND v.VERIFIES_TYPE = 614
+  		LEFT JOIN T_BUYORDER b ON a.ORDER_ID = b.BUYORDER_ID
+  	where 
+  		a.TYPE in (546,547,548,549)
+  		<if test="afterSalesVo.companyId != null" >
+	        and a.COMPANY_ID = #{afterSalesVo.companyId,jdbcType=INTEGER}
+	    </if>
+  		<if test="afterSalesVo.afterSalesNo != null and afterSalesVo.afterSalesNo != '' " >
+	        and a.AFTER_SALES_NO like CONCAT('%',#{afterSalesVo.afterSalesNo,jdbcType=VARCHAR},'%' )
+	    </if>
+	  	<if test="afterSalesVo.orderNo != null and afterSalesVo.orderNo != '' " >
+	       and a.ORDER_NO like CONCAT('%',#{afterSalesVo.orderNo,jdbcType=VARCHAR},'%' )
+	    </if>
+	  	<if test="afterSalesVo.traderName != null and afterSalesVo.traderName != '' " >
+	       and b.TRADER_NAME like CONCAT('%',#{afterSalesVo.traderName,jdbcType=VARCHAR},'%' )
+	    </if>
+	    <if test="afterSalesVo.status != null" >
+	      and a.STATUS = #{afterSalesVo.status,jdbcType=BIT}
+	    </if>
+	    <if test="afterSalesVo.atferSalesStatus != null" >
+	      and a.ATFER_SALES_STATUS = #{afterSalesVo.atferSalesStatus,jdbcType=BIT}
+	    </if>
+	    <if test="afterSalesVo.type != null" >
+	        and a.TYPE = #{afterSalesVo.type,jdbcType=INTEGER}
+	    </if>
+	    <if test="afterSalesVo.timeType == 1" >
+	        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+				and a.ADD_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+			</if>
+			<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+				and a.ADD_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+			</if>
+	    </if>
+	    <if test="afterSalesVo.timeType == 2" >
+	        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+				and a.VALID_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+			</if>
+			<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+				and a.VALID_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+			</if>
+	    </if>
+	    
+	    order by a.ADD_TIME desc
+  </select>
+  
+  <select id="getAfterSalesVoListByOrderId" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.vo.AfterSalesVo" >
+    select 
+    	<include refid="Base_Column_List" />
+    from T_AFTER_SALES
+    where 1=1
+    <if test="orderId != null" >
+        and ORDER_ID = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="subjectType != null" >
+        and SUBJECT_TYPE = #{subjectType,jdbcType=INTEGER}
+    </if>
+    <if test="type != null" >
+        and TYPE = #{type, jdbcType=INTEGER}
+    </if>
+    <if test="status != null" >
+        and STATUS = #{status, jdbcType=INTEGER}
+    </if>
+    <if test="atferSalesStatus != null" >
+        and ATFER_SALES_STATUS = #{atferSalesStatus, jdbcType=INTEGER}
+    </if>
+    order by ADD_TIME desc
+  </select>
+  
+  <select id="getAfterSalesByAfterSalesIdList" resultMap="BaseResultMap" >
+    select 
+    	<include refid="Base_Column_List" />
+    from T_AFTER_SALES
+    where AFTER_SALES_ID in
+    	<foreach item="afterSalesId" index="index" collection="aftersalesIdList" open="(" separator="," close=")">  
+		  #{afterSalesId}  
+		</foreach>
+  </select>
+  
+  <select id="getAfterSalesIdListByOrderId" resultType="java.lang.Integer" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    select 
+    	AFTER_SALES_ID
+    from T_AFTER_SALES
+    where ATFER_SALES_STATUS <![CDATA[<>]]> 3
+    <if test="orderId != null" >
+        and ORDER_ID = #{orderId,jdbcType=INTEGER}
+    </if>
+    <if test="type != null" >
+        and TYPE = #{type,jdbcType=INTEGER}
+    </if>
+    order by ADD_TIME desc
+  </select>
+  
+  <select id="viewAfterSalesDetailSaleorder" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales">
+  	select
+<!--   		查询订单关闭原因字段 -->
+  		a.ATFER_SALES_STATUS_RESON,a.ATFER_SALES_STATUS_USER,a.ATFER_SALES_STATUS_COMMENTS,
+<!--   		字段结束 -->
+  		a.COMPANY_ID,a.AFTER_SALES_ID, a.AFTER_SALES_NO,a.COMPANY_ID, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,a.SOURCE,
+    	b.AFTER_SALES_DETAIL_ID, b.AFTER_SALES_ID, b.REASON, b.COMMENTS, b.TRADER_ID, b.TRADER_CONTACT_ID, b.TRADER_CONTACT_NAME, 
+    	b.TRADER_CONTACT_MOBILE, b.TRADER_CONTACT_TELEPHONE, b.REFUND, b.AREA_ID, b.ADDRESS_ID, b.AREA, 
+    	b.ADDRESS, b.REFUND_AMOUNT, b.REFUND_FEE, b.REAL_REFUND_AMOUNT,b.PAYMENT_AMOUNT, b.REFUND_AMOUNT_STATUS, b.TRADER_SUBJECT, b.TRADER_MODE,
+    	b.PAYEE, b.BANK, b.BANK_CODE, b.BANK_ACCOUNT,b.SERVICE_AMOUNT, b.INVOICE_TYPE, b.IS_SEND_INVOICE, b.PERIOD_AMOUNT,
+    	b.INVOICE_TRADER_ID, b.INVOICE_TRADER_NAME, b.INVOICE_TRADER_CONTACT_ID, b.INVOICE_TRADER_CONTACT_NAME, 
+      	b.INVOICE_TRADER_CONTACT_MOBILE, b.INVOICE_TRADER_CONTACT_TELEPHONE, b.INVOICE_TRADER_ADDRESS_ID, 
+      	b.INVOICE_TRADER_ADDRESS, b.INVOICE_TRADER_AREA, b.INVOICE_COMMENTS,
+    	c.TITLE as TYPE_NAME, d.TITLE as REASON_NAME,
+    	e.PAYMENT_STATUS, e.DELIVERY_STATUS, e.INVOICE_STATUS, e.ARRIVAL_STATUS, e.TOTAL_AMOUNT, e.ORG_ID, h.USER_ID,
+    	e.STATUS AS SALEORDER_STATUS, e.VALID_TIME AS SALEORDER_VALID_TIME, e.TRADER_ID, e.TRADER_NAME, e.CUSTOMER_NATURE, f.CUSTOMER_LEVEL,g.VERIFY_USERNAME,IFNULL(g.STATUS,-1) as VERIFY_STATUS
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    left join T_SYS_OPTION_DEFINITION c on a.TYPE = c.SYS_OPTION_DEFINITION_ID
+    left join T_SYS_OPTION_DEFINITION d on b.REASON = d.SYS_OPTION_DEFINITION_ID
+    left join T_SALEORDER e on e.SALEORDER_ID = a.ORDER_ID
+    left join T_TRADER_CUSTOMER f on f.TRADER_ID = e.TRADER_ID
+    left join T_R_TRADER_J_USER h on h.TRADER_ID = e.TRADER_ID and h.TRADER_TYPE = 1
+    left join T_VERIFIES_INFO g on g.RELATE_TABLE_KEY = a.AFTER_SALES_ID and g.RELATE_TABLE="T_AFTER_SALES" and g.VERIFIES_TYPE= 614
+    where 1=1
+    <if test="afterSalesId != null and afterSalesId != 0">
+    	and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="viewAfterSalesDetailBuyorder" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		a.COMPANY_ID,a.AFTER_SALES_ID, a.AFTER_SALES_NO,a.COMPANY_ID, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	b.AFTER_SALES_DETAIL_ID, b.AFTER_SALES_ID, b.REASON, b.COMMENTS, b.TRADER_ID, b.TRADER_CONTACT_ID, b.TRADER_CONTACT_NAME, 
+    	b.TRADER_CONTACT_MOBILE, b.TRADER_CONTACT_TELEPHONE, b.REFUND, b.AREA_ID, b.ADDRESS_ID, b.AREA, 
+    	b.ADDRESS, b.REFUND_AMOUNT, b.REFUND_FEE, b.REAL_REFUND_AMOUNT, b.PAYMENT_AMOUNT, b.REFUND_AMOUNT_STATUS, b.TRADER_SUBJECT, b.TRADER_MODE,
+    	b.PAYEE, b.BANK, b.BANK_CODE, b.BANK_ACCOUNT,b.SERVICE_AMOUNT, b.INVOICE_TYPE, b.IS_SEND_INVOICE, b.PERIOD_AMOUNT,
+    	b.INVOICE_TRADER_ID, b.INVOICE_TRADER_NAME, b.INVOICE_TRADER_CONTACT_ID, b.INVOICE_TRADER_CONTACT_NAME, 
+      	b.INVOICE_TRADER_CONTACT_MOBILE, b.INVOICE_TRADER_CONTACT_TELEPHONE, b.INVOICE_TRADER_ADDRESS_ID, 
+      	b.INVOICE_TRADER_ADDRESS, b.INVOICE_TRADER_AREA, b.INVOICE_COMMENTS,
+    	c.TITLE as TYPE_NAME, d.TITLE as REASON_NAME,
+    	e.PAYMENT_STATUS, e.DELIVERY_STATUS, e.INVOICE_STATUS, e.ARRIVAL_STATUS, e.TOTAL_AMOUNT, e.ORG_ID, h.USER_ID,
+    	e.STATUS AS BUYORDER_STATUS, e.VALID_TIME AS BUYORDER_VALID_TIME, e.TRADER_ID, e.TRADER_NAME, f.GRADE,f.AMOUNT AS TRADER_AMOUNT,g.VERIFY_USERNAME,g.STATUS as VERIFY_STATUS
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    left join T_SYS_OPTION_DEFINITION c on a.TYPE = c.SYS_OPTION_DEFINITION_ID
+    left join T_SYS_OPTION_DEFINITION d on b.REASON = d.SYS_OPTION_DEFINITION_ID
+    left join T_BUYORDER e on e.BUYORDER_ID = a.ORDER_ID
+    left join T_TRADER_SUPPLIER f on f.TRADER_ID = e.TRADER_ID
+    left join T_R_TRADER_J_USER h on h.TRADER_ID = e.TRADER_ID and h.TRADER_TYPE = 2
+    left join T_VERIFIES_INFO g on g.RELATE_TABLE_KEY = a.AFTER_SALES_ID and g.RELATE_TABLE="T_AFTER_SALES" and g.VERIFIES_TYPE= 614
+    where 1=1
+    <if test="afterSalesId != null and afterSalesId != 0">
+    	and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  <select id="viewAfterSalesDetailThird" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		a.COMPANY_ID,a.AFTER_SALES_ID, a.AFTER_SALES_NO, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	b.AFTER_SALES_DETAIL_ID, b.AFTER_SALES_ID, b.REASON, b.COMMENTS, b.TRADER_ID, b.TRADER_CONTACT_ID, b.TRADER_CONTACT_NAME, 
+    	b.TRADER_CONTACT_MOBILE, b.TRADER_CONTACT_TELEPHONE, b.REFUND, b.AREA_ID, b.ADDRESS_ID, b.AREA, 
+    	b.ADDRESS, b.REFUND_AMOUNT, b.REFUND_FEE, b.REAL_REFUND_AMOUNT, b.PAYMENT_AMOUNT, b.REFUND_AMOUNT_STATUS, b.TRADER_SUBJECT, b.TRADER_MODE, 
+    	b.PAYEE, b.BANK, b.BANK_CODE, b.BANK_ACCOUNT,b.SERVICE_AMOUNT, b.INVOICE_TYPE, b.IS_SEND_INVOICE, b.PERIOD_AMOUNT,
+    	b.INVOICE_TRADER_ID, b.INVOICE_TRADER_NAME, b.INVOICE_TRADER_CONTACT_ID, b.INVOICE_TRADER_CONTACT_NAME, 
+      	b.INVOICE_TRADER_CONTACT_MOBILE, b.INVOICE_TRADER_CONTACT_TELEPHONE, b.INVOICE_TRADER_ADDRESS_ID, 
+      	b.INVOICE_TRADER_ADDRESS, b.INVOICE_TRADER_AREA, b.INVOICE_COMMENTS,
+    	c.TITLE as TYPE_NAME, d.TITLE as REASON_NAME, e.TRADER_NAME, f.AMOUNT AS TRADER_AMOUNT,g.VERIFY_USERNAME,g.STATUS as VERIFY_STATUS
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    left join T_SYS_OPTION_DEFINITION c on a.TYPE = c.SYS_OPTION_DEFINITION_ID
+    left join T_SYS_OPTION_DEFINITION d on b.REASON = d.SYS_OPTION_DEFINITION_ID
+    left join T_TRADER e on b.TRADER_ID = e.TRADER_ID
+    left join T_TRADER_CUSTOMER f on f.TRADER_ID = e.TRADER_ID
+    left join T_VERIFIES_INFO g on g.RELATE_TABLE_KEY = a.AFTER_SALES_ID and g.RELATE_TABLE="T_AFTER_SALES" and g.VERIFIES_TYPE= 614
+    where 1=1
+    <if test="afterSalesId != null and afterSalesId != 0">
+    	and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+    <select id="viewAfterSalesDetail" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		a.AFTER_SALES_ID, a.AFTER_SALES_NO, a.SUBJECT_TYPE, a.TYPE, a.ORDER_ID, a.ORDER_NO, a.SERVICE_USER_ID, 
+    	a.VALID_STATUS, a.VALID_TIME, a.STATUS, a.ATFER_SALES_STATUS, a.ADD_TIME, a.CREATOR, a.MOD_TIME, a.UPDATER,
+    	b.AFTER_SALES_DETAIL_ID, b.AFTER_SALES_ID, b.REASON, b.COMMENTS, b.TRADER_ID, b.TRADER_CONTACT_ID, b.TRADER_CONTACT_NAME, 
+    	b.TRADER_CONTACT_MOBILE, b.TRADER_CONTACT_TELEPHONE, b.REFUND, b.AREA_ID, b.ADDRESS_ID, b.AREA, 
+    	b.ADDRESS, b.REFUND_AMOUNT, b.REFUND_FEE, b.REAL_REFUND_AMOUNT, b.PAYMENT_AMOUNT, b.REFUND_AMOUNT_STATUS, b.TRADER_SUBJECT, b.TRADER_MODE, 
+    	b.PAYEE, b.BANK, b.BANK_CODE, b.BANK_ACCOUNT,b.SERVICE_AMOUNT, b.INVOICE_TYPE, b.IS_SEND_INVOICE, b.PERIOD_AMOUNT,
+    	b.INVOICE_TRADER_ID, b.INVOICE_TRADER_NAME, b.INVOICE_TRADER_CONTACT_ID, b.INVOICE_TRADER_CONTACT_NAME, 
+      	b.INVOICE_TRADER_CONTACT_MOBILE, b.INVOICE_TRADER_CONTACT_TELEPHONE, b.INVOICE_TRADER_ADDRESS_ID, 
+      	b.INVOICE_TRADER_ADDRESS, b.INVOICE_TRADER_AREA, b.INVOICE_COMMENTS
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where 1=1
+    <if test="afterSalesId != null and afterSalesId != 0">
+    	and a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <!-- 物流仓储售后列表 -->
+  <select id="getStorageAftersalesListPage" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.vo.AfterSalesVo" >
+		    SELECT
+				T.*
+			FROM
+			(
+		    SELECT
+			a.*,
+			<if test="afterSalesVo.businessType == 1" >
+			d.SALEORDER_NO,
+			d.SALEORDER_ID,
+			c.DELIVERY_NUM S_DELIVERY_NUM,
+			</if>
+			<if test="afterSalesVo.businessType == 2" >
+			d.BUYORDER_NO,
+			d.BUYORDER_ID,
+			c.ARRIVAL_NUM C_ARRIVAL_NUM,
+			</if>
+			d.TRADER_NAME,
+			d.TRADER_CONTACT_NAME,
+			d.TRADER_CONTACT_TELEPHONE,
+			d.TRADER_CONTACT_MOBILE,
+			d.TAKE_TRADER_AREA,
+			d.TAKE_TRADER_NAME,
+			<!-- d.DELIVERY_TYPE, -->
+			d.TAKE_TRADER_ADDRESS,
+			d.LOGISTICS_ID,
+			d.TRADER_ID,
+			d.TAKE_TRADER_CONTACT_ID,
+			d.FREIGHT_DESCRIPTION,
+			d.LOGISTICS_COMMENTS,
+			c.GOODS_NAME,
+			c.BRAND_NAME,
+			c.MODEL,
+			c.NUM,
+			b.ARRIVAL_NUM,
+			b.DELIVERY_NUM,
+			b.DELIVERY_DIRECT,
+			f.MATERIAL_CODE,
+			c.SKU,
+			c.UNIT_NAME,
+            b.ORDER_DETAIL_ID
+            <if test="afterSalesVo.isIn == 1" >
+				  <if test="afterSalesVo.businessType == 1" >,
+	              c.DELIVERY_DIRECT SDELIVERY_DIRECT
+	              </if>
+            </if>
+		FROM
+			T_AFTER_SALES a
+		INNER JOIN T_AFTER_SALES_GOODS b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+		AND b.GOODS_TYPE =0
+		LEFT JOIN T_AFTER_SALES_DETAIL i ON a.AFTER_SALES_ID = i.AFTER_SALES_ID
+		<if test="afterSalesVo.businessType == 1" >
+		INNER JOIN T_SALEORDER_GOODS c ON b.ORDER_DETAIL_ID = c.SALEORDER_GOODS_ID
+		AND c.IS_DELETE = 0
+		INNER JOIN T_SALEORDER d ON c.SALEORDER_ID = d.SALEORDER_ID
+		AND d.VALID_STATUS = 1
+		</if>
+		<if test="afterSalesVo.businessType == 2" >
+		INNER JOIN T_BUYORDER_GOODS c ON b.ORDER_DETAIL_ID = c.BUYORDER_GOODS_ID
+		AND c.IS_DELETE = 0
+		INNER JOIN T_BUYORDER d ON c.BUYORDER_ID = d.BUYORDER_ID
+		AND d.VALID_STATUS = 1
+		</if>
+		INNER JOIN T_GOODS f ON b.GOODS_ID = f.GOODS_ID
+		INNER JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+		INNER JOIN T_UNIT h ON f.UNIT_ID = h.UNIT_ID
+		WHERE  1=1 AND a.STATUS  =2
+		<if test="afterSalesVo.businessType == 1" >
+		AND a.SUBJECT_TYPE = 535
+		</if>
+		<if test="afterSalesVo.businessType == 2" >
+		AND a.SUBJECT_TYPE = 536
+		</if>
+		AND a.ATFER_SALES_STATUS in (0,1)
+		AND a.VALID_STATUS = 1
+		<!-- AND b.DELIVERY_DIRECT = 0 -->
+		AND b.GOODS_ID NOT IN(
+	        SELECT
+				COMMENTS
+			FROM
+				T_SYS_OPTION_DEFINITION
+			WHERE
+				PARENT_ID = 693
+         )
+		<if test="afterSalesVo.isIn == 1" >
+		  <if test="afterSalesVo.businessType == 1" >
+		    AND a.TYPE in (540,539)
+		  </if>
+		   <if test="afterSalesVo.businessType == 2" >
+		   AND a.TYPE in (547)
+		   </if>
+		</if>
+		<if test="afterSalesVo.isIn == 0" >
+		 <if test="afterSalesVo.businessType == 1" >
+		    AND a.TYPE in (540)
+			    AND (
+				i.REFUND_FEE = 0
+				OR (
+					i.REFUND_FEE != 0
+					AND i.SERVICE_AMOUNT_STATUS = 3
+				)
+			)
+		 </if>
+		 <if test="afterSalesVo.businessType == 2" >
+		    AND a.TYPE in (546,547)
+		 </if>
+		</if>
+		<if test="afterSalesVo.companyId != null" >
+	        and a.COMPANY_ID = #{afterSalesVo.companyId,jdbcType=INTEGER}
+	    </if>
+		<if test="afterSalesVo.afterSalesNo != null and afterSalesVo.afterSalesNo != ''">
+			<!-- 售后单号 -->
+			AND a.AFTER_SALES_NO like CONCAT('%',#{afterSalesVo.afterSalesNo,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.orderNo != null and afterSalesVo.orderNo != ''">
+			<!-- 销售/采购单号 -->
+			AND a.ORDER_NO like CONCAT('%',#{afterSalesVo.orderNo,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.traderName != null and afterSalesVo.traderName != ''">
+			<!-- 客户名称 -->
+			AND d.TRADER_NAME like CONCAT('%',#{afterSalesVo.traderName,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.goodsName != null and afterSalesVo.goodsName != ''">
+			<!-- 产品名称 -->
+			AND f.GOODS_NAME like CONCAT('%',#{afterSalesVo.goodsName,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.brandName != null and afterSalesVo.brandName != ''">
+			<!-- 品牌 -->
+			AND g.BRAND_NAME like CONCAT('%',#{afterSalesVo.brandName,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.sku != null and afterSalesVo.sku != ''">
+			<!-- sku -->
+			AND f.SKU like CONCAT('%',#{afterSalesVo.sku,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.model != null and afterSalesVo.model != ''">
+			<!-- 型号 -->
+			AND f.MODEL like CONCAT('%',#{afterSalesVo.model,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.materialCode != null and afterSalesVo.materialCode != ''">
+			<!-- 物料编码 -->
+			AND f.MATERIAL_CODE like CONCAT('%',#{afterSalesVo.materialCode,jdbcType=VARCHAR},'%' )
+		</if>
+		<if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != ''">
+		    AND a.VALID_TIME >= #{afterSalesVo.searchStartTime,jdbcType=INTEGER}
+		</if>
+		<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != ''">
+			AND a.VALID_TIME <![CDATA[ <= ]]> #{afterSalesVo.searchEndTime,jdbcType=INTEGER}
+		</if>
+			) T
+			<if test="afterSalesVo.businessType == 1" >
+			    <if test="afterSalesVo.isIn == 1" >
+			         LEFT JOIN (
+						SELECT
+							a.SALEORDER_GOODS_ID,
+							IFNULL(SUM(b.NUM), 0) SHNUM,
+                            a.NUM ALLNUM
+						FROM
+							T_SALEORDER_GOODS a
+						INNER JOIN T_AFTER_SALES_GOODS b ON a.SALEORDER_GOODS_ID = b.ORDER_DETAIL_ID
+						WHERE
+							a.IS_DELETE = 0
+							AND b.GOODS_TYPE =0 
+						GROUP BY
+							a.SALEORDER_GOODS_ID
+					) TT ON T.ORDER_DETAIL_ID = TT.SALEORDER_GOODS_ID
+			    </if>
+			</if>
+		WHERE
+		(
+			CASE
+			<if test="afterSalesVo.isIn == 0" >
+				<if test="afterSalesVo.businessType == 2" >
+					WHEN T.TYPE = 546 or T.TYPE = 547
+					THEN 
+						T.C_ARRIVAL_NUM > 0
+				</if>
+				<if test="afterSalesVo.businessType == 1" >
+					WHEN T.TYPE = 540 THEN 
+						T.ARRIVAL_NUM >0
+				</if>
+		    </if>
+		    <if test="afterSalesVo.isIn == 1" >
+			  <if test="afterSalesVo.businessType == 1" >
+					WHEN (T.TYPE = 540
+					OR T.TYPE = 539 ) AND T.SDELIVERY_DIRECT = 0 THEN
+						T.S_DELIVERY_NUM - (TT.ALLNUM - TT.SHNUM) > 0
+					WHEN (T.TYPE = 540
+					OR T.TYPE = 539 ) AND T.SDELIVERY_DIRECT = 1 THEN
+						1=1
+					<!-- WHEN T.TYPE = 540 or T.TYPE = 539  
+					THEN
+					T.S_DELIVERY_NUM - (TT.ALLNUM - TT.SHNUM) > 0 --> <!-- AND T.DELIVERY_DIRECT = 0 -->
+			  </if>
+			  <if test="afterSalesVo.businessType == 2" >
+					WHEN T.TYPE = 547 THEN
+					T.DELIVERY_NUM > 0
+			  </if>
+			</if>
+			END
+		)
+		GROUP BY T.AFTER_SALES_ID
+  </select>
+  <!-- 通过tranderId获取交易名称和交易ID -->
+  <select id="getTranderInfoById" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales" >
+  		SELECT  
+  			<if test="businessType == 1" >
+				d.SALEORDER_NO,
+				d.SALEORDER_ID,
+			</if>
+			<if test="businessType == 2" >
+				d.BUYORDER_NO,
+				d.BUYORDER_ID,
+			</if>
+			<if test="businessType == 1 or businessType == 2 " >
+				d.TRADER_NAME,
+				d.TAKE_TRADER_NAME,
+				d.TRADER_CONTACT_NAME,
+				d.TRADER_CONTACT_TELEPHONE,
+				d.TAKE_TRADER_CONTACT_NAME,
+				d.TAKE_TRADER_CONTACT_MOBILE,
+				d.TAKE_TRADER_CONTACT_TELEPHONE,
+				d.TRADER_CONTACT_MOBILE,
+				d.TAKE_TRADER_AREA,
+				d.TAKE_TRADER_ADDRESS,
+				d.LOGISTICS_ID,
+				d.TRADER_ID,
+				d.TAKE_TRADER_CONTACT_ID,
+				d.FREIGHT_DESCRIPTION,
+				d.LOGISTICS_COMMENTS
+			</if>
+			FROM 
+  			<if test="businessType == 1" >
+				T_SALEORDER d  WHERE d.VALID_STATUS = 1
+				<if test="orderId != null" >
+					and d.SALEORDER_ID = #{orderId, jdbcType=INTEGER}
+				</if>
+			</if>
+			<if test="businessType == 2" >
+				T_BUYORDER d  WHERE d.VALID_STATUS = 1
+				<if test="orderId != null" >
+					and d.BUYORDER_ID = #{orderId, jdbcType=INTEGER}
+				</if>
+			</if>
+			
+  </select>
+  <!-- 根据id查询售后订单 -->
+  <select id="getAfterSalesVoListById" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.AfterSales" >
+     SELECT
+            <if test="businessType == 1 or businessType == 2"   >
+			a.*,
+			<if test="businessType == 1" >
+			d.SALEORDER_NO,
+			d.SALEORDER_ID,
+			</if>
+			<if test="businessType == 2" >
+			d.BUYORDER_NO,
+			d.BUYORDER_ID,
+			</if>
+			b.AREA,
+			b.ADDRESS,
+			e.TRADER_NAME,
+			d.TAKE_TRADER_NAME,
+			b.TRADER_CONTACT_NAME,
+			b.TRADER_CONTACT_TELEPHONE,
+			d.TAKE_TRADER_CONTACT_NAME,
+			d.TAKE_TRADER_CONTACT_MOBILE,
+			d.TAKE_TRADER_CONTACT_TELEPHONE,
+			b.TRADER_CONTACT_MOBILE,
+			d.TAKE_TRADER_AREA,
+			<!-- d.DELIVERY_TYPE, -->
+			d.TAKE_TRADER_ADDRESS,
+			d.LOGISTICS_ID,
+			d.TRADER_ID,
+			d.TAKE_TRADER_CONTACT_ID,
+			d.FREIGHT_DESCRIPTION,
+			d.LOGISTICS_COMMENTS<!-- ,
+			c.GOODS_NAME,
+			c.BRAND_NAME,
+			c.MODEL,
+			f.MATERIAL_CODE,
+			c.SKU,
+			c.UNIT_NAME -->
+			 </if>
+			 <if test="businessType !=1 and businessType != 2"   >
+			 a.*,
+			 <!-- 2018-9-5 新增查询字段 "售后服务费" SERVICE_AMOUNT-->
+			 b.SERVICE_AMOUNT
+			 </if>
+		FROM
+			T_AFTER_SALES a
+		<if test="businessType == 1" >
+		INNER JOIN T_SALEORDER d ON a.ORDER_ID = d.SALEORDER_ID
+		AND d.VALID_STATUS = 1
+		
+		</if>
+		<if test="businessType == 2" >
+		INNER JOIN T_BUYORDER d ON a.ORDER_ID = d.BUYORDER_ID
+		AND d.VALID_STATUS = 1
+		</if>
+		LEFT JOIN T_AFTER_SALES_DETAIL b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+		<!-- INNER JOIN T_GOODS f ON b.GOODS_ID = f.GOODS_ID
+		INNER JOIN T_BRAND g ON f.BRAND_ID = g.BRAND_ID
+		INNER JOIN T_UNIT h ON f.UNIT_ID = h.UNIT_ID -->
+		LEFT JOIN T_TRADER e ON b.TRADER_ID = e.TRADER_ID
+		WHERE 1=1
+		<if test="businessType == 1" >
+		AND a.SUBJECT_TYPE = 535
+		</if>  
+		<if test="businessType == 2" >
+		AND a.SUBJECT_TYPE  = 536
+		</if>
+		<if test="atferSalesStatus != null and atferSalesStatus != 0" >
+		AND a.ATFER_SALES_STATUS in (0,1)
+		</if>
+		AND a.VALID_STATUS = 1
+        AND a.AFTER_SALES_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  <!-- 根据售后产品id查询销售单 -->
+  <select id="selectSumNumByAfterGoodsId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	    SELECT
+		b.*, IFNULL(sum(a.NUM), 0) AS ALL_NUM,
+		IFNULL(sum(a.ARRIVAL_NUM), 0) AS ALL_ARRIVAL_NUM
+	FROM
+		T_AFTER_SALES_GOODS a
+	LEFT JOIN T_AFTER_SALES b ON a.AFTER_SALES_ID = b.AFTER_SALES_ID
+	WHERE
+		a.AFTER_SALES_ID = (
+			SELECT
+				AFTER_SALES_ID
+			FROM
+				T_AFTER_SALES_GOODS
+			WHERE
+				AFTER_SALES_GOODS_ID = #{afterSalesGoodsId,jdbcType=INTEGER}
+		)
+  </select>
+  <select id="getPayAmount" resultType="java.math.BigDecimal">
+  	select COALESCE(sum(AMOUNT),0)
+  	from
+  	T_CAPITAL_BILL_DETAIL
+  	where
+  	1=1
+  <if test="orderType == 1">
+  	and 
+  	BUSSINESS_TYPE = 526
+  	and
+  	ORDER_TYPE = 3
+  </if>
+  <if test="orderType == 2">
+  	and 
+  	BUSSINESS_TYPE = 525
+  	and
+  	ORDER_TYPE = 3
+  </if>
+  	and
+  	RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getRefundAmount" resultType="java.math.BigDecimal">
+  	select COALESCE(sum(a.AMOUNT),0)
+ 	from
+  	T_CAPITAL_BILL_DETAIL a 
+  	left JOIN
+		T_CAPITAL_BILL b
+	ON
+		a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+  	where
+  		a.ORDER_TYPE = 3
+	and
+		a.BUSSINESS_TYPE = 531
+  		<if test="orderType == 1">
+	  	and
+	  		b.TRADER_TYPE in (2,5)
+  		</if>
+  		<if test="orderType == 2"><!-- 包含退到余额和退给我们的 -->
+  		and
+	  		b.TRADER_TYPE in (1,4)
+  		</if>
+  	and
+  		a.RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getRefundBalanceAmountBySaleorderId" resultType="java.math.BigDecimal">
+  	SELECT COALESCE(sum(ABS(C.AMOUNT)),0)
+	FROM T_AFTER_SALES A
+	     INNER JOIN T_CAPITAL_BILL_DETAIL B ON A.AFTER_SALES_ID = B.RELATED_ID
+	     INNER JOIN T_CAPITAL_BILL C ON B.CAPITAL_BILL_ID = C.CAPITAL_BILL_ID
+	WHERE C.TRADER_TYPE = 5	
+	      AND C.TRADER_MODE = 530	<!-- 退还余额 -->
+		  AND B.ORDER_TYPE = 3	<!-- 订单类型3售后 -->
+	      AND A.VALID_STATUS = 1	<!-- 生效 -->
+	      AND A.ORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </select>
+  
+    <select id="getRefundTraderAmount" resultType="java.math.BigDecimal">
+	  	select COALESCE(sum(a.AMOUNT),0)
+		 	from
+		  	T_CAPITAL_BILL_DETAIL a 
+		  	left JOIN
+				T_CAPITAL_BILL b
+			ON
+				a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+		  	where
+		  		a.ORDER_TYPE = 3
+			and
+				a.BUSSINESS_TYPE = 531
+		  		<if test="orderType == 1">
+			  	and
+			  		b.TRADER_TYPE = 2
+		  		</if>
+		  		<if test="orderType == 2">
+		  		and
+			  		b.TRADER_TYPE = 4
+		  		</if>
+		  	and
+	  		a.RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+
+
+	<select id="getRefundVedengAmount" resultType="java.math.BigDecimal">
+		SELECT COALESCE(SUM(A.AMOUNT),0)
+		FROM
+		T_CAPITAL_BILL_DETAIL A LEFT JOIN
+		T_CAPITAL_BILL B ON A.CAPITAL_BILL_ID = B.CAPITAL_BILL_ID
+		WHERE A.ORDER_TYPE = 3
+		AND A.BUSSINESS_TYPE = 531
+		<if test="orderType == 1">
+			AND B.TRADER_TYPE = 2
+		</if>
+		<if test="orderType == 2">
+			AND B.TRADER_TYPE = 1
+		</if>
+		AND A.RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+	</select>
+  
+  <select id="getSaleorderAfterSalesPayAmount" resultType="java.math.BigDecimal" parameterType="java.lang.Integer">
+  	select COALESCE(sum(AMOUNT),0)
+  	from
+  	T_CAPITAL_BILL_DETAIL
+  	where
+  		BUSSINESS_TYPE = 525
+ 	and
+  		ORDER_TYPE = 3
+  	and
+  		RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getPeriodAmount" resultType="java.math.BigDecimal">
+  		select
+  			COALESCE(sum(ABS(b1.AMOUNT)),0) as hk_amount
+		from 
+			T_CAPITAL_BILL a1
+		left join
+			T_CAPITAL_BILL_DETAIL b1
+		on
+			a1.CAPITAL_BILL_ID = b1.CAPITAL_BILL_ID
+		where
+			a1.TRADER_TYPE = 3
+		and
+			b1.ORDER_TYPE = 3
+		and
+			b1.BUSSINESS_TYPE = 533
+		AND
+		 b1.RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <resultMap type="com.vedeng.aftersales.model.AfterSales" id="waitSyncAfterSalesResult" extends="BaseResultMap">
+		<association property="afterSalesDetail" javaType="com.vedeng.aftersales.model.AfterSalesDetail">
+			<id column="AFTER_SALES_DETAIL_ID" property="afterSalesDetailId" jdbcType="INTEGER" />
+			<result column="REASON" property="reason" jdbcType="INTEGER" />
+		    <result column="COMMENTS" property="comments" jdbcType="VARCHAR" />
+		    <result column="TRADER_ID" property="traderId" jdbcType="INTEGER" />
+		    <result column="REFUND" property="refund" jdbcType="BIT" />
+		    <result column="AREA_ID" property="areaId" jdbcType="INTEGER" />
+		    <result column="ADDRESS_ID" property="addressId" jdbcType="INTEGER" />
+		    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+		    <result column="REFUND_FEE" property="refundFee" jdbcType="DECIMAL" />
+		    <result column="REAL_REFUND_AMOUNT" property="realRefundAmount" jdbcType="DECIMAL" />
+		    <result column="REFUND_AMOUNT_STATUS" property="refundAmountStatus" jdbcType="BIT" />
+		    <result column="TRADER_SUBJECT" property="traderSubject" jdbcType="BIT" />
+		    <result column="PAYEE" property="payee" jdbcType="VARCHAR" />
+		    <result column="BANK" property="bank" jdbcType="VARCHAR" />
+		    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+		    <result column="BANK_ACCOUNT" property="bankAccount" jdbcType="VARCHAR" />
+		    <result column="SERVICE_AMOUNT" property="serviceAmount" jdbcType="DECIMAL" />
+		    <result column="INVOICE_TYPE" property="invoiceType" jdbcType="INTEGER" />
+		    <result column="IS_SEND_INVOICE" property="isSendInvoice" jdbcType="BIT" />
+		</association>
+	</resultMap>
+<!-- 	售后费用类型 -->
+	<resultMap type="com.vedeng.aftersales.model.CostType" id="costTypeResult">
+		<id column="SYS_OPTION_DEFINITION_ID" property="sysOptionDefinitionId" />
+		<result column="COMMENTS" property="comments"/>
+		<result column="PARENT_ID" property="parentId"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	
+	<resultMap type="com.vedeng.aftersales.model.vo.AfterSalesCostVo" id="afterSalesCostResult">
+		<id column="AFTER_SALES_COST_ID" property="afterSalesCostId"/>
+		<result column="AFTER_SALES_ID" property="afterSalesId"/>
+		<result column="TYPE" property="type"/>
+		<result column="AMOUNT" property="amount"/>
+		<result column="IS_ENABLE" property="isEnable"/>
+		<result column="COMMENTS" property="comments"/>
+		<result column="ADD_TIME" property="addTime"/>
+		<result column="CREATOR" property="creator"/>
+		<result column="MOD_TIME" property="modTime"/>
+		<result column="UPDATER" property="updater"/>
+	</resultMap>
+  <!-- 获取待同步售后数据 -->
+  <select id="waitSyncAfterSalesList" resultMap="waitSyncAfterSalesResult" parameterType="com.vedeng.aftersales.model.AfterSales" >
+    select 
+    c.*, d.AFTER_SALES_DETAIL_ID, d.REASON, 
+    d.COMMENTS,d.TRADER_ID, d.REFUND, d.AREA_ID, d.ADDRESS_ID, d.SERVICE_AMOUNT, d.INVOICE_TYPE,
+    d.IS_SEND_INVOICE, d.REFUND_AMOUNT, d.REFUND_FEE, d.REAL_REFUND_AMOUNT, d.REFUND_AMOUNT_STATUS,
+    d.SERVICE_AMOUNT_STATUS, d.TRADER_SUBJECT, d.PAYEE, d.BANK_CODE, d.BANK_ACCOUNT
+    from T_AFTER_SALES c 
+    join T_AFTER_SALES_DETAIL d on c.AFTER_SALES_ID = d.AFTER_SALES_ID 
+    where c.AFTER_SALES_ID NOT IN (
+				SELECT
+					a.AFTER_SALES_ID
+				FROM
+					T_AFTER_SALES a
+				JOIN T_DATA_SYNC_STATUS b ON a.AFTER_SALES_ID = b.RELATED_ID
+				WHERE
+					b.SOURCE_TABLE = 'T_AFTER_SALES' 
+					AND	b.GOAL_TYPE = 591
+					AND b. STATUS = 1
+			)
+	order by c.AFTER_SALES_ID ASC;
+  </select>
+  
+  <select id="getTodayAfterSalesOrderSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(VALID_TIME/1000,'%m') = MONTH(NOW()) 
+  			AND FROM_UNIXTIME(VALID_TIME/1000,'%d') = DAYOFMONTH(NOW()) AND VALID_STATUS = 1 AND SUBJECT_TYPE IN (535,537)
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getThisMonthAfterSalesOrderSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(VALID_TIME/1000,'%m') = MONTH(NOW()) 
+  			 AND VALID_STATUS = 1 AND SUBJECT_TYPE IN (535,537)
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getThisYearAfterSalesOrderSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) 
+  			 AND VALID_STATUS = 1 AND SUBJECT_TYPE IN (535,537)
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getTodaySaleorderAfterSalesTHSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(VALID_TIME/1000,'%m') = MONTH(NOW()) 
+  			AND FROM_UNIXTIME(VALID_TIME/1000,'%d') = DAYOFMONTH(NOW()) AND VALID_STATUS = 1 AND SUBJECT_TYPE = 535 AND TYPE = 539
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getTodaySaleorderAfterSalesHHSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(VALID_TIME/1000,'%m') = MONTH(NOW()) 
+  			AND FROM_UNIXTIME(VALID_TIME/1000,'%d') = DAYOFMONTH(NOW()) AND VALID_STATUS = 1 AND SUBJECT_TYPE = 535 AND TYPE = 540
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getThisMonthSaleorderAfterSalesSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW()) AND FROM_UNIXTIME(VALID_TIME/1000,'%m') = MONTH(NOW()) 
+  			 AND VALID_STATUS = 1 AND SUBJECT_TYPE = 535
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getThisYearSaleorderAfterSalesSum" resultType="java.lang.Integer" >
+  	select 
+  		COALESCE(COUNT(AFTER_SALES_ID),0)
+  	from
+  		T_AFTER_SALES
+  	where FROM_UNIXTIME(VALID_TIME/1000,'%Y') = YEAR(NOW())
+  			 AND VALID_STATUS = 1 AND SUBJECT_TYPE = 535
+	        and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+  </select>
+  <select id="getAfterSalesOrderNumByParam" resultMap="VoResultMap" parameterType="com.vedeng.aftersales.model.vo.AfterSalesVo">
+  	select
+  		COUNT(AFTER_SALES_ID) as ORDER_NUM, TYPE
+    from T_AFTER_SALES 
+    where SUBJECT_TYPE IN (535,537) AND ATFER_SALES_STATUS = 1
+    <if test="companyId != null and companyId != 0">
+    	and COMPANY_ID = #{companyId,jdbcType=INTEGER}
+    </if>
+    <if test="serviceUserId != null and serviceUserId != 0">
+    	and SERVICE_USER_ID = #{serviceUserId,jdbcType=INTEGER}
+    </if>
+    GROUP BY TYPE
+	ORDER BY TYPE ASC
+  </select>
+  
+  <select id="getRefundAmountBySaleorderId" resultType="java.math.BigDecimal" >
+    select 
+    	COALESCE(SUM(b.REFUND_AMOUNT),0)
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_DETAIL b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where a.ATFER_SALES_STATUS = 2 and a.SUBJECT_TYPE = 535 and a.TYPE = 539 
+    		and a.ORDER_ID = #{saleorderId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getAfterSalesByAfterSalesGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		a.AFTER_SALES_ID,a.AFTER_SALES_NO,a.SUBJECT_TYPE,c.TRADER_CONTACT_NAME
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_GOODS b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    left join T_AFTER_SALES_DETAIL c on c.AFTER_SALES_ID = a.AFTER_SALES_ID
+    where
+    	b.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId}
+  
+  </select>
+  
+   <select id="getTHKAfterSalesList" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		<include refid="Base_Column_List" />
+    from T_AFTER_SALES 
+    where SUBJECT_TYPE = 535 AND TYPE IN (539,540,543) 
+    		AND ATFER_SALES_STATUS IN (0,1)
+    		AND ORDER_ID = #{saleorderId}
+  </select>
+  
+  <select id="getTKAfterSalesList" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		<include refid="Base_Column_List" />
+    from T_AFTER_SALES 
+    where SUBJECT_TYPE = 535 AND TYPE IN (539,543) 
+    		AND ATFER_SALES_STATUS = 2
+    		AND ORDER_ID = #{saleorderId}
+  </select>
+  
+  <select id="getSumTKAfterSalesBySaleorderid" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+  	select
+  		COALESCE(SUM(B.REFUND_AMOUNT),0)
+    from T_AFTER_SALES A
+    LEFT JOIN T_AFTER_SALES_DETAIL B ON A.AFTER_SALES_ID = B.AFTER_SALES_ID
+    where A.SUBJECT_TYPE = 535 AND A.TYPE = 539 
+    		AND A.ATFER_SALES_STATUS = 2
+    		AND A.ORDER_ID = #{saleorderId}
+  </select>
+  
+  <select id="getSumTKAfterSalesByBuyorderid" parameterType="java.lang.Integer" resultType="java.math.BigDecimal">
+  	select
+  		COALESCE(SUM(B.REFUND_AMOUNT),0)
+    from T_AFTER_SALES A
+    LEFT JOIN T_AFTER_SALES_DETAIL B ON A.AFTER_SALES_ID = B.AFTER_SALES_ID
+    where A.SUBJECT_TYPE = 536 AND A.TYPE = 546 
+    		AND A.ATFER_SALES_STATUS = 2
+    		AND A.ORDER_ID = #{buyorderId}
+  </select>
+  
+  <select id="getTAfterSalesList" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		<include refid="Base_Column_List" />
+    from T_AFTER_SALES 
+    where SUBJECT_TYPE = 536 AND TYPE = 546 
+    		AND ATFER_SALES_STATUS = 2
+    		AND ORDER_ID = #{buyorderId}
+  </select>
+  
+  	
+	<select id="getAftersaleFinanceInfo" resultType="com.vedeng.order.model.vo.SaleorderVo" >
+		SELECT 
+		       C.INVOICE_TYPE,
+		       D.TRADER_ID,
+		       D.TRADER_NAME,
+		       B.TAX_NUM,
+		       B.REG_ADDRESS,
+		       B.REG_TEL,
+		       B.BANK,
+		       B.BANK_ACCOUNT,
+		       B.AVERAGE_TAXPAYER_URI,
+		       B.BANK_CODE
+		FROM T_AFTER_SALES A 
+		LEFT JOIN T_AFTER_SALES_DETAIL C ON C.AFTER_SALES_ID = A.AFTER_SALES_ID
+		LEFT JOIN T_TRADER_FINANCE B ON C.TRADER_ID = B.TRADER_ID
+		LEFT JOIN T_TRADER D ON C.TRADER_ID = D.TRADER_ID
+		WHERE A.AFTER_SALES_ID = #{aftersaleId,jdbcType=INTEGER} 
+	</select>
+	
+	<select id="getAfterOpenInvoiceApplyStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT A.VALID_STATUS
+		FROM T_INVOICE_APPLY A
+		WHERE     A.TYPE = 504
+		      AND A.COMPANY_ID = #{companyId,jdbcType=INTEGER}
+		      AND A.IS_ADVANCE = 0
+		      AND A.YY_VALID_STATUS = 1
+		      AND A.RELATED_ID = #{afterSalesId,jdbcType=INTEGER} 
+		ORDER BY A.INVOICE_APPLY_ID DESC
+		LIMIT 1
+	</select>
+
+	
+	<select id="getFinanceDetail" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.vo.AfterSalesVo">
+		SELECT
+			a.reg_address,
+			a.reg_tel,
+			a.tax_num,
+			a.bank,
+			a.bank_account
+		from T_TRADER_FINANCE a 
+		where trader_id = #{traderId,jdbcType=INTEGER}
+		  <if test="traderType != null">
+              AND a.TRADER_TYPE = #{traderType,jdbcType=INTEGER}
+          </if>
+        LIMIT 1
+	</select>
+
+	
+	<select id="getHaveRefundAmount" resultType="java.math.BigDecimal">
+	  	select COALESCE(sum(a.AMOUNT),0)
+	 	from
+	  	T_CAPITAL_BILL_DETAIL a 
+	  	left JOIN
+			T_CAPITAL_BILL b
+		ON
+			a.CAPITAL_BILL_ID = b.CAPITAL_BILL_ID
+	  	where
+	  		a.ORDER_TYPE = 3
+		and
+			a.BUSSINESS_TYPE = 531
+	  		<if test="orderType == 1"><!-- 退余额 -->
+		  	and
+		  		b.TRADER_TYPE = 5
+	  		</if>
+	  		<if test="orderType == 2"><!-- 退客户-->
+		  	and
+		  		b.TRADER_TYPE = 2
+	  		</if>
+	  		<if test="orderType == 3"><!-- 退供应商余额-->
+	  		and
+		  		b.TRADER_TYPE = 4
+	  		</if>
+	  		<if test="orderType == 4"><!-- 退我们 -->
+	  		and
+		  		b.TRADER_TYPE = 1
+	  		</if>
+	  	and
+	  		a.RELATED_ID = #{afterSalesId,jdbcType=INTEGER}
+  </select>
+
+	<select id="getCostTypeById" parameterType="java.lang.Integer" resultMap="costTypeResult">
+		select 
+			SYS_OPTION_DEFINITION_ID,
+			COMMENTS
+		from 
+			T_SYS_OPTION_DEFINITION
+		where
+			STATUS = 1
+			and
+			PARENT_ID = #{costType}
+	</select>
+<!-- 	查询售后费用列表 -->
+	<select id="selectAfterSalesCostListById" parameterType="com.vedeng.aftersales.model.AfterSalesCost" resultMap="afterSalesCostResult">
+		SELECT 
+			a.AFTER_SALES_COST_ID,
+			a.TYPE,
+	       	a.AMOUNT,
+	       	a.COMMENTS,
+	       	a.MOD_TIME,
+	       	a.UPDATER
+		FROM 
+			T_AFTER_SALES_COST a
+     	LEFT JOIN 
+     		T_AFTER_SALES b 
+     	ON 
+     		a.AFTER_SALES_ID = b.AFTER_SALES_ID
+		WHERE 
+			a.IS_ENABLE = 1
+			AND
+			a.AFTER_SALES_ID = #{afterSalesCost.afterSalesId}
+	</select>
+<!-- 	根据costId查找对应费用类型记录 -->
+	<select id="selectAfterSalesCostBycostId" parameterType="com.vedeng.aftersales.model.AfterSalesCost" resultType="com.vedeng.aftersales.model.vo.AfterSalesCostVo">
+		SELECT
+			AFTER_SALES_ID,
+			TYPE,
+			AMOUNT,
+			IS_ENABLE,
+			COMMENTS,
+			ADD_TIME,
+			CREATOR,
+			MOD_TIME,
+			UPDATER
+		FROM
+			T_AFTER_SALES_COST
+		WHERE
+			AFTER_SALES_COST_ID = #{afterSalesCost.afterSalesCostId}
+	</select>
+<!-- 	添加售后费用类型 -->
+	<insert id="insertAfterSalesCost" parameterType="com.vedeng.aftersales.model.AfterSalesCost" >
+		insert into
+			T_AFTER_SALES_COST
+			(
+			  AFTER_SALES_ID,
+			  TYPE,
+			  AMOUNT,
+			  IS_ENABLE,
+			  COMMENTS,
+			  ADD_TIME,
+			  CREATOR,
+			  MOD_TIME,
+			  UPDATER
+			)
+			values(
+				#{afterSalesCost.afterSalesId},
+				#{afterSalesCost.type},
+				#{afterSalesCost.amount},
+				#{afterSalesCost.isEnable},
+				#{afterSalesCost.comments},
+				#{afterSalesCost.addTime},
+				#{afterSalesCost.creator},
+				#{afterSalesCost.modTime},
+				#{afterSalesCost.updater}
+			)
+	</insert>
+	
+<!-- 	删除售后费用类型 -->
+	<update id="deleteAfterSalesCostById" parameterType="com.vedeng.aftersales.model.AfterSalesCost">
+		UPDATE
+			T_AFTER_SALES_COST
+		SET
+			IS_ENABLE = 0,
+			MOD_TIME = #{afterSalesCost.modTime},
+			UPDATER = #{afterSalesCost.updater}
+		WHERE
+			AFTER_SALES_COST_ID = #{afterSalesCost.afterSalesCostId}
+	</update>
+	
+<!-- 	更改售后费用类型和费用等 -->
+	<update id="updateAfterSalesCostById" parameterType="com.vedeng.aftersales.model.AfterSalesCost">
+		UPDATE
+			T_AFTER_SALES_COST
+		SET
+			<if test="afterSalesCost.type != null">
+			TYPE = #{afterSalesCost.type},
+			</if>
+			<if test="afterSalesCost.amount != null">
+			AMOUNT = #{afterSalesCost.amount},
+			</if>
+			<if test="afterSalesCost.comments != null">
+			COMMENTS = #{afterSalesCost.comments},
+			</if>
+			MOD_TIME = #{afterSalesCost.modTime},
+			UPDATER = #{afterSalesCost.updater}
+		WHERE
+			AFTER_SALES_COST_ID = #{afterSalesCost.afterSalesCostId}
+	</update>
+	
+	<!-- 根据售后单Id修改售后单的收票状态 -->
+	<update id="updateAfterSalesReceiveInvoiceStatus" parameterType="com.vedeng.aftersales.model.AfterSalesDetail">
+		UPDATE
+			T_AFTER_SALES_DETAIL
+		SET
+			RECEIVE_INVOICE_STATUS = #{afterSalesDetail.receiveInvoiceStatus},
+			RECEIVE_INVOICE_TIME = #{afterSalesDetail.receiveInvoiceTime}
+		WHERE
+			AFTER_SALES_ID = #{afterSalesDetail.afterSalesId}
+	</update>
+	
+	<select id="getReturnBackMoneyByOrderId" resultType="com.vedeng.aftersales.model.vo.AfterSalesVo">
+		SELECT
+			t1.AFTER_SALES_ID,
+			t1.AFTER_SALES_NO
+		FROM
+			T_AFTER_SALES t1
+		LEFT JOIN T_SALEORDER t2 ON t1.ORDER_ID = t2.SALEORDER_ID
+		WHERE
+			t1.SUBJECT_TYPE = 535
+		AND t1.TYPE = 543
+		AND t1.ATFER_SALES_STATUS in (0, 1)
+		<if test="afterSales.orderId != null and afterSales.orderId != ''">
+			AND t1.ORDER_ID = #{afterSales.orderId, jdbcType=INTEGER}
+		</if>
+	</select>
+	<select id="getAfterSalesByNo" parameterType="java.lang.String" resultType="com.vedeng.aftersales.model.AfterSales">
+		select 
+	    <include refid="Base_Column_List" />
+	    from T_AFTER_SALES
+	    where
+	    	AFTER_SALES_NO = #{afterSalesNo,jdbcType=VARCHAR}
+	</select>
+
+    <select id="getOrderGoodsPriceByAfterId" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSalesGoods">
+      SELECT  A.AFTER_SALES_ID
+              <choose>
+                  <when test="subjectType == '536' || subjectType == 536">
+                     , B.GOODS_ID, IFNULL(B.PRICE,0) AS PRICE
+                  </when>
+                  <otherwise>
+                     , C.GOODS_ID, IFNULL(IF(B.ORDER_TYPE = 5, ROUND(C.MAX_SKU_REFUND_AMOUNT / C.NUM, 2), C.PRICE), 0) AS PRICE
+                  </otherwise>
+              </choose>
+
+      FROM T_AFTER_SALES A
+          <choose>
+              <when test="subjectType == '536' || subjectType == 536">
+                  INNER JOIN T_BUYORDER_GOODS B ON A.ORDER_ID = B.BUYORDER_ID
+              </when>
+              <otherwise>
+                  INNER JOIN T_SALEORDER B
+                      ON A.ORDER_ID = B.SALEORDER_ID AND A.ORDER_NO = B.SALEORDER_NO
+                  INNER JOIN T_SALEORDER_GOODS C ON B.SALEORDER_ID = C.SALEORDER_ID
+              </otherwise>
+          </choose>
+      WHERE A.AFTER_SALES_ID = #{afterSalesId, jdbcType=INTEGER}
+    </select>
+    <select id="searchAfterOrderListPage" resultMap="VoResultMap" parameterType="Map">
+	SELECT
+	a.`AFTER_SALES_NO`,
+	a.`AFTER_SALES_ID`,
+	b.`AFTER_SALES_GOODS_ID`,
+	b.`NUM`as afterGoodsNum,
+	b.`GOODS_ID`,
+	b.`DELIVERY_NUM`,
+	c.`GOODS_NAME`,
+	c.`MODEL`,
+	d.`BRAND_NAME`
+	FROM
+	`T_AFTER_SALES` a
+	LEFT JOIN `T_AFTER_SALES_GOODS` b
+	ON a.`AFTER_SALES_ID` = b.`AFTER_SALES_ID`
+	LEFT JOIN `T_GOODS` c
+	ON b.`GOODS_ID` = c.`GOODS_ID`
+	LEFT JOIN `T_BRAND` d
+	ON c.`BRAND_ID` = d.`BRAND_ID`
+	WHERE
+	1=1
+  	<if test="afterSalesVo.goodsType != null" >
+        and b.GOODS_TYPE = #{afterSalesVo.goodsType,jdbcType=INTEGER}
+    </if>
+  	<if test="afterSalesVo.companyId != null" >
+        and a.COMPANY_ID = #{afterSalesVo.companyId,jdbcType=INTEGER}
+    </if>
+  	<if test="afterSalesVo.afterSalesNo != null and afterSalesVo.afterSalesNo != '' " >
+        and a.AFTER_SALES_NO like CONCAT('%',#{afterSalesVo.afterSalesNo,jdbcType=VARCHAR},'%' )
+    </if>
+  	<if test="afterSalesVo.orderNo != null and afterSalesVo.orderNo != ''" >
+       and a.ORDER_NO like CONCAT('%',#{afterSalesVo.orderNo,jdbcType=VARCHAR},'%' )
+    </if>
+    <if test="afterSalesVo.status != null" >
+      and a.STATUS = #{afterSalesVo.status,jdbcType=BIT}
+    </if>
+    <if test="afterSalesVo.atferSalesStatus != null" >
+      and a.ATFER_SALES_STATUS = #{afterSalesVo.atferSalesStatus,jdbcType=BIT}
+    </if>
+    <if test="afterSalesVo.type != null" >
+        and a.TYPE = #{afterSalesVo.type,jdbcType=INTEGER}
+    </if>
+    <if test="afterSalesVo.serviceUserId != null" >
+        and a.SERVICE_USER_ID in
+        <foreach item="serviceUserId" index="index" collection="afterSalesVo.serviceUserIdList" open="(" separator="," close=")">  
+		  #{serviceUserId}  
+		</foreach>
+    </if>
+    <if test="afterSalesVo.timeType == 1" >
+        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+			and a.ADD_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+		</if>
+		<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+			and a.ADD_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+		</if>
+    </if>
+    <if test="afterSalesVo.timeType == 2" >
+        <if test="afterSalesVo.searchStartTime != null and afterSalesVo.searchStartTime != 0">
+			and a.VALID_TIME <![CDATA[>=]]> #{afterSalesVo.searchStartTime} 
+		</if>
+		<if test="afterSalesVo.searchEndTime != null and afterSalesVo.searchEndTime != 0">
+			and a.VALID_TIME <![CDATA[<=]]> #{afterSalesVo.searchEndTime} 
+		</if>
+    </if>
+    <if test="afterSalesVo.source != null">
+        and a.SOURCE = #{afterSalesVo.source,jdbcType=INTEGER}
+    </if>
+    order by a.ADD_TIME desc
+    </select>
+    <select id="getAfterSaleListById" parameterType="com.vedeng.aftersales.model.AfterSales" resultMap="BaseResultMap">
+    SELECT  <include refid="Base_Column_List" /> FROM T_AFTER_SALES A WHERE A.ORDER_ID= #{orderId,jdbcType=INTEGER}
+    AND TYPE IN (539,542) AND ATFER_SALES_STATUS !=3
+    </select>
+    <select id="getSaleOrderByAfterSaleorderId" resultType="com.vedeng.order.model.Saleorder">
+        SELECT *
+        FROM
+          T_AFTER_SALES A
+        JOIN
+          T_SALEORDER S
+        ON
+          A.ORDER_ID = S.SALEORDER_ID
+        WHERE
+          A.AFTER_SALES_ID = #{afterSaleorderId,jdbcType=INTEGER}
+          AND A.SUBJECT_TYPE = 535
+    </select>
+    <select id="getAfterSalesById" resultType="com.vedeng.aftersales.model.AfterSales">
+        SELECT
+          *
+        FROM
+          T_AFTER_SALES
+        WHERE AFTER_SALES_ID = #{afterSaleorderId,jdbcType=INTEGER}
+    </select>
+    <select id="getAfterSalesCheckedByAfterSaleorderId" resultType="com.vedeng.aftersales.model.AfterSales">
+        SELECT
+          *
+        FROM
+          T_AFTER_SALES
+        WHERE
+          SUBJECT_TYPE = 535
+        AND
+          TYPE = 539
+        AND
+          AFTER_SALES_ID IN
+          <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+              #{item,jdbcType=INTEGER}
+          </foreach>
+        AND
+          ATFER_SALES_STATUS > 1
+    </select>
+    <update id="updateDataTimeByOrderId">
+	UPDATE T_AFTER_SALES
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	AFTER_SALES_ID = #{orderId,jdbcType=INTEGER}
+	</update>
+    <update id="updateDataTimeByDetailId">
+	UPDATE T_AFTER_SALES
+	SET UPDATE_DATA_TIME = NOW()
+	WHERE
+	AFTER_SALES_ID = (
+	  SELECT A.AFTER_SALES_ID FROM T_AFTER_SALES_GOODS A WHERE A.AFTER_SALES_GOODS_ID = #{orderDetailId,jdbcType=INTEGER}
+	)
+	</update>
+
+    <select id="getAfterSalesTypeByAfterSalesGoodsId" parameterType="java.lang.Integer" resultType="com.vedeng.aftersales.model.AfterSales">
+  	select
+  		a.AFTER_SALES_ID,a.AFTER_SALES_NO,a.SUBJECT_TYPE,a.TYPE,a.ORDER_ID
+    from T_AFTER_SALES a
+    left join T_AFTER_SALES_GOODS b on a.AFTER_SALES_ID = b.AFTER_SALES_ID
+    where
+    	b.AFTER_SALES_GOODS_ID = #{afterSalesGoodsId}
+
+  </select>
+</mapper>

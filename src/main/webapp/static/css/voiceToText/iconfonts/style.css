@@ -1,0 +1,258 @@
+@font-face {
+  font-family: 'HC';
+  src:  url('HC.eot?9hlrem');
+  src:  url('HC.eot?9hlrem#iefix') format('embedded-opentype'),
+    url('HC.ttf?9hlrem') format('truetype'),
+    url('HC.woff?9hlrem') format('woff'),
+    url('HC.svg?9hlrem#HC') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'HC' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-purchase:before {
+  content: "\e94c";
+}
+.icon-collect1:before {
+  content: "\e94a";
+}
+.icon-collect2:before {
+  content: "\e94b";
+}
+.icon-edit:before {
+  content: "\e946";
+}
+.icon-after-sale:before {
+  content: "\e949";
+}
+.icon-app-pull-up:before {
+  content: "\e947";
+}
+.icon-setting:before {
+  content: "\e948";
+}
+.icon-radio1:before {
+  content: "\e937";
+}
+.icon-radio2:before {
+  content: "\e938";
+}
+.icon-circle-of-friends:before {
+  content: "\e944";
+}
+.icon-wechat:before {
+  content: "\e945";
+}
+.icon-app-gallery:before {
+  content: "\e942";
+}
+.icon-app-list:before {
+  content: "\e943";
+}
+.icon-app-right:before {
+  content: "\e940";
+}
+.icon-app-left:before {
+  content: "\e941";
+}
+.icon-app-more:before {
+  content: "\e93f";
+}
+.icon-selected2:before {
+  content: "\e93e";
+}
+.icon-selected1:before {
+  content: "\e93d";
+}
+.icon-back:before {
+  content: "\e939";
+}
+.icon-checkbox1:before {
+  content: "\e93a";
+}
+.icon-checkbox2:before {
+  content: "\e93b";
+}
+.icon-rotate:before {
+  content: "\e93c";
+}
+.icon-download:before {
+  content: "\e935";
+}
+.icon-system-message:before {
+  content: "\e936";
+}
+.icon-footprint:before {
+  content: "\e933";
+}
+.icon-time:before {
+  content: "\e929";
+}
+.icon-address:before {
+  content: "\e931";
+}
+.icon-coupon:before {
+  content: "\e932";
+}
+.icon-deliver:before {
+  content: "\e934";
+}
+.icon-verify:before {
+  content: "\e92e";
+}
+.icon-hide:before {
+  content: "\e92f";
+}
+.icon-display:before {
+  content: "\e930";
+}
+.icon-sms:before {
+  content: "\e926";
+}
+.icon-stock-out:before {
+  content: "\e927";
+}
+.icon-payment:before {
+  content: "\e928";
+}
+.icon-order:before {
+  content: "\e92a";
+}
+.icon-password:before {
+  content: "\e92b";
+}
+.icon-delivery:before {
+  content: "\e92c";
+}
+.icon-phone-number:before {
+  content: "\e92d";
+}
+.icon-qzone:before {
+  content: "\e924";
+}
+.icon-qq:before {
+  content: "\e925";
+}
+.icon-service3:before {
+  content: "\e922";
+}
+.icon-service2:before {
+  content: "\e923";
+}
+.icon-service4:before {
+  content: "\e90c";
+}
+.icon-service1:before {
+  content: "\e921";
+}
+.icon-error1:before {
+  content: "\e917";
+}
+.icon-error2:before {
+  content: "\e918";
+}
+.icon-yes1:before {
+  content: "\e919";
+}
+.icon-yes2:before {
+  content: "\e91a";
+}
+.icon-caution1:before {
+  content: "\e91b";
+}
+.icon-caution2:before {
+  content: "\e91c";
+}
+.icon-info1:before {
+  content: "\e91d";
+}
+.icon-info2:before {
+  content: "\e91e";
+}
+.icon-problem1:before {
+  content: "\e91f";
+}
+.icon-problem2:before {
+  content: "\e920";
+}
+.icon-category2:before {
+  content: "\e916";
+}
+.icon-user:before {
+  content: "\e900";
+}
+.icon-home:before {
+  content: "\e904";
+}
+.icon-category1:before {
+  content: "\e913";
+}
+.icon-message:before {
+  content: "\e911";
+}
+.icon-delete:before {
+  content: "\e901";
+}
+.icon-call:before {
+  content: "\e902";
+}
+.icon-return:before {
+  content: "\e903";
+}
+.icon-share1:before {
+  content: "\e905";
+}
+.icon-share2:before {
+  content: "\e906";
+  color: #555;
+}
+.icon-shopping-cart:before {
+  content: "\e907";
+}
+.icon-add:before {
+  content: "\e908";
+}
+.icon-deduct:before {
+  content: "\e909";
+}
+.icon-recycle:before {
+  content: "\e90a";
+}
+.icon-filter:before {
+  content: "\e90b";
+}
+.icon-mobile-phone:before {
+  content: "\e90d";
+}
+.icon-search:before {
+  content: "\e90e";
+}
+.icon-up:before {
+  content: "\e90f";
+}
+.icon-down:before {
+  content: "\e910";
+}
+.icon-mini-program:before {
+  content: "\e912";
+}
+.icon-right:before {
+  content: "\e914";
+}
+.icon-left:before {
+  content: "\e915";
+}
